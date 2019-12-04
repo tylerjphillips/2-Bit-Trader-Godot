@@ -22,7 +22,7 @@ func _unhandled_input(event):
 			var tile_index = world_to_map(mouse_pos)
 			click_tile(tile_index)
 		if event.button_index == BUTTON_RIGHT:
-			selected_unit = null
+			deselect_unit()
 
 func spawn_unit(tile_index, name):
 	var u = unit_asset.instance()
@@ -60,13 +60,19 @@ func click_tile(tile_index):
 	else:
 		if selected_unit != null:
 			move_unit(selected_unit, tile_index)
+			
+	print(selected_unit)
 
 func select_unit(unit):
 	# move cursor
-	if selected_unit != null:
-		selected_unit.remove_child(cursor)
+	deselect_unit()
 	unit.add_child(cursor)
 	# select new unit
 	selected_unit = unit
 	
 	print(unit.unit_name)
+	
+func deselect_unit():
+	if selected_unit != null:
+		selected_unit.remove_child(cursor)
+	selected_unit = null
