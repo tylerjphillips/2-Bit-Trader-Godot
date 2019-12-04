@@ -1,16 +1,19 @@
 extends TileMap
 
 var selected_unit = null
-onready var unit = preload("res://PlayerUnit.tscn")
 onready var unit_container = get_node("PlayerParty")
+onready var unit_asset = preload("res://PlayerUnit.tscn")
+onready var cursor_asset = preload("res://Cursor.tscn")
+var cursor
 
 var index_to_unit = Dictionary()
 var unit_to_index = Dictionary()
 
 func _ready():
-	spawn_unit(Vector2(10,5))
-	spawn_unit(Vector2(11,5))
-	spawn_unit(Vector2(12,5))
+	cursor = cursor_asset.instance()
+	spawn_unit(Vector2(10,5), "Jerry")
+	spawn_unit(Vector2(11,5), "Bob")
+	spawn_unit(Vector2(12,5), "Other Bob")
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.is_pressed():
@@ -21,8 +24,11 @@ func _unhandled_input(event):
 		if event.button_index == BUTTON_RIGHT:
 			selected_unit = null
 
-func spawn_unit(tile_index):
-	var u = unit.instance()
+func spawn_unit(tile_index, name):
+	var u = unit_asset.instance()
+	
+	u.unit_name = name
+	
 	unit_container.add_child(u)
 	u.position = map_to_world(Vector2(tile_index[0], tile_index[1]))
 	u.connect("click_unit", self, "_on_click_unit")	
@@ -48,7 +54,6 @@ func click_tile(tile_index):
 	print(tile_index)
 	var tile_pos = map_to_world(tile_index)
 	# set_cell(tile_index[0],tile_index[1], 2) # 2 is the index of a tile in the tilemap
-	
 	# if unit at clicked tile
 	if index_to_unit.has(tile_index):
 		select_unit(index_to_unit[tile_index])	# select unit
@@ -57,4 +62,11 @@ func click_tile(tile_index):
 			move_unit(selected_unit, tile_index)
 
 func select_unit(unit):
+	# move cursor
+	if selected_unit != null:
+		selected_unit.remove_child(cursor)
+	unit.add_child(cursor)
+	# select new unit
 	selected_unit = unit
+	
+	print(unit.unit_name)
