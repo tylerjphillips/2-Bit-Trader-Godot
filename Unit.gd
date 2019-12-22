@@ -13,6 +13,9 @@ var health_bar
 
 var health_container = preload("res://HealthContainer.tscn")
 
+func _ready():
+	add_to_group("units")
+
 func init(health_points, health_points_max):
 	self.unit_health_points = health_points
 	self.unit_health_points_max = health_points_max

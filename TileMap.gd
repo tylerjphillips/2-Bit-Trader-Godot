@@ -1,8 +1,7 @@
 extends TileMap
 
 var selected_unit = null
-onready var unit_container = get_node("PlayerParty")
-onready var unit_asset = preload("res://PlayerUnit.tscn")
+onready var unit_asset = preload("res://Unit.tscn")
 onready var cursor_asset = preload("res://Cursor.tscn")
 var cursor
 
@@ -25,17 +24,17 @@ func _unhandled_input(event):
 			deselect_unit()
 
 func spawn_unit(tile_index, name):
-	var u = unit_asset.instance()
+	var unit = unit_asset.instance()
 	
-	u.init(3,4)
+	unit.init(3,4)
 	
-	u.unit_name = name
+	unit.unit_name = name
 	
-	unit_container.add_child(u)
-	u.position = map_to_world(Vector2(tile_index[0], tile_index[1]))
-	u.connect("click_unit", self, "_on_click_unit")	
-	unit_to_index[u] = tile_index
-	index_to_unit[tile_index] = u
+	self.add_child(unit)
+	unit.position = map_to_world(Vector2(tile_index[0], tile_index[1]))
+	unit.connect("click_unit", self, "_on_click_unit")	
+	unit_to_index[unit] = tile_index
+	index_to_unit[tile_index] = unit
 	
 func move_unit(unit, tile_index):
 	# restrict movement to defined tiles
