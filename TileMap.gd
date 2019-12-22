@@ -27,6 +27,8 @@ func _unhandled_input(event):
 func spawn_unit(tile_index, name):
 	var u = unit_asset.instance()
 	
+	u.init(3,4)
+	
 	u.unit_name = name
 	
 	unit_container.add_child(u)
@@ -70,6 +72,7 @@ func select_unit(unit):
 	# select new unit
 	selected_unit = unit
 	
+	print(selected_unit.unit_health_points)
 	print(unit.unit_name)
 	
 func deselect_unit():

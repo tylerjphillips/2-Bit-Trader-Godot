@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://images/ui/health.png" type="Texture" id=1]
+
+[node name="Health" type="Sprite"]
+scale = Vector2( 0.25, 0.25 )
+z_index = 20
+texture = ExtResource( 1 )
+hframes = 2
