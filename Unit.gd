@@ -7,9 +7,11 @@ export (int) var unit_movement_points = 4 setget set_unit_movement_points, get_u
 export (int) var unit_movement_points_max = 4 setget set_unit_movement_points_max, get_unit_movement_points_max
 export (int) var unit_health_points = 4 setget set_unit_health_points, get_unit_health_points
 export (int) var unit_health_points_max = 4 setget set_unit_health_points_max, get_unit_health_points_max
+export var unit_team = "blue"
 export var unit_name = ""
 
 var health_bar
+var is_selected = false # whether or not the unit is selected
 
 var health_container = preload("res://HealthContainer.tscn")
 
@@ -34,6 +36,20 @@ func _input_event(viewport, event, shape_idx):
 
 func on_click():
 	emit_signal("click_unit", self)
+	
+func _on_unit_selected(unit):
+	is_selected = false
+	self.health_bar.hide()
+	if unit == self:
+		is_selected = true
+		self.health_bar.show()
+		
+func _on_unit_deselected(unit):
+	is_selected = false
+	self.health_bar.hide()
+	
+func _on_end_player_turn():
+	print(unit_name + " turn ended")
 
 func _on_PlayerUnit_mouse_entered():
 	self.health_bar.show()
@@ -41,7 +57,8 @@ func _on_PlayerUnit_mouse_entered():
 	print("Mouse Entered")
 
 func _on_PlayerUnit_mouse_exited():
-	self.health_bar.hide()
+	if not self.is_selected:
+		self.health_bar.hide()
 	return
 	print("Mouse Exited")
 	

@@ -1,5 +1,7 @@
 extends TileMap
 
+signal unit_selected
+signal unit_deselected
 var selected_unit = null
 onready var unit_asset = preload("res://Unit.tscn")
 onready var cursor_asset = preload("res://Cursor.tscn")
@@ -7,6 +9,8 @@ var cursor
 
 var index_to_unit = Dictionary()
 var unit_to_index = Dictionary()
+var current_team = "blue"
+var teams = ["blue", "red", "green"]
 
 func _ready():
 	cursor = cursor_asset.instance()
@@ -32,7 +36,8 @@ func spawn_unit(tile_index, name):
 	
 	self.add_child(unit)
 	unit.position = map_to_world(Vector2(tile_index[0], tile_index[1]))
-	unit.connect("click_unit", self, "_on_click_unit")	
+	self.connect("unit_selected", unit, "_on_unit_selected")
+	self.connect("unit_deselected", unit, "_on_unit_deselected")	
 	unit_to_index[unit] = tile_index
 	index_to_unit[tile_index] = unit
 	
@@ -52,7 +57,6 @@ func _on_click_unit(unit):
 	selected_unit = unit
 
 func click_tile(tile_index):
-	print(tile_index)
 	var tile_pos = map_to_world(tile_index)
 	# set_cell(tile_index[0],tile_index[1], 2) # 2 is the index of a tile in the tilemap
 	# if unit at clicked tile
@@ -61,8 +65,6 @@ func click_tile(tile_index):
 	else:
 		if selected_unit != null:
 			move_unit(selected_unit, tile_index)
-			
-	print(selected_unit)
 
 func select_unit(unit):
 	# move cursor
@@ -70,11 +72,16 @@ func select_unit(unit):
 	unit.add_child(cursor)
 	# select new unit
 	selected_unit = unit
-	
-	print(selected_unit.unit_health_points)
-	print(unit.unit_name)
+	emit_signal("unit_selected", self.selected_unit)
 	
 func deselect_unit():
 	if selected_unit != null:
+		emit_signal("unit_deselected", self.selected_unit)
 		selected_unit.remove_child(cursor)
 	selected_unit = null
+
+func _on_EndTurnButton_button_up():
+	get_tree().call_group("units", "_on_end_player_turn")
+	current_team = teams[(teams.find(current_team) + 1) % len(teams)]
+	print(current_team)
+	pass # Replace with function body.

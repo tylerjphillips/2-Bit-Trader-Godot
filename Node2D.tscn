@@ -167,3 +167,4 @@ margin_top = 16.4612
 margin_right = 85.792
 margin_bottom = 30.4612
 text = "End Turn"
+[connection signal="button_up" from="EndTurnButton" to="TileMap" method="_on_EndTurnButton_button_up"]
