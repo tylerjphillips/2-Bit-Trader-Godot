@@ -5,18 +5,32 @@ signal unit_deselected
 var selected_unit = null
 onready var unit_asset = preload("res://Unit.tscn")
 onready var cursor_asset = preload("res://Cursor.tscn")
+onready var selected_unit_info = get_node("../SelectedUnitInfo")
 var cursor
 
 var index_to_unit = Dictionary()
 var unit_to_index = Dictionary()
+var player_team = "blue"
 var current_team = "blue"
 var teams = ["blue", "red", "green"]
 
 func _ready():
-	cursor = cursor_asset.instance()
-	spawn_unit(Vector2(10,5), "Jerry")
-	spawn_unit(Vector2(11,5), "Bob")
-	spawn_unit(Vector2(12,5), "Other Bob")
+	selected_unit_info.hide()
+	
+	cursor = cursor_asset.instance() # cursor used to show selected units
+	var unit_args = {"unit_name": "Jerry", 
+		"unit_health_points": 3, 
+		"unit_health_points_max": 4,
+		"unit_team":"blue"}
+	spawn_unit(Vector2(10,5), unit_args)
+	unit_args = {"unit_name": "Bob", 
+		"unit_health_points": 3, 
+		"unit_health_points_max": 3}
+	spawn_unit(Vector2(11,5), unit_args)
+	unit_args = {"unit_name": "Mike", 
+		"unit_health_points": 2, 
+		"unit_health_points_max": 5}
+	spawn_unit(Vector2(12,5), unit_args)
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.is_pressed():
@@ -27,15 +41,12 @@ func _unhandled_input(event):
 		if event.button_index == BUTTON_RIGHT:
 			deselect_unit()
 
-func spawn_unit(tile_index, name):
+func spawn_unit(tile_index, unit_args):
 	var unit = unit_asset.instance()
-	
-	unit.init(3,4)
-	
-	unit.unit_name = name
+	var unit_position = map_to_world(Vector2(tile_index[0], tile_index[1]))
+	unit.init(unit_position,unit_args)
 	
 	self.add_child(unit)
-	unit.position = map_to_world(Vector2(tile_index[0], tile_index[1]))
 	self.connect("unit_selected", unit, "_on_unit_selected")
 	self.connect("unit_deselected", unit, "_on_unit_deselected")	
 	unit_to_index[unit] = tile_index
@@ -67,12 +78,14 @@ func click_tile(tile_index):
 			move_unit(selected_unit, tile_index)
 
 func select_unit(unit):
-	# move cursor
-	deselect_unit()
-	unit.add_child(cursor)
-	# select new unit
-	selected_unit = unit
-	emit_signal("unit_selected", self.selected_unit)
+	if unit.unit_team == player_team:
+		if unit.unit_team == self.current_team:
+			# move cursor
+			deselect_unit()
+			unit.add_child(cursor)
+			# select new unit
+			selected_unit = unit
+			emit_signal("unit_selected", self.selected_unit)
 	
 func deselect_unit():
 	if selected_unit != null:
@@ -81,7 +94,8 @@ func deselect_unit():
 	selected_unit = null
 
 func _on_EndTurnButton_button_up():
-	get_tree().call_group("units", "_on_end_player_turn")
+	get_tree().call_group("units", "_on_end_team_turn", current_team)
 	current_team = teams[(teams.find(current_team) + 1) % len(teams)]
-	print(current_team)
+	print("current team: "+current_team)
+	get_tree().call_group("units", "_on_start_team_turn", current_team)
 	pass # Replace with function body.

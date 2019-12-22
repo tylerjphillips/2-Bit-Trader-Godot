@@ -10,6 +10,10 @@ export (int) var unit_health_points_max = 4 setget set_unit_health_points_max, g
 export var unit_team = "blue"
 export var unit_name = ""
 
+const colors = {"red":Color(0.8, 0.0, 0.0, 0.8),
+	"green":Color(0.0, 0.8, 0.8, 0.8),
+	"blue":Color(0.2, 0.2, 0.8, 0.8),}
+
 var health_bar
 var is_selected = false # whether or not the unit is selected
 
@@ -18,15 +22,23 @@ var health_container = preload("res://HealthContainer.tscn")
 func _ready():
 	add_to_group("units")
 
-func init(health_points, health_points_max):
-	self.unit_health_points = health_points
-	self.unit_health_points_max = health_points_max
+func init(unit_position : Vector2, unit_args: Dictionary):
+	self.position = unit_position
+	# unit args
+	self.unit_name = unit_args.get("unit_name", "Default name")
+	self.unit_team = unit_args.get("unit_team", "red")
+	self.unit_health_points = unit_args.get("unit_health_points", 1)
+	self.unit_health_points_max = unit_args.get("unit_health_points_max", 1)
 	
+	# initialize health bar
 	self.health_bar = health_container.instance()
 	self.add_child(self.health_bar)
 	self.health_bar.init(unit_health_points,unit_health_points_max)
 	self.connect("update_health", self.health_bar, "_on_update_health")	
 	self.health_bar.hide()
+	
+	# team indicator
+	$TeamIndicator.modulate = colors[self.unit_team]
 
 func _input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton \
@@ -47,9 +59,14 @@ func _on_unit_selected(unit):
 func _on_unit_deselected(unit):
 	is_selected = false
 	self.health_bar.hide()
-	
-func _on_end_player_turn():
-	print(unit_name + " turn ended")
+
+func _on_start_team_turn(team):
+	if self.unit_team == team:
+		print(unit_name + " turn started")
+
+func _on_end_team_turn(team):
+	if self.unit_team == team:
+		print(unit_name + " turn ended")
 
 func _on_PlayerUnit_mouse_entered():
 	self.health_bar.show()
