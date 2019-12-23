@@ -7,6 +7,7 @@ export (int) var unit_movement_points = 4 setget set_unit_movement_points, get_u
 export (int) var unit_movement_points_max = 4 setget set_unit_movement_points_max, get_unit_movement_points_max
 export (int) var unit_health_points = 4 setget set_unit_health_points, get_unit_health_points
 export (int) var unit_health_points_max = 4 setget set_unit_health_points_max, get_unit_health_points_max
+export var unit_class = "Archer"
 export var unit_team = "blue"
 export var unit_name = ""
 
@@ -29,6 +30,7 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 	self.unit_team = unit_args.get("unit_team", "red")
 	self.unit_health_points = unit_args.get("unit_health_points", 1)
 	self.unit_health_points_max = unit_args.get("unit_health_points_max", 1)
+	self.unit_class = unit_args.get("unit_class", "Archer")
 	
 	# initialize health bar
 	self.health_bar = health_container.instance()

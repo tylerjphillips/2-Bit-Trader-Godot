@@ -1,10 +1,10 @@
 extends Sprite
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+onready var class_label = get_node("UnitClassLabel")
+onready var health_point_label = get_node("UnitHealthPointLabel")
+onready var action_point_label = get_node("UnitMovementPointLabel")
+onready var name_label = get_node("UnitNameLabel")
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
@@ -13,9 +13,13 @@ func _ready():
 #	pass
 
 func _on_unit_selected(unit):
-	print(unit.name + " selected")
+	print("SelectedUnitInfo: "+ unit.unit_name + " selected")
 	self.show()
+	class_label.text = unit.unit_class
+	health_point_label.text = "Health: "+ str(unit.unit_health_points) + "/" + str(unit.unit_health_points_max)
+	action_point_label.text = "AP: "+ str(unit.unit_movement_points) + "/" + str(unit.unit_movement_points_max)
+	name_label.text = unit.unit_name
 
 func _on_unit_deselected(unit):
-	print(unit.name + " deselected")
+	print("SelectedUnitInfo: "+ unit.unit_name + " deselected")
 	self.hide()

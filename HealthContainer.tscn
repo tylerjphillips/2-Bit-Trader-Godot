@@ -3,4 +3,5 @@
 [ext_resource path="res://HealthContainer.gd" type="Script" id=1]
 
 [node name="HealthContainer" type="Node2D"]
+position = Vector2( 0, -4 )
 script = ExtResource( 1 )

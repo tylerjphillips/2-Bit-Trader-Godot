@@ -7,6 +7,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 [node name="Unit" type="Area2D"]
+position = Vector2( 0, -8 )
 script = ExtResource( 1 )
 unit_name = "Bob"
 
@@ -16,16 +17,16 @@ scale = Vector2( 1.5, 1.5 )
 shape = SubResource( 1 )
 
 [node name="UnitSprite" type="Sprite" parent="."]
-position = Vector2( 16, 16 )
+position = Vector2( 16, 8 )
 scale = Vector2( 0.66, 0.66 )
-z_index = 1
+z_index = 5
 texture = ExtResource( 2 )
 
 [node name="TeamIndicator" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.427451 )
-position = Vector2( 16, -12 )
+position = Vector2( 16, -20 )
 scale = Vector2( 0.125, 0.125 )
-z_index = 10
+z_index = 11
 texture = ExtResource( 3 )
 [connection signal="mouse_entered" from="." to="." method="_on_PlayerUnit_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_PlayerUnit_mouse_exited"]

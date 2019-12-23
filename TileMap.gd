@@ -25,7 +25,8 @@ func _ready():
 	spawn_unit(Vector2(10,5), unit_args)
 	unit_args = {"unit_name": "Bob", 
 		"unit_health_points": 3, 
-		"unit_health_points_max": 3}
+		"unit_health_points_max": 3,
+		"unit_team":"blue"}
 	spawn_unit(Vector2(11,5), unit_args)
 	unit_args = {"unit_name": "Mike", 
 		"unit_health_points": 2, 
@@ -94,6 +95,7 @@ func deselect_unit():
 	selected_unit = null
 
 func _on_EndTurnButton_button_up():
+	self.deselect_unit()
 	get_tree().call_group("units", "_on_end_team_turn", current_team)
 	current_team = teams[(teams.find(current_team) + 1) % len(teams)]
 	print("current team: "+current_team)

@@ -75,18 +75,25 @@ position = Vector2( 470.582, 73.9014 )
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
 
-[node name="UnitHealthLabel" type="Label" parent="SelectedUnitInfo"]
+[node name="UnitClassLabel" type="Label" parent="SelectedUnitInfo"]
 margin_left = -65.6778
-margin_top = -22.4435
-margin_right = -25.6778
-margin_bottom = -8.44352
+margin_top = -27.0874
+margin_right = -15.6778
+margin_bottom = -13.0874
+text = "Class"
+
+[node name="UnitHealthPointLabel" type="Label" parent="SelectedUnitInfo"]
+margin_left = -65.6778
+margin_top = -12.4922
+margin_right = -15.6778
+margin_bottom = 1.50779
 text = "Health: "
 
-[node name="UnitActionPointLabel" type="Label" parent="SelectedUnitInfo"]
-margin_left = -65.7983
-margin_top = -4.88704
-margin_right = -25.7983
-margin_bottom = 9.11296
+[node name="UnitMovementPointLabel" type="Label" parent="SelectedUnitInfo"]
+margin_left = -65.1349
+margin_top = 5.72769
+margin_right = -25.1349
+margin_bottom = 19.7277
 text = "AP: "
 
 [node name="UnitNameLabel" type="Label" parent="SelectedUnitInfo"]
