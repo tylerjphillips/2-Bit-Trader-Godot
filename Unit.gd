@@ -11,7 +11,11 @@ export var unit_class = "Archer"
 export var unit_team = "blue"
 export var unit_name = ""
 
-const colors = {"red":Color(0.8, 0.0, 0.0, 0.8),
+var unit_can_move : bool = true setget set_unit_can_move, get_unit_can_move
+
+const colors = {
+	"white":Color(1, 1, 1, 0.8),
+	"red":Color(0.8, 0.0, 0.0, 0.8),
 	"green":Color(0.0, 0.8, 0.2, 0.8),
 	"blue":Color(0.2, 0.2, 0.8, 0.8),}
 
@@ -41,6 +45,8 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 	
 	# team indicator
 	$TeamIndicator.modulate = colors[self.unit_team]
+	
+	self.unit_can_move = false
 
 func _input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton \
@@ -65,10 +71,12 @@ func _on_unit_deselected(unit):
 func _on_start_team_turn(team):
 	if self.unit_team == team:
 		print(unit_name + " turn started")
+		self.unit_can_move = true
 
 func _on_end_team_turn(team):
 	if self.unit_team == team:
 		print(unit_name + " turn ended")
+		self.unit_can_move = false
 
 func _on_PlayerUnit_mouse_entered():
 	self.health_bar.show()
@@ -100,6 +108,18 @@ func set_unit_health_points_max(value):
 	unit_health_points_max = value
 func get_unit_health_points_max():
 	return unit_health_points_max
+
+func set_unit_can_move(canMove : bool):
+	unit_can_move = canMove
+	print(unit_name, "can move: ", canMove)
+	
+	if unit_can_move:
+		 $MoveIndicator.modulate = self.get_team_color()
+	else:
+		$MoveIndicator.modulate = self.colors["white"]
+		
+func get_unit_can_move():
+	return unit_can_move
 	
 func get_team_color():
 	return self.colors[self.unit_team]

@@ -28,5 +28,12 @@ position = Vector2( 16, -20 )
 scale = Vector2( 0.125, 0.125 )
 z_index = 11
 texture = ExtResource( 3 )
+
+[node name="MoveIndicator" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.427451 )
+position = Vector2( 16, -42.55 )
+scale = Vector2( 0.125, 0.125 )
+z_index = 11
+texture = ExtResource( 3 )
 [connection signal="mouse_entered" from="." to="." method="_on_PlayerUnit_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_PlayerUnit_mouse_exited"]

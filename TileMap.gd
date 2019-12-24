@@ -23,6 +23,13 @@ func _ready():
 		"unit_health_points_max": 4,
 		"unit_team":"blue"}
 	spawn_unit(Vector2(10,5), unit_args)
+	
+	unit_args = {"unit_name": "Jake", 
+		"unit_health_points": 3, 
+		"unit_health_points_max": 4,
+		"unit_team":"blue"}
+	spawn_unit(Vector2(13,5), unit_args)
+	
 	unit_args = {"unit_name": "Bob", 
 		"unit_health_points": 3, 
 		"unit_health_points_max": 3,
@@ -32,6 +39,10 @@ func _ready():
 		"unit_health_points": 2, 
 		"unit_health_points_max": 5}
 	spawn_unit(Vector2(12,5), unit_args)
+	
+	get_tree().call_group("units", "_on_start_team_turn", current_team)
+	
+	
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.is_pressed():
@@ -70,7 +81,6 @@ func _on_click_unit(unit):
 
 func click_tile(tile_index):
 	var tile_pos = map_to_world(tile_index)
-	print(tile_index, index_to_unit)
 	# set_cell(tile_index[0],tile_index[1], 2) # 2 is the index of a tile in the tilemap
 	# if unit at clicked tile
 	if index_to_unit.has(tile_index):
