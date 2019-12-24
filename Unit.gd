@@ -100,3 +100,6 @@ func set_unit_health_points_max(value):
 	unit_health_points_max = value
 func get_unit_health_points_max():
 	return unit_health_points_max
+	
+func get_team_color():
+	return self.colors[self.unit_team]

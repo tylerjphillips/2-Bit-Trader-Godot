@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://SettingsButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Area2D.gd" type="Script" id=2]
+[ext_resource path="res://images/ui/ui_background.png" type="Texture" id=3]
+
+[node name="PartyScreen" type="Node"]
+
+[node name="Settings" type="Area2D" parent="." instance=ExtResource( 1 )]
+position = Vector2( 40, 40 )
+z_index = 7
+script = ExtResource( 2 )
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="Node2D"]
+modulate = Color( 0.611765, 0.254902, 0.254902, 1 )
+position = Vector2( 284.027, 161.166 )
+scale = Vector2( 0.582494, 0.680239 )
+texture = ExtResource( 3 )
