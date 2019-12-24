@@ -12,7 +12,7 @@ export var unit_team = "blue"
 export var unit_name = ""
 
 const colors = {"red":Color(0.8, 0.0, 0.0, 0.8),
-	"green":Color(0.0, 0.8, 0.8, 0.8),
+	"green":Color(0.0, 0.8, 0.2, 0.8),
 	"blue":Color(0.2, 0.2, 0.8, 0.8),}
 
 var health_bar

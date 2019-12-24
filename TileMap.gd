@@ -26,7 +26,7 @@ func _ready():
 	unit_args = {"unit_name": "Bob", 
 		"unit_health_points": 3, 
 		"unit_health_points_max": 3,
-		"unit_team":"blue"}
+		"unit_team":"green"}
 	spawn_unit(Vector2(11,5), unit_args)
 	unit_args = {"unit_name": "Mike", 
 		"unit_health_points": 2, 
@@ -70,6 +70,7 @@ func _on_click_unit(unit):
 
 func click_tile(tile_index):
 	var tile_pos = map_to_world(tile_index)
+	print(tile_index, index_to_unit)
 	# set_cell(tile_index[0],tile_index[1], 2) # 2 is the index of a tile in the tilemap
 	# if unit at clicked tile
 	if index_to_unit.has(tile_index):
