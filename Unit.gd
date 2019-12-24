@@ -1,26 +1,37 @@
 extends Area2D
 
+# signals
 signal click_unit
 signal update_health
 
+# ui indicators
+var selection_cursor
+var move_indicator
+var team_indicator
+var health_bar
+
+# unit properties
+		# movement
 export (int) var unit_movement_points = 4 setget set_unit_movement_points, get_unit_movement_points
 export (int) var unit_movement_points_max = 4 setget set_unit_movement_points_max, get_unit_movement_points_max
+var unit_can_move : bool = true setget set_unit_can_move, get_unit_can_move
+		# health
 export (int) var unit_health_points = 4 setget set_unit_health_points, get_unit_health_points
 export (int) var unit_health_points_max = 4 setget set_unit_health_points_max, get_unit_health_points_max
+		# general
 export var unit_class = "Archer"
 export var unit_team = "blue"
 export var unit_name = ""
 
-var unit_can_move : bool = true setget set_unit_can_move, get_unit_can_move
+var is_selected : bool = false # whether or not the unit is selected
 
+# colors used for team indication
 const colors = {
 	"white":Color(1, 1, 1, 0.8),
 	"red":Color(0.8, 0.0, 0.0, 0.8),
 	"green":Color(0.0, 0.8, 0.2, 0.8),
-	"blue":Color(0.2, 0.2, 0.8, 0.8),}
-
-var health_bar
-var is_selected = false # whether or not the unit is selected
+	"blue":Color(0.2, 0.2, 0.8, 0.8),
+	}
 
 var health_container = preload("res://HealthContainer.tscn")
 
@@ -32,6 +43,8 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 	# unit args
 	self.unit_name = unit_args.get("unit_name", "Default name")
 	self.unit_team = unit_args.get("unit_team", "red")
+	self.unit_movement_points = unit_args.get("unit_movement_points", 4)
+	self.unit_movement_points_max = unit_args.get("unit_movement_points_max", 4)
 	self.unit_health_points = unit_args.get("unit_health_points", 1)
 	self.unit_health_points_max = unit_args.get("unit_health_points_max", 1)
 	self.unit_class = unit_args.get("unit_class", "Archer")
@@ -43,8 +56,15 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 	self.connect("update_health", self.health_bar, "_on_update_health")	
 	self.health_bar.hide()
 	
-	# team indicator
-	$TeamIndicator.modulate = colors[self.unit_team]
+	# UI indicators
+	self.selection_cursor = get_node("SelectionCursor")
+	self.move_indicator = get_node("MoveIndicator")
+	self.team_indicator = get_node("TeamIndicator")
+	self.selection_cursor.hide()
+	
+	# change colors on UI stuff
+	team_indicator.modulate = colors[self.unit_team]
+	selection_cursor.modulate = colors[self.unit_team]
 	
 	self.unit_can_move = false
 
@@ -63,10 +83,12 @@ func _on_unit_selected(unit):
 	if unit == self:
 		is_selected = true
 		self.health_bar.show()
+		self.selection_cursor.show()
 		
 func _on_unit_deselected(unit):
 	is_selected = false
 	self.health_bar.hide()
+	self.selection_cursor.hide()
 
 func _on_start_team_turn(team):
 	if self.unit_team == team:
@@ -89,8 +111,6 @@ func _on_PlayerUnit_mouse_exited():
 	return
 	print("Mouse Exited")
 	
-	
-	
 func set_unit_movement_points(value):
 	unit_movement_points = value
 func get_unit_movement_points():
@@ -111,12 +131,10 @@ func get_unit_health_points_max():
 
 func set_unit_can_move(canMove : bool):
 	unit_can_move = canMove
-	print(unit_name, "can move: ", canMove)
-	
 	if unit_can_move:
-		 $MoveIndicator.modulate = self.get_team_color()
+		move_indicator.modulate = self.get_team_color()
 	else:
-		$MoveIndicator.modulate = self.colors["white"]
+		move_indicator.modulate = self.colors["white"]
 		
 func get_unit_can_move():
 	return unit_can_move

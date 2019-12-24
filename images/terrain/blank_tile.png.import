@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/attack_icon.png-93a68fcb67c00784f7889100a66aa01a.stex"
+path="res://.import/blank_tile.png-6b76c7dec15a8a6221930f9cf80b17d9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/ui/attack_icon.png"
-dest_files=[ "res://.import/attack_icon.png-93a68fcb67c00784f7889100a66aa01a.stex" ]
+source_file="res://images/terrain/blank_tile.png"
+dest_files=[ "res://.import/blank_tile.png-6b76c7dec15a8a6221930f9cf80b17d9.stex" ]
 
 [params]
 

@@ -1,23 +1,32 @@
 extends TileMap
 
-signal unit_selected
-signal unit_deselected
+# units
+	# unit vars
 var selected_unit = null
-onready var unit_asset = preload("res://Unit.tscn")
-onready var cursor_asset = preload("res://Cursor.tscn")
-onready var selected_unit_info = get_node("../SelectedUnitInfo")
-var cursor
-
 var index_to_unit = Dictionary()
 var unit_to_index = Dictionary()
 var player_team = "blue"
 var current_team = "blue"
 var teams = ["blue", "red", "green"]
+	# unit info UI module
+onready var selected_unit_info = get_node("../SelectedUnitInfo")
+	# unit related signals
+signal unit_selected # (unit)
+signal unit_deselected
+
+# movement indicator
+onready var movement_overlay = get_node("MovementOverlay")
+	# movement overlay signals
+signal clear_movement_tiles 
+signal create_movement_tiles # 
+
+
+onready var unit_asset = preload("res://Unit.tscn")
+
 
 func _ready():
 	selected_unit_info.hide()
-	
-	cursor = cursor_asset.instance() # cursor used to show selected units
+
 	var unit_args = {"unit_name": "Jerry", 
 		"unit_health_points": 3, 
 		"unit_health_points_max": 4,
@@ -59,12 +68,15 @@ func spawn_unit(tile_index, unit_args):
 	unit.init(unit_position,unit_args)
 	
 	self.add_child(unit)
+	unit.connect("click_unit", self, "_on_click_unit")
 	self.connect("unit_selected", unit, "_on_unit_selected")
 	self.connect("unit_deselected", unit, "_on_unit_deselected")	
 	unit_to_index[unit] = tile_index
 	index_to_unit[tile_index] = unit
 	
 func move_unit(unit, tile_index):
+	print("Tilemap: moving unit ", unit.name, "to", tile_index)  
+	
 	# restrict movement to defined tiles
 	if get_cell(tile_index[0],tile_index[1]) != -1:
 		var tile_pos = map_to_world(tile_index)
@@ -94,7 +106,6 @@ func select_unit(unit):
 		if unit.unit_team == self.current_team:
 			# move cursor
 			deselect_unit()
-			unit.add_child(cursor)
 			# select new unit
 			selected_unit = unit
 			emit_signal("unit_selected", self.selected_unit)
@@ -102,7 +113,6 @@ func select_unit(unit):
 func deselect_unit():
 	if selected_unit != null:
 		emit_signal("unit_deselected", self.selected_unit)
-		selected_unit.remove_child(cursor)
 	selected_unit = null
 
 func _on_EndTurnButton_button_up():
