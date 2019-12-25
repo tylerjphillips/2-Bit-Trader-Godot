@@ -1,0 +1,87 @@
+[
+	{
+		"unit_tile_index" : [10,10],
+		"unit_data" :
+		{
+			"unit_name": "Carl",
+			"unit_team": "green",
+			"unit_movement_points": 6,
+			"unit_movement_points_max": 6,
+			"unit_health_points": 6,
+			"unit_health_points_max": 6,
+			"unit_class": "Archer"
+		}
+	},
+	
+	{
+		"unit_tile_index" : [10,11],
+		"unit_data" :
+		{
+			"unit_name": "Carl",
+			"unit_team": "green",
+			"unit_movement_points": 6,
+			"unit_movement_points_max": 6,
+			"unit_health_points": 6,
+			"unit_health_points_max": 6,
+			"unit_class": "Archer"
+		}
+	},
+	
+	{
+		"unit_tile_index" : [11,10],
+		"unit_data" :
+		{
+			"unit_name": "Carl",
+			"unit_team": "green",
+			"unit_movement_points": 6,
+			"unit_movement_points_max": 6,
+			"unit_health_points": 6,
+			"unit_health_points_max": 6,
+			"unit_class": "Archer"
+		}
+	},
+	
+	{
+		"unit_tile_index" : [10,5],
+		"unit_data" :
+		{
+			"unit_name": "Jerry", 
+			"unit_health_points": 3, 
+			"unit_health_points_max": 4,
+			"unit_team":"blue"
+		}
+	},
+	
+	{
+		"unit_tile_index" : [13,5],
+		"unit_data" :
+		{
+			"unit_name": "Bob", 
+			"unit_health_points": 3, 
+			"unit_health_points_max": 3,
+			"unit_team":"green"
+		}
+	},
+	
+	{
+		"unit_tile_index" : [11,5],
+		"unit_data" :
+		{
+			"unit_name": "Jake", 
+			"unit_health_points": 3, 
+			"unit_health_points_max": 4,
+			"unit_team":"blue"
+		}
+	},
+	
+	{
+		"unit_tile_index" : [12,5],
+		"unit_data" :
+		{
+			"unit_name": "Mike", 
+			"unit_health_points": 2, 
+			"unit_health_points_max": 5
+		}
+	},
+	
+]

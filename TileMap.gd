@@ -28,32 +28,7 @@ onready var unit_asset = preload("res://Unit.tscn")
 
 func _ready():
 	selected_unit_info.hide()
-
-	var unit_args = {"unit_name": "Jerry", 
-		"unit_health_points": 3, 
-		"unit_health_points_max": 4,
-		"unit_team":"blue"}
-	spawn_unit(Vector2(10,5), unit_args)
-	
-	unit_args = {"unit_name": "Jake", 
-		"unit_health_points": 3, 
-		"unit_health_points_max": 4,
-		"unit_team":"blue"}
-	spawn_unit(Vector2(13,5), unit_args)
-	
-	unit_args = {"unit_name": "Bob", 
-		"unit_health_points": 3, 
-		"unit_health_points_max": 3,
-		"unit_team":"green"}
-	spawn_unit(Vector2(11,5), unit_args)
-	unit_args = {"unit_name": "Mike", 
-		"unit_health_points": 2, 
-		"unit_health_points_max": 5}
-	spawn_unit(Vector2(12,5), unit_args)
-	
 	get_tree().call_group("units", "_on_start_team_turn", current_team)
-	
-	
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.is_pressed():
@@ -63,6 +38,12 @@ func _unhandled_input(event):
 			click_tile(tile_index)
 		if event.button_index == BUTTON_RIGHT:
 			deselect_unit()
+
+func _on_batch_spawn_units(data):
+	# Spawn units from a JSON payload
+	for unit in data:
+		var unit_tile_index = Vector2(unit["unit_tile_index"][0], unit["unit_tile_index"][1]) # convert the json array to vector2
+		self.spawn_unit(unit_tile_index, unit["unit_data"])
 
 func spawn_unit(tile_index, unit_args):
 	# initialize positioning, node hiearchy, and unit arguments
@@ -80,6 +61,8 @@ func spawn_unit(tile_index, unit_args):
 	# initialize tile index <-> unit bindings
 	unit_to_index[unit] = tile_index
 	index_to_unit[tile_index] = unit
+	
+	unit._on_start_team_turn(current_team)
 	
 func move_unit(unit, tile_index):
 	print("Tilemap: moving unit ", unit.name, "to", tile_index)  

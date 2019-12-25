@@ -1,4 +1,4 @@
 extends Node2D
 
 func _ready():
-	 print("Root: Game Start")
+	print("Root: Game Start")
