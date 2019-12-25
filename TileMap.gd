@@ -65,7 +65,7 @@ func spawn_unit(tile_index, unit_args):
 	unit._on_start_team_turn(current_team)
 	
 func move_unit(unit, tile_index):
-	print("Tilemap: moving unit ", unit.name, "to", tile_index)  
+	print("Tilemap: moving unit ", unit.unit_name, " to ", tile_index)  
 	
 	# restrict movement to defined tiles
 	if get_cell(tile_index[0],tile_index[1]) != INVALID_CELL:
