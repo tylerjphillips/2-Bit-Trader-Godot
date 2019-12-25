@@ -7,7 +7,9 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 
-[node name="Unit" type="Area2D"]
+[node name="Unit" type="Area2D" groups=[
+"units",
+]]
 position = Vector2( 0, -8 )
 script = ExtResource( 1 )
 unit_name = "Bob"

@@ -152,3 +152,8 @@ func get_bfs(unit):
 
 	self.last_bfs = moveable_tile_indexes
 	return moveable_tile_indexes;
+
+
+func _on_ItemButton_button_up(weapon_index):
+	# weapon selected
+	print("Tilemap weapon index selected: ", weapon_index)
