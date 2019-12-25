@@ -96,20 +96,24 @@ func click_tile(tile_index):
 	# set_cell(tile_index[0],tile_index[1], 2) # 2 is the index of a tile in the tilemap
 	# if unit at clicked tile
 	if index_to_unit.has(tile_index):
-		select_unit(index_to_unit[tile_index])	# select unit
+		attempt_select_unit(index_to_unit[tile_index])	# select unit
 	else:
 		if selected_unit != null:
 			move_unit(selected_unit, tile_index)
 
-func select_unit(unit):
+func attempt_select_unit(unit):
 	if unit.unit_team == player_team:
 		if unit.unit_team == self.current_team:
-			# move cursor
-			deselect_unit()
-			# select new unit
-			selected_unit = unit
-			emit_signal("unit_selected", self.selected_unit)
+			select_unit(unit)
+
+func select_unit(unit):
+	deselect_unit()
+	# select new unit
+	selected_unit = unit
+	emit_signal("unit_selected", self.selected_unit)
 	
+	print("Tilemap BFS:" ,self.get_bfs(unit))
+
 func deselect_unit():
 	if selected_unit != null:
 		emit_signal("unit_deselected", self.selected_unit)
@@ -122,3 +126,32 @@ func _on_EndTurnButton_button_up():
 	print("current team: "+current_team)
 	get_tree().call_group("units", "_on_start_team_turn", current_team)
 	pass # Replace with function body.
+	
+func get_bfs(unit):
+	# returns all the tile indexes that a unit can move to
+	var moveable_tile_indexes = Dictionary(); # end result. maps tile_index:cost
+	var unvisited_tiles = []
+	var starting_point = unit_to_index[unit]
+	unvisited_tiles.append(starting_point)
+	moveable_tile_indexes[starting_point] = 0
+	var directions = {
+		"north": Vector2(0,-1),
+		"south": Vector2(0,1),
+		"east": Vector2(1,0),
+		"west": Vector2(-1,0)
+		}
+	var current_index
+	var possible_index
+
+	while(len(unvisited_tiles)):
+		current_index = unvisited_tiles.pop_front()
+		for direction in directions:
+			possible_index = current_index + directions[direction]
+			if self.get_cell(possible_index.x, possible_index.y) != INVALID_CELL:
+				if not moveable_tile_indexes.has(possible_index):
+					if moveable_tile_indexes[current_index] + 1 <= unit.unit_movement_points:
+						unvisited_tiles.append(possible_index)
+						moveable_tile_indexes[possible_index] = moveable_tile_indexes[current_index] + 1
+
+	# moveable_tile_indexes.append()
+	return moveable_tile_indexes;
