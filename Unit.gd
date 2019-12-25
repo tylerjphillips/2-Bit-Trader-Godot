@@ -99,6 +99,11 @@ func _on_end_team_turn(team):
 	if self.unit_team == team:
 		print(unit_name + " turn ended")
 		self.unit_can_move = false
+		
+func _on_unit_moved(unit, tile_index):
+	if unit == self:
+		print("Unit: moved")
+		self.set_unit_can_move(false)
 
 func _on_PlayerUnit_mouse_entered():
 	self.health_bar.show()
@@ -130,6 +135,7 @@ func get_unit_health_points_max():
 	return unit_health_points_max
 
 func set_unit_can_move(canMove : bool):
+	print("Unit move state:",canMove)
 	unit_can_move = canMove
 	if unit_can_move:
 		move_indicator.modulate = self.get_team_color()

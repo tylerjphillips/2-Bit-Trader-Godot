@@ -13,13 +13,15 @@ onready var selected_unit_info = get_node("../SelectedUnitInfo")
 	# unit related signals
 signal unit_selected # (unit)
 signal unit_deselected
+signal unit_moved	# (unit, tile_index)
 
 # movement indicator
 onready var movement_overlay = get_node("MovementOverlay")
 	# movement overlay signals
 signal clear_movement_tiles 
-signal create_movement_tiles # 
-
+signal create_movement_tiles # (bfs_results)
+	
+var last_bfs = Dictionary() # last pathing result from self.get_bfs
 
 onready var unit_asset = preload("res://Unit.tscn")
 
@@ -63,14 +65,19 @@ func _unhandled_input(event):
 			deselect_unit()
 
 func spawn_unit(tile_index, unit_args):
+	# initialize positioning, node hiearchy, and unit arguments
 	var unit = unit_asset.instance()
-	var unit_position = map_to_world(Vector2(tile_index[0], tile_index[1]))
+	var unit_position = map_to_world(tile_index)
 	unit.init(unit_position,unit_args)
-	
 	self.add_child(unit)
+	
+	# set signal bindings
 	unit.connect("click_unit", self, "_on_click_unit")
 	self.connect("unit_selected", unit, "_on_unit_selected")
-	self.connect("unit_deselected", unit, "_on_unit_deselected")	
+	self.connect("unit_deselected", unit, "_on_unit_deselected")
+	self.connect("unit_moved", unit, "_on_unit_moved")
+	
+	# initialize tile index <-> unit bindings
 	unit_to_index[unit] = tile_index
 	index_to_unit[tile_index] = unit
 	
@@ -78,13 +85,19 @@ func move_unit(unit, tile_index):
 	print("Tilemap: moving unit ", unit.name, "to", tile_index)  
 	
 	# restrict movement to defined tiles
-	if get_cell(tile_index[0],tile_index[1]) != -1:
+	if get_cell(tile_index[0],tile_index[1]) != INVALID_CELL:
 		var tile_pos = map_to_world(tile_index)
 		unit.position = tile_pos
 		
+		# erase old index to unit to prevent duplicates
 		index_to_unit.erase(unit_to_index[unit])
+		# update tile index <-> unit bindings
 		unit_to_index[unit] = tile_index
 		index_to_unit[tile_index] = unit
+		
+		emit_signal("unit_moved", unit, tile_index) 
+		emit_signal("clear_movement_tiles")
+		last_bfs.clear()	# clear the cache to prevent accessing old tiles after moving
 
 func _on_click_unit(unit):
 	return
@@ -93,26 +106,27 @@ func _on_click_unit(unit):
 
 func click_tile(tile_index):
 	var tile_pos = map_to_world(tile_index)
-	# set_cell(tile_index[0],tile_index[1], 2) # 2 is the index of a tile in the tilemap
-	# if unit at clicked tile
+	# if another unit is at clicked tile
 	if index_to_unit.has(tile_index):
 		attempt_select_unit(index_to_unit[tile_index])	# select unit
 	else:
 		if selected_unit != null:
-			move_unit(selected_unit, tile_index)
+			if self.last_bfs.has(tile_index):
+				move_unit(selected_unit, tile_index)
 
 func attempt_select_unit(unit):
 	if unit.unit_team == player_team:
 		if unit.unit_team == self.current_team:
-			select_unit(unit)
+			if unit.unit_can_move:
+				select_unit(unit)
 
 func select_unit(unit):
 	deselect_unit()
 	# select new unit
 	selected_unit = unit
 	emit_signal("unit_selected", self.selected_unit)
-	
-	print("Tilemap BFS:" ,self.get_bfs(unit))
+	self.get_bfs(unit)
+	emit_signal("create_movement_tiles", self.last_bfs)
 
 func deselect_unit():
 	if selected_unit != null:
@@ -153,5 +167,5 @@ func get_bfs(unit):
 						unvisited_tiles.append(possible_index)
 						moveable_tile_indexes[possible_index] = moveable_tile_indexes[current_index] + 1
 
-	# moveable_tile_indexes.append()
+	self.last_bfs = moveable_tile_indexes
 	return moveable_tile_indexes;

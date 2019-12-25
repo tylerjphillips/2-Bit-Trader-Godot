@@ -75,10 +75,10 @@
 3/z_index = 0
 
 [sub_resource type="TileSet" id=2]
-0/name = "blank_tile.png 0"
+0/name = "movement_tile"
 0/texture = ExtResource( 9 )
 0/tex_offset = Vector2( 0, 0 )
-0/modulate = Color( 1, 1, 1, 1 )
+0/modulate = Color( 0.0470588, 0.0588235, 0.894118, 1 )
 0/region = Rect2( 0, 0, 32, 32 )
 0/tile_mode = 1
 0/autotile/bitmask_mode = 0
@@ -295,6 +295,8 @@ margin_top = 16.4612
 margin_right = 85.792
 margin_bottom = 30.4612
 text = "End Turn"
+[connection signal="clear_movement_tiles" from="TileMap" to="TileMap/MovementOverlay" method="_on_clear_movement_tiles"]
+[connection signal="create_movement_tiles" from="TileMap" to="TileMap/MovementOverlay" method="_on_create_movement_tiles"]
 [connection signal="unit_deselected" from="TileMap" to="SelectedUnitInfo" method="_on_unit_deselected"]
 [connection signal="unit_selected" from="TileMap" to="SelectedUnitInfo" method="_on_unit_selected"]
 [connection signal="button_up" from="EndTurnButton" to="TileMap" method="_on_EndTurnButton_button_up"]
