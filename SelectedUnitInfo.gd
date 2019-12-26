@@ -15,13 +15,18 @@ func _ready():
 
 func _on_unit_selected(unit):
 	print("SelectedUnitInfo: "+ unit.unit_name + " selected")
-
+	# update info labels with unit info
 	class_label.text = unit.unit_class
 	health_point_label.text = "Health: "+ str(unit.unit_health_points) + "/" + str(unit.unit_health_points_max)
 	action_point_label.text = "AP: "+ str(unit.unit_movement_points) + "/" + str(unit.unit_movement_points_max)
 	name_label.text = unit.unit_name
 	
+	# set team background color
 	background.modulate = unit.get_team_color()
+	
+	#
+	get_tree().call_group("item buttons", "_on_unit_selected", unit)
+	
 	self.show()
 
 func _on_unit_deselected(unit):

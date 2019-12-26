@@ -13,7 +13,8 @@ func _ready():
 	data_file.close()
 	var data_parse = JSON.parse(data_text)
 	if data_parse.error != OK:
-	    return
+		print("CombatScreen: error parsing json")
+		return
 	var unit_data = data_parse.result
 	
 	emit_signal("batch_spawn_units", unit_data)

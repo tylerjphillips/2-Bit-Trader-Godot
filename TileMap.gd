@@ -114,6 +114,7 @@ func select_unit(unit):
 func deselect_unit():
 	if selected_unit != null:
 		emit_signal("unit_deselected", self.selected_unit)
+		emit_signal("clear_movement_tiles")
 	selected_unit = null
 
 func _on_EndTurnButton_button_up():

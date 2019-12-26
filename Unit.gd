@@ -22,6 +22,9 @@ export (int) var unit_health_points_max = 4 setget set_unit_health_points_max, g
 export var unit_class = "Archer"
 export var unit_team = "blue"
 export var unit_name = ""
+		# weapons and gear
+var unit_can_attack : bool = true setget set_unit_can_attack, get_unit_can_attack
+var unit_weapon_data : Dictionary = {}	# contains info on weapons this unit has
 
 var is_selected : bool = false # whether or not the unit is selected
 
@@ -48,6 +51,9 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 	self.unit_health_points = unit_args.get("unit_health_points", 1)
 	self.unit_health_points_max = unit_args.get("unit_health_points_max", 1)
 	self.unit_class = unit_args.get("unit_class", "Archer")
+	self.unit_weapon_data = unit_args.get("unit_weapon_data", {})
+	
+	
 	
 	# initialize health bar
 	self.health_bar = health_container.instance()
@@ -67,6 +73,7 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 	selection_cursor.modulate = colors[self.unit_team]
 	
 	self.unit_can_move = false
+	self.unit_can_attack = false
 
 func _input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton \
@@ -93,10 +100,12 @@ func _on_unit_deselected(unit):
 func _on_start_team_turn(team):
 	if self.unit_team == team:
 		self.unit_can_move = true
+		self.unit_can_attack = true
 
 func _on_end_team_turn(team):
 	if self.unit_team == team:
 		self.unit_can_move = false
+		self.unit_can_attack = false
 		
 func _on_unit_moved(unit, tile_index):
 	if unit == self:
@@ -140,6 +149,12 @@ func set_unit_can_move(canMove : bool):
 		
 func get_unit_can_move():
 	return unit_can_move
+	
+func set_unit_can_attack(canAttack : bool):
+	unit_can_attack = canAttack
+		
+func get_unit_can_attack():
+	return unit_can_attack
 	
 func get_team_color():
 	return self.colors[self.unit_team]

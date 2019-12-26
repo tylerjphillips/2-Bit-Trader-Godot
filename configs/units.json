@@ -4,6 +4,33 @@
 		"unit_data" :
 		{
 			"unit_name": "Carl",
+			"unit_team": "blue",
+			"unit_movement_points": 6,
+			"unit_movement_points_max": 6,
+			"unit_health_points": 6,
+			"unit_health_points_max": 6,
+			"unit_class": "Archer",
+			"unit_weapon_data" :
+			{
+			"0" :
+				{
+				"weapon_tooltip" : "test"
+				},
+			"1" :
+				{
+				"weapon_tooltip" : "test 2"
+				},
+			
+			}
+		}
+	},
+	
+	
+	{
+		"unit_tile_index" : [11,10],
+		"unit_data" :
+		{
+			"unit_name": "John",
 			"unit_team": "green",
 			"unit_movement_points": 6,
 			"unit_movement_points_max": 6,
@@ -13,55 +40,6 @@
 		}
 	},
 	
-	{
-		"unit_tile_index" : [10,11],
-		"unit_data" :
-		{
-			"unit_name": "Carl",
-			"unit_team": "blue",
-			"unit_movement_points": 6,
-			"unit_movement_points_max": 6,
-			"unit_health_points": 6,
-			"unit_health_points_max": 6,
-			"unit_class": "Archer"
-		}
-	},
-	
-	{
-		"unit_tile_index" : [11,10],
-		"unit_data" :
-		{
-			"unit_name": "Carl",
-			"unit_team": "blue",
-			"unit_movement_points": 6,
-			"unit_movement_points_max": 6,
-			"unit_health_points": 6,
-			"unit_health_points_max": 6,
-			"unit_class": "Archer"
-		}
-	},
-	
-	{
-		"unit_tile_index" : [10,5],
-		"unit_data" :
-		{
-			"unit_name": "Jerry", 
-			"unit_health_points": 3, 
-			"unit_health_points_max": 4,
-			"unit_team":"blue"
-		}
-	},
-	
-	{
-		"unit_tile_index" : [13,5],
-		"unit_data" :
-		{
-			"unit_name": "Bob", 
-			"unit_health_points": 3, 
-			"unit_health_points_max": 3,
-			"unit_team":"blue"
-		}
-	},
 	
 	{
 		"unit_tile_index" : [11,5],
@@ -70,7 +48,19 @@
 			"unit_name": "Jake", 
 			"unit_health_points": 3, 
 			"unit_health_points_max": 4,
-			"unit_team":"blue"
+			"unit_team":"blue",
+			"unit_weapon_data" :
+			{
+			"0" :
+				{
+				"weapon_tooltip" : "test 3"
+				},
+			"1" :
+				{
+				"weapon_tooltip" : "test 4"
+				},
+			
+			}
 		}
 	},
 	
@@ -80,7 +70,8 @@
 		{
 			"unit_name": "Mike", 
 			"unit_health_points": 2, 
-			"unit_health_points_max": 5
+			"unit_health_points_max": 5,
+			"unit_team":"red"
 		}
 	},
 	
