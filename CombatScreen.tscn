@@ -96,6 +96,25 @@
 0/navigation_offset = Vector2( 0, 0 )
 0/shapes = [  ]
 0/z_index = 0
+1/name = "attack_tile"
+1/texture = ExtResource( 11 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 0.866667, 0.0235294, 0.0235294, 1 )
+1/region = Rect2( 0, 0, 32, 32 )
+1/tile_mode = 1
+1/autotile/bitmask_mode = 0
+1/autotile/bitmask_flags = [  ]
+1/autotile/icon_coordinate = Vector2( 0, 0 )
+1/autotile/tile_size = Vector2( 32, 32 )
+1/autotile/spacing = 0
+1/autotile/occluder_map = [  ]
+1/autotile/navpoly_map = [  ]
+1/autotile/priority_map = [  ]
+1/autotile/z_index_map = [  ]
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shapes = [  ]
+1/z_index = 0
 
 [sub_resource type="TileSet" id=3]
 0/name = "jagged_borders.png 0"
@@ -255,27 +274,28 @@ margin_left = 70.0
 margin_top = -40.0
 margin_right = 118.0
 margin_bottom = 8.0
+weapon_index = "0"
 
 [node name="ItemButton1" parent="SelectedUnitInfo" instance=ExtResource( 5 )]
 margin_left = 120.0
 margin_top = -40.0
 margin_right = 168.0
 margin_bottom = 8.0
-weapon_index = 1
+weapon_index = "1"
 
 [node name="ItemButton2" parent="SelectedUnitInfo" instance=ExtResource( 5 )]
 margin_left = 70.0
 margin_top = 10.0
 margin_right = 118.0
 margin_bottom = 58.0
-weapon_index = 2
+weapon_index = "2"
 
 [node name="ItemButton3" parent="SelectedUnitInfo" instance=ExtResource( 5 )]
 margin_left = 120.0
 margin_top = 10.0
 margin_right = 168.0
 margin_bottom = 58.0
-weapon_index = 3
+weapon_index = "3"
 
 [node name="TileMap" type="TileMap" parent="." groups=[
 "tilemap",
@@ -286,8 +306,8 @@ format = 1
 tile_data = PoolIntArray( 327685, 1, 0, 327686, 1, 0, 327687, 1, 0, 327688, 1, 0, 327689, 1, 0, 327690, 1, 0, 327691, 1, 0, 327692, 1, 0, 327693, 1, 0, 327694, 1, 0, 327695, 1, 0, 327696, 1, 0, 327697, 1, 0, 327698, 1, 0, 327699, 1, 0, 327700, 1, 0, 327701, 1, 0, 327702, 1, 0, 327703, 1, 0, 327704, 1, 0, 327705, 1, 0, 327706, 1, 0, 393221, 1, 0, 393222, 1, 0, 393223, 1, 0, 393224, 1, 0, 393225, 1, 0, 393226, 1, 0, 393227, 1, 0, 393228, 1, 0, 393229, 1, 0, 393230, 1, 0, 393231, 1, 0, 393232, 1, 0, 393233, 1, 0, 393234, 1, 0, 393235, 1, 0, 393236, 1, 0, 393237, 1, 0, 393238, 1, 0, 393239, 1, 0, 393240, 1, 0, 393241, 1, 0, 393242, 1, 0, 458757, 1, 0, 458758, 1, 0, 458759, 1, 0, 458760, 1, 0, 458761, 1, 0, 458762, 1, 0, 458763, 1, 0, 458764, 1, 0, 458765, 1, 0, 458766, 1, 0, 458767, 1, 0, 458768, 1, 0, 458769, 1, 0, 458770, 1, 0, 458771, 1, 0, 458772, 1, 0, 458773, 1, 0, 458774, 1, 0, 458775, 1, 0, 458776, 1, 0, 458777, 1, 0, 458778, 1, 0, 524293, 1, 0, 524294, 1, 0, 524295, 1, 0, 524296, 2, 0, 524297, 2, 0, 524298, 2, 0, 524299, 2, 0, 524300, 2, 0, 524301, 2, 0, 524302, 1, 0, 524303, 1, 0, 524304, 1, 0, 524305, 1, 0, 524306, 1, 0, 524307, 1, 0, 524308, 1, 0, 524309, 1, 0, 524310, 1, 0, 524311, 1, 0, 524312, 1, 0, 524313, 1, 0, 524314, 1, 0, 589829, 1, 0, 589830, 2, 0, 589831, 2, 0, 589832, 2, 0, 589833, 2, 0, 589834, 2, 0, 589835, 2, 0, 589836, 2, 0, 589837, 2, 0, 589838, 2, 0, 589839, 2, 0, 589840, 2, 0, 589841, 2, 0, 589842, 2, 0, 589843, 2, 0, 589844, 2, 0, 589845, 2, 0, 589846, 2, 0, 589847, 2, 0, 589848, 2, 0, 589849, 2, 0, 589850, 1, 0, 655365, 2, 0, 655366, 2, 0, 655367, 2, 0, 655368, 2, 0, 655369, 2, 0, 655370, 2, 0, 655371, 2, 0, 655372, 2, 0, 655373, 2, 0, 655374, 2, 0, 655375, 2, 0, 655376, 2, 0, 655377, 2, 0, 655378, 2, 0, 655379, 2, 0, 655380, 2, 0, 655381, 2, 0, 655382, 2, 0, 655383, 2, 0, 655384, 2, 0, 655385, 2, 0, 655386, 2, 0, 720901, 3, 0, 720902, 3, 0, 720903, 3, 0, 720904, 3, 0, 720905, 3, 0, 720906, 3, 0, 720907, 3, 0, 720908, 3, 0, 720909, 3, 0, 720910, 3, 0, 720911, 3, 0, 720912, 3, 0, 720913, 3, 0, 720914, 3, 0, 720915, 3, 0, 720916, 3, 0, 720917, 3, 0, 720918, 3, 0, 720919, 3, 0, 720920, 3, 0, 720921, 3, 0, 720922, 3, 0, 786437, 3, 0, 786438, 3, 0, 786439, 3, 0, 786440, 3, 0, 786441, 3, 0, 786442, 3, 0, 786443, 3, 0, 786444, 3, 0, 786445, 3, 0, 786446, 3, 0, 786447, 3, 0, 786448, 3, 0, 786449, 3, 0, 786450, 3, 0, 786451, 3, 0, 786452, 3, 0, 786453, 3, 0, 786454, 3, 0, 786455, 3, 0, 786456, 3, 0, 786457, 3, 0, 786458, 3, 0, 851973, 0, 0, 851974, 0, 0, 851975, 0, 0, 851976, 0, 0, 851977, 0, 0, 851978, 0, 0, 851979, 0, 0, 851980, 0, 0, 851981, 0, 0, 851982, 0, 0, 851983, 0, 0, 851984, 0, 0, 851985, 0, 0, 851986, 0, 0, 851987, 0, 0, 851988, 0, 0, 851989, 0, 0, 851990, 0, 0, 851991, 0, 0, 851992, 0, 0, 851993, 0, 0, 851994, 0, 0, 917509, 0, 0, 917510, 0, 0, 917511, 0, 0, 917512, 0, 0, 917513, 0, 0, 917514, 0, 0, 917515, 0, 0, 917516, 0, 0, 917517, 0, 0, 917518, 0, 0, 917519, 0, 0, 917520, 0, 0, 917521, 0, 0, 917522, 0, 0, 917523, 0, 0, 917524, 0, 0, 917525, 0, 0, 917526, 0, 0, 917527, 0, 0, 917528, 0, 0, 917529, 0, 0, 917530, 0, 0, 983045, 0, 0, 983046, 0, 0, 983047, 0, 0, 983048, 0, 0, 983049, 0, 0, 983050, 0, 0, 983051, 0, 0, 983052, 0, 0, 983053, 0, 0, 983054, 0, 0, 983055, 0, 0, 983056, 0, 0, 983057, 0, 0, 983058, 0, 0, 983059, 0, 0, 983060, 0, 0, 983061, 0, 0, 983062, 0, 0, 983063, 0, 0, 983064, 0, 0, 983065, 0, 0, 983066, 0, 0, 1048581, 0, 0, 1048582, 0, 0, 1048583, 0, 0, 1048584, 0, 0, 1048585, 0, 0, 1048586, 0, 0, 1048587, 0, 0, 1048588, 0, 0, 1048589, 0, 0, 1048590, 0, 0, 1048591, 0, 0, 1048592, 0, 0, 1048593, 0, 0, 1048594, 0, 0, 1048595, 0, 0, 1048596, 0, 0, 1048597, 0, 0, 1048598, 0, 0, 1048599, 0, 0, 1048600, 0, 0, 1048601, 0, 0, 1048602, 0, 0 )
 script = ExtResource( 10 )
 
-[node name="MovementOverlay" type="TileMap" parent="TileMap"]
-modulate = Color( 0.027451, 0.027451, 0.545098, 0.584314 )
+[node name="MovementAttackOverlay" type="TileMap" parent="TileMap"]
+modulate = Color( 1, 1, 1, 0.584314 )
 tile_set = SubResource( 2 )
 cell_size = Vector2( 32, 32 )
 format = 1
@@ -322,8 +342,10 @@ script = ExtResource( 15 )
 [connection signal="button_up" from="SelectedUnitInfo/ItemButton1" to="TileMap" method="_on_ItemButton_button_up"]
 [connection signal="button_up" from="SelectedUnitInfo/ItemButton2" to="TileMap" method="_on_ItemButton_button_up"]
 [connection signal="button_up" from="SelectedUnitInfo/ItemButton3" to="TileMap" method="_on_ItemButton_button_up"]
-[connection signal="clear_movement_tiles" from="TileMap" to="TileMap/MovementOverlay" method="_on_clear_movement_tiles"]
-[connection signal="create_movement_tiles" from="TileMap" to="TileMap/MovementOverlay" method="_on_create_movement_tiles"]
+[connection signal="clear_attack_tiles" from="TileMap" to="TileMap/MovementAttackOverlay" method="_on_clear_attack_tiles"]
+[connection signal="clear_movement_tiles" from="TileMap" to="TileMap/MovementAttackOverlay" method="_on_clear_movement_tiles"]
+[connection signal="create_attack_tiles" from="TileMap" to="TileMap/MovementAttackOverlay" method="_on_create_attack_tiles"]
+[connection signal="create_movement_tiles" from="TileMap" to="TileMap/MovementAttackOverlay" method="_on_create_movement_tiles"]
 [connection signal="unit_deselected" from="TileMap" to="SelectedUnitInfo" method="_on_unit_deselected"]
 [connection signal="unit_selected" from="TileMap" to="SelectedUnitInfo" method="_on_unit_selected"]
 [connection signal="button_up" from="EndTurnButton" to="TileMap" method="_on_EndTurnButton_button_up"]

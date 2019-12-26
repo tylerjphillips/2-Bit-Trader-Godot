@@ -14,13 +14,13 @@
 			{
 			"0" :
 				{
-				"weapon_tooltip" : "test"
-				},
-			"1" :
-				{
-				"weapon_tooltip" : "test 2"
-				},
-			
+				"weapon_tooltip" : "test",
+				"weapon_pattern" : 
+					{
+					"pattern" : "cardinal",
+					"size" : 2
+					}
+				}
 			}
 		}
 	},
@@ -36,7 +36,19 @@
 			"unit_movement_points_max": 6,
 			"unit_health_points": 6,
 			"unit_health_points_max": 6,
-			"unit_class": "Archer"
+			"unit_class": "Archer",
+			"unit_weapon_data" :
+			{
+			"0" :
+				{
+				"weapon_tooltip" : "test",
+				"weapon_pattern" : 
+					{
+					"pattern" : "cardinal",
+					"size" : 2
+					}
+				}
+			}
 		}
 	},
 	
@@ -53,13 +65,13 @@
 			{
 			"0" :
 				{
-				"weapon_tooltip" : "test 3"
-				},
-			"1" :
-				{
-				"weapon_tooltip" : "test 4"
-				},
-			
+				"weapon_tooltip" : "test 2",
+				"weapon_pattern" : 
+					{
+					"pattern" : "cardinal",
+					"size" : 4
+					}
+				}
 			}
 		}
 	},
@@ -71,7 +83,19 @@
 			"unit_name": "Mike", 
 			"unit_health_points": 2, 
 			"unit_health_points_max": 5,
-			"unit_team":"red"
+			"unit_team":"red",
+			"unit_weapon_data" :
+			{
+			"0" :
+				{
+				"weapon_tooltip" : "test",
+				"weapon_pattern" : 
+					{
+					"pattern" : "cardinal",
+					"size" : 2
+					}
+				}
+			}
 		}
 	},
 	

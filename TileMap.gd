@@ -15,15 +15,22 @@ signal unit_selected # (unit)
 signal unit_deselected
 signal unit_moved	# (unit, tile_index)
 
-# movement indicator
-onready var movement_overlay = get_node("MovementOverlay")
+# movement and attack indicator
+onready var movement_overlay = get_node("MovementAttackOverlay")
+	# used for checking what to do if a tile is clicked when a unit is selected; eg what overlay is being used
+var is_movement_mode : bool = false
+var is_attack_mode : bool = false
 	# movement overlay signals
 signal clear_movement_tiles 
 signal create_movement_tiles # (bfs_results)
+	# attack overlay signal
+signal clear_attack_tiles
+signal create_attack_tiles
 	
 var last_bfs = Dictionary() # last pathing result from self.get_bfs
 
-onready var unit_asset = preload("res://Unit.tscn")
+
+onready var unit_asset = preload("res://Unit.tscn") # unit prefab
 
 
 func _ready():
@@ -94,8 +101,10 @@ func click_tile(tile_index):
 		attempt_select_unit(index_to_unit[tile_index])	# select unit
 	else:
 		if selected_unit != null:
-			if self.last_bfs.has(tile_index):
-				move_unit(selected_unit, tile_index)
+			if self.is_movement_mode:
+				if self.last_bfs.has(tile_index):
+					move_unit(selected_unit, tile_index)
+					self.is_movement_mode = false
 
 func attempt_select_unit(unit):
 	if unit.unit_team == player_team:
@@ -110,12 +119,15 @@ func select_unit(unit):
 	emit_signal("unit_selected", self.selected_unit)
 	self.get_bfs(unit)
 	emit_signal("create_movement_tiles", self.last_bfs)
+	self.is_movement_mode = true
 
 func deselect_unit():
 	if selected_unit != null:
 		emit_signal("unit_deselected", self.selected_unit)
 		emit_signal("clear_movement_tiles")
 	selected_unit = null
+	self.is_movement_mode = false
+	self.is_attack_mode = false
 
 func _on_EndTurnButton_button_up():
 	self.deselect_unit()
@@ -124,6 +136,17 @@ func _on_EndTurnButton_button_up():
 	print("current team: "+current_team)
 	get_tree().call_group("units", "_on_start_team_turn", current_team)
 	pass # Replace with function body.
+	
+func _on_ItemButton_button_up(weapon_index):
+	# weapon selected
+	print("Tilemap: weapon index selected: ", weapon_index)
+	var attackable_tiles = calculate_attackable_tiles(self.selected_unit, weapon_index)
+	print("Tilemap: weapon attackable tiles: ", attackable_tiles)
+	emit_signal("create_attack_tiles", attackable_tiles)
+	
+	
+	
+####################### Tile based functions ###################	
 	
 func get_bfs(unit):
 	# returns all the tile indexes that a unit can move to
@@ -154,7 +177,35 @@ func get_bfs(unit):
 	self.last_bfs = moveable_tile_indexes
 	return moveable_tile_indexes;
 
+func calculate_attackable_tiles(unit, weapon_index):
+	# given a unit and weapon calculate the tiles it can attack given the weapon pattern in the unit's weapon data
+	# the weapon pattern name decides which functions will be applied to get the tiles
+	var attackable_tiles = []
+	var unit_index = self.unit_to_index[unit]
+	var weapon_pattern : Dictionary = unit.unit_weapon_data[weapon_index].get("weapon_pattern")
+	if weapon_pattern["pattern"] == "cardinal":
+		return self.attack_pattern_cardinal(unit_index, weapon_pattern.get("size"))
+	return filter_tiles_in_bounds(attackable_tiles)
 
-func _on_ItemButton_button_up(weapon_index):
-	# weapon selected
-	print("Tilemap weapon index selected: ", weapon_index)
+func filter_tiles_in_bounds(tile_indexes : Array) -> Array:
+	# helper method
+	# takes a list of tile indexes and returns a filtered version of all indexes that are defined
+	var filtered_tiles = []
+	for tile_index in tile_indexes:
+		if self.get_cell(tile_index.x, tile_index.y) != INVALID_CELL:
+			 filtered_tiles.append(tile_index)
+	return filtered_tiles
+
+func attack_pattern_cardinal(unit_tile_index : Vector2, size : int):
+	# generates a filtered attack pattern in the cardinals of length size
+	var attackable_tiles : Array = []
+	var directions = {
+		"north": Vector2(0,-1),
+		"south": Vector2(0,1),
+		"east": Vector2(1,0),
+		"west": Vector2(-1,0)
+		}
+	for direction in directions:
+		for scalar in range(size):
+			attackable_tiles.append(unit_tile_index + (directions[direction] * (scalar + 1)))
+	return self.filter_tiles_in_bounds(attackable_tiles)
