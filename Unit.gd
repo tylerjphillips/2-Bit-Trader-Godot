@@ -107,9 +107,15 @@ func _on_end_team_turn(team):
 		self.unit_can_move = false
 		self.unit_can_attack = false
 		
-func _on_unit_moved(unit, tile_index):
+func _on_unit_moved(unit, tile_index, movement_cost):
 	if unit == self:
 		self.set_unit_can_move(false)
+		
+func _on_unit_attack_tile(unit, tile_index):
+	if unit == self:
+		self.set_unit_can_attack(false)
+		self.set_unit_can_move(false)
+		print("Unit: attacking ", tile_index)
 
 func _on_PlayerUnit_mouse_entered():
 	self.health_bar.show()
