@@ -79,19 +79,26 @@ func spawn_unit(tile_index, unit_args):
 
 func click_tile(tile_index):
 	var tile_pos = map_to_world(tile_index)
-	# if another unit is at clicked tile
-	if index_to_unit.has(tile_index):
-		attempt_select_unit(index_to_unit[tile_index])	# select unit
+	
+	if movement_mode == SELECTION_MODE:
+		# if another unit is at clicked tile
+		if index_to_unit.has(tile_index):
+				attempt_select_unit(index_to_unit[tile_index])	# select unit
 	else:
+		# movement and attacking
 		if selected_unit != null:
 			# try to move the unit to tile
-			if movement_mode == MOVE_MODE and self.selected_unit.unit_can_move:
-				if self.last_bfs.has(tile_index):
-					self.move_unit_to_tile(selected_unit, tile_index)
+			if movement_mode == MOVE_MODE:
+				# if there's not another unit there
+				if not index_to_unit.has(tile_index):
+					if self.selected_unit.unit_can_move:
+						if self.last_bfs.has(tile_index):
+							self.move_unit_to_tile(selected_unit, tile_index)
+				else:
+					attempt_select_unit(index_to_unit[tile_index])
 			# try to attack the tile
-			if movement_mode == ATTACK_MODE and self.selected_unit.unit_can_attack:
+			elif movement_mode == ATTACK_MODE and self.selected_unit.unit_can_attack:
 				if self.last_attack_pattern.has(tile_index):
-					print("ATTACKING!!!!!!")
 					self.unit_attack_tile(selected_unit, tile_index)
 
 func move_unit_to_tile(unit, tile_index):
@@ -161,7 +168,6 @@ func _on_ItemButton_button_up(weapon_index):
 		# weapon selected
 		print("Tilemap: weapon index selected: ", weapon_index)
 		var attackable_tiles = calculate_attackable_tiles(self.selected_unit, weapon_index)
-		print("Tilemap: weapon attackable tiles: ", attackable_tiles)
 		emit_signal("create_attack_tiles", attackable_tiles)
 		self.movement_mode = ATTACK_MODE
 	
@@ -194,7 +200,8 @@ func get_bfs(unit):
 					if moveable_tile_indexes[current_index] + 1 <= unit.unit_movement_points:
 						unvisited_tiles.append(possible_index)
 						moveable_tile_indexes[possible_index] = moveable_tile_indexes[current_index] + 1
-
+	
+	moveable_tile_indexes.erase(starting_point)
 	self.last_bfs = moveable_tile_indexes
 	return moveable_tile_indexes;
 

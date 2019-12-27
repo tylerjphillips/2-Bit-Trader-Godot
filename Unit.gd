@@ -75,14 +75,14 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 	self.unit_can_move = false
 	self.unit_can_attack = false
 
-func _input_event(viewport, event, shape_idx):
-	if event is InputEventMouseButton \
-	and event.button_index == BUTTON_LEFT \
-	and event.is_pressed():
-		self.on_click()
+#func _input_event(viewport, event, shape_idx):
+#	if event is InputEventMouseButton \
+#	and event.button_index == BUTTON_LEFT \
+#	and event.is_pressed():
+#		self.on_click()
 
-func on_click():
-	emit_signal("click_unit", self)
+#func on_click():
+#	emit_signal("click_unit", self)
 	
 func _on_unit_selected(unit):
 	is_selected = false
