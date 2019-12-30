@@ -1,4 +1,61 @@
 extends Node2D
 
+# contains all data needed to run the game. Serves as a way to store/transfer data between scenes 
+var game_data = Dictionary()
+
+# scenes
+var combat_screen = preload("res://CombatScreen.tscn")
+var shop_screen = preload("res://ShopScreen.tscn")
+var party_screen = preload("res://PartyScreen.tscn")
+
+# map scene names to prefabs
+var scene_names_to_scene = {
+	"combat_screen" : self.combat_screen,
+	"shop_screen" : self.shop_screen,
+	"party_screen" : self.party_screen
+	}
+
+var current_scene	 # reference to instance of currently active scene
+
+# config paths
+	# directory holding the game data files
+const config_directory = "res://configs/"
+	# json filenames in selected config_directory
+const units_json_filename = "units.json"
+
 func _ready():
 	print("Root: Game Start")
+	self.batch_load_json(config_directory)
+	self.create_scene("combat_screen")
+	
+func load_json(directory, filename):
+	print("Root: loading ", filename)
+	
+	# returns dict from json filename
+	var data_file = File.new()
+	if data_file.open(directory+filename, File.READ) != OK:
+		return
+	var data_text = data_file.get_as_text()
+	data_file.close()
+	var data_parse = JSON.parse(data_text)
+	if data_parse.error != OK:
+		print("error parsing json "+filename)
+		return
+	return data_parse.result
+
+func batch_load_json(directory):
+	# loads data from a directory
+	print("Root loading configs from ", directory, " .....")
+	self.game_data["unit_data"] = self.load_json(directory,units_json_filename)
+
+func create_scene(scene_name):
+	self.current_scene = self.scene_names_to_scene[scene_name].instance()
+	self.add_child(current_scene)
+	self.current_scene.connect("change_scene", self, "_on_signal_name")
+	
+	self.current_scene.init(self.game_data)
+	
+func _on_change_scene(old_scene_name, new_scene_name, old_scene_data):
+	self.current_scene.queue_free()
+	self.create_scene(new_scene_name)
+	
