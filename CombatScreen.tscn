@@ -339,6 +339,7 @@ hint_tooltip = "End your turn"
 text = "End Turn"
 script = ExtResource( 15 )
 [connection signal="batch_spawn_units" from="." to="TileMap" method="_on_batch_spawn_units"]
+[connection signal="set_tiles" from="." to="TileMap" method="_on_set_tiles"]
 [connection signal="button_up" from="SelectedUnitInfo/ItemButton1" to="TileMap" method="_on_ItemButton_button_up"]
 [connection signal="button_up" from="SelectedUnitInfo/ItemButton2" to="TileMap" method="_on_ItemButton_button_up"]
 [connection signal="button_up" from="SelectedUnitInfo/ItemButton3" to="TileMap" method="_on_ItemButton_button_up"]

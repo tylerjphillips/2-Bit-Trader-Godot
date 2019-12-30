@@ -19,6 +19,10 @@ config/name="2-Bit Trader"
 run/main_scene="res://Node2D.tscn"
 config/icon="res://icon.png"
 
+[debug]
+
+gdscript/completion/autocomplete_setters_and_getters=true
+
 [rendering]
 
 quality/driver/driver_name="GLES2"

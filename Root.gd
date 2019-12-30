@@ -22,12 +22,13 @@ var current_scene	 # reference to instance of currently active scene
 const config_directory = "res://configs/"
 	# json filenames in selected config_directory
 const units_json_filename = "units.json"
+const tiles_json_filename = "tiles.json"
 
 func _ready():
 	print("Root: Game Start")
 	self.batch_load_json(config_directory)
 	self.create_scene("combat_screen")
-	
+
 func load_json(directory, filename):
 	print("Root: loading ", filename)
 	
@@ -42,11 +43,22 @@ func load_json(directory, filename):
 		print("error parsing json "+filename)
 		return
 	return data_parse.result
+	
+func save_json(directory, filename, data):
+	print("Root: saving ", filename)
+	var file = File.new()
+	if file.open(directory+filename, File.WRITE) != 0:
+	    print("Error opening file")
+	    return
+	
+	file.store_line(to_json(data))
+	file.close()
 
 func batch_load_json(directory):
 	# loads data from a directory
 	print("Root loading configs from ", directory, " .....")
 	self.game_data["unit_data"] = self.load_json(directory,units_json_filename)
+	self.game_data["tile_data"] = self.load_json(directory,tiles_json_filename)
 
 func create_scene(scene_name):
 	self.current_scene = self.scene_names_to_scene[scene_name].instance()

@@ -173,7 +173,12 @@ func _on_ItemButton_button_up(weapon_index):
 	
 	
 	
-####################### Tile based functions ###################	
+####################### Tile based functions ###################
+
+func _on_set_tiles(tile_data):
+	print("Tilemap: setting tiles")
+	for tile in tile_data["tiles"]:
+		self.set_cell(tile[0],tile[1], tile[2])
 	
 func get_bfs(unit):
 	# returns all the tile indexes that a unit can move to
