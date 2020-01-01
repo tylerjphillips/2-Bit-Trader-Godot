@@ -15,6 +15,10 @@
 			"0" :
 				{
 				"weapon_tooltip" : "test",
+				"damage":
+						{
+						"normal": 3
+						},
 				"weapon_pattern" : 
 					{
 					"pattern" : "cardinal",
@@ -42,6 +46,10 @@
 			"0" :
 				{
 				"weapon_tooltip" : "test",
+				"damage":
+						{
+						"normal": 3
+						},
 				"weapon_pattern" : 
 					{
 					"pattern" : "cardinal",
@@ -66,6 +74,10 @@
 			"0" :
 				{
 				"weapon_tooltip" : "test 2",
+				"damage":
+						{
+						"normal": 3
+						},
 				"weapon_pattern" : 
 					{
 					"pattern" : "cardinal",
@@ -89,6 +101,10 @@
 			"0" :
 				{
 				"weapon_tooltip" : "test",
+				"damage":
+						{
+						"normal": 3
+						},
 				"weapon_pattern" : 
 					{
 					"pattern" : "cardinal",

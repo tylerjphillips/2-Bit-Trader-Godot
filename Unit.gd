@@ -2,7 +2,8 @@ extends Area2D
 
 # signals
 signal click_unit
-signal update_health
+signal update_health # (unit_health_points, unit_health_points_max)
+signal kill_unit # (unit)
 
 # ui indicators
 var selection_cursor
@@ -83,7 +84,11 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 
 #func on_click():
 #	emit_signal("click_unit", self)
-	
+
+func damage_unit(weapon_data):
+	if weapon_data["damage"].has("normal"):
+		self.unit_health_points -= weapon_data["damage"]["normal"]
+
 func _on_unit_selected(unit):
 	is_selected = false
 	self.health_bar.hide()
@@ -111,11 +116,13 @@ func _on_unit_moved(unit, tile_index, movement_cost):
 	if unit == self:
 		self.set_unit_can_move(false)
 		
-func _on_unit_attack_tile(unit, tile_index):
-	if unit == self:
+func _on_unit_attacks_unit(attacking_unit, weapon_data, attacked_unit):
+	if attacking_unit == self:
 		self.set_unit_can_attack(false)
 		self.set_unit_can_move(false)
-		print("Unit: attacking ", tile_index)
+		print("Unit: attacking ", attacked_unit.unit_name)
+	elif attacked_unit == self:
+		self.damage_unit(weapon_data)
 
 func _on_PlayerUnit_mouse_entered():
 	self.health_bar.show()
@@ -138,7 +145,10 @@ func get_unit_movement_points_max():
 	return unit_movement_points_max
 func set_unit_health_points(value):
 	unit_health_points = value
-	emit_signal("update_health", unit_health_points, unit_health_points_max)
+	if self.unit_health_points <= 0:
+		emit_signal("kill_unit", self)
+	else:
+		emit_signal("update_health", unit_health_points, unit_health_points_max)
 func get_unit_health_points():
 	return unit_health_points
 func set_unit_health_points_max(value):
