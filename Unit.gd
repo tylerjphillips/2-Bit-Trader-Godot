@@ -118,8 +118,6 @@ func _on_unit_moved(unit, tile_index, movement_cost):
 		
 func _on_unit_attacks_unit(attacking_unit, weapon_data, attacked_unit):
 	if attacking_unit == self:
-		self.set_unit_can_attack(false)
-		self.set_unit_can_move(false)
 		print("Unit: attacking ", attacked_unit.unit_name)
 	elif attacked_unit == self:
 		self.damage_unit(weapon_data)

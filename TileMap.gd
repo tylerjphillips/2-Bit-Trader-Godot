@@ -11,6 +11,8 @@ var current_team = "blue"
 var teams = ["blue", "red", "green"]
 	# unit info UI module
 onready var selected_unit_info = get_node("../SelectedUnitInfo")
+#	Sidebar for seeing all units on player team
+onready var unit_selection_sidebar = get_node("../UnitSelectionSidebar/UnitSelectionSidebarGrid")
 	# unit related signals
 signal unit_selected # (unit)
 signal unit_deselected
@@ -37,6 +39,7 @@ var last_attack_pattern = Dictionary() # last calculated attack pattern. Used fo
 
 
 onready var unit_asset = preload("res://Unit.tscn") # unit prefab
+onready var unit_sidebar_asset = preload("res://UnitSideBarButton.tscn") # unit prefab
 
 var directions = {
 		"north": Vector2(0,-1),
@@ -71,7 +74,7 @@ func spawn_unit(tile_index, unit_args):
 	unit.init(unit_position,unit_args)
 	self.add_child(unit)
 	
-	# set signal bindings
+	# set unit signal bindings
 	unit.connect("click_unit", self, "_on_click_unit")
 	unit.connect("kill_unit", self, "_on_kill_unit")
 	self.connect("unit_selected", unit, "_on_unit_selected")
@@ -83,6 +86,19 @@ func spawn_unit(tile_index, unit_args):
 	unit_to_index[unit] = tile_index
 	index_to_unit[tile_index] = unit
 	
+	# initialize sidebar unit UI for those belonging to the player team
+	if unit.unit_team == player_team:
+		var sidebar_unit = unit_sidebar_asset.instance()
+		sidebar_unit.unit = unit
+		sidebar_unit.text = unit.unit_name
+		self.unit_selection_sidebar.add_child(sidebar_unit)
+		
+		# signal bindings
+		sidebar_unit.connect("unit_sidebar_pressed", self, "attempt_select_unit")
+		
+		unit.connect("kill_unit", sidebar_unit, "_on_kill_unit")
+	
+	# run turn start code for new unit
 	unit._on_start_team_turn(current_team)
 
 func click_tile(tile_index):
@@ -132,6 +148,8 @@ func unit_attack_tile(unit, weapon_index, tile_index):
 	if self.index_to_unit.has(tile_index):
 		emit_signal("unit_attacks_unit", unit, unit.unit_weapon_data[weapon_index], self.index_to_unit[tile_index])
 	self.deselect_unit()
+	unit.set_unit_can_attack(false)
+	unit.set_unit_can_move(false)
 	emit_signal("clear_attack_tiles")
 	last_attack_pattern.clear()	# clear the cache to prevent accessing old tiles after moving
 
