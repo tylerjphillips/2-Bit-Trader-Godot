@@ -52,14 +52,7 @@ func _ready():
 	selected_unit_info.hide()
 	get_tree().call_group("units", "_on_start_team_turn", current_team)
 
-func _unhandled_input(event):
-	if event is InputEventMouseButton and event.is_pressed():
-		if event.button_index == BUTTON_LEFT:
-			var mouse_pos = get_viewport().get_mouse_position()
-			var tile_index = world_to_map(mouse_pos)
-			click_tile(tile_index)
-		if event.button_index == BUTTON_RIGHT:
-			deselect_unit()
+####### Spawning and Saving units #####
 
 func _on_batch_spawn_units(data):
 	# Spawn units from a JSON payload
@@ -100,6 +93,16 @@ func spawn_unit(tile_index, unit_args):
 	
 	# run turn start code for new unit
 	unit._on_start_team_turn(current_team)
+	
+################ Clicking #############
+func _unhandled_input(event):
+	if event is InputEventMouseButton and event.is_pressed():
+		if event.button_index == BUTTON_LEFT:
+			var mouse_pos = get_viewport().get_mouse_position()
+			var tile_index = world_to_map(mouse_pos)
+			click_tile(tile_index)
+		if event.button_index == BUTTON_RIGHT:
+			deselect_unit()
 
 func click_tile(tile_index):
 	var tile_pos = map_to_world(tile_index)
@@ -124,6 +127,42 @@ func click_tile(tile_index):
 			elif movement_mode == ATTACK_MODE and self.selected_unit.unit_can_attack:
 				if self.last_attack_pattern.has(tile_index):
 					self.unit_attack_tile(selected_unit, selected_weapon_index, tile_index)
+
+func _on_click_unit(unit):
+	return
+	print(unit)
+	selected_unit = unit
+	
+################ Unit selection and deselection ###########
+
+func attempt_select_unit(unit):
+	# code checking if a unit even can be selected before actually selecting
+	if unit.unit_team == player_team:
+		if unit.unit_team == self.current_team:
+			if unit.unit_can_move or unit.unit_can_attack:
+				select_unit(unit)
+
+func select_unit(unit):
+	deselect_unit()
+	# select new unit
+	selected_unit = unit
+	emit_signal("unit_selected", self.selected_unit)
+	
+	if unit.unit_can_move:
+		self.get_bfs(unit)
+		emit_signal("create_movement_tiles", self.last_bfs)
+		self.movement_mode = MOVE_MODE
+
+func deselect_unit():
+	if selected_unit != null:
+		emit_signal("unit_deselected", self.selected_unit)
+		emit_signal("clear_movement_tiles")
+	selected_unit = null
+	selected_weapon_index = null
+	self.movement_mode = SELECTION_MODE
+	
+	
+################## Unit moving and attacking ##############
 
 func move_unit_to_tile(unit, tile_index):
 	print("Tilemap: moving unit ", unit.unit_name, " to ", tile_index)  
@@ -152,11 +191,6 @@ func unit_attack_tile(unit, weapon_index, tile_index):
 	unit.set_unit_can_move(false)
 	emit_signal("clear_attack_tiles")
 	last_attack_pattern.clear()	# clear the cache to prevent accessing old tiles after moving
-
-func _on_click_unit(unit):
-	return
-	print(unit)
-	selected_unit = unit
 	
 func _on_kill_unit(unit):
 	print("TileMap: Killed unit ", unit.unit_name)
@@ -168,30 +202,7 @@ func _on_kill_unit(unit):
 	self.index_to_unit.erase(tile_index)
 	unit.queue_free()
 
-func attempt_select_unit(unit):
-	if unit.unit_team == player_team:
-		if unit.unit_team == self.current_team:
-			if unit.unit_can_move or unit.unit_can_attack:
-				select_unit(unit)
-
-func select_unit(unit):
-	deselect_unit()
-	# select new unit
-	selected_unit = unit
-	emit_signal("unit_selected", self.selected_unit)
-	
-	if unit.unit_can_move:
-		self.get_bfs(unit)
-		emit_signal("create_movement_tiles", self.last_bfs)
-		self.movement_mode = MOVE_MODE
-
-func deselect_unit():
-	if selected_unit != null:
-		emit_signal("unit_deselected", self.selected_unit)
-		emit_signal("clear_movement_tiles")
-	selected_unit = null
-	selected_weapon_index = null
-	self.movement_mode = SELECTION_MODE
+################## UI Buttons ##################
 
 func _on_EndTurnButton_button_up():
 	self.deselect_unit()
@@ -199,9 +210,9 @@ func _on_EndTurnButton_button_up():
 	current_team = teams[(teams.find(current_team) + 1) % len(teams)]
 	print("current team: "+current_team)
 	get_tree().call_group("units", "_on_start_team_turn", current_team)
-	pass # Replace with function body.
 	
 func _on_ItemButton_button_up(weapon_index):
+	# Button for selecting items to attack with
 	if self.selected_unit.unit_can_attack:
 		# weapon selected
 		selected_weapon_index = weapon_index
@@ -210,11 +221,11 @@ func _on_ItemButton_button_up(weapon_index):
 		emit_signal("create_attack_tiles", attackable_tiles)
 		self.movement_mode = ATTACK_MODE
 	
-	
-	
 ####################### Tile based functions ###################
 
 func _on_set_tiles(tile_data):
+	# sets the tiles in the tilemap from a JSON payload
+	# Usually used for initialization but can also batch edit tiles on demand
 	print("Tilemap: setting tiles")
 	for tile in tile_data["tiles"]:
 		self.set_cell(tile[0],tile[1], tile[2])
@@ -244,6 +255,17 @@ func get_bfs(unit):
 	self.last_bfs = moveable_tile_indexes
 	return moveable_tile_indexes;
 
+func filter_tiles_in_bounds(tile_indexes : Array) -> Array:
+	# helper method
+	# takes a list of tile indexes and returns a filtered version of all indexes that are defined
+	var filtered_tiles = []
+	for tile_index in tile_indexes:
+		if self.get_cell(tile_index.x, tile_index.y) != INVALID_CELL:
+			 filtered_tiles.append(tile_index)
+	return filtered_tiles
+
+#################### Attack pattern generators ####################
+
 func calculate_attackable_tiles(unit, weapon_index):
 	# given a unit and weapon calculate the tiles it can attack given the weapon pattern in the unit's weapon data
 	# the weapon pattern name decides which functions will be applied to get the tiles
@@ -254,15 +276,6 @@ func calculate_attackable_tiles(unit, weapon_index):
 		attackable_pattern = attack_pattern_cardinal(unit_index, weapon_pattern.get("size"))
 	self.last_attack_pattern = attackable_pattern
 	return attackable_pattern
-
-func filter_tiles_in_bounds(tile_indexes : Array) -> Array:
-	# helper method
-	# takes a list of tile indexes and returns a filtered version of all indexes that are defined
-	var filtered_tiles = []
-	for tile_index in tile_indexes:
-		if self.get_cell(tile_index.x, tile_index.y) != INVALID_CELL:
-			 filtered_tiles.append(tile_index)
-	return filtered_tiles
 
 func attack_pattern_cardinal(unit_tile_index : Vector2, size : int):
 	# generates a filtered attack pattern in the cardinals of length size

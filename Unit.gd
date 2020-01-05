@@ -54,8 +54,6 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 	self.unit_class = unit_args.get("unit_class", "Archer")
 	self.unit_weapon_data = unit_args.get("unit_weapon_data", {})
 	
-	
-	
 	# initialize health bar
 	self.health_bar = health_container.instance()
 	self.add_child(self.health_bar)
@@ -172,3 +170,17 @@ func get_unit_can_attack():
 	
 func get_team_color():
 	return self.colors[self.unit_team]
+	
+func get_unit_repr():
+	# returns dictionary containing all data for this unit
+	var unit_data = Dictionary();
+	unit_data["unit_name"] = self.unit_name
+	unit_data["unit_team"] = self.unit_team
+	unit_data["unit_movement_points"] = self.unit_movement_points
+	unit_data["unit_movement_points_max"] = self.unit_movement_points_max
+	unit_data["unit_health_points"] = self.unit_health_points
+	unit_data["unit_health_points_max"] = self.unit_health_points_max
+	unit_data["unit_class"] = self.unit_class
+	unit_data["unit_weapon_data"] = self.unit_weapon_data
+	
+	return unit_data;
