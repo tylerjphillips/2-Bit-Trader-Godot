@@ -170,7 +170,9 @@ func get_unit_can_attack():
 	
 func get_team_color():
 	return self.colors[self.unit_team]
-	
+
+###### Serialization #####
+
 func get_unit_repr():
 	# returns dictionary containing all data for this unit
 	var unit_data = Dictionary();

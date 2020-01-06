@@ -287,3 +287,6 @@ func attack_pattern_cardinal(unit_tile_index : Vector2, size : int):
 			if self.get_cell(attack_tile.x, attack_tile.y) != INVALID_CELL:
 				attackable_tiles[attack_tile] = {"direction":direction}
 	return attackable_tiles
+	
+
+	

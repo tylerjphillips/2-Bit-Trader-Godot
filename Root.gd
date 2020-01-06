@@ -64,10 +64,12 @@ func create_scene(scene_name):
 	self.current_scene = self.scene_names_to_scene[scene_name].instance()
 	self.add_child(current_scene)
 	self.current_scene.connect("change_scene", self, "_on_signal_name")
-	
 	self.current_scene.init(self.game_data)
 	
-func _on_change_scene(old_scene_name, new_scene_name, old_scene_data):
+func _on_change_scene(old_scene_name, new_scene_name):
 	self.current_scene.queue_free()
 	self.create_scene(new_scene_name)
+	
+func _on_update_game_data(key, data): 
+	self.game_data[key] = data
 	
