@@ -52,6 +52,18 @@ func _ready():
 	selected_unit_info.hide()
 	get_tree().call_group("units", "_on_start_team_turn", current_team)
 
+
+####### Serialization ########
+
+func get_all_unit_data():
+	var all_unit_data = Array()
+	for unit in get_tree().get_nodes_in_group("units"):
+		var unit_data = Dictionary()
+		unit_data["unit_tile_index"] = self.unit_to_index[unit]
+		unit_data["unit_data"] = unit.get_unit_repr()
+		all_unit_data.append(unit_data)
+	return all_unit_data
+
 ####### Spawning and Saving units #####
 
 func _on_batch_spawn_units(data):

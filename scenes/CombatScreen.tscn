@@ -1,24 +1,25 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scripts/CombatScreen.gd" type="Script" id=1]
-[ext_resource path="res://scripts/SelectedUnitInfo.gd" type="Script" id=2]
-[ext_resource path="res://images/ui/ui_background.png" type="Texture" id=3]
-[ext_resource path="res://images/portraits/cat image 1.jpg" type="Texture" id=4]
-[ext_resource path="res://scenes/ItemButton.tscn" type="PackedScene" id=5]
-[ext_resource path="res://images/terrain/dirt.png" type="Texture" id=6]
-[ext_resource path="res://images/terrain/grass.png" type="Texture" id=7]
-[ext_resource path="res://images/terrain/sand.png" type="Texture" id=8]
-[ext_resource path="res://images/terrain/stone.png" type="Texture" id=9]
-[ext_resource path="res://scripts/TileMap.gd" type="Script" id=10]
-[ext_resource path="res://images/terrain/blank_tile.png" type="Texture" id=11]
-[ext_resource path="res://scripts/MovementOverlay.gd" type="Script" id=12]
-[ext_resource path="res://images/terrain/jagged_borders.png" type="Texture" id=13]
-[ext_resource path="res://scenes/SettingsButton.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scripts/EndTurnButton.gd" type="Script" id=15]
+[ext_resource path="res://scenes/ChangeSceneButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/SelectedUnitInfo.gd" type="Script" id=3]
+[ext_resource path="res://images/ui/ui_background.png" type="Texture" id=4]
+[ext_resource path="res://images/portraits/cat image 1.jpg" type="Texture" id=5]
+[ext_resource path="res://scenes/ItemButton.tscn" type="PackedScene" id=6]
+[ext_resource path="res://images/terrain/dirt.png" type="Texture" id=7]
+[ext_resource path="res://images/terrain/grass.png" type="Texture" id=8]
+[ext_resource path="res://images/terrain/sand.png" type="Texture" id=9]
+[ext_resource path="res://images/terrain/stone.png" type="Texture" id=10]
+[ext_resource path="res://scripts/TileMap.gd" type="Script" id=11]
+[ext_resource path="res://images/terrain/blank_tile.png" type="Texture" id=12]
+[ext_resource path="res://scripts/MovementOverlay.gd" type="Script" id=13]
+[ext_resource path="res://images/terrain/jagged_borders.png" type="Texture" id=14]
+[ext_resource path="res://scenes/SettingsButton.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scripts/EndTurnButton.gd" type="Script" id=16]
 
 [sub_resource type="TileSet" id=1]
 0/name = "dirt.png 0"
-0/texture = ExtResource( 6 )
+0/texture = ExtResource( 7 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 32, 32 )
@@ -28,7 +29,7 @@
 0/shapes = [  ]
 0/z_index = 0
 1/name = "grass.png 1"
-1/texture = ExtResource( 7 )
+1/texture = ExtResource( 8 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 0, 0, 32, 32 )
@@ -38,7 +39,7 @@
 1/shapes = [  ]
 1/z_index = 0
 2/name = "sand.png 2"
-2/texture = ExtResource( 8 )
+2/texture = ExtResource( 9 )
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
 2/region = Rect2( 0, 0, 32, 32 )
@@ -57,7 +58,7 @@
 2/shapes = [  ]
 2/z_index = 0
 3/name = "stone.png 3"
-3/texture = ExtResource( 9 )
+3/texture = ExtResource( 10 )
 3/tex_offset = Vector2( 0, 0 )
 3/modulate = Color( 1, 1, 1, 1 )
 3/region = Rect2( 0, 0, 32, 32 )
@@ -78,7 +79,7 @@
 
 [sub_resource type="TileSet" id=2]
 0/name = "movement_tile"
-0/texture = ExtResource( 11 )
+0/texture = ExtResource( 12 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 0.0470588, 0.0588235, 0.894118, 1 )
 0/region = Rect2( 0, 0, 32, 32 )
@@ -97,7 +98,7 @@
 0/shapes = [  ]
 0/z_index = 0
 1/name = "attack_tile"
-1/texture = ExtResource( 11 )
+1/texture = ExtResource( 12 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 0.866667, 0.0235294, 0.0235294, 1 )
 1/region = Rect2( 0, 0, 32, 32 )
@@ -118,7 +119,7 @@
 
 [sub_resource type="TileSet" id=3]
 0/name = "jagged_borders.png 0"
-0/texture = ExtResource( 13 )
+0/texture = ExtResource( 14 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 96, 96 )
@@ -137,7 +138,7 @@
 0/shapes = [  ]
 0/z_index = 0
 1/name = "jagged_borders.png 1"
-1/texture = ExtResource( 13 )
+1/texture = ExtResource( 14 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 32, 0, 32, 32 )
@@ -147,7 +148,7 @@
 1/shapes = [  ]
 1/z_index = 0
 2/name = "jagged_borders.png 2"
-2/texture = ExtResource( 13 )
+2/texture = ExtResource( 14 )
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
 2/region = Rect2( 64, 0, 32, 32 )
@@ -157,7 +158,7 @@
 2/shapes = [  ]
 2/z_index = 0
 3/name = "jagged_borders.png 3"
-3/texture = ExtResource( 13 )
+3/texture = ExtResource( 14 )
 3/tex_offset = Vector2( 0, 0 )
 3/modulate = Color( 1, 1, 1, 1 )
 3/region = Rect2( 0, 32, 32, 32 )
@@ -167,7 +168,7 @@
 3/shapes = [  ]
 3/z_index = 0
 4/name = "jagged_borders.png 4"
-4/texture = ExtResource( 13 )
+4/texture = ExtResource( 14 )
 4/tex_offset = Vector2( 0, 0 )
 4/modulate = Color( 1, 1, 1, 1 )
 4/region = Rect2( 32, 32, 32, 32 )
@@ -177,7 +178,7 @@
 4/shapes = [  ]
 4/z_index = 0
 5/name = "jagged_borders.png 5"
-5/texture = ExtResource( 13 )
+5/texture = ExtResource( 14 )
 5/tex_offset = Vector2( 0, 0 )
 5/modulate = Color( 1, 1, 1, 1 )
 5/region = Rect2( 64, 32, 32, 32 )
@@ -187,7 +188,7 @@
 5/shapes = [  ]
 5/z_index = 0
 6/name = "jagged_borders.png 6"
-6/texture = ExtResource( 13 )
+6/texture = ExtResource( 14 )
 6/tex_offset = Vector2( 0, 0 )
 6/modulate = Color( 1, 1, 1, 1 )
 6/region = Rect2( 0, 64, 32, 32 )
@@ -197,7 +198,7 @@
 6/shapes = [  ]
 6/z_index = 0
 7/name = "jagged_borders.png 7"
-7/texture = ExtResource( 13 )
+7/texture = ExtResource( 14 )
 7/tex_offset = Vector2( 0, 0 )
 7/modulate = Color( 1, 1, 1, 1 )
 7/region = Rect2( 32, 64, 32, 32 )
@@ -207,7 +208,7 @@
 7/shapes = [  ]
 7/z_index = 0
 8/name = "jagged_borders.png 8"
-8/texture = ExtResource( 13 )
+8/texture = ExtResource( 14 )
 8/tex_offset = Vector2( 0, 0 )
 8/modulate = Color( 1, 1, 1, 1 )
 8/region = Rect2( 64, 64, 32, 32 )
@@ -220,12 +221,19 @@
 [node name="CombatScreen" type="Node"]
 script = ExtResource( 1 )
 
+[node name="ChangeSceneButton" parent="." instance=ExtResource( 2 )]
+margin_left = 16.0
+margin_top = 162.0
+margin_right = 126.0
+margin_bottom = 207.0
+text = "Party Screen"
+
 [node name="SelectedUnitInfo" type="Node2D" parent="."]
 position = Vector2( 500, 80 )
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 
 [node name="UIBackground" type="Sprite" parent="SelectedUnitInfo"]
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="UnitClassLabel" type="Label" parent="SelectedUnitInfo"]
 modulate = Color( 0, 0, 0, 1 )
@@ -267,30 +275,30 @@ clip_text = true
 position = Vector2( -115.89, -9.61026 )
 scale = Vector2( 0.25, 0.25 )
 z_index = 1
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
-[node name="ItemButton0" parent="SelectedUnitInfo" instance=ExtResource( 5 )]
+[node name="ItemButton0" parent="SelectedUnitInfo" instance=ExtResource( 6 )]
 margin_left = 70.0
 margin_top = -40.0
 margin_right = 118.0
 margin_bottom = 8.0
 weapon_index = "0"
 
-[node name="ItemButton1" parent="SelectedUnitInfo" instance=ExtResource( 5 )]
+[node name="ItemButton1" parent="SelectedUnitInfo" instance=ExtResource( 6 )]
 margin_left = 120.0
 margin_top = -40.0
 margin_right = 168.0
 margin_bottom = 8.0
 weapon_index = "1"
 
-[node name="ItemButton2" parent="SelectedUnitInfo" instance=ExtResource( 5 )]
+[node name="ItemButton2" parent="SelectedUnitInfo" instance=ExtResource( 6 )]
 margin_left = 70.0
 margin_top = 10.0
 margin_right = 118.0
 margin_bottom = 58.0
 weapon_index = "2"
 
-[node name="ItemButton3" parent="SelectedUnitInfo" instance=ExtResource( 5 )]
+[node name="ItemButton3" parent="SelectedUnitInfo" instance=ExtResource( 6 )]
 margin_left = 120.0
 margin_top = 10.0
 margin_right = 168.0
@@ -304,14 +312,14 @@ tile_set = SubResource( 1 )
 cell_size = Vector2( 32, 32 )
 format = 1
 tile_data = PoolIntArray( 327685, 1, 0, 327686, 1, 0, 327687, 1, 0, 327688, 1, 0, 327689, 1, 0, 327690, 1, 0, 327691, 1, 0, 327692, 1, 0, 327693, 1, 0, 327694, 1, 0, 327695, 1, 0, 327696, 1, 0, 327697, 1, 0, 327698, 1, 0, 327699, 1, 0, 327700, 1, 0, 327701, 1, 0, 327702, 1, 0, 327703, 1, 0, 327704, 1, 0, 327705, 1, 0, 327706, 1, 0, 393221, 1, 0, 393222, 1, 0, 393223, 1, 0, 393224, 1, 0, 393225, 1, 0, 393226, 1, 0, 393227, 1, 0, 393228, 1, 0, 393229, 1, 0, 393230, 1, 0, 393231, 1, 0, 393232, 1, 0, 393233, 1, 0, 393234, 1, 0, 393235, 1, 0, 393236, 1, 0, 393237, 1, 0, 393238, 1, 0, 393239, 1, 0, 393240, 1, 0, 393241, 1, 0, 393242, 1, 0, 458757, 1, 0, 458758, 1, 0, 458759, 1, 0, 458760, 1, 0, 458761, 1, 0, 458762, 1, 0, 458763, 1, 0, 458764, 1, 0, 458765, 1, 0, 458766, 1, 0, 458767, 1, 0, 458768, 1, 0, 458769, 1, 0, 458770, 1, 0, 458771, 1, 0, 458772, 1, 0, 458773, 1, 0, 458774, 1, 0, 458775, 1, 0, 458776, 1, 0, 458777, 1, 0, 458778, 1, 0, 524293, 1, 0, 524294, 1, 0, 524295, 1, 0, 524296, 2, 0, 524297, 2, 0, 524298, 2, 0, 524299, 2, 0, 524300, 2, 0, 524301, 2, 0, 524302, 1, 0, 524303, 1, 0, 524304, 1, 0, 524305, 1, 0, 524306, 1, 0, 524307, 1, 0, 524308, 1, 0, 524309, 1, 0, 524310, 1, 0, 524311, 1, 0, 524312, 1, 0, 524313, 1, 0, 524314, 1, 0, 589829, 1, 0, 589830, 2, 0, 589831, 2, 0, 589832, 2, 0, 589833, 2, 0, 589834, 2, 0, 589835, 2, 0, 589836, 2, 0, 589837, 2, 0, 589838, 2, 0, 589839, 2, 0, 589840, 2, 0, 589841, 2, 0, 589842, 2, 0, 589843, 2, 0, 589844, 2, 0, 589845, 2, 0, 589846, 2, 0, 589847, 2, 0, 589848, 2, 0, 589849, 2, 0, 589850, 1, 0, 655365, 2, 0, 655366, 2, 0, 655367, 2, 0, 655368, 2, 0, 655369, 2, 0, 655370, 2, 0, 655371, 2, 0, 655372, 2, 0, 655373, 2, 0, 655374, 2, 0, 655375, 2, 0, 655376, 2, 0, 655377, 2, 0, 655378, 2, 0, 655379, 2, 0, 655380, 2, 0, 655381, 2, 0, 655382, 2, 0, 655383, 2, 0, 655384, 2, 0, 655385, 2, 0, 655386, 2, 0, 720901, 3, 0, 720902, 3, 0, 720903, 3, 0, 720904, 3, 0, 720905, 3, 0, 720906, 3, 0, 720907, 3, 0, 720908, 3, 0, 720909, 3, 0, 720910, 3, 0, 720911, 3, 0, 720912, 3, 0, 720913, 3, 0, 720914, 3, 0, 720915, 3, 0, 720916, 3, 0, 720917, 3, 0, 720918, 3, 0, 720919, 3, 0, 720920, 3, 0, 720921, 3, 0, 720922, 3, 0, 786437, 3, 0, 786438, 3, 0, 786439, 3, 0, 786440, 3, 0, 786441, 3, 0, 786442, 3, 0, 786443, 3, 0, 786444, 3, 0, 786445, 3, 0, 786446, 3, 0, 786447, 3, 0, 786448, 3, 0, 786449, 3, 0, 786450, 3, 0, 786451, 3, 0, 786452, 3, 0, 786453, 3, 0, 786454, 3, 0, 786455, 3, 0, 786456, 3, 0, 786457, 3, 0, 786458, 3, 0, 851973, 0, 0, 851974, 0, 0, 851975, 0, 0, 851976, 0, 0, 851977, 0, 0, 851978, 0, 0, 851979, 0, 0, 851980, 0, 0, 851981, 0, 0, 851982, 0, 0, 851983, 0, 0, 851984, 0, 0, 851985, 0, 0, 851986, 0, 0, 851987, 0, 0, 851988, 0, 0, 851989, 0, 0, 851990, 0, 0, 851991, 0, 0, 851992, 0, 0, 851993, 0, 0, 851994, 0, 0, 917509, 0, 0, 917510, 0, 0, 917511, 0, 0, 917512, 0, 0, 917513, 0, 0, 917514, 0, 0, 917515, 0, 0, 917516, 0, 0, 917517, 0, 0, 917518, 0, 0, 917519, 0, 0, 917520, 0, 0, 917521, 0, 0, 917522, 0, 0, 917523, 0, 0, 917524, 0, 0, 917525, 0, 0, 917526, 0, 0, 917527, 0, 0, 917528, 0, 0, 917529, 0, 0, 917530, 0, 0, 983045, 0, 0, 983046, 0, 0, 983047, 0, 0, 983048, 0, 0, 983049, 0, 0, 983050, 0, 0, 983051, 0, 0, 983052, 0, 0, 983053, 0, 0, 983054, 0, 0, 983055, 0, 0, 983056, 0, 0, 983057, 0, 0, 983058, 0, 0, 983059, 0, 0, 983060, 0, 0, 983061, 0, 0, 983062, 0, 0, 983063, 0, 0, 983064, 0, 0, 983065, 0, 0, 983066, 0, 0, 1048581, 0, 0, 1048582, 0, 0, 1048583, 0, 0, 1048584, 0, 0, 1048585, 0, 0, 1048586, 0, 0, 1048587, 0, 0, 1048588, 0, 0, 1048589, 0, 0, 1048590, 0, 0, 1048591, 0, 0, 1048592, 0, 0, 1048593, 0, 0, 1048594, 0, 0, 1048595, 0, 0, 1048596, 0, 0, 1048597, 0, 0, 1048598, 0, 0, 1048599, 0, 0, 1048600, 0, 0, 1048601, 0, 0, 1048602, 0, 0 )
-script = ExtResource( 10 )
+script = ExtResource( 11 )
 
 [node name="MovementAttackOverlay" type="TileMap" parent="TileMap"]
 modulate = Color( 1, 1, 1, 0.584314 )
 tile_set = SubResource( 2 )
 cell_size = Vector2( 32, 32 )
 format = 1
-script = ExtResource( 12 )
+script = ExtResource( 13 )
 
 [node name="JaggedBorders" type="TileMap" parent="TileMap"]
 modulate = Color( 1, 1, 32.1216, 0.54902 )
@@ -328,7 +336,7 @@ margin_bottom = 547.274
 
 [node name="UnitSelectionSidebarGrid" type="GridContainer" parent="UnitSelectionSidebar"]
 
-[node name="Settings" parent="." instance=ExtResource( 14 )]
+[node name="Settings" parent="." instance=ExtResource( 15 )]
 
 [node name="UndoButton" type="Button" parent="."]
 margin_left = 13.6362
@@ -345,9 +353,10 @@ margin_right = 132.681
 margin_bottom = 572.932
 hint_tooltip = "End your turn"
 text = "End Turn"
-script = ExtResource( 15 )
+script = ExtResource( 16 )
 [connection signal="batch_spawn_units" from="." to="TileMap" method="_on_batch_spawn_units"]
 [connection signal="set_tiles" from="." to="TileMap" method="_on_set_tiles"]
+[connection signal="change_scene" from="ChangeSceneButton" to="." method="change_scene"]
 [connection signal="button_up" from="SelectedUnitInfo/ItemButton1" to="TileMap" method="_on_ItemButton_button_up"]
 [connection signal="button_up" from="SelectedUnitInfo/ItemButton2" to="TileMap" method="_on_ItemButton_button_up"]
 [connection signal="button_up" from="SelectedUnitInfo/ItemButton3" to="TileMap" method="_on_ItemButton_button_up"]
