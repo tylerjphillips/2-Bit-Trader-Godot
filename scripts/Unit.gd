@@ -37,7 +37,7 @@ const colors = {
 	"blue":Color(0.2, 0.2, 0.8, 0.8),
 	}
 
-var health_container = preload("res://HealthContainer.tscn")
+var health_container = preload("res://scenes/HealthContainer.tscn")
 
 func _ready():
 	add_to_group("units")

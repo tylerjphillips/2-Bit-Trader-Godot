@@ -38,8 +38,8 @@ var last_bfs = Dictionary() # last pathing result from self.get_bfs. Used for ch
 var last_attack_pattern = Dictionary() # last calculated attack pattern. Used for checking attacks. tile_indexes:attack_data
 
 
-onready var unit_asset = preload("res://Unit.tscn") # unit prefab
-onready var unit_sidebar_asset = preload("res://UnitSideBarButton.tscn") # unit prefab
+onready var unit_asset = preload("res://scenes/Unit.tscn") # unit prefab
+onready var unit_sidebar_asset = preload("res://scenes/UnitSideBarButton.tscn") # unit prefab
 
 var directions = {
 		"north": Vector2(0,-1),

@@ -4,9 +4,9 @@ extends Node2D
 var game_data = Dictionary()
 
 # scenes
-var combat_screen = preload("res://CombatScreen.tscn")
-var shop_screen = preload("res://ShopScreen.tscn")
-var party_screen = preload("res://PartyScreen.tscn")
+var combat_screen = preload("res://scenes/CombatScreen.tscn")
+var shop_screen = preload("res://scenes/ShopScreen.tscn")
+var party_screen = preload("res://scenes/PartyScreen.tscn")
 
 # map scene names to prefabs
 var scene_names_to_scene = {
