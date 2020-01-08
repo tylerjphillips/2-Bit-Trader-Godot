@@ -1,9 +1,11 @@
-[
+{
+	"145927595":
 	{
 		"unit_tile_index" : [10,10],
 		"unit_data" :
 		{
 			"unit_name": "Carl",
+			"unit_id" : "145927595",
 			"unit_team": "blue",
 			"unit_movement_points": 6,
 			"unit_movement_points_max": 6,
@@ -29,12 +31,13 @@
 		}
 	},
 	
-	
+	"145927534":
 	{
 		"unit_tile_index" : [11,10],
 		"unit_data" :
 		{
 			"unit_name": "John",
+			"unit_id": "145927534",
 			"unit_team": "green",
 			"unit_movement_points": 6,
 			"unit_movement_points_max": 6,
@@ -60,12 +63,13 @@
 		}
 	},
 	
-	
+	"14592735":
 	{
 		"unit_tile_index" : [11,5],
 		"unit_data" :
 		{
 			"unit_name": "Jake", 
+			"unit_id" : "14592735",
 			"unit_health_points": 3, 
 			"unit_health_points_max": 4,
 			"unit_team":"blue",
@@ -88,11 +92,13 @@
 		}
 	},
 	
+	"155927355":
 	{
 		"unit_tile_index" : [12,5],
 		"unit_data" :
 		{
-			"unit_name": "Mike", 
+			"unit_name": "Mike",
+			"unit_id" : "155927355",
 			"unit_health_points": 2, 
 			"unit_health_points_max": 5,
 			"unit_team":"red",
@@ -113,6 +119,6 @@
 				}
 			}
 		}
-	},
+	}
 	
-]
+}

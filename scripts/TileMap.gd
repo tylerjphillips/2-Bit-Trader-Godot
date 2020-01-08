@@ -56,19 +56,22 @@ func _ready():
 ####### Serialization ########
 
 func get_all_unit_data():
-	var all_unit_data = Array()
+	# grab all unit data in the scene and convert to dictionary
+	var all_unit_data = Dictionary()
 	for unit in get_tree().get_nodes_in_group("units"):
 		var unit_data = Dictionary()
 		unit_data["unit_tile_index"] = self.unit_to_index[unit]
 		unit_data["unit_data"] = unit.get_unit_repr()
-		all_unit_data.append(unit_data)
+		var unit_id = unit.unit_id	# grab the unit id to use it as a key
+		all_unit_data[unit_id] = unit_data
 	return all_unit_data
 
 ####### Spawning and Saving units #####
 
 func _on_batch_spawn_units(data):
 	# Spawn units from a JSON payload
-	for unit in data:
+	for unit_id in data:
+		var unit = data[unit_id]
 		var unit_tile_index = Vector2(unit["unit_tile_index"][0], unit["unit_tile_index"][1]) # convert the json array to vector2
 		self.spawn_unit(unit_tile_index, unit["unit_data"])
 

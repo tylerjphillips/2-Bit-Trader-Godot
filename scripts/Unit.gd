@@ -23,6 +23,7 @@ export (int) var unit_health_points_max = 4 setget set_unit_health_points_max, g
 export var unit_class = "Archer"
 export var unit_team = "blue"
 export var unit_name = ""
+export var unit_id = "" # used to uniquely identify unit for (de)serialization and scene changes. unix epoch of when unit is generated
 		# weapons and gear
 var unit_can_attack : bool = true setget set_unit_can_attack, get_unit_can_attack
 var unit_weapon_data : Dictionary = {}	# contains info on weapons this unit has
@@ -46,6 +47,7 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 	self.position = unit_position
 	# unit args
 	self.unit_name = unit_args.get("unit_name", "Default name")
+	self.unit_id = unit_args.get("unit_id", str(OS.get_unix_time()))
 	self.unit_team = unit_args.get("unit_team", "red")
 	self.unit_movement_points = unit_args.get("unit_movement_points", 4)
 	self.unit_movement_points_max = unit_args.get("unit_movement_points_max", 4)
@@ -177,6 +179,7 @@ func get_unit_repr():
 	# returns dictionary containing all data for this unit
 	var unit_data = Dictionary();
 	unit_data["unit_name"] = self.unit_name
+	unit_data["unit_id"] = self.unit_id
 	unit_data["unit_team"] = self.unit_team
 	unit_data["unit_movement_points"] = self.unit_movement_points
 	unit_data["unit_movement_points_max"] = self.unit_movement_points_max
