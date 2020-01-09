@@ -23,6 +23,7 @@ const config_directory = "res://configs/"
 	# json filenames in selected config_directory
 const units_json_filename = "units.json"
 const tiles_json_filename = "tiles.json"
+const main_json_filename = "main.json"
 
 func _ready():
 	print("Root: Game Start")
@@ -54,11 +55,13 @@ func save_json(directory, filename, data):
 	file.store_line(to_json(data))
 	file.close()
 
+
 func batch_load_json(directory):
 	# loads data from a directory
 	print("Root loading configs from ", directory, " .....")
 	self.game_data["unit_data"] = self.load_json(directory,units_json_filename)
 	self.game_data["tile_data"] = self.load_json(directory,tiles_json_filename)
+	self.game_data["main_data"] = self.load_json(directory,main_json_filename)
 
 func create_scene(scene_name):
 	self.current_scene = self.scene_names_to_scene[scene_name].instance()

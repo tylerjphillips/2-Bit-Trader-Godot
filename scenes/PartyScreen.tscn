@@ -25,27 +25,27 @@ margin_top = 102.0
 margin_right = 521.796
 margin_bottom = 570.0
 
-[node name="GridContainer" type="GridContainer" parent="ScrollContainer"]
+[node name="PartyGrid" type="GridContainer" parent="ScrollContainer"]
 margin_right = 360.0
-margin_bottom = 612.0
+margin_bottom = 150.0
 
-[node name="UnitParty" type="Control" parent="ScrollContainer/GridContainer"]
+[node name="UnitParty" type="Control" parent="ScrollContainer/PartyGrid"]
 margin_right = 360.0
 margin_bottom = 150.0
 rect_min_size = Vector2( 360, 150 )
 
-[node name="UnitPartyBackground" type="Sprite" parent="ScrollContainer/GridContainer/UnitParty"]
+[node name="UnitPartyBackground" type="Sprite" parent="ScrollContainer/PartyGrid/UnitParty"]
 position = Vector2( 2.61957, -0.103989 )
 scale = Vector2( 0.919476, 1.41029 )
 texture = ExtResource( 4 )
 centered = false
 
-[node name="UnitPartyAvatar" type="Sprite" parent="ScrollContainer/GridContainer/UnitParty"]
+[node name="UnitPartyAvatar" type="Sprite" parent="ScrollContainer/PartyGrid/UnitParty"]
 position = Vector2( 60.1269, 50.1058 )
 z_index = 1
 texture = ExtResource( 5 )
 
-[node name="UnitPartyNameLabel" type="Label" parent="ScrollContainer/GridContainer/UnitParty"]
+[node name="UnitPartyNameLabel" type="Label" parent="ScrollContainer/PartyGrid/UnitParty"]
 modulate = Color( 0, 0, 0, 1 )
 margin_left = 13.0
 margin_top = 91.0
@@ -54,7 +54,7 @@ margin_bottom = 123.0
 text = "Name"
 align = 1
 
-[node name="UnitPartyClassLabel" type="Label" parent="ScrollContainer/GridContainer/UnitParty"]
+[node name="UnitPartyClassLabel" type="Label" parent="ScrollContainer/PartyGrid/UnitParty"]
 modulate = Color( 0, 0, 0, 1 )
 margin_left = 105.0
 margin_top = 14.0
@@ -62,7 +62,7 @@ margin_right = 209.0
 margin_bottom = 33.0
 text = "Class"
 
-[node name="UnitPartyHealthPointLabel" type="Label" parent="ScrollContainer/GridContainer/UnitParty"]
+[node name="UnitPartyHealthPointLabel" type="Label" parent="ScrollContainer/PartyGrid/UnitParty"]
 modulate = Color( 0, 0, 0, 1 )
 margin_left = 105.0
 margin_top = 35.666
@@ -70,157 +70,7 @@ margin_right = 209.0
 margin_bottom = 54.666
 text = "Health"
 
-[node name="UnitPartyAPLabel" type="Label" parent="ScrollContainer/GridContainer/UnitParty"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = 105.0
-margin_top = 59.653
-margin_right = 209.0
-margin_bottom = 78.653
-text = "AP"
-
-[node name="UnitParty2" type="Control" parent="ScrollContainer/GridContainer"]
-margin_top = 154.0
-margin_right = 360.0
-margin_bottom = 304.0
-rect_min_size = Vector2( 360, 150 )
-
-[node name="UnitPartyBackground" type="Sprite" parent="ScrollContainer/GridContainer/UnitParty2"]
-position = Vector2( 2.61957, -0.103989 )
-scale = Vector2( 0.919476, 1.41029 )
-texture = ExtResource( 4 )
-centered = false
-
-[node name="UnitPartyAvatar" type="Sprite" parent="ScrollContainer/GridContainer/UnitParty2"]
-position = Vector2( 60.1269, 50.1058 )
-z_index = 1
-texture = ExtResource( 5 )
-
-[node name="UnitPartyNameLabel" type="Label" parent="ScrollContainer/GridContainer/UnitParty2"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = 13.0
-margin_top = 91.0
-margin_right = 108.0
-margin_bottom = 123.0
-text = "Name"
-align = 1
-
-[node name="UnitPartyClassLabel" type="Label" parent="ScrollContainer/GridContainer/UnitParty2"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = 105.0
-margin_top = 14.0
-margin_right = 209.0
-margin_bottom = 33.0
-text = "Class"
-
-[node name="UnitPartyHealthPointLabel" type="Label" parent="ScrollContainer/GridContainer/UnitParty2"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = 105.0
-margin_top = 35.666
-margin_right = 209.0
-margin_bottom = 54.666
-text = "Health"
-
-[node name="UnitPartyAPLabel" type="Label" parent="ScrollContainer/GridContainer/UnitParty2"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = 105.0
-margin_top = 59.653
-margin_right = 209.0
-margin_bottom = 78.653
-text = "AP"
-
-[node name="UnitParty3" type="Control" parent="ScrollContainer/GridContainer"]
-margin_top = 308.0
-margin_right = 360.0
-margin_bottom = 458.0
-rect_min_size = Vector2( 360, 150 )
-
-[node name="UnitPartyBackground" type="Sprite" parent="ScrollContainer/GridContainer/UnitParty3"]
-position = Vector2( 2.61957, -0.103989 )
-scale = Vector2( 0.919476, 1.41029 )
-texture = ExtResource( 4 )
-centered = false
-
-[node name="UnitPartyAvatar" type="Sprite" parent="ScrollContainer/GridContainer/UnitParty3"]
-position = Vector2( 60.1269, 50.1058 )
-z_index = 1
-texture = ExtResource( 5 )
-
-[node name="UnitPartyNameLabel" type="Label" parent="ScrollContainer/GridContainer/UnitParty3"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = 13.0
-margin_top = 91.0
-margin_right = 108.0
-margin_bottom = 123.0
-text = "Name"
-align = 1
-
-[node name="UnitPartyClassLabel" type="Label" parent="ScrollContainer/GridContainer/UnitParty3"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = 105.0
-margin_top = 14.0
-margin_right = 209.0
-margin_bottom = 33.0
-text = "Class"
-
-[node name="UnitPartyHealthPointLabel" type="Label" parent="ScrollContainer/GridContainer/UnitParty3"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = 105.0
-margin_top = 35.666
-margin_right = 209.0
-margin_bottom = 54.666
-text = "Health"
-
-[node name="UnitPartyAPLabel" type="Label" parent="ScrollContainer/GridContainer/UnitParty3"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = 105.0
-margin_top = 59.653
-margin_right = 209.0
-margin_bottom = 78.653
-text = "AP"
-
-[node name="UnitParty4" type="Control" parent="ScrollContainer/GridContainer"]
-margin_top = 462.0
-margin_right = 360.0
-margin_bottom = 612.0
-rect_min_size = Vector2( 360, 150 )
-
-[node name="UnitPartyBackground" type="Sprite" parent="ScrollContainer/GridContainer/UnitParty4"]
-position = Vector2( 2.61957, -0.103989 )
-scale = Vector2( 0.919476, 1.41029 )
-texture = ExtResource( 4 )
-centered = false
-
-[node name="UnitPartyAvatar" type="Sprite" parent="ScrollContainer/GridContainer/UnitParty4"]
-position = Vector2( 60.1269, 50.1058 )
-z_index = 1
-texture = ExtResource( 5 )
-
-[node name="UnitPartyNameLabel" type="Label" parent="ScrollContainer/GridContainer/UnitParty4"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = 13.0
-margin_top = 91.0
-margin_right = 108.0
-margin_bottom = 123.0
-text = "Name"
-align = 1
-
-[node name="UnitPartyClassLabel" type="Label" parent="ScrollContainer/GridContainer/UnitParty4"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = 105.0
-margin_top = 14.0
-margin_right = 209.0
-margin_bottom = 33.0
-text = "Class"
-
-[node name="UnitPartyHealthPointLabel" type="Label" parent="ScrollContainer/GridContainer/UnitParty4"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = 105.0
-margin_top = 35.666
-margin_right = 209.0
-margin_bottom = 54.666
-text = "Health"
-
-[node name="UnitPartyAPLabel" type="Label" parent="ScrollContainer/GridContainer/UnitParty4"]
+[node name="UnitPartyAPLabel" type="Label" parent="ScrollContainer/PartyGrid/UnitParty"]
 modulate = Color( 0, 0, 0, 1 )
 margin_left = 105.0
 margin_top = 59.653
