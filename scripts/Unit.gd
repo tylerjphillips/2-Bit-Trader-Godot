@@ -16,6 +16,8 @@ var health_bar
 export (int) var unit_movement_points = 4 setget set_unit_movement_points, get_unit_movement_points
 export (int) var unit_movement_points_max = 4 setget set_unit_movement_points_max, get_unit_movement_points_max
 var unit_can_move : bool = true setget set_unit_can_move, get_unit_can_move
+		# position
+var unit_tile_index : Vector2	 setget set_unit_tile_index, get_unit_tile_index # Unit does not directly change tile index, must be handled by tilemap. Stored in unit for serialization purposes
 		# health
 export (int) var unit_health_points = 4 setget set_unit_health_points, get_unit_health_points
 export (int) var unit_health_points_max = 4 setget set_unit_health_points_max, get_unit_health_points_max
@@ -24,11 +26,13 @@ export var unit_class = "Archer"
 export var unit_team = "blue"
 export var unit_name = ""
 export var unit_id = "" # used to uniquely identify unit for (de)serialization and scene changes. unix epoch of when unit is generated
-		# weapons and gear
+		# attacking, weapons, and gear
 var unit_can_attack : bool = true setget set_unit_can_attack, get_unit_can_attack
 var unit_weapon_data : Dictionary = {}	# contains info on weapons this unit has
 
 var is_selected : bool = false # whether or not the unit is selected
+
+
 
 # colors used for team indication
 const colors = {
@@ -40,17 +44,23 @@ const colors = {
 
 var health_container = preload("res://scenes/HealthContainer.tscn")
 
+onready var root = get_tree().get_root().get_node("Root")	# reference to root game node
+
 func _ready():
 	add_to_group("units")
+	self.connect("kill_unit", self, "_on_kill_unit")
 
 func init(unit_position : Vector2, unit_args: Dictionary):
-	self.position = unit_position
+	# position and tile index (mandatory)
+	self.position = unit_position	# world position not tile index
+	self.unit_tile_index = Vector2(unit_args["unit_tile_index"][0], unit_args["unit_tile_index"][1])
 	# unit args
 	self.unit_name = unit_args.get("unit_name", "Default name")
 	self.unit_id = unit_args.get("unit_id", str(OS.get_unix_time()))
 	self.unit_team = unit_args.get("unit_team", "red")
 	self.unit_movement_points = unit_args.get("unit_movement_points", 4)
 	self.unit_movement_points_max = unit_args.get("unit_movement_points_max", 4)
+	
 	self.unit_health_points = unit_args.get("unit_health_points", 1)
 	self.unit_health_points_max = unit_args.get("unit_health_points_max", 1)
 	self.unit_class = unit_args.get("unit_class", "Archer")
@@ -73,17 +83,8 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 	team_indicator.modulate = colors[self.unit_team]
 	selection_cursor.modulate = colors[self.unit_team]
 	
-	self.unit_can_move = false
-	self.unit_can_attack = false
-
-#func _input_event(viewport, event, shape_idx):
-#	if event is InputEventMouseButton \
-#	and event.button_index == BUTTON_LEFT \
-#	and event.is_pressed():
-#		self.on_click()
-
-#func on_click():
-#	emit_signal("click_unit", self)
+	self.unit_can_move = unit_args.get("unit_can_move", true)
+	self.unit_can_attack = unit_args.get("unit_can_attack", true)
 
 func damage_unit(weapon_data):
 	if weapon_data["damage"].has("normal"):
@@ -115,6 +116,7 @@ func _on_end_team_turn(team):
 func _on_unit_moved(unit, tile_index, movement_cost):
 	if unit == self:
 		self.set_unit_can_move(false)
+		self.unit_tile_index = tile_index
 		
 func _on_unit_attacks_unit(attacking_unit, weapon_data, attacked_unit):
 	if attacking_unit == self:
@@ -133,6 +135,10 @@ func _on_PlayerUnit_mouse_exited():
 	return
 	print("Mouse Exited")
 	
+func _on_kill_unit(unit):
+	if unit ==  self:
+		self.erase_global_data_entry()
+	
 func set_unit_movement_points(value):
 	unit_movement_points = value
 func get_unit_movement_points():
@@ -141,6 +147,10 @@ func set_unit_movement_points_max(value):
 	unit_movement_points_max = value
 func get_unit_movement_points_max():
 	return unit_movement_points_max
+func set_unit_tile_index(value):
+	unit_tile_index = value
+func get_unit_tile_index():
+	return unit_tile_index
 func set_unit_health_points(value):
 	unit_health_points = value
 	if self.unit_health_points <= 0:
@@ -173,7 +183,16 @@ func get_unit_can_attack():
 func get_team_color():
 	return self.colors[self.unit_team]
 
-###### Serialization #####
+###### Serialization and global data management #####
+
+func update_global_data_entry():
+	# updates the game data at the root
+	self.root.game_data["unit_data"][self.unit_id] = self.get_unit_repr()
+	
+func erase_global_data_entry():
+	# removes entry from global game data at root
+	print("Unit: killed, data erased")
+	self.root.game_data["unit_data"].erase(self.unit_id)
 
 func get_unit_repr():
 	# returns dictionary containing all data for this unit
@@ -183,9 +202,12 @@ func get_unit_repr():
 	unit_data["unit_team"] = self.unit_team
 	unit_data["unit_movement_points"] = self.unit_movement_points
 	unit_data["unit_movement_points_max"] = self.unit_movement_points_max
+	unit_data["unit_tile_index"] = self.unit_tile_index
 	unit_data["unit_health_points"] = self.unit_health_points
 	unit_data["unit_health_points_max"] = self.unit_health_points_max
 	unit_data["unit_class"] = self.unit_class
 	unit_data["unit_weapon_data"] = self.unit_weapon_data
+	unit_data["unit_can_move"] = self.unit_can_move
+	unit_data["unit_can_attack"] = self.unit_can_attack
 	
 	return unit_data;

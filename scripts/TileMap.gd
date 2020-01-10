@@ -52,28 +52,14 @@ func _ready():
 	selected_unit_info.hide()
 	get_tree().call_group("units", "_on_start_team_turn", current_team)
 
-
-####### Serialization ########
-
-func get_all_unit_data():
-	# grab all unit data in the scene and convert to dictionary
-	var all_unit_data = Dictionary()
-	for unit in get_tree().get_nodes_in_group("units"):
-		var unit_data = Dictionary()
-		unit_data["unit_tile_index"] = self.unit_to_index[unit]
-		unit_data["unit_data"] = unit.get_unit_repr()
-		var unit_id = unit.unit_id	# grab the unit id to use it as a key
-		all_unit_data[unit_id] = unit_data
-	return all_unit_data
-
 ####### Spawning and Saving units #####
 
 func _on_batch_spawn_units(data):
 	# Spawn units from a JSON payload
 	for unit_id in data:
-		var unit = data[unit_id]
-		var unit_tile_index = Vector2(unit["unit_tile_index"][0], unit["unit_tile_index"][1]) # convert the json array to vector2
-		self.spawn_unit(unit_tile_index, unit["unit_data"])
+		var unit_data = data[unit_id]
+		var unit_tile_index = Vector2(unit_data["unit_tile_index"][0], unit_data["unit_tile_index"][1]) # convert the json array to vector2
+		self.spawn_unit(unit_tile_index, unit_data)
 
 func spawn_unit(tile_index, unit_args):
 	# initialize positioning, node hiearchy, and unit arguments
@@ -105,9 +91,6 @@ func spawn_unit(tile_index, unit_args):
 		sidebar_unit.connect("unit_sidebar_pressed", self, "attempt_select_unit")
 		
 		unit.connect("kill_unit", sidebar_unit, "_on_kill_unit")
-	
-	# run turn start code for new unit
-	unit._on_start_team_turn(current_team)
 	
 ################ Clicking #############
 func _unhandled_input(event):
