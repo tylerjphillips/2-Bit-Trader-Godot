@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://images/overworld/Cave_1.png" type="Texture" id=1]
+[ext_resource path="res://scripts/OverworldLocation.gd" type="Script" id=2]
+[ext_resource path="res://images/overworld/location_crosshair.png" type="Texture" id=3]
+
+[node name="OverworldLocation" type="TextureButton"]
+margin_left = 64.8614
+margin_top = 26.8712
+margin_right = 112.861
+margin_bottom = 74.8712
+rect_pivot_offset = Vector2( 24, 24 )
+texture_normal = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="OverworldLocationCrosshair" type="Sprite" parent="."]
+position = Vector2( 24, 24 )
+texture = ExtResource( 3 )
+[connection signal="button_up" from="." to="." method="_on_OverworldLocation_button_up"]

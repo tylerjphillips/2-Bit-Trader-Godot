@@ -7,6 +7,7 @@ var game_data = Dictionary()
 var combat_screen = preload("res://scenes/CombatScreen.tscn")
 var shop_screen = preload("res://scenes/ShopScreen.tscn")
 var party_screen = preload("res://scenes/PartyScreen.tscn")
+var overworld_screen = preload("res://scenes/OverworldScreen.tscn")
 
 # colors used for team indication
 const colors = {
@@ -20,7 +21,8 @@ const colors = {
 var scene_names_to_scene = {
 	"combat_screen" : self.combat_screen,
 	"shop_screen" : self.shop_screen,
-	"party_screen" : self.party_screen
+	"party_screen" : self.party_screen,
+	"overworld_screen" : self.overworld_screen
 	}
 
 var current_scene	 # reference to instance of currently active scene

@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/OverworldScreen.gd" type="Script" id=1]
+[ext_resource path="res://scenes/ChangeSceneButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/OverworldLocation.tscn" type="PackedScene" id=3]
+
+[node name="OverworldScreen" type="Node"]
+script = ExtResource( 1 )
+
+[node name="ChangeSceneButton" parent="." instance=ExtResource( 2 )]
+margin_left = 17.8854
+margin_top = 139.223
+margin_right = 142.885
+margin_bottom = 159.223
+text = "Combat Screen"
+new_scene_name = "combat_screen"
+
+[node name="OverworldLocation" parent="." instance=ExtResource( 3 )]
+[connection signal="change_scene" from="ChangeSceneButton" to="." method="change_scene"]
