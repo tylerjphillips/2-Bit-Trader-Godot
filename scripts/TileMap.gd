@@ -18,6 +18,7 @@ signal unit_selected # (unit)
 signal unit_deselected
 signal unit_moved	# (unit, tile_index, cost)
 signal unit_attacks_unit # attacking_unit, attacking_unit_weapon_data, attacked_unit
+signal unit_collides_unit # (attacking_unit, affected_unit, collision_count, collided_unit)
 
 # movement and attack indicator
 onready var movement_overlay = get_node("MovementAttackOverlay")
@@ -75,6 +76,7 @@ func spawn_unit(tile_index, unit_args):
 	self.connect("unit_deselected", unit, "_on_unit_deselected")
 	self.connect("unit_moved", unit, "_on_unit_moved")
 	self.connect("unit_attacks_unit", unit, "_on_unit_attacks_unit")
+	self.connect("unit_collides_unit", unit, "_on_unit_collides_unit")
 	
 	# initialize tile index <-> unit bindings
 	unit_to_index[unit] = tile_index
@@ -118,6 +120,9 @@ func click_tile(tile_index):
 				if not index_to_unit.has(tile_index):
 					if self.selected_unit.unit_can_move:
 						if self.last_bfs.has(tile_index):
+							emit_signal("unit_moved", selected_unit, tile_index, self.last_bfs[tile_index]) 
+							emit_signal("clear_movement_tiles")
+							last_bfs.clear()	# clear the cache to prevent accessing old tiles after moving
 							self.move_unit_to_tile(selected_unit, tile_index)
 				else:
 					attempt_select_unit(index_to_unit[tile_index])
@@ -176,19 +181,53 @@ func move_unit_to_tile(unit, tile_index):
 		unit_to_index[unit] = tile_index
 		index_to_unit[tile_index] = unit
 		
-		emit_signal("unit_moved", unit, tile_index, self.last_bfs[tile_index]) 
-		emit_signal("clear_movement_tiles")
-		last_bfs.clear()	# clear the cache to prevent accessing old tiles after moving
 		
-func unit_attack_tile(unit, weapon_index, tile_index):
-	print("Tilemap: attacking tile ",tile_index, " with ", unit.unit_name, " damage:", unit.unit_weapon_data[weapon_index]["damage"])
+		
+func unit_attack_tile(attacking_unit, weapon_index, tile_index):
+	# unit attacks a tile with a given weapon
+	print("Tilemap: attacking tile ",tile_index, " with ", attacking_unit.unit_name, " damage:", attacking_unit.unit_weapon_data[weapon_index]["damage"])
 	if self.index_to_unit.has(tile_index):
-		emit_signal("unit_attacks_unit", unit, unit.unit_weapon_data[weapon_index], self.index_to_unit[tile_index])
+		var affected_unit = self.index_to_unit[tile_index]
+		self.attempt_push_unit(attacking_unit, affected_unit, weapon_index, tile_index)
+		emit_signal("unit_attacks_unit", attacking_unit, attacking_unit.unit_weapon_data[weapon_index], affected_unit)
 	self.deselect_unit()
-	unit.set_unit_can_attack(false)
-	unit.set_unit_can_move(false)
+	attacking_unit.set_unit_can_attack(false)
+	attacking_unit.set_unit_can_move(false)
 	emit_signal("clear_attack_tiles")
 	last_attack_pattern.clear()	# clear the cache to prevent accessing old tiles after moving
+	
+func attempt_push_unit(attacking_unit, affected_unit, weapon_index, tile_index):
+	# attempt to push an attacked unit a number of tiles indicated by last_attack_pattern and the weapon's push scalar. Negative scalars allowed
+	# if units are pushed into things then collisions are generated
+	var affected_unit_tile_index : Vector2 = self.unit_to_index[affected_unit]
+	var pushed_into_tile_index	: Vector2 = affected_unit_tile_index	# where the affected unit winds up
+	var push_scalar : int = attacking_unit.unit_weapon_data[weapon_index].get("push_scalar", 0)		# the amount of tiles the attack will push. 0 if undefined
+	var push_direction : Vector2 = self.last_attack_pattern[affected_unit_tile_index]["direction"]
+	# collision vars
+	var collision_count : int = 0 # number of times attempting to move into a tile would cause a collision. Used for damage calculations
+	var collided_unit = null	# the unit that the affected unit may collide with
+	
+	if push_scalar != 0:
+		# unit will be moved as many times over in the attack direction as possible, counting collisions made and then pushing the unit where needed
+		for i in range(push_scalar):
+			var checking_index = pushed_into_tile_index + (self.directions[push_direction] * (sign(push_scalar)))
+			if self.get_cell(checking_index.x, checking_index.y) != INVALID_CELL: 	# if cell is on the map
+				if self.index_to_unit.has(checking_index):	# check collisions
+					# collisions
+					collided_unit = self.index_to_unit[checking_index]
+					collision_count += 1
+				else:
+					# no collision; move the unit instead
+					pushed_into_tile_index = checking_index  
+			else:
+				break	# no need to continue if you hit the edge of the map
+		# push unit at the end
+		self.push_unit(attacking_unit, affected_unit, pushed_into_tile_index, collision_count, collided_unit)
+			
+func push_unit(attacking_unit, affected_unit, new_tile_index : Vector2, collision_count : int, collided_unit):
+	move_unit_to_tile(affected_unit, new_tile_index)
+	if collided_unit != null:
+		emit_signal("unit_collides_unit", attacking_unit, affected_unit, collision_count, collided_unit)
 	
 func _on_kill_unit(unit):
 	print("TileMap: Killed unit ", unit.unit_name)
@@ -269,7 +308,7 @@ func calculate_attackable_tiles(unit, weapon_index):
 	# the weapon pattern name decides which functions will be applied to get the tiles
 	var attackable_pattern = Dictionary() # pattern of tile_indexes:attack_data
 	var unit_index = self.unit_to_index[unit]
-	var weapon_pattern : Dictionary = unit.unit_weapon_data[weapon_index].get("weapon_pattern")
+	var weapon_pattern : Dictionary = unit.unit_weapon_data[weapon_index]["weapon_pattern"]
 	if weapon_pattern["pattern"] == "cardinal":
 		attackable_pattern = attack_pattern_cardinal(unit_index, weapon_pattern.get("size"))
 	self.last_attack_pattern = attackable_pattern

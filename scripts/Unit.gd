@@ -110,6 +110,13 @@ func _on_unit_attacks_unit(attacking_unit, weapon_data, attacked_unit):
 		print("Unit: attacking ", attacked_unit.unit_name)
 	elif attacked_unit == self:
 		self.damage_unit(weapon_data)
+		
+func _on_unit_collides_unit(attacking_unit, affected_unit, collision_count, collided_unit):
+	if affected_unit == self or collided_unit == self:
+		var collision_damage = {"damage": { "normal": collision_count}}
+		
+		print("Unit: ", affected_unit.unit_name, " collides with ", collided_unit.unit_name)
+		self.damage_unit(collision_damage)
 
 func _on_PlayerUnit_mouse_entered():
 	self.health_bar.show()

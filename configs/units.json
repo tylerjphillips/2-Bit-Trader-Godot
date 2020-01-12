@@ -17,8 +17,10 @@
 			"weapon_tooltip" : "test",
 			"damage":
 					{
-					"normal": 3
+					"normal": 1
 					},
+			"push_scalar": 2,
+			
 			"weapon_pattern" : 
 				{
 				"pattern" : "cardinal",
@@ -47,7 +49,7 @@
 			"weapon_tooltip" : "test",
 			"damage":
 					{
-					"normal": 3
+					"normal": 2
 					},
 			"weapon_pattern" : 
 				{
@@ -63,8 +65,8 @@
 		"unit_name": "Jake", 
 		"unit_tile_index" : [11,5],
 		"unit_id" : "14592735",
-		"unit_health_points": 3, 
-		"unit_health_points_max": 4,
+		"unit_health_points": 7, 
+		"unit_health_points_max": 7,
 		"unit_team":"blue",
 		"unit_weapon_data" :
 		{
@@ -73,8 +75,9 @@
 			"weapon_tooltip" : "test 2",
 			"damage":
 					{
-					"normal": 3
+					"normal": 1
 					},
+			"push_scalar": 2,
 			"weapon_pattern" : 
 				{
 				"pattern" : "cardinal",
@@ -89,8 +92,8 @@
 		"unit_name": "Mike",
 		"unit_tile_index" : [12,5],
 		"unit_id" : "155927355",
-		"unit_health_points": 2, 
-		"unit_health_points_max": 5,
+		"unit_health_points": 5, 
+		"unit_health_points_max": 7,
 		"unit_team":"red",
 		"unit_weapon_data" :
 		{
@@ -99,7 +102,7 @@
 			"weapon_tooltip" : "test",
 			"damage":
 					{
-					"normal": 3
+					"normal": 1
 					},
 			"weapon_pattern" : 
 				{
