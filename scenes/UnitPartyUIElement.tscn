@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/UnitPartyUIElement.gd" type="Script" id=1]
+[ext_resource path="res://images/ui/ui_background.png" type="Texture" id=2]
+[ext_resource path="res://images/portraits/default unit portrait.png" type="Texture" id=3]
+
+[node name="UnitPartyUIElement" type="Control"]
+margin_right = 360.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 360, 150 )
+script = ExtResource( 1 )
+
+[node name="UnitPartyBackground" type="Sprite" parent="."]
+position = Vector2( 2.61957, -0.103989 )
+scale = Vector2( 0.919476, 1.41029 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="UnitPartyAvatar" type="Sprite" parent="."]
+position = Vector2( 60.1269, 50.1058 )
+z_index = 1
+texture = ExtResource( 3 )
+
+[node name="UnitPartyNameLabel" type="Label" parent="."]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 13.0
+margin_top = 91.0
+margin_right = 108.0
+margin_bottom = 123.0
+text = "Name"
+align = 1
+
+[node name="UnitPartyClassLabel" type="Label" parent="."]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 105.0
+margin_top = 14.0
+margin_right = 209.0
+margin_bottom = 33.0
+text = "Class"
+
+[node name="UnitPartyHealthPointLabel" type="Label" parent="."]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 105.0
+margin_top = 35.666
+margin_right = 209.0
+margin_bottom = 54.666
+text = "Health"
+
+[node name="UnitPartyAPLabel" type="Label" parent="."]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 105.0
+margin_top = 59.653
+margin_right = 209.0
+margin_bottom = 78.653
+text = "AP"
