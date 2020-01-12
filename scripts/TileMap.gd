@@ -188,8 +188,9 @@ func unit_attack_tile(attacking_unit, weapon_index, tile_index):
 	print("Tilemap: attacking tile ",tile_index, " with ", attacking_unit.unit_name, " damage:", attacking_unit.unit_weapon_data[weapon_index]["damage"])
 	if self.index_to_unit.has(tile_index):
 		var affected_unit = self.index_to_unit[tile_index]
-		self.attempt_push_unit(attacking_unit, affected_unit, weapon_index, tile_index)
-		emit_signal("unit_attacks_unit", attacking_unit, attacking_unit.unit_weapon_data[weapon_index], affected_unit)
+		self.attempt_push_unit(attacking_unit, affected_unit, weapon_index, tile_index) # try to push the unit
+		if self.unit_to_index.has(affected_unit):	# check if unit didn't die from possible push
+			emit_signal("unit_attacks_unit", attacking_unit, attacking_unit.unit_weapon_data[weapon_index], affected_unit)
 	self.deselect_unit()
 	attacking_unit.set_unit_can_attack(false)
 	attacking_unit.set_unit_can_move(false)
