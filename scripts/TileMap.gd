@@ -65,8 +65,8 @@ func spawn_unit(tile_index, unit_args):
 	# initialize positioning, node hiearchy, and unit arguments
 	var unit = unit_asset.instance()
 	var unit_position = map_to_world(tile_index)
-	unit.init(unit_position,unit_args)
 	self.add_child(unit)
+	unit.init(unit_position,unit_args)
 	
 	# set unit signal bindings
 	unit.connect("click_unit", self, "_on_click_unit")

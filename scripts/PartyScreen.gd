@@ -15,8 +15,8 @@ func init(game_data):
 func populate_party_screen(game_data):
 	for unit_id in game_data["unit_data"]:
 		var ui_element = self.party_member_ui.instance()
-		ui_element.init(game_data["unit_data"][unit_id])
 		self.party_grid.add_child(ui_element)
+		ui_element.init(game_data["unit_data"][unit_id])
 
 func change_scene(new_scene_name):
 	emit_signal("change_scene", "party_screen", new_scene_name)

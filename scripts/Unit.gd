@@ -6,10 +6,10 @@ signal update_health # (unit_health_points, unit_health_points_max)
 signal kill_unit # (unit)
 
 # ui indicators
-var selection_cursor
-var move_indicator
-var team_indicator
 var health_bar
+onready var selection_cursor = get_node("SelectionCursor")
+onready var move_indicator = get_node("MoveIndicator")
+onready var team_indicator = get_node("TeamIndicator")
 
 # unit properties
 		# movement
@@ -31,16 +31,6 @@ var unit_can_attack : bool = true setget set_unit_can_attack, get_unit_can_attac
 var unit_weapon_data : Dictionary = {}	# contains info on weapons this unit has
 
 var is_selected : bool = false # whether or not the unit is selected
-
-
-
-# colors used for team indication
-const colors = {
-	"white":Color(1, 1, 1, 0.8),
-	"red":Color(0.8, 0.0, 0.0, 0.8),
-	"green":Color(0.0, 0.8, 0.2, 0.8),
-	"blue":Color(0.2, 0.2, 0.8, 0.8),
-	}
 
 var health_container = preload("res://scenes/HealthContainer.tscn")
 
@@ -74,14 +64,11 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 	self.health_bar.hide()
 	
 	# UI indicators
-	self.selection_cursor = get_node("SelectionCursor")
-	self.move_indicator = get_node("MoveIndicator")
-	self.team_indicator = get_node("TeamIndicator")
 	self.selection_cursor.hide()
 	
 	# change colors on UI stuff
-	team_indicator.modulate = colors[self.unit_team]
-	selection_cursor.modulate = colors[self.unit_team]
+	team_indicator.modulate = self.root.colors[self.unit_team]
+	selection_cursor.modulate = self.root.colors[self.unit_team]
 	
 	self.unit_can_move = unit_args.get("unit_can_move", true)
 	self.unit_can_attack = unit_args.get("unit_can_attack", true)
@@ -169,7 +156,7 @@ func set_unit_can_move(canMove : bool):
 	if unit_can_move:
 		move_indicator.modulate = self.get_team_color()
 	else:
-		move_indicator.modulate = self.colors["white"]
+		move_indicator.modulate = self.root.colors["white"]
 		
 func get_unit_can_move():
 	return unit_can_move
@@ -181,7 +168,7 @@ func get_unit_can_attack():
 	return unit_can_attack
 	
 func get_team_color():
-	return self.colors[self.unit_team]
+	return self.root.colors[self.unit_team]
 
 ###### Serialization and global data management #####
 

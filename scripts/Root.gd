@@ -8,6 +8,14 @@ var combat_screen = preload("res://scenes/CombatScreen.tscn")
 var shop_screen = preload("res://scenes/ShopScreen.tscn")
 var party_screen = preload("res://scenes/PartyScreen.tscn")
 
+# colors used for team indication
+const colors = {
+	"white":Color(1, 1, 1, 0.8),
+	"red":Color(0.8, 0.0, 0.0, 0.8),
+	"green":Color(0.0, 0.8, 0.2, 0.8),
+	"blue":Color(0.2, 0.2, 0.8, 0.8),
+	}
+
 # map scene names to prefabs
 var scene_names_to_scene = {
 	"combat_screen" : self.combat_screen,
@@ -54,6 +62,8 @@ func save_json(directory, filename, data):
 	
 	file.store_line(to_json(data))
 	file.close()
+
+
 
 
 func batch_load_json(directory):
