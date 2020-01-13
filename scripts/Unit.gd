@@ -34,6 +34,9 @@ var is_selected : bool = false # whether or not the unit is selected
 
 var health_container = preload("res://scenes/HealthContainer.tscn")
 
+var last_bfs = Dictionary() # last pathing result from self.get_bfs. Used for checking movement. tile_indexes:cost
+var last_attack_pattern = Dictionary() # last calculated attack pattern. Used for checking attacks. tile_indexes:attack_data
+
 onready var root = get_tree().get_root().get_node("Root")	# reference to root game node
 
 func _ready():

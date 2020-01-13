@@ -34,10 +34,6 @@ signal create_movement_tiles # (bfs_results)
 	# attack overlay signal
 signal clear_attack_tiles
 signal create_attack_tiles
-	
-var last_bfs = Dictionary() # last pathing result from self.get_bfs. Used for checking movement. tile_indexes:cost
-var last_attack_pattern = Dictionary() # last calculated attack pattern. Used for checking attacks. tile_indexes:attack_data
-
 
 onready var unit_asset = preload("res://scenes/Unit.tscn") # unit prefab
 onready var unit_sidebar_asset = preload("res://scenes/UnitSideBarButton.tscn") # unit prefab
@@ -119,16 +115,16 @@ func click_tile(tile_index):
 				# if there's not another unit there
 				if not index_to_unit.has(tile_index):
 					if self.selected_unit.unit_can_move:
-						if self.last_bfs.has(tile_index):
-							emit_signal("unit_moved", selected_unit, tile_index, self.last_bfs[tile_index]) 
+						if selected_unit.last_bfs.has(tile_index):
+							emit_signal("unit_moved", selected_unit, tile_index, self.selected_unit.last_bfs[tile_index]) 
 							emit_signal("clear_movement_tiles")
-							last_bfs.clear()	# clear the cache to prevent accessing old tiles after moving
+							self.selected_unit.last_bfs.clear()	# clear the cache to prevent accessing old tiles after moving
 							self.move_unit_to_tile(selected_unit, tile_index)
 				else:
 					attempt_select_unit(index_to_unit[tile_index])
 			# try to attack the tile
 			elif movement_mode == ATTACK_MODE and self.selected_unit.unit_can_attack:
-				if self.last_attack_pattern.has(tile_index):
+				if selected_unit.last_attack_pattern.has(tile_index):
 					self.unit_attack_tile(selected_unit, selected_weapon_index, tile_index)
 
 func _on_click_unit(unit):
@@ -153,7 +149,7 @@ func select_unit(unit):
 	
 	if unit.unit_can_move:
 		self.get_bfs(unit)
-		emit_signal("create_movement_tiles", self.last_bfs)
+		emit_signal("create_movement_tiles", unit.last_bfs)
 		self.movement_mode = MOVE_MODE
 
 func deselect_unit():
@@ -195,7 +191,7 @@ func unit_attack_tile(attacking_unit, weapon_index, tile_index):
 	attacking_unit.set_unit_can_attack(false)
 	attacking_unit.set_unit_can_move(false)
 	emit_signal("clear_attack_tiles")
-	last_attack_pattern.clear()	# clear the cache to prevent accessing old tiles after moving
+	attacking_unit.last_attack_pattern.clear()	# clear the cache to prevent accessing old tiles after moving
 	
 func attempt_push_unit(attacking_unit, affected_unit, weapon_index, tile_index):
 	# attempt to push an attacked unit a number of tiles indicated by last_attack_pattern and the weapon's push scalar. Negative scalars allowed
@@ -203,7 +199,7 @@ func attempt_push_unit(attacking_unit, affected_unit, weapon_index, tile_index):
 	var affected_unit_tile_index : Vector2 = self.unit_to_index[affected_unit]
 	var pushed_into_tile_index	: Vector2 = affected_unit_tile_index	# where the affected unit winds up
 	var push_scalar : int = attacking_unit.unit_weapon_data[weapon_index].get("push_scalar", 0)		# the amount of tiles the attack will push. 0 if undefined
-	var push_direction : Vector2 = self.last_attack_pattern[affected_unit_tile_index]["direction"]
+	var push_direction : Vector2 = attacking_unit.last_attack_pattern[affected_unit_tile_index]["direction"]
 	# collision vars
 	var collision_count : int = 0 # number of times attempting to move into a tile would cause a collision. Used for damage calculations
 	var collided_unit = null	# the unit that the affected unit may collide with
@@ -290,7 +286,7 @@ func get_bfs(unit):
 						moveable_tile_indexes[possible_index] = moveable_tile_indexes[current_index] + 1
 	
 	moveable_tile_indexes.erase(starting_point)
-	self.last_bfs = moveable_tile_indexes
+	unit.last_bfs = moveable_tile_indexes
 	return moveable_tile_indexes;
 
 func filter_tiles_in_bounds(tile_indexes : Array) -> Array:
@@ -312,7 +308,7 @@ func calculate_attackable_tiles(unit, weapon_index):
 	var weapon_pattern : Dictionary = unit.unit_weapon_data[weapon_index]["weapon_pattern"]
 	if weapon_pattern["pattern"] == "cardinal":
 		attackable_pattern = attack_pattern_cardinal(unit_index, weapon_pattern.get("size"))
-	self.last_attack_pattern = attackable_pattern
+	unit.last_attack_pattern = attackable_pattern
 	return attackable_pattern
 
 func attack_pattern_cardinal(unit_tile_index : Vector2, size : int):
