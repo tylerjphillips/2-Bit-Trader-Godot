@@ -12,7 +12,8 @@ onready var root = get_tree().get_root().get_node("Root")
 
 func init(game_data):
 	var unit_data = game_data["unit_data"]
-	var tile_data = game_data["tile_data"]
+	var current_map_id = game_data["main_data"]["current_map_id"]
+	var tile_data = game_data["map_data"][current_map_id]
 	emit_signal("batch_spawn_units", unit_data)
 	emit_signal("set_tiles", tile_data)
 	
