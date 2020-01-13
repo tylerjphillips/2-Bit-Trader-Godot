@@ -3,6 +3,10 @@ extends TextureButton
 onready var location_crosshar = get_node("OverworldLocationCrosshair")
 onready var location_name_label = get_node("OverworldLocationName")
 
+signal change_scene
+
+onready var root = get_tree().get_root().get_node("Root")
+
 var map_id;
 
 func _ready():
@@ -14,4 +18,5 @@ func init(map_data):
 	
 
 func _on_OverworldLocation_button_up():
-	pass
+	self.root.game_data["main_data"]["current_map_id"] = map_id
+	emit_signal("change_scene", "combat_screen")

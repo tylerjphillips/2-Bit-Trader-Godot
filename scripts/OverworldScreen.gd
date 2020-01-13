@@ -11,6 +11,7 @@ func _ready():
 	pass
 
 func init(game_data):
+	# create overworld locations
 	for map_id in root.game_data["map_data"]:
 		var map_data = root.game_data["map_data"][map_id]
 		var pos = map_data["map_location_coords"]
@@ -18,6 +19,9 @@ func init(game_data):
 		overworld_location.rect_position = Vector2(pos[0], pos[1])
 		self.add_child(overworld_location)
 		overworld_location.init(map_data)
+		
+		overworld_location.connect("change_scene", self, "change_scene")
+		
 
 func change_scene(new_scene_name):
 	emit_signal("change_scene", "overworld_screen", new_scene_name)
