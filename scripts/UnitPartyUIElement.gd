@@ -17,7 +17,6 @@ func _ready():
 	pass
 	
 func init(unit_args):
-	print("PartyUIElement: init")
 	self.unit_data = unit_args
 	
 	# update labels

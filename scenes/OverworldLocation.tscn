@@ -5,10 +5,10 @@
 [ext_resource path="res://images/overworld/location_crosshair.png" type="Texture" id=3]
 
 [node name="OverworldLocation" type="TextureButton"]
-margin_left = 64.8614
-margin_top = 26.8712
-margin_right = 112.861
-margin_bottom = 74.8712
+margin_left = 80.0
+margin_top = 26.871
+margin_right = 128.0
+margin_bottom = 74.871
 rect_pivot_offset = Vector2( 24, 24 )
 texture_normal = ExtResource( 1 )
 script = ExtResource( 2 )
@@ -16,4 +16,14 @@ script = ExtResource( 2 )
 [node name="OverworldLocationCrosshair" type="Sprite" parent="."]
 position = Vector2( 24, 24 )
 texture = ExtResource( 3 )
+
+[node name="OverworldLocationName" type="Label" parent="."]
+self_modulate = Color( 0.129412, 0.647059, 0.211765, 1 )
+margin_left = -26.0
+margin_top = 51.0
+margin_right = 74.0
+margin_bottom = 99.0
+text = "Map name here"
+align = 1
+autowrap = true
 [connection signal="button_up" from="." to="." method="_on_OverworldLocation_button_up"]
