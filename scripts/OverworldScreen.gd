@@ -7,6 +7,9 @@ onready var root = get_tree().get_root().get_node("Root")
 
 onready var overworld_location_asset = preload("res://scenes/OverworldLocation.tscn")
 
+onready var day_count_label = $OverworldInfoModule/OverworldInfoDayLabel
+onready var gold_count_label = $OverworldInfoModule/OverworldInfoGoldLabel
+
 func _ready():
 	pass
 
@@ -21,6 +24,10 @@ func init(game_data):
 		overworld_location.init(map_data)
 		
 		overworld_location.connect("change_scene", self, "change_scene")
+		
+	# change text
+	day_count_label.text = str(root.game_data["main_data"]["day"])
+	gold_count_label.text = str(root.game_data["main_data"]["gold"])
 		
 
 func change_scene(new_scene_name):

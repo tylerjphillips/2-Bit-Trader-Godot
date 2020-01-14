@@ -1,4 +1,6 @@
 {
 	"player_team" : "blue",
-	"current_map_id" : "137374783"
+	"current_map_id" : "137374783",
+	"day": 1,
+	"gold": 500
 }

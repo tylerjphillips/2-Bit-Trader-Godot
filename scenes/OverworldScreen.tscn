@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/OverworldScreen.gd" type="Script" id=1]
 [ext_resource path="res://scenes/ChangeSceneButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://images/ui/ui_background.png" type="Texture" id=3]
+[ext_resource path="res://images/ui/money_icon.png" type="Texture" id=4]
+[ext_resource path="res://images/ui/sun_icon.png" type="Texture" id=5]
 
 [node name="OverworldScreen" type="Node"]
 script = ExtResource( 1 )
@@ -13,4 +16,36 @@ margin_right = 142.885
 margin_bottom = 159.223
 text = "Combat Screen"
 new_scene_name = "combat_screen"
+
+[node name="OverworldInfoModule" type="Node2D" parent="."]
+position = Vector2( 500, 60 )
+
+[node name="OverworldInfoBackground" type="Sprite" parent="OverworldInfoModule"]
+scale = Vector2( 0.8, 0.8 )
+texture = ExtResource( 3 )
+
+[node name="OverworldInfoGoldIcon" type="Sprite" parent="OverworldInfoModule"]
+position = Vector2( -140, -30 )
+texture = ExtResource( 4 )
+
+[node name="OverworldInfoGoldLabel" type="Label" parent="OverworldInfoModule"]
+self_modulate = Color( 0, 0, 0, 1 )
+margin_left = -125.77
+margin_top = -34.3943
+margin_right = -85.7702
+margin_bottom = -20.3943
+text = "Gold #"
+
+[node name="OverworldInfoDayIcon" type="Sprite" parent="OverworldInfoModule"]
+position = Vector2( -140, -5 )
+scale = Vector2( 0.9, 0.9 )
+texture = ExtResource( 5 )
+
+[node name="OverworldInfoDayLabel" type="Label" parent="OverworldInfoModule"]
+self_modulate = Color( 0, 0, 0, 1 )
+margin_left = -125.77
+margin_top = -10.0103
+margin_right = -82.7702
+margin_bottom = 3.98972
+text = "Day #"
 [connection signal="change_scene" from="ChangeSceneButton" to="." method="change_scene"]

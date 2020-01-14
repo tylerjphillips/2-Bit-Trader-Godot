@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/player info background.png-72baf6f0ece0703a81b7cfc719b3c570.stex"
+path="res://.import/sun_icon.png-e16189f2f92b4846ee267e754be5c78e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/ui/player info background.png"
-dest_files=[ "res://.import/player info background.png-72baf6f0ece0703a81b7cfc719b3c570.stex" ]
+source_file="res://images/ui/sun_icon.png"
+dest_files=[ "res://.import/sun_icon.png-e16189f2f92b4846ee267e754be5c78e.stex" ]
 
 [params]
 
