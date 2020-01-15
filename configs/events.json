@@ -1,0 +1,27 @@
+{
+	"43832842":
+	{
+		"event_id":"43832842",
+		"event_starting_id": "0",
+		"dialogue":
+		{
+			"0":
+			{
+				"dialogue_text": "testing",
+				"dialogue_prompt_options":["1","2"]
+			},
+			"1":
+			{
+				"prompt_text": "option 1",
+				"dialogue_text": "testing",
+				"dialogue_prompt_options":["start_combat"]
+			},
+			"2":
+			{
+				"prompt_text": "option 2",
+				"dialogue_text": "testing",
+				"dialogue_prompt_options":["leave_combat"]
+			}
+		}
+	}
+}

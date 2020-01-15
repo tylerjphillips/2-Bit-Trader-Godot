@@ -8,6 +8,7 @@ var combat_screen = preload("res://scenes/CombatScreen.tscn")
 var shop_screen = preload("res://scenes/ShopScreen.tscn")
 var party_screen = preload("res://scenes/PartyScreen.tscn")
 var overworld_screen = preload("res://scenes/OverworldScreen.tscn")
+var event_screen = preload("res://scenes/EventScreen.tscn")
 
 # colors used for team indication
 const colors = {
@@ -22,7 +23,8 @@ var scene_names_to_scene = {
 	"combat_screen" : self.combat_screen,
 	"shop_screen" : self.shop_screen,
 	"party_screen" : self.party_screen,
-	"overworld_screen" : self.overworld_screen
+	"overworld_screen" : self.overworld_screen,
+	"event_screen": self.event_screen
 	}
 
 var current_scene	 # reference to instance of currently active scene
@@ -34,6 +36,7 @@ const config_directory = "res://configs/"
 const units_json_filename = "units.json"
 const maps_json_filename = "maps.json"
 const main_json_filename = "main.json"
+const events_json_filename = "events.json"
 
 func _ready():
 	print("Root: Game Start")
@@ -74,6 +77,7 @@ func batch_load_json(directory):
 	self.game_data["unit_data"] = self.load_json(directory,units_json_filename)
 	self.game_data["map_data"] = self.load_json(directory,maps_json_filename)
 	self.game_data["main_data"] = self.load_json(directory,main_json_filename)
+	self.game_data["event_data"] = self.load_json(directory,events_json_filename)
 
 func create_scene(scene_name):
 	self.current_scene = self.scene_names_to_scene[scene_name].instance()

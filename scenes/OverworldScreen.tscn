@@ -14,8 +14,8 @@ margin_left = 17.8854
 margin_top = 139.223
 margin_right = 142.885
 margin_bottom = 159.223
-text = "Combat Screen"
-new_scene_name = "combat_screen"
+text = "Event Screen"
+new_scene_name = "event_screen"
 
 [node name="OverworldInfoModule" type="Node2D" parent="."]
 position = Vector2( 500, 60 )
