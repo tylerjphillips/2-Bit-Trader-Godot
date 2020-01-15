@@ -20,8 +20,6 @@ signal unit_moved	# (unit, tile_index, cost)
 signal unit_attacks_unit # attacking_unit, attacking_unit_weapon_data, attacked_unit
 signal unit_collides_unit # (attacking_unit, affected_unit, collision_count, collided_unit)
 
-# movement and attack indicator
-onready var movement_overlay = get_node("MovementAttackOverlay")
 	# used for checking what to do if a tile is clicked when a unit is selected; eg what overlay is being used
 const SELECTION_MODE = "selection"
 const MOVE_MODE = "move"
@@ -46,8 +44,9 @@ var directions = {
 		}
 
 func _ready():
-	selected_unit_info.hide()
 	get_tree().call_group("units", "_on_start_team_turn", current_team)
+	
+	assert selected_unit_info
 
 ####### Spawning and Saving units #####
 

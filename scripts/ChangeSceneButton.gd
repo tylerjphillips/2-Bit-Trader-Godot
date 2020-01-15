@@ -5,7 +5,7 @@ export var new_scene_name = ""	# name of scene to change to
 signal change_scene
 
 func _ready():
-	pass
+	self.connect("button_up", self, "_on_ChangeSceneButton_button_up")
 
 
 func _on_ChangeSceneButton_button_up():
