@@ -89,7 +89,8 @@
 			"weapon_pattern" : 
 				{
 				"pattern" : "cardinal",
-				"size" : 4
+				"size" : 4,
+				"blockable": true
 				},
 			"damage_pattern":
 				{

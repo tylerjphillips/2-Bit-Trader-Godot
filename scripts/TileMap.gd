@@ -308,14 +308,17 @@ func calculate_attackable_tiles(unit, weapon_index):
 	var unit_index = self.unit_to_index[unit]
 	var weapon_pattern : Dictionary = unit.unit_weapon_data[weapon_index]["weapon_pattern"]
 	if weapon_pattern["pattern"] == "cardinal":
-		attackable_pattern = attack_pattern_cardinal(unit_index, weapon_pattern.get("size"))
+		var size : int = weapon_pattern.get("size", 1)
+		var blockable : bool = weapon_pattern.get("blockable", false)
+		attackable_pattern = attack_pattern_cardinal(unit_index, size, blockable)
 	if weapon_pattern["pattern"] == "single":
 		attackable_pattern = attack_pattern_single(unit_index)
 	unit.last_attack_pattern = attackable_pattern
 	return attackable_pattern
 
-func attack_pattern_cardinal(unit_tile_index : Vector2, size : int):
+func attack_pattern_cardinal(unit_tile_index : Vector2, size := 1, blockable := false):
 	# generates a filtered attack pattern in the cardinals of length size
+	# if blockable units and obstacles will stop it
 	var attackable_tiles = Dictionary()
 	
 	for direction in self.directions:
@@ -323,11 +326,13 @@ func attack_pattern_cardinal(unit_tile_index : Vector2, size : int):
 			var attack_tile = unit_tile_index + (self.directions[direction] * (scalar + 1))
 			if self.get_cell(attack_tile.x, attack_tile.y) != INVALID_CELL:
 				attackable_tiles[attack_tile] = {"direction":direction}
+				if blockable and self.index_to_unit.has(attack_tile):
+					break	
 	return attackable_tiles
 
 func attack_pattern_single(unit_tile_index):
 	var attackable_tiles = Dictionary()
-	attackable_tiles[unit_tile_index] = {"direction": Vector2(0,0)}
+	attackable_tiles[unit_tile_index] = {"direction": "none"}
 	return attackable_tiles
 	
 
