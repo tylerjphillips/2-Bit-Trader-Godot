@@ -19,12 +19,16 @@
 					{
 					"normal": 1
 					},
-			"push_scalar": 2,
+			"push_scalar": 0,
 			
 			"weapon_pattern" : 
 				{
-				"pattern" : "cardinal",
+				"pattern" : "single",
 				"size" : 2
+				},
+			"damage_pattern":
+				{
+				"pattern": "single"
 				}
 			}
 		}
@@ -55,6 +59,10 @@
 				{
 				"pattern" : "cardinal",
 				"size" : 2
+				},
+			"damage_pattern":
+				{
+				"pattern": "single"
 				}
 			}
 		}
@@ -82,6 +90,10 @@
 				{
 				"pattern" : "cardinal",
 				"size" : 4
+				},
+			"damage_pattern":
+				{
+				"pattern": "single"
 				}
 			}
 		}
@@ -108,6 +120,10 @@
 				{
 				"pattern" : "cardinal",
 				"size" : 2
+				},
+			"damage_pattern":
+				{
+				"pattern": "single"
 				}
 			}
 		}

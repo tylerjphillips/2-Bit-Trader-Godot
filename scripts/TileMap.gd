@@ -204,6 +204,8 @@ func attempt_push_unit(attacking_unit, affected_unit, weapon_index, tile_index):
 	var collided_unit = null	# the unit that the affected unit may collide with
 	
 	if push_scalar != 0:
+		assert push_direction in self.directions	# weapon push direction must be defined
+		
 		# unit will be moved as many times over in the attack direction as possible, counting collisions made and then pushing the unit where needed
 		for i in range(push_scalar):
 			var checking_index = pushed_into_tile_index + (self.directions[push_direction] * (sign(push_scalar)))
@@ -307,6 +309,8 @@ func calculate_attackable_tiles(unit, weapon_index):
 	var weapon_pattern : Dictionary = unit.unit_weapon_data[weapon_index]["weapon_pattern"]
 	if weapon_pattern["pattern"] == "cardinal":
 		attackable_pattern = attack_pattern_cardinal(unit_index, weapon_pattern.get("size"))
+	if weapon_pattern["pattern"] == "single":
+		attackable_pattern = attack_pattern_single(unit_index)
 	unit.last_attack_pattern = attackable_pattern
 	return attackable_pattern
 
@@ -319,6 +323,11 @@ func attack_pattern_cardinal(unit_tile_index : Vector2, size : int):
 			var attack_tile = unit_tile_index + (self.directions[direction] * (scalar + 1))
 			if self.get_cell(attack_tile.x, attack_tile.y) != INVALID_CELL:
 				attackable_tiles[attack_tile] = {"direction":direction}
+	return attackable_tiles
+
+func attack_pattern_single(unit_tile_index):
+	var attackable_tiles = Dictionary()
+	attackable_tiles[unit_tile_index] = {"direction": Vector2(0,0)}
 	return attackable_tiles
 	
 
