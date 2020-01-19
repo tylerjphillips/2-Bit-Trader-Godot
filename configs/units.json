@@ -19,16 +19,17 @@
 					{
 					"normal": 1
 					},
-			"push_scalar": 0,
+			"push_scalar": 1,
 			
 			"weapon_pattern" : 
 				{
-				"pattern" : "single",
-				"size" : 2
+				"pattern" : "cardinal",
+				"size" : 5
 				},
 			"damage_pattern":
 				{
-				"pattern": "single"
+				"pattern" : "cardinal",
+				"size" : 1
 				}
 			}
 		}
