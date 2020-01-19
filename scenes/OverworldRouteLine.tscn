@@ -1,0 +1,7 @@
+[gd_scene format=2]
+
+[node name="OverworldRouteLine" type="Line2D"]
+z_index = 4
+width = 2.0
+default_color = Color( 0, 0, 0, 1 )
+texture_mode = 831066272
