@@ -181,6 +181,9 @@ func move_unit_to_tile(unit, tile_index):
 func unit_attack_tile(attacking_unit, weapon_index, tile_index):
 	# unit attacks a tile with a given weapon
 	print("Tilemap: attacking tile ",tile_index, " with ", attacking_unit.unit_name, " damage:", attacking_unit.unit_weapon_data[weapon_index]["damage"])
+	
+	#TODO calculate damage pattern and apply attack to multiple tiles 
+	
 	if self.index_to_unit.has(tile_index):
 		var affected_unit = self.index_to_unit[tile_index]
 		self.attempt_push_unit(attacking_unit, affected_unit, weapon_index, tile_index) # try to push the unit
@@ -252,7 +255,7 @@ func _on_ItemButton_button_up(weapon_index):
 		# weapon selected
 		selected_weapon_index = weapon_index
 		print("Tilemap: weapon index selected: ", weapon_index)
-		var attackable_tiles = calculate_attackable_tiles(self.selected_unit, weapon_index)
+		var attackable_tiles = calculate_attack_tiles(self.selected_unit, weapon_index)
 		emit_signal("create_attack_tiles", attackable_tiles)
 		self.movement_mode = ATTACK_MODE
 	
@@ -299,40 +302,61 @@ func filter_tiles_in_bounds(tile_indexes : Array) -> Array:
 			 filtered_tiles.append(tile_index)
 	return filtered_tiles
 
-#################### Attack pattern generators ####################
+#################### Attack and damage pattern generators ####################
 
-func calculate_attackable_tiles(unit, weapon_index):
-	# given a unit and weapon calculate the tiles it can attack given the weapon pattern in the unit's weapon data
-	# the weapon pattern name decides which functions will be applied to get the tiles
-	var attackable_pattern = Dictionary() # pattern of tile_indexes:attack_data
-	var unit_index = self.unit_to_index[unit]
-	var weapon_pattern : Dictionary = unit.unit_weapon_data[weapon_index]["weapon_pattern"]
-	if weapon_pattern["pattern"] == "cardinal":
-		var size : int = weapon_pattern.get("size", 1)
-		var blockable : bool = weapon_pattern.get("blockable", false)
-		attackable_pattern = attack_pattern_cardinal(unit_index, size, blockable)
-	if weapon_pattern["pattern"] == "single":
-		attackable_pattern = attack_pattern_single(unit_index)
-	unit.last_attack_pattern = attackable_pattern
-	return attackable_pattern
+func calculate_attack_tiles(attacking_unit, weapon_index):
+	# given a unit and weapon calculate the tiles it can attack given the weapon attack pattern in the unit's weapon data
+	# the weapon attack pattern name decides which functions will be applied to get the tiles
+	var attack_pattern = Dictionary() # pattern of tile_indexes:attack_data
+	var unit_index = self.unit_to_index[attacking_unit]
+	var weapon_attack_pattern : Dictionary = attacking_unit.unit_weapon_data[weapon_index]["weapon_pattern"]
+	if weapon_attack_pattern["pattern"] == "cardinal":
+		var size : int = weapon_attack_pattern.get("size", 1)
+		var blockable : bool = weapon_attack_pattern.get("blockable", false)
+		attack_pattern = generate_cardinal_pattern(unit_index, size, blockable)
+	if weapon_attack_pattern["pattern"] == "single":
+		attack_pattern = generate_single_pattern(unit_index)
+	attacking_unit.last_attack_pattern = attack_pattern
+	return attack_pattern
+	
+func calculate_damage_tiles(attacking_unit, attacked_tile_index, weapon_index):
+	# given a unit use the unit's attack pattern data and the tile it wishes to attack to generate the tiles it affects
+	# the weapon damage pattern name decides which functions will be applied to get the tiles
+	
+	var damage_pattern = Dictionary() # pattern of tile_indexes:attack_data
+	var weapon_damage_pattern : Dictionary = attacking_unit.unit_weapon_data[weapon_index]["damage_pattern"]
+	var attack_tile_data = attacking_unit.last_attack_pattern[attacked_tile_index]	# data from unit's attack pattern at selected tile
+	
+	print("Tilemap: attack direction: ", attack_tile_data["direction"])
+	
+	if weapon_damage_pattern["pattern"] == "cardinal":
+		var size : int = weapon_damage_pattern.get("size", 1)
+		var blockable : bool = weapon_damage_pattern.get("blockable", false)
+		damage_pattern = generate_cardinal_pattern(attacked_tile_index, size, blockable)
+	if weapon_damage_pattern["pattern"] == "single":
+		damage_pattern = generate_single_pattern(attacked_tile_index, attack_tile_data["direction"])
+	attacking_unit.last_damage_pattern = damage_pattern
+	return damage_pattern
 
-func attack_pattern_cardinal(unit_tile_index : Vector2, size := 1, blockable := false):
+func generate_cardinal_pattern(tile_index : Vector2, size := 1, blockable := false):
 	# generates a filtered attack pattern in the cardinals of length size
 	# if blockable units and obstacles will stop it
 	var attackable_tiles = Dictionary()
 	
 	for direction in self.directions:
 		for scalar in range(size):
-			var attack_tile = unit_tile_index + (self.directions[direction] * (scalar + 1))
+			var attack_tile = tile_index + (self.directions[direction] * (scalar + 1))
 			if self.get_cell(attack_tile.x, attack_tile.y) != INVALID_CELL:
 				attackable_tiles[attack_tile] = {"direction":direction}
 				if blockable and self.index_to_unit.has(attack_tile):
 					break	
 	return attackable_tiles
 
-func attack_pattern_single(unit_tile_index):
+func generate_single_pattern(tile_index, direction = "none"):
+	# generate pattern only at given tile
+	# direction param used for inheriting damage direction from attack direction
 	var attackable_tiles = Dictionary()
-	attackable_tiles[unit_tile_index] = {"direction": "none"}
+	attackable_tiles[tile_index] = {"direction": direction}
 	return attackable_tiles
 	
 

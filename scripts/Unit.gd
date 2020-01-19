@@ -36,6 +36,7 @@ var health_container = preload("res://scenes/HealthContainer.tscn")
 
 var last_bfs = Dictionary() # last pathing result from self.get_bfs. Used for checking movement. tile_indexes:cost
 var last_attack_pattern = Dictionary() # last calculated attack pattern. Used for checking attacks. tile_indexes:attack_data
+var last_damage_pattern = Dictionary() # last calculated damage pattern. Used for applying attacks. tile_indexes:attack_data
 
 onready var root = get_tree().get_root().get_node("Root")	# reference to root game node
 
