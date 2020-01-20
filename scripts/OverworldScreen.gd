@@ -11,6 +11,7 @@ onready var overworld_region_asset = preload("res://scenes/OverworldRegion.tscn"
 
 onready var day_count_label = $OverworldInfoModule/OverworldInfoDayLabel
 onready var gold_count_label = $OverworldInfoModule/OverworldInfoGoldLabel
+onready var caravan_indicator = $CaravanSprite
 
 func _ready():
 	pass
@@ -52,7 +53,23 @@ func init(game_data):
 	# change text
 	day_count_label.text = str(root.game_data["main_data"]["day"])
 	gold_count_label.text = str(root.game_data["main_data"]["gold"])
-		
+	
+	
+	# move caravan indicator to the percentage between the two locations on the current route
+	# indicated by the current event and number of events on the route
+	var current_event_id = root.game_data["main_data"]["current_event_id"]
+	var current_route_data = root.game_data["main_data"]["current_route"]
+		# get positions of start and end overworld locations
+	var from_location_id = current_route_data["from_map_id"]
+	var to_location_id = current_route_data["to_map_id"]
+	var from_pos = map_data[from_location_id]["map_location_coords"]
+	var to_pos = map_data[to_location_id]["map_location_coords"]
+	from_pos = Vector2(from_pos[0],from_pos[1])		# array->vector2
+	to_pos = Vector2(to_pos[0],to_pos[1])
+		# interpolate between them and set caravan location to it
+	var route_percent_complete = float(current_route_data["route_event_ids"].find(current_event_id) + 1) / current_route_data["route_event_ids"].size()
+	var interpolated_pos = from_pos + (to_pos - from_pos) * route_percent_complete
+	caravan_indicator.position = interpolated_pos
 
 func change_scene(new_scene_name):
 	emit_signal("change_scene", "overworld_screen", new_scene_name)
