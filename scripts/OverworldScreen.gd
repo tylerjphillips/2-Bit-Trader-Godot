@@ -12,9 +12,10 @@ onready var overworld_region_asset = preload("res://scenes/OverworldRegion.tscn"
 onready var day_count_label = $OverworldInfoModule/OverworldInfoDayLabel
 onready var gold_count_label = $OverworldInfoModule/OverworldInfoGoldLabel
 onready var caravan_indicator = $CaravanSprite
+onready var continue_route_button = $ContinueRouteButton
 
 func _ready():
-	pass
+	continue_route_button.connect("button_up", self, "continue_along_route")
 
 func init(game_data):
 	#  create regions
@@ -54,22 +55,47 @@ func init(game_data):
 	day_count_label.text = str(root.game_data["main_data"]["day"])
 	gold_count_label.text = str(root.game_data["main_data"]["gold"])
 	
-	
+	self.calculate_caravan_position()
+
+func calculate_caravan_position():
 	# move caravan indicator to the percentage between the two locations on the current route
 	# indicated by the current event and number of events on the route
+	var map_data = root.game_data["map_data"]
 	var current_event_id = root.game_data["main_data"]["current_event_id"]
 	var current_route_data = root.game_data["main_data"]["current_route"]
-		# get positions of start and end overworld locations
+
 	var from_location_id = current_route_data["from_map_id"]
-	var to_location_id = current_route_data["to_map_id"]
 	var from_pos = map_data[from_location_id]["map_location_coords"]
-	var to_pos = map_data[to_location_id]["map_location_coords"]
-	from_pos = Vector2(from_pos[0],from_pos[1])		# array->vector2
-	to_pos = Vector2(to_pos[0],to_pos[1])
+	from_pos = Vector2(from_pos[0],from_pos[1])		# array->vector2	
+	if !current_route_data["has_route_selected"]:
+		# if no route selected just use "from" location
+		caravan_indicator.position = from_pos
+	else:
 		# interpolate between them and set caravan location to it
-	var route_percent_complete = float(current_route_data["route_event_ids"].find(current_event_id) + 1) / current_route_data["route_event_ids"].size()
-	var interpolated_pos = from_pos + (to_pos - from_pos) * route_percent_complete
-	caravan_indicator.position = interpolated_pos
+		var to_location_id = current_route_data["to_map_id"]
+		var to_pos = map_data[to_location_id]["map_location_coords"]
+		to_pos = Vector2(to_pos[0],to_pos[1])
+		var route_percent_complete = float(current_route_data["route_event_ids"].find(current_event_id) + 1) / current_route_data["route_event_ids"].size()
+		var interpolated_pos = from_pos + (to_pos - from_pos) * route_percent_complete
+		caravan_indicator.position = interpolated_pos
+
+func continue_along_route():
+	# Moves caravan to the next event in the overworld route
+	var current_route_data = root.game_data["main_data"]["current_route"]
+	if current_route_data["has_route_selected"]:
+		var map_data = root.game_data["map_data"]
+		var current_event_id = root.game_data["main_data"]["current_event_id"]
+		var current_route_events : Array = root.game_data["main_data"]["current_route"]["route_event_ids"]
+		var event_index = current_route_events.find(current_event_id)
+		assert event_index != -1
+		event_index += 1
+		if event_index == current_route_events.size():
+			print("OverworldScreen: End of route reached")
+		else:
+			root.game_data["main_data"]["current_event_id"] = current_route_events[event_index]
+		calculate_caravan_position()
+	else:
+		print("OverworldScreen: no route selected")
 
 func change_scene(new_scene_name):
 	emit_signal("change_scene", "overworld_screen", new_scene_name)

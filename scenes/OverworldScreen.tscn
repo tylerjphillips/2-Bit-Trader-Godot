@@ -1,35 +1,27 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/OverworldScreen.gd" type="Script" id=1]
-[ext_resource path="res://scenes/ChangeSceneButton.tscn" type="PackedScene" id=2]
-[ext_resource path="res://images/ui/ui_background.png" type="Texture" id=3]
-[ext_resource path="res://images/ui/money_icon.png" type="Texture" id=4]
-[ext_resource path="res://images/ui/sun_icon.png" type="Texture" id=5]
-[ext_resource path="res://images/overworld/map_background.png" type="Texture" id=6]
-[ext_resource path="res://images/overworld/map_rose.png" type="Texture" id=7]
-[ext_resource path="res://images/units/caravan.png" type="Texture" id=8]
+[ext_resource path="res://images/ui/ui_background.png" type="Texture" id=2]
+[ext_resource path="res://images/ui/money_icon.png" type="Texture" id=3]
+[ext_resource path="res://images/ui/sun_icon.png" type="Texture" id=4]
+[ext_resource path="res://images/overworld/map_background.png" type="Texture" id=5]
+[ext_resource path="res://images/overworld/map_rose.png" type="Texture" id=6]
+[ext_resource path="res://images/units/caravan.png" type="Texture" id=7]
+[ext_resource path="res://scenes/ChangeSceneButton.tscn" type="PackedScene" id=8]
 
 [node name="OverworldScreen" type="Node"]
 script = ExtResource( 1 )
-
-[node name="ChangeSceneButton" parent="." instance=ExtResource( 2 )]
-margin_left = 17.8854
-margin_top = 139.223
-margin_right = 142.885
-margin_bottom = 159.223
-text = "Event Screen"
-new_scene_name = "event_screen"
 
 [node name="OverworldInfoModule" type="Node2D" parent="."]
 position = Vector2( 325, 525 )
 
 [node name="OverworldInfoBackground" type="Sprite" parent="OverworldInfoModule"]
 scale = Vector2( 0.8, 0.8 )
-texture = ExtResource( 3 )
+texture = ExtResource( 2 )
 
 [node name="OverworldInfoGoldIcon" type="Sprite" parent="OverworldInfoModule"]
 position = Vector2( -140, -30 )
-texture = ExtResource( 4 )
+texture = ExtResource( 3 )
 
 [node name="OverworldInfoGoldLabel" type="Label" parent="OverworldInfoModule"]
 self_modulate = Color( 0, 0, 0, 1 )
@@ -42,7 +34,7 @@ text = "Gold #"
 [node name="OverworldInfoDayIcon" type="Sprite" parent="OverworldInfoModule"]
 position = Vector2( -140, -5 )
 scale = Vector2( 0.9, 0.9 )
-texture = ExtResource( 5 )
+texture = ExtResource( 4 )
 
 [node name="OverworldInfoDayLabel" type="Label" parent="OverworldInfoModule"]
 self_modulate = Color( 0, 0, 0, 1 )
@@ -56,15 +48,30 @@ text = "Day #"
 position = Vector2( 510.867, 298.706 )
 scale = Vector2( 0.814481, 0.677103 )
 z_index = -1
-texture = ExtResource( 6 )
+texture = ExtResource( 5 )
 
 [node name="OverworldMapRose" type="Sprite" parent="."]
 position = Vector2( 81.3943, 520.571 )
-texture = ExtResource( 7 )
+texture = ExtResource( 6 )
 
 [node name="CaravanSprite" type="Sprite" parent="."]
 position = Vector2( 167.852, 320.773 )
 scale = Vector2( 0.5, 0.5 )
 z_index = 3
-texture = ExtResource( 8 )
+texture = ExtResource( 7 )
+
+[node name="ChangeSceneButton" parent="." instance=ExtResource( 8 )]
+margin_left = 721.822
+margin_top = 529.629
+margin_right = 846.821
+margin_bottom = 549.629
+text = "Event Screen"
+new_scene_name = "event_screen"
+
+[node name="ContinueRouteButton" type="Button" parent="."]
+margin_left = 520.339
+margin_top = 529.566
+margin_right = 674.339
+margin_bottom = 549.566
+text = "Continue Route"
 [connection signal="change_scene" from="ChangeSceneButton" to="." method="change_scene"]
