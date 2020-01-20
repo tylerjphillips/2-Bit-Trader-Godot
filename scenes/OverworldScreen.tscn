@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/OverworldScreen.gd" type="Script" id=1]
 [ext_resource path="res://scenes/ChangeSceneButton.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://images/ui/sun_icon.png" type="Texture" id=5]
 [ext_resource path="res://images/overworld/map_background.png" type="Texture" id=6]
 [ext_resource path="res://images/overworld/map_rose.png" type="Texture" id=7]
+[ext_resource path="res://scenes/OverworldRegion.tscn" type="PackedScene" id=8]
 
 [node name="OverworldScreen" type="Node"]
 script = ExtResource( 1 )
@@ -60,4 +61,6 @@ texture = ExtResource( 6 )
 [node name="OverworldMapRose" type="Sprite" parent="."]
 position = Vector2( 81.3943, 520.571 )
 texture = ExtResource( 7 )
+
+[node name="OverworldRegion" parent="." instance=ExtResource( 8 )]
 [connection signal="change_scene" from="ChangeSceneButton" to="." method="change_scene"]

@@ -14,6 +14,7 @@ script = ExtResource( 1 )
 [node name="OverworldLocationCrosshair" type="Sprite" parent="."]
 visible = false
 position = Vector2( 6.85806, 8.24796 )
+scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 2 )
 
 [node name="OverworldLocationName" type="Label" parent="."]
@@ -33,6 +34,7 @@ texture = ExtResource( 3 )
 
 [node name="OverworldLocationIcon" type="Sprite" parent="."]
 position = Vector2( 7.5, 7.5 )
+z_index = 2
 texture = ExtResource( 4 )
 hframes = 6
 [connection signal="button_up" from="." to="." method="_on_OverworldLocation_button_up"]
