@@ -20,7 +20,6 @@ func init(region_args):
 	# iterate through temp point list and convert it to vector2s
 	for p in temp_point_list:
 		var point = Vector2(p[0],p[1])
-		print("OverworldRegion: ",point) 
 		region_border.add_point(point)
 		self.region_point_list.append(point)
 	region_border.add_point(region_point_list[0])	# add first point to the end of border's line list to complete loop

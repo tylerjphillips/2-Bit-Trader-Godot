@@ -1,6 +1,12 @@
 {
 	"player_team" : "blue",
-	"current_map_id" : "137374783",
 	"day": 1,
-	"gold": 500
+	"gold": 500,
+	"current_event_id": "43832842",
+	"current_route":
+	{
+		"from_map_id": "137374783",
+		"to_map_id": "357365873",
+		"route_event_ids": ["43832842","24567478"]
+	}
 }
