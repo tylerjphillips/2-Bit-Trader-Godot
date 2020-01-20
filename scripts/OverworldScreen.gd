@@ -3,6 +3,9 @@ extends Node
 signal change_scene
 signal update_game_data
 
+signal end_of_route		# (to_map_id)
+signal start_of_route	# (from_map_id, to_map_id)
+
 onready var root = get_tree().get_root().get_node("Root")
 
 onready var overworld_location_asset = preload("res://scenes/OverworldLocation.tscn")
@@ -37,7 +40,7 @@ func init(game_data):
 		self.add_child(overworld_location)
 		overworld_location.init(current_map_data)
 		
-		overworld_location.connect("change_scene", self, "change_scene")
+		overworld_location.connect("overworld_location_button_up", self, "_on_overworld_location_button_up")
 		
 		# create lines between locations
 		for neighbor_id in current_map_data.get("map_neighbor_ids", []):
@@ -89,13 +92,48 @@ func continue_along_route():
 		var event_index = current_route_events.find(current_event_id)
 		assert event_index != -1
 		event_index += 1
-		if event_index == current_route_events.size():
-			print("OverworldScreen: End of route reached")
+		if event_index >= current_route_events.size():
+			var to_map_id = current_route_data["to_map_id"]
+			self.end_route(to_map_id)
 		else:
 			root.game_data["main_data"]["current_event_id"] = current_route_events[event_index]
 		calculate_caravan_position()
 	else:
 		print("OverworldScreen: no route selected")
+		
+func end_route(to_map_id):
+	print("OverworldScreen: End of route: ", to_map_id, " reached")
+	emit_signal("end_of_route", to_map_id)
+	root.game_data["main_data"]["current_route"]["has_route_selected"] = false
+	root.game_data["main_data"]["current_route"]["from_map_id"] = to_map_id	# destination becomes current location
+	root.game_data["main_data"]["current_route"]["to_map_id"] = null
+	calculate_caravan_position()
+	
+func start_route(from_map_id, to_map_id):
+	print("OverworldScreen: route started from ", from_map_id, " to ", to_map_id)
+	emit_signal("start_of_route",from_map_id, to_map_id)
+	
+	self.populate_route_event_list()
+	# reset route info
+	root.game_data["main_data"]["current_route"]["has_route_selected"] = true
+	root.game_data["main_data"]["current_route"]["from_map_id"] = from_map_id
+	root.game_data["main_data"]["current_route"]["to_map_id"] = to_map_id
+	calculate_caravan_position()
+
+func populate_route_event_list():
+	# TODO change this later
+	root.game_data["main_data"]["current_event_id"] = root.game_data["main_data"]["current_route"]["route_event_ids"][0]
+
+func _on_overworld_location_button_up(to_map_id):
+	# selects an location to travel to if one isn't selected 
+	var current_route_data = root.game_data["main_data"]["current_route"]
+	if !current_route_data["has_route_selected"]:
+		# can't travel to a location you're already at
+		var from_map_id = root.game_data["main_data"]["current_route"]["from_map_id"]
+		if from_map_id != to_map_id:
+			start_route(from_map_id, to_map_id)
+	else:
+		print("OverworldScreen: location ", root.game_data["main_data"]["current_route"]["to_map_id"], " already selected!")
 
 func change_scene(new_scene_name):
 	emit_signal("change_scene", "overworld_screen", new_scene_name)
