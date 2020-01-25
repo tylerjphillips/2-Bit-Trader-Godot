@@ -35,7 +35,6 @@ signal create_attack_tiles
 
 onready var unit_asset = preload("res://scenes/Unit.tscn") # unit prefab
 onready var unit_sidebar_asset = preload("res://scenes/UnitSideBarButton.tscn") # unit prefab
-onready var attack_animation_asset = preload("res://scenes/AttackAnimation.tscn")	# attack animation on all affected tiles
 
 var directions = {
 		"north": Vector2(0,-1),
@@ -188,7 +187,7 @@ func unit_attack_tile(attacking_unit, weapon_index, tile_index):
 	print("Tilemap: damaging tiles: ", damage_tiles)
 	for damage_tile_index in damage_tiles: 
 		# create damage animations at each affected tile
-		var attack_animation = self.attack_animation_asset.instance()
+		var attack_animation = attacking_unit.attack_animation_asset.instance()
 		var attack_animation_position = map_to_world(damage_tile_index)
 		attack_animation.position = attack_animation_position
 		self.add_child(attack_animation)

@@ -33,6 +33,7 @@ var unit_weapon_data : Dictionary = {}	# contains info on weapons this unit has
 var is_selected : bool = false # whether or not the unit is selected
 
 var health_container = preload("res://scenes/HealthContainer.tscn")
+var attack_animation_asset = preload("res://scenes/AttackAnimation.tscn")	# attack animation on all affected tiles
 
 var last_bfs = Dictionary() # last pathing result from self.get_bfs. Used for checking movement. tile_indexes:cost
 var last_attack_pattern = Dictionary() # last calculated attack pattern. Used for checking attacks. tile_indexes:attack_data
