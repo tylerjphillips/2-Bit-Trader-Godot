@@ -7,9 +7,9 @@
 script = ExtResource( 1 )
 
 [node name="ChangeSceneButton" parent="." instance=ExtResource( 2 )]
-margin_left = 87.9053
-margin_top = 63.2918
-margin_right = 152.905
-margin_bottom = 83.2918
+margin_left = 15.9053
+margin_top = 10.2918
+margin_right = 144.905
+margin_bottom = 30.2918
 text = "Overworld Screen "
 new_scene_name = "overworld_screen"

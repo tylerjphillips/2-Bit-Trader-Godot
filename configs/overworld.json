@@ -1,0 +1,64 @@
+{
+	"137374783":
+	{	
+		"location_id": "137374783",
+		"location_name": "map test 1",
+		"location_coords": [340,234],
+		"location_neighbor_ids": ["357365873", "28474628", "982734987349","3422355235", "234234234234", "23476465", "2196327"],
+		},
+	
+	"357365873":
+	{	
+		"location_id" : "357365873",
+		"location_name": "map test 2",
+		"location_coords": [234,24],
+		"location_neighbor_ids": ["137374783","982734987349"]
+	},
+	
+	"28474628":
+	{	
+		"location_id": "28474628",
+		"location_name": "map test 3",
+		"location_coords": [200,378],
+		"location_neighbor_ids": ["137374783"],
+	},
+	
+	"982734987349":
+	{	
+		"location_id": "982734987349",
+		"location_name": "map test 4",
+		"location_coords": [400,112],
+		"location_neighbor_ids": ["137374783", "357365873"],
+	},
+	
+	"3422355235":
+	{	
+		"location_id": "3422355235",
+		"location_name": "map test 5",
+		"location_coords": [136,75],
+		"location_neighbor_ids": ["137374783"],
+	},
+	
+	"234234234234":
+	{	
+		"location_id": "234234234234",
+		"location_name": "map test 6",
+		"location_coords": [390,180],
+		"location_neighbor_ids": ["137374783"],
+	},
+	"23476465":
+	{	
+		"location_id": "23476465",
+		"location_name": "map test 7",
+		"location_coords": [500,170],
+		"location_neighbor_ids": ["137374783"],
+	},
+	"2196327":
+	{	
+		"location_id": "2196327",
+		"location_name": "map test 8",
+		"location_coords": [543,190],
+		"location_neighbor_ids": ["137374783"],
+	},
+
+}

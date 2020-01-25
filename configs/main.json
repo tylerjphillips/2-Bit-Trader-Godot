@@ -6,8 +6,8 @@
 	"current_route":
 	{
 		"has_route_selected" : false,
-		"from_map_id": "137374783",
-		"to_map_id": "357365873",
+		"from_location_id": "137374783",
+		"to_location_id": "357365873",
 		"route_event_ids": ["43832842","24567478"]
 	}
 }

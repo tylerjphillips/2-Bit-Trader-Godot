@@ -34,7 +34,7 @@ var current_scene	 # reference to instance of currently active scene
 const config_directory = "res://configs/"
 	# json filenames in selected config_directory
 const units_json_filename = "units.json"
-const maps_json_filename = "maps.json"
+const overworld_json_filename = "overworld.json"
 const main_json_filename = "main.json"
 const events_json_filename = "events.json"
 const regions_json_filename = "regions.json"
@@ -76,7 +76,7 @@ func batch_load_json(directory):
 	# loads data from a directory
 	print("Root loading configs from ", directory, " .....")
 	self.game_data["unit_data"] = self.load_json(directory,units_json_filename)
-	self.game_data["map_data"] = self.load_json(directory,maps_json_filename)
+	self.game_data["overworld_data"] = self.load_json(directory,overworld_json_filename)
 	self.game_data["main_data"] = self.load_json(directory,main_json_filename)
 	self.game_data["event_data"] = self.load_json(directory,events_json_filename)
 	self.game_data["region_data"] = self.load_json(directory,regions_json_filename)
