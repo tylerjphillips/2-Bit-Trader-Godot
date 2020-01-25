@@ -275,7 +275,7 @@ func _on_set_tiles(tile_data):
 	# sets the tiles in the tilemap from a JSON payload
 	# Usually used for initialization but can also batch edit tiles on demand
 	print("Tilemap: setting tiles")
-	for tile in tile_data["map_tiles"]:
+	for tile in tile_data:
 		self.set_cell(tile[0],tile[1], tile[2])
 	
 func get_bfs(unit):

@@ -44,7 +44,7 @@ func _ready():
 func init(game_data):
 	var unit_data = game_data["unit_data"]
 	var current_event_id = game_data["main_data"]["current_event_id"]
-	var tile_data = game_data["event_data"][current_event_id]
+	var tile_data = game_data["event_data"][current_event_id]["map_tiles"]
 	emit_signal("batch_spawn_units", unit_data)
 	emit_signal("set_tiles", tile_data)
 	
