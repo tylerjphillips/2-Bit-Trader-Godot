@@ -18,7 +18,6 @@ func _ready():
 
 func init(game_data):
 	var event_data = game_data["event_data"]
-	print("EventScreen: ", event_data)
 	
 func change_scene(new_scene_name):
 	update_all_unit_data()
