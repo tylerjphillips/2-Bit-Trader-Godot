@@ -35,6 +35,7 @@ signal create_attack_tiles
 
 onready var unit_asset = preload("res://scenes/Unit.tscn") # unit prefab
 onready var unit_sidebar_asset = preload("res://scenes/UnitSideBarButton.tscn") # unit prefab
+onready var attack_animation_asset = preload("res://scenes/AttackAnimation.tscn")	# attack animation on all affected tiles
 
 var directions = {
 		"north": Vector2(0,-1),
@@ -179,13 +180,20 @@ func move_unit_to_tile(unit, tile_index):
 		
 		
 func unit_attack_tile(attacking_unit, weapon_index, tile_index):
-	# unit attacks a tile with a given weapon
+	# unit attacks a tile with a given weapon, applying a damage pattern around it
 	print("Tilemap: attacking tile ",tile_index, " with ", attacking_unit.unit_name, " damage:", attacking_unit.unit_weapon_data[weapon_index]["damage"])
 	
 	
 	var damage_tiles = calculate_damage_tiles(attacking_unit, weapon_index, tile_index)
 	print("Tilemap: damaging tiles: ", damage_tiles)
 	for damage_tile_index in damage_tiles: 
+		# create damage animations at each affected tile
+		var attack_animation = self.attack_animation_asset.instance()
+		var attack_animation_position = map_to_world(damage_tile_index)
+		attack_animation.position = attack_animation_position
+		self.add_child(attack_animation)
+		
+		# check if unit there to damage
 		if self.index_to_unit.has(damage_tile_index):
 			var affected_unit = self.index_to_unit[damage_tile_index]
 			self.attempt_push_unit(attacking_unit, affected_unit, weapon_index, damage_tile_index) # try to push the unit
