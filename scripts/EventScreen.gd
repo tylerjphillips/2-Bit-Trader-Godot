@@ -23,7 +23,7 @@ func _ready():
 
 func init(game_data):
 	self.update_dialogue_text()
-	
+
 func update_dialogue_text():
 	#updates event dialogue text label to current event's current dialogue
 	var current_event_id = self.root.game_data["main_data"]["current_event_id"]
@@ -52,18 +52,28 @@ func populate_choices():
 	var event_current_dialogue_id = current_event_data["event_current_dialogue_id"]
 	var current_dialogue_data = current_event_data["event_dialogue_data"][event_current_dialogue_id]
 	var choice_ids = current_dialogue_data["choice_ids"]
-	for choice_id in choice_data:
+	for choice_id in choice_ids:
 		print("EventScreen: populating choice: ",choice_data[choice_id])
 		var event_choice = self.event_choice_asset.instance()
 		self.event_choice_container.add_child(event_choice)
 		event_choice.init(choice_data[choice_id])
 		event_choice.connect("event_choice_selected", self, "_on_event_choice_selected")
 		
-func _on_event_choice_selected(choice_data):
-	print("EventScreen: choice selected: ",choice_data)
+func _on_event_choice_selected(selected_choice_data):
+	print("EventScreen: choice selected: ",selected_choice_data)
 	for choice in self.event_choice_container.get_children():
 		choice.queue_free()
-	
+		
+	if selected_choice_data["choice_starts_combat"]:
+		self.change_scene("combat_screen")
+	elif selected_choice_data["choice_returns_to_overworld"]:
+		self.change_scene("overworld_screen")
+	else:
+		# continue dialogue
+		var current_event_id = self.root.game_data["main_data"]["current_event_id"]
+		self.root.game_data["event_data"][current_event_id]["event_current_dialogue_id"] = selected_choice_data["dialogue_id"]
+		update_dialogue_text()
+		
 ####### Serialization ########
 
 func update_all_unit_data():
