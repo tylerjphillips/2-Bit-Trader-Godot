@@ -9,13 +9,13 @@
 			"Choice-1":
 				{
 					"choice_id":"Choice-1",
-					"choice_bbtext": "1st choice",
+					"choice_bbcode": "1st choice",
 					"dialogue_id": "Dialogue-2"
 				},
 			"Choice-2":
 				{
 					"choice_id":"Choice-2",
-					"choice_bbtext": "2nd choice",
+					"choice_bbcode": "2nd choice",
 					"dialogue_id": "Dialogue-3"
 				}
 			},
@@ -24,19 +24,19 @@
 			"Dialogue-1":
 			{
 				"dialogue_id": "Dialogue-1",
-				"dialogue_bbtext":"start of dialogue",
+				"dialogue_bbcode":"[center]start[/center] of dialogue",
 				"choice_ids": ["Choice-1","Choice-2"]
 			},
 			"Dialogue-2":
 			{
 				"dialogue_id": "Dialogue-2",
-				"dialogue_bbtext":"You selected the 1st choice",
+				"dialogue_bbcode":"You selected the 1st choice",
 				"choice_ids": ["Choice-1","Choice-2"]
 			},
 			"Dialogue-3":
 			{
 				"dialogue_id": "Dialogue-3",
-				"dialogue_bbtext":"You selected the 1st choice",
+				"dialogue_bbcode":"You selected the 1st choice",
 				"choice_ids": ["Choice-1","Choice-2"]
 			}
 		}
