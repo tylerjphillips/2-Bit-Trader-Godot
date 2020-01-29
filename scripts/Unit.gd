@@ -54,7 +54,7 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 	self.unit_tile_index = Vector2(unit_args["unit_tile_index"][0], unit_args["unit_tile_index"][1])
 	# unit args
 	self.unit_name = unit_args.get("unit_name", "Default name")
-	self.unit_id = unit_args.get("unit_id", str(OS.get_unix_time()))
+	self.unit_id = unit_args.get("unit_id", "Unit-"+str(OS.get_unix_time()))
 	self.unit_team = unit_args.get("unit_team", "red")
 	self.unit_movement_points = unit_args.get("unit_movement_points", 4)
 	self.unit_movement_points_max = unit_args.get("unit_movement_points_max", 4)
