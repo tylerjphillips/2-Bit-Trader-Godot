@@ -14,7 +14,7 @@ func _on_unit_selected(unit):
 	self.hide()
 	var index = self.weapon_index
 	if unit.unit_weapon_data.has(index):
-		print("ItemButton"+index + " populated")
-		self.show()
 		self.hint_tooltip = unit.unit_weapon_data[index].get("weapon_tooltip", "")
-	
+		var weapon_texture_path = unit.unit_weapon_data[index]["weapon_texture_path"]
+		self.texture_normal = load(weapon_texture_path)
+		self.show()

@@ -15,6 +15,7 @@
 		"0" :
 			{
 			"weapon_tooltip" : "test",
+			"weapon_texture_path": "res://images/weapons/axe.png",
 			"damage":
 					{
 					"normal": 1
@@ -52,6 +53,7 @@
 		"0" :
 			{
 			"weapon_tooltip" : "test",
+			"weapon_texture_path": "res://images/weapons/axe.png",
 			"damage":
 					{
 					"normal": 2
@@ -82,6 +84,7 @@
 		"0" :
 			{
 			"weapon_tooltip" : "test 2",
+			"weapon_texture_path": "res://images/weapons/bow.png",
 			"damage":
 					{
 					"normal": 1
@@ -114,6 +117,7 @@
 		"0" :
 			{
 			"weapon_tooltip" : "test",
+			"weapon_texture_path": "res://images/weapons/axe.png",
 			"damage":
 					{
 					"normal": 1
