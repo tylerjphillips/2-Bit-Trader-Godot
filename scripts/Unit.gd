@@ -10,6 +10,7 @@ var health_bar
 onready var selection_cursor = get_node("SelectionCursor")
 onready var move_indicator = get_node("MoveIndicator")
 onready var team_indicator = get_node("TeamIndicator")
+onready var unit_sprite = get_node("UnitSprite")
 
 # unit properties
 		# movement
@@ -39,6 +40,8 @@ var last_bfs = Dictionary() # last pathing result from self.get_bfs. Used for ch
 var last_attack_pattern = Dictionary() # last calculated attack pattern. Used for checking attacks. tile_indexes:attack_data
 var last_damage_pattern = Dictionary() # last calculated damage pattern. Used for applying attacks. tile_indexes:attack_data
 
+var unit_texture_path : String
+
 onready var root = get_tree().get_root().get_node("Root")	# reference to root game node
 
 func _ready():
@@ -60,6 +63,11 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 	self.unit_health_points_max = unit_args.get("unit_health_points_max", 1)
 	self.unit_class = unit_args.get("unit_class", "Archer")
 	self.unit_weapon_data = unit_args.get("unit_weapon_data", {})
+	
+	# set unit sprite
+	self.unit_texture_path = unit_args["unit_texture_path"]
+	self.unit_sprite.texture = load(self.unit_texture_path)
+	
 	
 	# initialize health bar
 	self.health_bar = health_container.instance()

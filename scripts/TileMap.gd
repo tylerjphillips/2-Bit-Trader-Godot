@@ -80,13 +80,11 @@ func spawn_unit(tile_index, unit_args):
 	# initialize sidebar unit UI for those belonging to the player team
 	if unit.unit_team == player_team:
 		var sidebar_unit = unit_sidebar_asset.instance()
-		sidebar_unit.unit = unit
-		sidebar_unit.text = unit.unit_name
 		self.unit_selection_sidebar.add_child(sidebar_unit)
+		sidebar_unit.init(unit)
 		
 		# signal bindings
 		sidebar_unit.connect("unit_sidebar_pressed", self, "attempt_select_unit")
-		
 		unit.connect("kill_unit", sidebar_unit, "_on_kill_unit")
 	
 ################ Clicking #############

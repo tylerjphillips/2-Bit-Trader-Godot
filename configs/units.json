@@ -10,6 +10,7 @@
 		"unit_health_points": 6,
 		"unit_health_points_max": 6,
 		"unit_class": "Archer",
+		"unit_texture_path":"res://images/units/armor.png",
 		"unit_weapon_data" :
 		{
 		"0" :
@@ -37,40 +38,6 @@
 		
 	},
 	
-	"145927534":
-	{
-		"unit_tile_index" : [11,10],
-		"unit_name": "John",
-		"unit_id": "145927534",
-		"unit_team": "green",
-		"unit_movement_points": 6,
-		"unit_movement_points_max": 6,
-		"unit_health_points": 6,
-		"unit_health_points_max": 6,
-		"unit_class": "Archer",
-		"unit_weapon_data" :
-		{
-		"0" :
-			{
-			"weapon_tooltip" : "test",
-			"weapon_texture_path": "res://images/weapons/axe.png",
-			"damage":
-					{
-					"normal": 2
-					},
-			"weapon_pattern" : 
-				{
-				"pattern" : "cardinal",
-				"size" : 2
-				},
-			"damage_pattern":
-				{
-				"pattern": "single"
-				}
-			}
-		}
-	},
-	
 	"14592735":
 	{
 		"unit_name": "Jake", 
@@ -79,6 +46,7 @@
 		"unit_health_points": 7, 
 		"unit_health_points_max": 7,
 		"unit_team":"blue",
+		"unit_texture_path":"res://images/units/archer.png",
 		"unit_weapon_data" :
 		{
 		"0" :
@@ -104,6 +72,41 @@
 		}
 	},
 	
+	"145927534":
+	{
+		"unit_tile_index" : [11,10],
+		"unit_name": "John",
+		"unit_id": "145927534",
+		"unit_team": "green",
+		"unit_movement_points": 6,
+		"unit_movement_points_max": 6,
+		"unit_health_points": 6,
+		"unit_health_points_max": 6,
+		"unit_class": "Archer",
+		"unit_texture_path":"res://images/units/goblin.png",
+		"unit_weapon_data" :
+		{
+		"0" :
+			{
+			"weapon_tooltip" : "test",
+			"weapon_texture_path": "res://images/weapons/axe.png",
+			"damage":
+					{
+					"normal": 2
+					},
+			"weapon_pattern" : 
+				{
+				"pattern" : "cardinal",
+				"size" : 2
+				},
+			"damage_pattern":
+				{
+				"pattern": "single"
+				}
+			}
+		}
+	},
+	
 	"155927355":
 	{
 		"unit_name": "Mike",
@@ -112,6 +115,7 @@
 		"unit_health_points": 5, 
 		"unit_health_points_max": 7,
 		"unit_team":"red",
+		"unit_texture_path":"res://images/units/goblin.png",
 		"unit_weapon_data" :
 		{
 		"0" :
