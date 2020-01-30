@@ -67,12 +67,24 @@ func _on_event_choice_selected(selected_choice_data):
 	if selected_choice_data["choice_starts_combat"]:
 		self.change_scene("combat_screen")
 	elif selected_choice_data["choice_returns_to_overworld"]:
-		self.change_scene("overworld_screen")
+		self.end_event()
 	else:
 		# continue dialogue
 		var current_event_id = self.root.game_data["main_data"]["current_event_id"]
 		self.root.game_data["event_data"][current_event_id]["event_current_dialogue_id"] = selected_choice_data["dialogue_id"]
 		update_dialogue_text()
+		
+		
+func end_event():
+	var current_location_id = self.root.game_data["main_data"]["current_location_id"]
+	var current_event_id = self.root.game_data["main_data"]["current_event_id"]
+	var current_location_data = self.root.game_data["overworld_data"][current_location_id]
+	
+	# reset the event to reuse it if necessary, and mark the location as completed
+	self.root.game_data["overworld_data"][current_location_id]["location_event_complete"] = true
+	self.root.game_data["event_data"][current_event_id]["event_current_dialogue_id"] = self.root.game_data["event_data"][current_event_id]["event_start_dialouge_id"]
+
+	self.change_scene("overworld_screen")
 		
 ####### Serialization ########
 
