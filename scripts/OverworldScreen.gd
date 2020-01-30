@@ -3,9 +3,6 @@ extends Node
 signal change_scene
 signal update_game_data
 
-signal end_of_route		# (to_location_id)
-signal start_of_route	# (from_location_id, to_location_id)
-
 onready var root = get_tree().get_root().get_node("Root")
 
 onready var overworld_location_asset = preload("res://scenes/OverworldLocation.tscn")
@@ -15,10 +12,12 @@ onready var overworld_region_asset = preload("res://scenes/OverworldRegion.tscn"
 onready var day_count_label = $OverworldInfoModule/OverworldInfoDayLabel
 onready var gold_count_label = $OverworldInfoModule/OverworldInfoGoldLabel
 onready var caravan_indicator = $CaravanSprite
-onready var continue_route_button = $ContinueRouteButton
+onready var caravan_travel_tween = $CaravanSprite/CaravanTravelTween
 
 func _ready():
-	continue_route_button.connect("button_up", self, "continue_along_route")
+	caravan_travel_tween.connect("tween_completed", caravan_indicator, "_on_CaravanTravelTween_completed")
+	caravan_indicator.connect("caravan_started_traveling", self, "_on_caravan_started_traveling")
+	caravan_indicator.connect("caravan_destination_reached", self, "_on_caravan_destination_reached")
 
 func init(game_data):
 	#  create regions
@@ -40,7 +39,7 @@ func init(game_data):
 		self.add_child(overworld_location)
 		overworld_location.init(current_overworld_data)
 		
-		overworld_location.connect("overworld_location_button_up", self, "_on_overworld_location_button_up")
+		overworld_location.connect("overworld_location_button_up", caravan_indicator, "_on_overworld_location_button_up")
 		
 		# create lines between locations
 		for neighbor_id in current_overworld_data.get("location_neighbor_ids", []):
@@ -58,82 +57,15 @@ func init(game_data):
 	day_count_label.text = str(root.game_data["main_data"]["day"])
 	gold_count_label.text = str(root.game_data["main_data"]["gold"])
 	
-	self.calculate_caravan_position()
-
-func calculate_caravan_position():
-	# move caravan indicator to the percentage between the two locations on the current route
-	# indicated by the current event and number of events on the route
-	var overworld_data = root.game_data["overworld_data"]
-	var current_event_id = root.game_data["main_data"]["current_event_id"]
-	var current_route_data = root.game_data["main_data"]["current_route"]
-
-	var from_location_id = current_route_data["from_location_id"]
-	var from_pos = overworld_data[from_location_id]["location_coords"]
-	from_pos = Vector2(from_pos[0],from_pos[1])		# array->vector2	
-	if !current_route_data["has_route_selected"]:
-		# if no route selected just use "from" location
-		caravan_indicator.position = from_pos
-	else:
-		# interpolate between them and set caravan location to it
-		var to_location_id = current_route_data["to_location_id"]
-		var to_pos = overworld_data[to_location_id]["location_coords"]
-		to_pos = Vector2(to_pos[0],to_pos[1])
-		var route_percent_complete = float(current_route_data["route_event_ids"].find(current_event_id) + 1) / current_route_data["route_event_ids"].size()
-		var interpolated_pos = from_pos + (to_pos - from_pos) * route_percent_complete
-		caravan_indicator.position = interpolated_pos
-
-func continue_along_route():
-	# Moves caravan to the next event in the overworld route
-	var current_route_data = root.game_data["main_data"]["current_route"]
-	if current_route_data["has_route_selected"]:
-		var overworld_data = root.game_data["overworld_data"]
-		var current_event_id = root.game_data["main_data"]["current_event_id"]
-		var current_route_events : Array = root.game_data["main_data"]["current_route"]["route_event_ids"]
-		var event_index = current_route_events.find(current_event_id)
-		assert event_index != -1
-		event_index += 1
-		if event_index >= current_route_events.size():
-			var to_location_id = current_route_data["to_location_id"]
-			self.end_route(to_location_id)
-		else:
-			root.game_data["main_data"]["current_event_id"] = current_route_events[event_index]
-		calculate_caravan_position()
-	else:
-		print("OverworldScreen: no route selected")
-		
-func end_route(to_location_id):
-	print("OverworldScreen: End of route: ", to_location_id, " reached")
-	emit_signal("end_of_route", to_location_id)
-	root.game_data["main_data"]["current_route"]["has_route_selected"] = false
-	root.game_data["main_data"]["current_route"]["from_location_id"] = to_location_id	# destination becomes current location
-	root.game_data["main_data"]["current_route"]["to_location_id"] = null
-	calculate_caravan_position()
-	
-func start_route(from_location_id, to_location_id):
-	print("OverworldScreen: route started from ", from_location_id, " to ", to_location_id)
-	emit_signal("start_of_route",from_location_id, to_location_id)
-	
-	self.populate_route_event_list()
-	# reset route info
-	root.game_data["main_data"]["current_route"]["has_route_selected"] = true
-	root.game_data["main_data"]["current_route"]["from_location_id"] = from_location_id
-	root.game_data["main_data"]["current_route"]["to_location_id"] = to_location_id
-	calculate_caravan_position()
-
-func populate_route_event_list():
-	# TODO change this later
-	root.game_data["main_data"]["current_event_id"] = root.game_data["main_data"]["current_route"]["route_event_ids"][0]
-
-func _on_overworld_location_button_up(to_location_id):
-	# selects an location to travel to if one isn't selected 
-	var current_route_data = root.game_data["main_data"]["current_route"]
-	if !current_route_data["has_route_selected"]:
-		# can't travel to a location you're already at
-		var from_location_id = root.game_data["main_data"]["current_route"]["from_location_id"]
-		if from_location_id != to_location_id:
-			start_route(from_location_id, to_location_id)
-	else:
-		print("OverworldScreen: location ", root.game_data["main_data"]["current_route"]["to_location_id"], " already selected!")
+	# set caravan position
+	caravan_indicator.initialize_caravan_position()
 
 func change_scene(new_scene_name):
 	emit_signal("change_scene", "overworld_screen", new_scene_name)
+
+func _on_caravan_started_traveling(to_location_id):
+	print("OverworldScreen: caravan traveling to ",to_location_id,"....")
+
+func _on_caravan_destination_reached(to_location_id):
+	print("OverworldScreen: caravan reached ",to_location_id)
+	root.game_data["main_data"]["current_location_id"] = to_location_id

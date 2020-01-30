@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/OverworldScreen.gd" type="Script" id=1]
 [ext_resource path="res://images/ui/ui_background.png" type="Texture" id=2]
@@ -7,7 +7,8 @@
 [ext_resource path="res://images/overworld/map_background.png" type="Texture" id=5]
 [ext_resource path="res://images/overworld/map_rose.png" type="Texture" id=6]
 [ext_resource path="res://images/units/caravan.png" type="Texture" id=7]
-[ext_resource path="res://scenes/ChangeSceneButton.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scripts/CaravanSprite.gd" type="Script" id=8]
+[ext_resource path="res://scenes/ChangeSceneButton.tscn" type="PackedScene" id=9]
 
 [node name="OverworldScreen" type="Node"]
 script = ExtResource( 1 )
@@ -59,19 +60,15 @@ position = Vector2( 167.852, 320.773 )
 scale = Vector2( 0.5, 0.5 )
 z_index = 3
 texture = ExtResource( 7 )
+script = ExtResource( 8 )
 
-[node name="ChangeSceneButton" parent="." instance=ExtResource( 8 )]
+[node name="CaravanTravelTween" type="Tween" parent="CaravanSprite"]
+
+[node name="ChangeSceneButton" parent="." instance=ExtResource( 9 )]
 margin_left = 721.822
 margin_top = 529.629
 margin_right = 846.821
 margin_bottom = 549.629
 text = "Event Screen"
 new_scene_name = "event_screen"
-
-[node name="ContinueRouteButton" type="Button" parent="."]
-margin_left = 520.339
-margin_top = 529.566
-margin_right = 674.339
-margin_bottom = 549.566
-text = "Continue Route"
 [connection signal="change_scene" from="ChangeSceneButton" to="." method="change_scene"]

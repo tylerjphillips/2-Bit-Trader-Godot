@@ -3,11 +3,5 @@
 	"day": 1,
 	"gold": 500,
 	"current_event_id": "Event-43832842",
-	"current_route":
-	{
-		"has_route_selected" : false,
-		"from_location_id": "Location-137374783",
-		"to_location_id": "Location-357365873",
-		"route_event_ids": ["Event-43832842"]
-	}
+	"current_location_id": "Location-137374783"
 }
