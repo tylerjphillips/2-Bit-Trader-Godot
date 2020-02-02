@@ -6,11 +6,15 @@ onready var caravan_travel_tween = $CaravanTravelTween
 var caravan_traveling := false
 var to_location_id = ""
 
-signal caravan_destination_reached # (to_location_id)
-signal caravan_started_traveling # (to_location_id)
+signal caravan_destination_reached
+signal caravan_started_traveling
+
+onready var relay = get_node("/root/SignalRelay")
 
 func _ready():
-	pass
+	# emitters
+	self.connect("caravan_started_traveling", relay, "_on_caravan_started_traveling")
+	self.connect("caravan_destination_reached", relay, "_on_caravan_destination_reached")
 	
 func initialize_caravan_position():
 	# place the caravan at the current location

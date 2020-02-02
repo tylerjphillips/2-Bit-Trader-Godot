@@ -1,9 +1,10 @@
 extends Area2D
 
 # signals
-signal click_unit
-signal update_health # (unit_health_points, unit_health_points_max)
-signal kill_unit # (unit)
+signal unit_health_changed # (unit_health_points, unit_health_points_max)
+signal unit_killed # (unit)
+signal unit_mouse_entered
+signal unit_mouse_left
 
 # ui indicators
 var health_bar
@@ -43,10 +44,24 @@ var last_damage_pattern = Dictionary() # last calculated damage pattern. Used fo
 var unit_texture_path : String
 
 onready var root = get_tree().get_root().get_node("Root")	# reference to root game node
+onready var relay = get_node("/root/SignalRelay")
 
 func _ready():
 	add_to_group("units")
-	self.connect("kill_unit", self, "_on_kill_unit")
+	self.connect("unit_killed", self, "_on_unit_killed")
+	
+	# emitters
+	self.connect("unit_clicked", relay, "_on_unit_clicked")
+	self.connect("unit_killed", relay, "_on_unit_killed")
+	
+	# listeners
+	relay.connect("unit_selected", self, "_on_unit_selected")
+	relay.connect("unit_deselected", self, "_on_unit_deselected")
+	relay.connect("unit_moved", self, "_on_unit_moved")
+	relay.connect("unit_attacks_unit", self, "_on_unit_attacks_unit")
+	relay.connect("unit_collides_unit", self, "_on_unit_collides_unit")
+	
+	
 
 func init(unit_position : Vector2, unit_args: Dictionary):
 	# position and tile index (mandatory)
@@ -73,7 +88,7 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 	self.health_bar = health_container.instance()
 	self.add_child(self.health_bar)
 	self.health_bar.init(unit_health_points,unit_health_points_max)
-	self.connect("update_health", self.health_bar, "_on_update_health")	
+	self.connect("unit_health_changed", self.health_bar, "_on_unit_health_changed")	
 	self.health_bar.hide()
 	
 	# UI indicators
@@ -142,7 +157,7 @@ func _on_PlayerUnit_mouse_exited():
 	return
 	print("Mouse Exited")
 	
-func _on_kill_unit(unit):
+func _on_unit_killed(unit):
 	if unit ==  self:
 		self.erase_global_data_entry()
 	
@@ -161,9 +176,9 @@ func get_unit_tile_index():
 func set_unit_health_points(value):
 	unit_health_points = value
 	if self.unit_health_points <= 0:
-		emit_signal("kill_unit", self)
+		emit_signal("unit_killed", self)
 	else:
-		emit_signal("update_health", unit_health_points, unit_health_points_max)
+		emit_signal("unit_health_changed", unit_health_points, unit_health_points_max)
 func get_unit_health_points():
 	return unit_health_points
 func set_unit_health_points_max(value):
@@ -216,5 +231,6 @@ func get_unit_repr():
 	unit_data["unit_weapon_data"] = self.unit_weapon_data
 	unit_data["unit_can_move"] = self.unit_can_move
 	unit_data["unit_can_attack"] = self.unit_can_attack
+	unit_data["unit_texture_path"] = self.unit_texture_path
 	
 	return unit_data;

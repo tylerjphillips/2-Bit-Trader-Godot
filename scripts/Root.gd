@@ -42,7 +42,7 @@ const regions_json_filename = "regions.json"
 func _ready():
 	print("Root: Game Start")
 	self.batch_load_json(config_directory)
-	self.create_scene("event_screen")
+	self.create_scene("combat_screen")
 
 func load_json(directory, filename):
 	print("Root: loading ", filename)

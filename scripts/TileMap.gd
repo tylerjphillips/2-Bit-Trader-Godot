@@ -36,6 +36,7 @@ signal create_attack_tiles
 onready var unit_asset = preload("res://scenes/Unit.tscn") # unit prefab
 onready var unit_sidebar_asset = preload("res://scenes/UnitSideBarButton.tscn") # unit prefab
 
+
 var directions = {
 		"north": Vector2(0,-1),
 		"south": Vector2(0,1),
@@ -43,10 +44,22 @@ var directions = {
 		"west": Vector2(-1,0)
 		}
 
+onready var relay = get_node("/root/SignalRelay")
+
 func _ready():
-	get_tree().call_group("units", "_on_start_team_turn", current_team)
+	# emitters
+	self.connect("unit_selected", relay, "_on_unit_selected")
+	self.connect("unit_deselected", relay, "_on_unit_deselected")
+	self.connect("unit_moved", relay, "_on_unit_moved")
+	self.connect("unit_attacks_unit", relay, "_on_unit_attacks_unit")
+	self.connect("unit_collides_unit", relay, "_on_unit_collides_unit")
 	
-	assert selected_unit_info
+	# listeners
+	relay.connect("unit_clicked", self, "_on_unit_clicked")
+	relay.connect("unit_killed", self, "_on_unit_killed")
+	relay.connect("unit_sidebar_pressed", self, "attempt_select_unit")
+	
+	get_tree().call_group("units", "_on_start_team_turn", current_team)
 
 ####### Spawning and Saving units #####
 
@@ -63,16 +76,7 @@ func spawn_unit(tile_index, unit_args):
 	var unit_position = map_to_world(tile_index)
 	self.add_child(unit)
 	unit.init(unit_position,unit_args)
-	
-	# set unit signal bindings
-	unit.connect("click_unit", self, "_on_click_unit")
-	unit.connect("kill_unit", self, "_on_kill_unit")
-	self.connect("unit_selected", unit, "_on_unit_selected")
-	self.connect("unit_deselected", unit, "_on_unit_deselected")
-	self.connect("unit_moved", unit, "_on_unit_moved")
-	self.connect("unit_attacks_unit", unit, "_on_unit_attacks_unit")
-	self.connect("unit_collides_unit", unit, "_on_unit_collides_unit")
-	
+
 	# initialize tile index <-> unit bindings
 	unit_to_index[unit] = tile_index
 	index_to_unit[tile_index] = unit
@@ -82,10 +86,6 @@ func spawn_unit(tile_index, unit_args):
 		var sidebar_unit = unit_sidebar_asset.instance()
 		self.unit_selection_sidebar.add_child(sidebar_unit)
 		sidebar_unit.init(unit)
-		
-		# signal bindings
-		sidebar_unit.connect("unit_sidebar_pressed", self, "attempt_select_unit")
-		unit.connect("kill_unit", sidebar_unit, "_on_kill_unit")
 	
 ################ Clicking #############
 func _unhandled_input(event):
@@ -124,7 +124,7 @@ func click_tile(tile_index):
 				if selected_unit.last_attack_pattern.has(tile_index):
 					self.unit_attack_tile(selected_unit, selected_weapon_index, tile_index)
 
-func _on_click_unit(unit):
+func _on_unit_clicked(unit):
 	return
 	print(unit)
 	selected_unit = unit
@@ -238,7 +238,7 @@ func push_unit(attacking_unit, affected_unit, new_tile_index : Vector2, collisio
 	if collided_unit != null:
 		emit_signal("unit_collides_unit", attacking_unit, affected_unit, collision_count, collided_unit)
 	
-func _on_kill_unit(unit):
+func _on_unit_killed(unit):
 	print("TileMap: Killed unit ", unit.unit_name)
 	if unit == self.selected_unit:
 		deselect_unit()

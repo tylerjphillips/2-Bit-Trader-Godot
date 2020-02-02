@@ -10,7 +10,7 @@ func init(unit_health, unit_health_max):
 		if index + 1 > unit_health:
 			health.frame = 1
 
-func _on_update_health(unit_health, unit_health_max):
+func _on_unit_health_changed(unit_health, unit_health_max):
 	for i in self.get_children():
 		i.queue_free()
 	for index in range(unit_health_max):

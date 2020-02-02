@@ -3,7 +3,6 @@ extends Node
 signal change_scene
 signal update_game_data
 
-onready var root = get_tree().get_root().get_node("Root")
 
 onready var overworld_location_asset = preload("res://scenes/OverworldLocation.tscn")
 onready var overworld_route_line_asset = preload("res://scenes/OverworldRouteLine.tscn")
@@ -14,10 +13,15 @@ onready var gold_count_label = $OverworldInfoModule/OverworldInfoGoldLabel
 onready var caravan_indicator = $CaravanSprite
 onready var caravan_travel_tween = $CaravanSprite/CaravanTravelTween
 
+onready var root = get_tree().get_root().get_node("Root")
+onready var relay = get_node("/root/SignalRelay")
+
 func _ready():
 	caravan_travel_tween.connect("tween_completed", caravan_indicator, "_on_CaravanTravelTween_completed")
-	caravan_indicator.connect("caravan_started_traveling", self, "_on_caravan_started_traveling")
-	caravan_indicator.connect("caravan_destination_reached", self, "_on_caravan_destination_reached")
+	
+	# listeners
+	relay.connect("caravan_started_traveling", self, "_on_caravan_started_traveling")
+	relay.connect("caravan_destination_reached", self, "_on_caravan_destination_reached")
 
 func init(game_data):
 	#  create regions

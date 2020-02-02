@@ -19,9 +19,14 @@ config/name="2-Bit Trader"
 run/main_scene="res://scenes/Node2D.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+SignalRelay="*res://scripts/autoload/SignalRelay.gd"
+
 [debug]
 
 gdscript/completion/autocomplete_setters_and_getters=true
+gdscript/warnings/return_value_discarded=false
 
 [display]
 

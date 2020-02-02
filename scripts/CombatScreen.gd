@@ -5,7 +5,6 @@ signal batch_spawn_units
 signal set_tiles
 
 signal change_scene
-signal update_game_data
 
 onready var tilemap = get_node("TileMap")
 onready var root = get_tree().get_root().get_node("Root")

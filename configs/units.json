@@ -19,7 +19,7 @@
 			"weapon_texture_path": "res://images/weapons/axe.png",
 			"damage":
 					{
-					"normal": 1
+					"normal": 4
 					},
 			"push_scalar": 1,
 			
@@ -55,7 +55,7 @@
 			"weapon_texture_path": "res://images/weapons/bow.png",
 			"damage":
 					{
-					"normal": 1
+					"normal": 4
 					},
 			"push_scalar": 2,
 			"weapon_pattern" : 

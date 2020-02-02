@@ -19,7 +19,7 @@ func _ready():
 	assert event_dialogue
 	
 	change_scene_button.connect("change_scene", self, "change_scene")
-	event_dialogue.connect("dialogue_typing_ended", self, "_on_dialogue_typing_ended")
+	event_dialogue.connect("event_dialogue_typing_ended", self, "_on_event_dialogue_typing_ended")
 
 func init(game_data):
 	self.update_dialogue_text()
@@ -39,7 +39,7 @@ func update_dialogue_text():
 func change_scene(new_scene_name):
 	emit_signal("change_scene", "combat_screen", new_scene_name)
 
-func _on_dialogue_typing_ended():
+func _on_event_dialogue_typing_ended():
 	print("EventScreen: end of dialogue typing")
 	populate_choices()
 	
