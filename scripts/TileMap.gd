@@ -33,8 +33,8 @@ signal create_movement_tiles # (bfs_results)
 signal clear_attack_tiles
 signal create_attack_tiles
 
-onready var unit_asset = preload("res://scenes/Unit.tscn") # unit prefab
-onready var unit_sidebar_asset = preload("res://scenes/UnitSideBarButton.tscn") # unit prefab
+onready var unit_asset = preload("res://scenes/combat/Unit.tscn") # unit prefab
+onready var unit_sidebar_asset = preload("res://scenes/combat/UnitSideBarButton.tscn") # unit prefab
 
 
 var directions = {

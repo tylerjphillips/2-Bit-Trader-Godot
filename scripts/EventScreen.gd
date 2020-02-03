@@ -9,7 +9,7 @@ onready var event_image = get_node("EventImage")
 onready var event_choice_container = get_node("EventScrollContainer/EventChoiceContainer")
 onready var event_dialogue = get_node("EventDialogueLabel")
 
-onready var event_choice_asset = preload("res://scenes/EventChoiceButton.tscn")
+onready var event_choice_asset = preload("res://scenes/event/EventChoiceButton.tscn")
 
 func _ready():
 	assert root

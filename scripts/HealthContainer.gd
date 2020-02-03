@@ -1,5 +1,5 @@
 extends Node2D
-var health_icon = preload("res://scenes/Health.tscn")
+var health_icon = preload("res://scenes/combat/Health.tscn")
 const health_width = 10
 
 func init(unit_health, unit_health_max):

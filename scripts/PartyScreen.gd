@@ -4,7 +4,7 @@ signal change_scene
 signal update_game_data
 
 onready var party_grid = get_node("ScrollContainer/PartyGrid")
-var party_member_ui = preload("res://scenes/UnitPartyUIElement.tscn")
+var party_member_ui = preload("res://scenes/combat/UnitPartyUIElement.tscn")
 
 onready var root = get_tree().get_root().get_node("Root")
 

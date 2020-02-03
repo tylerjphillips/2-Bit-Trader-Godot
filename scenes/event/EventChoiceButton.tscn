@@ -3,7 +3,6 @@
 [ext_resource path="res://images/terrain/dirt.png" type="Texture" id=1]
 [ext_resource path="res://scripts/EventChoiceButton.gd" type="Script" id=2]
 
-
 [node name="EventChoice" type="TextureRect"]
 margin_right = 40.0
 margin_bottom = 40.0

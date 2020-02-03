@@ -4,9 +4,9 @@ signal change_scene
 signal update_game_data
 
 
-onready var overworld_location_asset = preload("res://scenes/OverworldLocation.tscn")
-onready var overworld_route_line_asset = preload("res://scenes/OverworldRouteLine.tscn")
-onready var overworld_region_asset = preload("res://scenes/OverworldRegion.tscn")
+onready var overworld_location_asset = preload("res://scenes/overworld/OverworldLocation.tscn")
+onready var overworld_route_line_asset = preload("res://scenes/overworld/OverworldRouteLine.tscn")
+onready var overworld_region_asset = preload("res://scenes/overworld/OverworldRegion.tscn")
 
 onready var day_count_label = $OverworldInfoModule/OverworldInfoDayLabel
 onready var gold_count_label = $OverworldInfoModule/OverworldInfoGoldLabel

@@ -4,11 +4,11 @@ extends Node2D
 var game_data = Dictionary()
 
 # scenes
-var combat_screen = preload("res://scenes/CombatScreen.tscn")
-var shop_screen = preload("res://scenes/ShopScreen.tscn")
-var party_screen = preload("res://scenes/PartyScreen.tscn")
-var overworld_screen = preload("res://scenes/OverworldScreen.tscn")
-var event_screen = preload("res://scenes/EventScreen.tscn")
+var combat_screen = preload("res://scenes/combat/CombatScreen.tscn")
+var shop_screen = preload("res://scenes/shop/ShopScreen.tscn")
+var party_screen = preload("res://scenes/party/PartyScreen.tscn")
+var overworld_screen = preload("res://scenes/overworld/OverworldScreen.tscn")
+var event_screen = preload("res://scenes/event/EventScreen.tscn")
 
 # colors used for team indication
 const colors = {

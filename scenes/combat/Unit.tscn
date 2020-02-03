@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/Unit.gd" type="Script" id=1]
-[ext_resource path="res://scenes/Cursor.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/combat/Cursor.tscn" type="PackedScene" id=2]
 [ext_resource path="res://images/units/archer.png" type="Texture" id=3]
 [ext_resource path="res://images/ui/unit_team_indicator.png" type="Texture" id=4]
 
