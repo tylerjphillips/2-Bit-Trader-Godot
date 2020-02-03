@@ -13,6 +13,8 @@ onready var gold_count_label = $OverworldInfoModule/OverworldInfoGoldLabel
 onready var caravan_indicator = $CaravanSprite
 onready var caravan_travel_tween = $CaravanSprite/CaravanTravelTween
 
+onready var shop_screen_button = $ChangeSceneButtonShopScreen
+
 onready var root = get_tree().get_root().get_node("Root")
 onready var relay = get_node("/root/SignalRelay")
 
@@ -63,11 +65,18 @@ func init(game_data):
 	
 	# set caravan position
 	caravan_indicator.initialize_caravan_position()
+	
+	# shop visibility
+	var current_location_id = root.game_data["main_data"]["current_location_id"]
+	self.shop_screen_button.hide()
+	if self.root.game_data["overworld_data"][current_location_id].has("location_shop_id"):
+		self.shop_screen_button.show()
 
 func change_scene(new_scene_name):
 	emit_signal("change_scene", "overworld_screen", new_scene_name)
 
 func _on_caravan_started_traveling(to_location_id):
+	self.shop_screen_button.hide()
 	print("OverworldScreen: caravan traveling to ",to_location_id,"....")
 
 func _on_caravan_destination_reached(to_location_id):
@@ -75,6 +84,11 @@ func _on_caravan_destination_reached(to_location_id):
 	root.game_data["main_data"]["current_location_id"] = to_location_id
 	var location_event_complete = self.root.game_data["overworld_data"][to_location_id]["location_event_complete"]
 	print("OverworldScreen: current event completion at this location ",location_event_complete )
+	# if location's event complete
 	if !location_event_complete:
 		print("OverworldScreen: starting event at location....")
 		self.change_scene("event_screen")
+	else:
+		# location has shop
+		if self.root.game_data["overworld_data"][to_location_id].has("location_shop_id"):
+			self.shop_screen_button.show()

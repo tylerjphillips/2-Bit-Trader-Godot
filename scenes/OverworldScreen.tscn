@@ -64,11 +64,11 @@ script = ExtResource( 8 )
 
 [node name="CaravanTravelTween" type="Tween" parent="CaravanSprite"]
 
-[node name="ChangeSceneButton" parent="." instance=ExtResource( 9 )]
-margin_left = 721.822
-margin_top = 529.629
-margin_right = 846.821
-margin_bottom = 549.629
-text = "Event Screen"
-new_scene_name = "event_screen"
-[connection signal="change_scene" from="ChangeSceneButton" to="." method="change_scene"]
+[node name="ChangeSceneButtonShopScreen" parent="." instance=ExtResource( 9 )]
+margin_left = 915.17
+margin_top = 33.0212
+margin_right = 1009.17
+margin_bottom = 85.0212
+text = "Enter Shop"
+new_scene_name = "shop_screen"
+[connection signal="change_scene" from="ChangeSceneButtonShopScreen" to="." method="change_scene"]

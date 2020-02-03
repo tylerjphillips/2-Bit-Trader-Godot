@@ -7,7 +7,6 @@ signal change_scene
 func _ready():
 	self.connect("button_up", self, "_on_ChangeSceneButton_button_up")
 
-
 func _on_ChangeSceneButton_button_up():
 	if self.new_scene_name == "":
 		print("ChangeSceneButton: no scene specified.")
