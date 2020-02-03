@@ -1,20 +1,22 @@
 extends TextureButton
 
-export(String, "0","1","2","3") var weapon_index # the weapon this button corresponds to
+signal unit_info_weapon_selected
+
+var weapon_id
+
+onready var relay = get_node("/root/SignalRelay")
+
 
 func _ready():
-	pass # Replace with function body.
-
-
-
-func _on_ItemButton_button_up():
-	get_tree().call_group("tilemap", "_on_ItemButton_button_up", self.weapon_index)
+	# emitters
+	self.connect("unit_info_weapon_selected", relay, "_on_unit_info_weapon_selected")
+	self.connect("button_up", self, "_on_unit_info_weapon_selected")
 	
-func _on_unit_selected(unit):
-	self.hide()
-	var index = self.weapon_index
-	if unit.unit_weapon_data.has(index):
-		self.hint_tooltip = unit.unit_weapon_data[index].get("weapon_tooltip", "")
-		var weapon_texture_path = unit.unit_weapon_data[index]["weapon_texture_path"]
-		self.texture_normal = load(weapon_texture_path)
-		self.show()
+func init(unit, weapon_id):
+	self.weapon_id = weapon_id
+	self.hint_tooltip = unit.unit_weapon_data[weapon_id].get("weapon_tooltip", "")
+	var weapon_texture_path = unit.unit_weapon_data[weapon_id]["weapon_texture_path"]
+	self.texture_normal = load(weapon_texture_path)
+
+func _on_unit_info_weapon_selected():
+	emit_signal("unit_info_weapon_selected", self.weapon_id)

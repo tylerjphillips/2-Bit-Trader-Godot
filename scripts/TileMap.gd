@@ -3,7 +3,7 @@ extends TileMap
 # units
 	# unit vars
 var selected_unit = null
-var selected_weapon_index = null
+var selected_weapon_id = null
 var index_to_unit = Dictionary()
 var unit_to_index = Dictionary()
 var player_team = "blue"
@@ -58,6 +58,7 @@ func _ready():
 	relay.connect("unit_clicked", self, "_on_unit_clicked")
 	relay.connect("unit_killed", self, "_on_unit_killed")
 	relay.connect("unit_sidebar_pressed", self, "attempt_select_unit")
+	relay.connect("unit_info_weapon_selected", self, "_on_unit_info_weapon_selected")
 	
 	get_tree().call_group("units", "_on_start_team_turn", current_team)
 
@@ -122,7 +123,7 @@ func click_tile(tile_index):
 			# try to attack the tile
 			elif movement_mode == ATTACK_MODE and self.selected_unit.unit_can_attack:
 				if selected_unit.last_attack_pattern.has(tile_index):
-					self.unit_attack_tile(selected_unit, selected_weapon_index, tile_index)
+					self.unit_attack_tile(selected_unit, selected_weapon_id, tile_index)
 
 func _on_unit_clicked(unit):
 	return
@@ -154,7 +155,7 @@ func deselect_unit():
 		emit_signal("unit_deselected", self.selected_unit)
 		emit_signal("clear_movement_tiles")
 	selected_unit = null
-	selected_weapon_index = null
+	selected_weapon_id = null
 	self.movement_mode = SELECTION_MODE
 	
 	
@@ -257,13 +258,13 @@ func _on_EndTurnButton_button_up():
 	print("current team: "+current_team)
 	get_tree().call_group("units", "_on_start_team_turn", current_team)
 	
-func _on_ItemButton_button_up(weapon_index):
+func _on_unit_info_weapon_selected(weapon_id):
 	# Button for selecting items to attack with
 	if self.selected_unit.unit_can_attack:
 		# weapon selected
-		selected_weapon_index = weapon_index
-		print("Tilemap: weapon index selected: ", weapon_index)
-		var attackable_tiles = calculate_attack_tiles(self.selected_unit, weapon_index)
+		self.selected_weapon_id = weapon_id
+		print("Tilemap: weapon id selected: ", weapon_id)
+		var attackable_tiles = calculate_attack_tiles(self.selected_unit, weapon_id)
 		emit_signal("create_attack_tiles", attackable_tiles)
 		self.movement_mode = ATTACK_MODE
 	

@@ -9,15 +9,17 @@ signal caravan_started_traveling # (to_location_id)
 signal overworld_location_button_up
 
 signal unit_selected # (unit)
-signal unit_deselected
+signal unit_deselected # (unit)
 signal unit_moved	# (unit, tile_index, cost)
 signal unit_attacks_unit # attacking_unit, attacking_unit_weapon_data, attacked_unit
 signal unit_collides_unit # (attacking_unit, affected_unit, collision_count, collided_unit)
-signal unit_sidebar_pressed
+signal unit_sidebar_pressed # (unit)
 
-signal unit_clicked
+signal unit_clicked # (unit)
 signal unit_health_changed # (unit_health_points, unit_health_points_max)
 signal unit_killed # (unit)
+
+signal unit_info_weapon_selected
 
 signal event_choice_selected
 signal event_dialogue_typing_ended
@@ -50,6 +52,9 @@ func _on_unit_collides_unit(attacking_unit, affected_unit, collision_count, coll
 func _on_unit_sidebar_pressed(unit):
 	print("Relay: unit sidebar pressed")
 	emit_signal("unit_sidebar_pressed", unit)
+func _on_unit_info_weapon_selected(weapon_id):
+	print("Relay: unit_info_weapon_selected")
+	emit_signal("unit_info_weapon_selected", weapon_id)
 
 
 func _on_caravan_started_traveling(to_location_id):
