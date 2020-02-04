@@ -16,6 +16,8 @@
 		"Item-48567292" :
 			{
 			"item_id": "Item-48567292",
+			"item_sell_price":50,
+			"item_buy_price":50,
 			"weapon_tooltip" : "axe",
 			"weapon_texture_path": "res://images/weapons/axe.png",
 			"damage":
@@ -38,6 +40,8 @@
 		"Item-14344" :
 			{
 			"item_id": "Item-14344",
+			"item_sell_price":50,
+			"item_buy_price":50,
 			"weapon_tooltip" : "sword",
 			"weapon_texture_path": "res://images/weapons/sword.png",
 			"damage":
@@ -60,6 +64,8 @@
 		"Item-6325" :
 			{
 			"item_id": "Item-6325",
+			"item_sell_price":50,
+			"item_buy_price":50,
 			"weapon_tooltip" : "bow",
 			"weapon_texture_path": "res://images/weapons/bow.png",
 			"damage":
@@ -97,6 +103,8 @@
 		"Item-904836" :
 			{
 			"item_id": "Item-904836",
+			"item_sell_price":50,
+			"item_buy_price":50,
 			"weapon_tooltip" : "test 2",
 			"weapon_texture_path": "res://images/weapons/bow.png",
 			"damage":
@@ -135,6 +143,8 @@
 		"Item-348573932" :
 			{
 			"item_id": "Item-348573932",
+			"item_sell_price":50,
+			"item_buy_price":50,
 			"weapon_tooltip" : "test",
 			"weapon_sell_price": 50,
 			"weapon_buy_price": 50,
@@ -170,6 +180,8 @@
 		"Item-74325" :
 			{
 			"item_id": "Item-74325",
+			"item_sell_price":50,
+			"item_buy_price":50,
 			"weapon_tooltip" : "test",
 			"weapon_texture_path": "res://images/weapons/axe.png",
 			"damage":

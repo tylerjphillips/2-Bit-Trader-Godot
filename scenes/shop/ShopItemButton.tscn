@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://images/weapons/axe.png" type="Texture" id=1]
+[ext_resource path="res://scripts/ShopItemButton.gd" type="Script" id=2]
+
+[node name="ShopItemButton" type="TextureButton"]
+margin_right = 48.0
+margin_bottom = 48.0
+hint_tooltip = "Item Description"
+texture_normal = ExtResource( 1 )
+script = ExtResource( 2 )

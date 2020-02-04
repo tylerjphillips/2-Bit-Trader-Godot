@@ -24,6 +24,12 @@ signal unit_info_weapon_selected
 signal event_choice_selected
 signal event_dialogue_typing_ended
 
+signal shop_buy_item_button_up # (item_button)
+signal shop_sell_item_button_up # (item_button)
+signal shop_buy_item_failed
+signal shop_buy_item_succeeded
+signal shop_sell_item_succeeded
+
 func _ready():
 	pass
 	
@@ -63,3 +69,16 @@ func _on_caravan_started_traveling(to_location_id):
 func _on_caravan_destination_reached(to_location_id):
 	print("Relay: caravan destination reached")
 	emit_signal("caravan_destination_reached", to_location_id)
+	
+func _on_shop_buy_item_button_up(item_button):
+	emit_signal("shop_buy_item_button_up", item_button)
+	print("Relay: buying "+str(item_button.value))
+func _on_shop_sell_item_button_up(item_button):
+	emit_signal("shop_sell_item_button_up", item_button)
+	print("Relay: selling "+str(item_button.value))
+func _on_shop_buy_item_failed():
+	emit_signal("shop_buy_item_failed")
+func _on_shop_buy_item_succeeded():
+	emit_signal("shop_buy_item_succeeded")
+func _on_shop_sell_item_succeeded():
+	emit_signal("shop_sell_item_succeeded")

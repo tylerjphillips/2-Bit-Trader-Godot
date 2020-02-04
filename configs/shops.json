@@ -1,0 +1,34 @@
+{
+	"Shop-2745345":
+	{	
+		"shop_id": "Shop-2745345",
+		"shop_name": "Test shop",
+		"shop_items":
+		{
+			"Item-652876" :
+			{
+			"item_id": "Item-652876",
+			"item_sell_price":50,
+			"item_buy_price":50,
+			"weapon_tooltip" : "axe",
+			"weapon_texture_path": "res://images/weapons/bow.png",
+			"damage":
+					{
+					"normal": 4
+					},
+			"push_scalar": 1,
+			
+			"weapon_pattern" : 
+				{
+				"pattern" : "cardinal",
+				"size" : 5
+				},
+			"damage_pattern":
+				{
+				"pattern" : "cardinal",
+				"size" : 1
+				}
+			}
+		}
+	}
+}

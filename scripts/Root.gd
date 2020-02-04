@@ -38,6 +38,7 @@ const overworld_json_filename = "overworld.json"
 const main_json_filename = "main.json"
 const events_json_filename = "events.json"
 const regions_json_filename = "regions.json"
+const shops_json_filename = "shops.json"
 
 func _ready():
 	print("Root: Game Start")
@@ -80,6 +81,7 @@ func batch_load_json(directory):
 	self.game_data["main_data"] = self.load_json(directory,main_json_filename)
 	self.game_data["event_data"] = self.load_json(directory,events_json_filename)
 	self.game_data["region_data"] = self.load_json(directory,regions_json_filename)
+	self.game_data["shop_data"] = self.load_json(directory,shops_json_filename)
 
 func create_scene(scene_name):
 	self.current_scene = self.scene_names_to_scene[scene_name].instance()

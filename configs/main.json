@@ -3,5 +3,32 @@
 	"day": 1,
 	"gold": 500,
 	"current_event_id": "Event-43832842",
-	"current_location_id": "Location-137374783"
+	"current_location_id": "Location-137374783",
+	"player_items": 
+	{
+		"Item-6535" :
+			{
+			"item_id": "Item-6535",
+			"item_sell_price":100,
+			"item_buy_price":100,
+			"weapon_tooltip" : "sword",
+			"weapon_texture_path": "res://images/weapons/sword.png",
+			"damage":
+					{
+					"normal": 4
+					},
+			"push_scalar": 1,
+			
+			"weapon_pattern" : 
+				{
+				"pattern" : "cardinal",
+				"size" : 5
+				},
+			"damage_pattern":
+				{
+				"pattern" : "cardinal",
+				"size" : 1
+				}
+			}
+		}
 }
