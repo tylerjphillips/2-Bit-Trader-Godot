@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/ShopScreen.gd" type="Script" id=1]
 [ext_resource path="res://images/portraits/cat image 1.jpg" type="Texture" id=2]
-[ext_resource path="res://scenes/ChangeSceneButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/GoldInfoModule.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/ChangeSceneButton.tscn" type="PackedScene" id=4]
 
 [node name="ShopScreen" type="Node"]
 script = ExtResource( 1 )
@@ -22,18 +23,24 @@ align = 1
 
 [node name="BuyText" type="Label" parent="."]
 margin_left = 462.694
-margin_top = 98.4751
+margin_top = 97.1147
 margin_right = 486.694
-margin_bottom = 112.475
+margin_bottom = 111.115
 text = "Buy"
 
 [node name="SellText" type="Label" parent="."]
-margin_left = 764.681
-margin_top = 94.4751
-margin_right = 794.681
-margin_bottom = 120.475
+margin_left = 810.0
+margin_top = 97.607
+margin_right = 840.0
+margin_bottom = 123.607
 rect_pivot_offset = Vector2( 15, 0 )
 text = "Sell"
+
+[node name="GoldInfoModule" parent="." instance=ExtResource( 3 )]
+margin_left = 855.495
+margin_top = 94.0346
+margin_right = 960.495
+margin_bottom = 114.035
 
 [node name="ConfirmTransactionButton" type="Button" parent="."]
 margin_left = 174.434
@@ -46,25 +53,29 @@ text = "Confirm"
 self_modulate = Color( 0.898039, 0.0313726, 0.0313726, 1 )
 margin_left = 400.0
 margin_top = 140.0
-margin_right = 600.0
+margin_right = 634.0
 margin_bottom = 440.0
 rect_min_size = Vector2( 200, 300 )
 
 [node name="BuyItemGridContainer" type="GridContainer" parent="BuyItemContainer"]
-self_modulate = Color( 0.843137, 0.0313726, 0.0313726, 1 )
+custom_constants/vseparation = 24
+custom_constants/hseparation = 24
 columns = 3
 
 [node name="SellItemContainer" type="ScrollContainer" parent="."]
+self_modulate = Color( 0.898039, 0.0313726, 0.0313726, 1 )
 margin_left = 700.0
 margin_top = 140.0
-margin_right = 900.0
+margin_right = 934.0
 margin_bottom = 440.0
 rect_min_size = Vector2( 200, 300 )
 
 [node name="SellItemGridContainer" type="GridContainer" parent="SellItemContainer"]
+custom_constants/vseparation = 24
+custom_constants/hseparation = 24
 columns = 3
 
-[node name="ChangeSceneButtonOverworldScreen" parent="." instance=ExtResource( 3 )]
+[node name="ChangeSceneButtonOverworldScreen" parent="." instance=ExtResource( 4 )]
 margin_left = 148.145
 margin_top = 28.8525
 margin_right = 289.145

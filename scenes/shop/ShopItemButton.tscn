@@ -9,3 +9,13 @@ margin_bottom = 48.0
 hint_tooltip = "Item Description"
 texture_normal = ExtResource( 1 )
 script = ExtResource( 2 )
+
+[node name="ShopItemPriceLabel" type="Label" parent="."]
+self_modulate = Color( 0, 0, 0, 1 )
+margin_left = -1.79243
+margin_top = 38.4151
+margin_right = 47.2076
+margin_bottom = 52.4151
+rect_scale = Vector2( 1.25, 1.25 )
+text = "Price"
+align = 2

@@ -8,10 +8,82 @@
 			"Item-652876" :
 			{
 			"item_id": "Item-652876",
-			"item_sell_price":50,
-			"item_buy_price":50,
+			"item_sell_price":123,
+			"item_buy_price":123,
 			"weapon_tooltip" : "axe",
 			"weapon_texture_path": "res://images/weapons/bow.png",
+			"damage":
+					{
+					"normal": 4
+					},
+			"push_scalar": 1,
+			
+			"weapon_pattern" : 
+				{
+				"pattern" : "cardinal",
+				"size" : 5
+				},
+			"damage_pattern":
+				{
+				"pattern" : "cardinal",
+				"size" : 1
+				}
+			},
+			"Item-54" :
+			{
+			"item_id": "Item-54",
+			"item_sell_price":123,
+			"item_buy_price":123,
+			"weapon_tooltip" : "axe",
+			"weapon_texture_path": "res://images/weapons/club.png",
+			"damage":
+					{
+					"normal": 4
+					},
+			"push_scalar": 1,
+			
+			"weapon_pattern" : 
+				{
+				"pattern" : "cardinal",
+				"size" : 5
+				},
+			"damage_pattern":
+				{
+				"pattern" : "cardinal",
+				"size" : 1
+				}
+			},
+			"Item-44" :
+			{
+			"item_id": "Item-44",
+			"item_sell_price":123,
+			"item_buy_price":123,
+			"weapon_tooltip" : "axe",
+			"weapon_texture_path": "res://images/weapons/axe.png",
+			"damage":
+					{
+					"normal": 4
+					},
+			"push_scalar": 1,
+			
+			"weapon_pattern" : 
+				{
+				"pattern" : "cardinal",
+				"size" : 5
+				},
+			"damage_pattern":
+				{
+				"pattern" : "cardinal",
+				"size" : 1
+				}
+			},
+			"Item-22" :
+			{
+			"item_id": "Item-22",
+			"item_sell_price":123,
+			"item_buy_price":123,
+			"weapon_tooltip" : "axe",
+			"weapon_texture_path": "res://images/weapons/sword.png",
 			"damage":
 					{
 					"normal": 4

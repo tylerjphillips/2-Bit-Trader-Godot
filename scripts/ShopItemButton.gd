@@ -3,13 +3,15 @@ extends TextureButton
 signal shop_buy_item_button_up
 signal shop_sell_item_button_up
 
-onready var root = get_tree().get_root().get_node("Root")
-onready var relay = get_node("/root/SignalRelay") 
-
 var item_id;
 var value;
 var sell_or_buy : String; # "sell" or "buy"
 var item_data
+
+onready var price_label = $ShopItemPriceLabel
+
+onready var root = get_tree().get_root().get_node("Root")
+onready var relay = get_node("/root/SignalRelay") 
 
 func _ready():
 	self.connect("button_up", self, "_on_ShopItem_button_up")
@@ -31,6 +33,9 @@ func init(item_data, sell_or_buy : String):
 	self.hint_tooltip = self.item_data.get("weapon_tooltip", "") + ":" + str(self.value)
 	var item_texture_path = self.item_data["weapon_texture_path"]
 	self.texture_normal = load(item_texture_path)
+	
+	# set price label
+	price_label.text = str(self.value)
 
 func _on_ShopItem_button_up():
 	if self.sell_or_buy == "buy":

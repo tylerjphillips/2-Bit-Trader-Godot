@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scripts/OverworldScreen.gd" type="Script" id=1]
 [ext_resource path="res://images/ui/ui_background.png" type="Texture" id=2]
-[ext_resource path="res://images/ui/money_icon.png" type="Texture" id=3]
+[ext_resource path="res://scenes/GoldInfoModule.tscn" type="PackedScene" id=3]
 [ext_resource path="res://images/ui/sun_icon.png" type="Texture" id=4]
 [ext_resource path="res://images/overworld/map_background.png" type="Texture" id=5]
 [ext_resource path="res://images/overworld/map_rose.png" type="Texture" id=6]
@@ -20,17 +20,11 @@ position = Vector2( 325, 525 )
 scale = Vector2( 0.8, 0.8 )
 texture = ExtResource( 2 )
 
-[node name="OverworldInfoGoldIcon" type="Sprite" parent="OverworldInfoModule"]
-position = Vector2( -140, -30 )
-texture = ExtResource( 3 )
-
-[node name="OverworldInfoGoldLabel" type="Label" parent="OverworldInfoModule"]
-self_modulate = Color( 0, 0, 0, 1 )
-margin_left = -125.77
-margin_top = -34.3943
-margin_right = -85.7702
-margin_bottom = -20.3943
-text = "Gold #"
+[node name="GoldInfoModule" parent="OverworldInfoModule" instance=ExtResource( 3 )]
+margin_left = -150.0
+margin_top = -39.11
+margin_right = -44.9999
+margin_bottom = -19.11
 
 [node name="OverworldInfoDayIcon" type="Sprite" parent="OverworldInfoModule"]
 position = Vector2( -140, -5 )

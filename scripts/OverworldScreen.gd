@@ -9,7 +9,7 @@ onready var overworld_route_line_asset = preload("res://scenes/overworld/Overwor
 onready var overworld_region_asset = preload("res://scenes/overworld/OverworldRegion.tscn")
 
 onready var day_count_label = $OverworldInfoModule/OverworldInfoDayLabel
-onready var gold_count_label = $OverworldInfoModule/OverworldInfoGoldLabel
+
 onready var caravan_indicator = $CaravanSprite
 onready var caravan_travel_tween = $CaravanSprite/CaravanTravelTween
 
@@ -61,7 +61,6 @@ func init(game_data):
 		
 	# change text
 	day_count_label.text = str(root.game_data["main_data"]["day"])
-	gold_count_label.text = str(root.game_data["main_data"]["gold"])
 	
 	# set caravan position
 	caravan_indicator.initialize_caravan_position()
