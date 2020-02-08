@@ -15,6 +15,8 @@ func _ready():
 	# emitters
 	self.connect("caravan_started_traveling", relay, "_on_caravan_started_traveling")
 	self.connect("caravan_destination_reached", relay, "_on_caravan_destination_reached")
+	# listeners
+	relay.connect("overworld_location_button_up", self, "_on_overworld_location_button_up")
 	
 func initialize_caravan_position():
 	# place the caravan at the current location

@@ -45,8 +45,6 @@ func init(game_data):
 		self.add_child(overworld_location)
 		overworld_location.init(current_overworld_data)
 		
-		overworld_location.connect("overworld_location_button_up", caravan_indicator, "_on_overworld_location_button_up")
-		
 		# create lines between locations
 		for neighbor_id in current_overworld_data.get("location_neighbor_ids", []):
 			if neighbor_id < location_id:	# prevents duplicate lines

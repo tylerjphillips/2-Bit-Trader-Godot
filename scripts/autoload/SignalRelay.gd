@@ -78,6 +78,9 @@ func _on_caravan_destination_reached(to_location_id):
 	print("Relay: caravan destination reached")
 	emit_signal("caravan_destination_reached", to_location_id)
 	
+func _on_overworld_location_button_up(location_id):
+	emit_signal("overworld_location_button_up", location_id)
+	
 func _on_shop_buy_item_button_up(item_button):
 	emit_signal("shop_buy_item_button_up", item_button)
 	print("Relay: buying "+str(item_button.value))
