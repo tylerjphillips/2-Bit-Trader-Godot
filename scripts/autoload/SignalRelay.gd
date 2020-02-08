@@ -14,7 +14,6 @@ signal unit_moved	# (unit, tile_index, cost)
 signal unit_attacks_unit # attacking_unit, attacking_unit_weapon_data, attacked_unit
 signal unit_collides_unit # (attacking_unit, affected_unit, collision_count, collided_unit)
 signal unit_sidebar_pressed # (unit)
-
 signal unit_clicked # (unit)
 signal unit_health_changed # (unit_health_points, unit_health_points_max)
 signal unit_killed # (unit)

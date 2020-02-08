@@ -13,6 +13,7 @@ func _ready():
 	relay.connect("audio_finished", self, "_on_audio_finished")
 
 func init(audio_path):
+	print("AudioAutomaticPlayer: ", audio_path)
 	self.audio_path = audio_path
 	self.stream = load(audio_path)
 	self.play()

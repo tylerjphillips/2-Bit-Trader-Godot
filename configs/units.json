@@ -11,6 +11,8 @@
 		"unit_health_points_max": 6,
 		"unit_class": "Archer",
 		"unit_texture_path":"res://images/units/armor.png",
+		"unit_death_audio_path":"res://audio/dying_1.wav",
+		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
 		"unit_weapon_data" :
 		{
 		"Item-48567292" :
@@ -20,6 +22,7 @@
 			"item_buy_price":50,
 			"weapon_tooltip" : "axe",
 			"weapon_texture_path": "res://images/weapons/axe.png",
+			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
 			"damage":
 					{
 					"normal": 4
@@ -44,6 +47,7 @@
 			"item_buy_price":50,
 			"weapon_tooltip" : "sword",
 			"weapon_texture_path": "res://images/weapons/sword.png",
+			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
 			"damage":
 					{
 					"normal": 4
@@ -68,6 +72,7 @@
 			"item_buy_price":50,
 			"weapon_tooltip" : "bow",
 			"weapon_texture_path": "res://images/weapons/bow.png",
+			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
 			"damage":
 					{
 					"normal": 4
@@ -98,6 +103,8 @@
 		"unit_health_points_max": 7,
 		"unit_team":"blue",
 		"unit_texture_path":"res://images/units/archer.png",
+		"unit_death_audio_path":"res://audio/dying_1.wav",
+		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
 		"unit_weapon_data" :
 		{
 		"Item-904836" :
@@ -107,6 +114,7 @@
 			"item_buy_price":50,
 			"weapon_tooltip" : "test 2",
 			"weapon_texture_path": "res://images/weapons/bow.png",
+			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
 			"damage":
 					{
 					"normal": 4
@@ -138,6 +146,8 @@
 		"unit_health_points_max": 6,
 		"unit_class": "Archer",
 		"unit_texture_path":"res://images/units/goblin.png",
+		"unit_death_audio_path":"res://audio/dying_1.wav",
+		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
 		"unit_weapon_data" :
 		{
 		"Item-348573932" :
@@ -149,6 +159,7 @@
 			"weapon_sell_price": 50,
 			"weapon_buy_price": 50,
 			"weapon_texture_path": "res://images/weapons/axe.png",
+			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
 			"damage":
 					{
 					"normal": 2
@@ -175,6 +186,8 @@
 		"unit_health_points_max": 7,
 		"unit_team":"red",
 		"unit_texture_path":"res://images/units/goblin.png",
+		"unit_death_audio_path":"res://audio/dying_1.wav",
+		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
 		"unit_weapon_data" :
 		{
 		"Item-74325" :
@@ -184,6 +197,7 @@
 			"item_buy_price":50,
 			"weapon_tooltip" : "test",
 			"weapon_texture_path": "res://images/weapons/axe.png",
+			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
 			"damage":
 					{
 					"normal": 1

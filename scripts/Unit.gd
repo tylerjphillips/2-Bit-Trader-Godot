@@ -43,6 +43,9 @@ var last_damage_pattern = Dictionary() # last calculated damage pattern. Used fo
 
 var unit_texture_path : String
 
+var unit_death_audio_path : String
+var unit_damaged_audio_path : String
+
 onready var root = get_tree().get_root().get_node("Root")	# reference to root game node
 onready var relay = get_node("/root/SignalRelay")
 
@@ -83,6 +86,9 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 	self.unit_texture_path = unit_args["unit_texture_path"]
 	self.unit_sprite.texture = load(self.unit_texture_path)
 	
+	# audio
+	self.unit_death_audio_path = unit_args["unit_death_audio_path"]
+	self.unit_damaged_audio_path = unit_args["unit_damaged_audio_path"]
 	
 	# initialize health bar
 	self.health_bar = health_container.instance()
@@ -232,5 +238,7 @@ func get_unit_repr():
 	unit_data["unit_can_move"] = self.unit_can_move
 	unit_data["unit_can_attack"] = self.unit_can_attack
 	unit_data["unit_texture_path"] = self.unit_texture_path
+	unit_data["unit_death_audio_path"] = self.unit_death_audio_path
+	unit_data["unit_damaged_audio_path"] = self.unit_damaged_audio_path
 	
 	return unit_data;

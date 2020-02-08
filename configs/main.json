@@ -13,6 +13,7 @@
 			"item_buy_price":100,
 			"weapon_tooltip" : "sword",
 			"weapon_texture_path": "res://images/weapons/sword.png",
+			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
 			"damage":
 					{
 					"normal": 4
