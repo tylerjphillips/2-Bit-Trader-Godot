@@ -8,6 +8,7 @@ signal caravan_started_traveling # (to_location_id)
 
 signal overworld_location_button_up
 
+signal unit_spawned # (unit)
 signal unit_selected # (unit)
 signal unit_deselected # (unit)
 signal unit_moved	# (unit, tile_index, cost)
@@ -34,6 +35,8 @@ signal audio_finished # (path)
 func _ready():
 	pass
 	
+func _on_unit_spawned(unit):
+	emit_signal("unit_spawned", unit)
 func _on_unit_clicked(unit):
 	print("Relay: unit clicked")
 	emit_signal("unit_clicked", unit)

@@ -1,6 +1,7 @@
 extends Area2D
 
 # signals
+signal unit_spawned # (unit)
 signal unit_health_changed # (unit_health_points, unit_health_points_max)
 signal unit_killed # (unit)
 signal unit_mouse_entered
@@ -54,6 +55,7 @@ func _ready():
 	self.connect("unit_killed", self, "_on_unit_killed")
 	
 	# emitters
+	self.connect("unit_spawned", relay, "_on_unit_spawned")
 	self.connect("unit_clicked", relay, "_on_unit_clicked")
 	self.connect("unit_killed", relay, "_on_unit_killed")
 	
@@ -106,6 +108,8 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 	
 	self.unit_can_move = unit_args.get("unit_can_move", true)
 	self.unit_can_attack = unit_args.get("unit_can_attack", true)
+	
+	emit_signal("unit_spawned", self)
 
 func damage_unit(weapon_data):
 	if weapon_data["damage"].has("normal"):

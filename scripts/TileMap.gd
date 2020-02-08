@@ -11,8 +11,7 @@ var current_team = "blue"
 var teams = ["blue", "red", "green"]
 	# unit info UI module
 onready var selected_unit_info = get_node("../SelectedUnitInfo")
-#	Sidebar for seeing all units on player team
-onready var unit_selection_sidebar = get_node("../UnitSelectionSidebar/UnitSelectionSidebarGrid")
+
 	# unit related signals
 signal unit_selected # (unit)
 signal unit_deselected
@@ -34,8 +33,6 @@ signal clear_attack_tiles
 signal create_attack_tiles
 
 onready var unit_asset = preload("res://scenes/combat/Unit.tscn") # unit prefab
-onready var unit_sidebar_asset = preload("res://scenes/combat/UnitSideBarButton.tscn") # unit prefab
-
 
 var directions = {
 		"north": Vector2(0,-1),
@@ -81,12 +78,6 @@ func spawn_unit(tile_index, unit_args):
 	# initialize tile index <-> unit bindings
 	unit_to_index[unit] = tile_index
 	index_to_unit[tile_index] = unit
-	
-	# initialize sidebar unit UI for those belonging to the player team
-	if unit.unit_team == player_team:
-		var sidebar_unit = unit_sidebar_asset.instance()
-		self.unit_selection_sidebar.add_child(sidebar_unit)
-		sidebar_unit.init(unit)
 	
 ################ Clicking #############
 func _unhandled_input(event):
