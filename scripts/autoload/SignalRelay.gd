@@ -21,6 +21,8 @@ signal unit_killed # (unit)
 
 signal unit_info_weapon_selected
 
+signal end_turn_button_pressed
+
 signal event_choice_selected
 signal event_dialogue_typing_ended
 
@@ -66,6 +68,8 @@ func _on_unit_info_weapon_selected(weapon_id):
 	print("Relay: unit_info_weapon_selected")
 	emit_signal("unit_info_weapon_selected", weapon_id)
 
+func _on_end_turn_button_pressed():
+	emit_signal("end_turn_button_pressed")
 
 func _on_caravan_started_traveling(to_location_id):
 	print("Relay: caravan started traveling")

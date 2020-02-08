@@ -28,15 +28,11 @@ func _ready():
 	tilemap.connect("clear_movement_tiles", movement_attack_overlay, "_on_clear_movement_tiles")
 	tilemap.connect("create_attack_tiles", movement_attack_overlay, "_on_create_attack_tiles")
 	tilemap.connect("create_movement_tiles", movement_attack_overlay, "_on_create_movement_tiles")
-	# selection info signals
-	tilemap.connect("unit_selected", selected_unit_info, "_on_unit_selected")
-	tilemap.connect("unit_deselected", selected_unit_info, "_on_unit_deselected")
 
 	self.connect("batch_spawn_units", tilemap, "_on_batch_spawn_units")
 	self.connect("set_tiles", tilemap, "_on_set_tiles")
 	
 	# button signals
-	end_turn_button.connect("button_up", tilemap, "_on_EndTurnButton_button_up")
 	change_scene_button.connect("change_scene", self, "change_scene")
 	
 

@@ -6,8 +6,12 @@ onready var health_point_label = get_node("UnitHealthPointLabel")
 onready var action_point_label = get_node("UnitMovementPointLabel")
 onready var name_label = get_node("UnitNameLabel")
 
+onready var relay = get_node("/root/SignalRelay")
+
 func _ready():
-	pass # Replace with function body.
+	# listeners
+	relay.connect("unit_selected", self, "_on_unit_selected")
+	relay.connect("unit_deselected", self, "_on_unit_deselected")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

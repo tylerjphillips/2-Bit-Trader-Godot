@@ -56,6 +56,7 @@ func _ready():
 	relay.connect("unit_killed", self, "_on_unit_killed")
 	relay.connect("unit_sidebar_pressed", self, "attempt_select_unit")
 	relay.connect("unit_info_weapon_selected", self, "_on_unit_info_weapon_selected")
+	relay.connect("end_turn_button_pressed", self, "_on_end_turn_button_pressed")
 	
 	get_tree().call_group("units", "_on_start_team_turn", current_team)
 
@@ -242,7 +243,7 @@ func _on_unit_killed(unit):
 
 ################## UI Buttons ##################
 
-func _on_EndTurnButton_button_up():
+func _on_end_turn_button_pressed():
 	self.deselect_unit()
 	get_tree().call_group("units", "_on_end_team_turn", current_team)
 	current_team = teams[(teams.find(current_team) + 1) % len(teams)]
