@@ -31,6 +31,9 @@ signal create_movement_tiles # (bfs_results)
 	# attack overlay signal
 signal clear_attack_tiles
 signal create_attack_tiles
+	# turns
+signal team_start_turn # (team)
+signal team_end_turn # (team)
 
 onready var unit_asset = preload("res://scenes/combat/Unit.tscn") # unit prefab
 
@@ -50,6 +53,9 @@ func _ready():
 	self.connect("unit_moved", relay, "_on_unit_moved")
 	self.connect("unit_attacks_unit", relay, "_on_unit_attacks_unit")
 	self.connect("unit_collides_unit", relay, "_on_unit_collides_unit")
+	
+	self.connect("team_start_turn", relay, "_on_team_start_turn")
+	self.connect("team_end_turn", relay, "_on_team_end_turn")
 	
 	# listeners
 	relay.connect("unit_clicked", self, "_on_unit_clicked")
@@ -245,10 +251,10 @@ func _on_unit_killed(unit):
 
 func _on_end_turn_button_pressed():
 	self.deselect_unit()
-	get_tree().call_group("units", "_on_end_team_turn", current_team)
+	emit_signal("team_end_turn",current_team)
 	current_team = teams[(teams.find(current_team) + 1) % len(teams)]
 	print("current team: "+current_team)
-	get_tree().call_group("units", "_on_start_team_turn", current_team)
+	emit_signal("team_start_turn",current_team)
 	
 func _on_unit_info_weapon_selected(weapon_id):
 	# Button for selecting items to attack with

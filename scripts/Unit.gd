@@ -66,6 +66,9 @@ func _ready():
 	relay.connect("unit_attacks_unit", self, "_on_unit_attacks_unit")
 	relay.connect("unit_collides_unit", self, "_on_unit_collides_unit")
 	
+	relay.connect("team_start_turn", self, "_on_team_start_turn")
+	relay.connect("team_end_turn", self, "_on_team_end_turn")
+	
 	
 
 func init(unit_position : Vector2, unit_args: Dictionary):
@@ -128,12 +131,12 @@ func _on_unit_deselected(unit):
 	self.health_bar.hide()
 	self.selection_cursor.hide()
 
-func _on_start_team_turn(team):
+func _on_team_start_turn(team):
 	if self.unit_team == team:
 		self.unit_can_move = true
 		self.unit_can_attack = true
 
-func _on_end_team_turn(team):
+func _on_team_end_turn(team):
 	if self.unit_team == team:
 		self.unit_can_move = false
 		self.unit_can_attack = false

@@ -19,7 +19,10 @@ signal unit_clicked # (unit)
 signal unit_health_changed # (unit_health_points, unit_health_points_max)
 signal unit_killed # (unit)
 
-signal unit_info_weapon_selected
+signal team_start_turn # (team)
+signal team_end_turn # (team)
+
+signal unit_info_weapon_selected # (weapon_id)
 
 signal end_turn_button_pressed
 
@@ -70,6 +73,10 @@ func _on_unit_info_weapon_selected(weapon_id):
 
 func _on_end_turn_button_pressed():
 	emit_signal("end_turn_button_pressed")
+func _on_team_start_turn(team):
+	emit_signal("team_start_turn", team)
+func _on_team_end_turn(team):
+	emit_signal("team_end_turn", team)
 
 func _on_caravan_started_traveling(to_location_id):
 	print("Relay: caravan started traveling")
