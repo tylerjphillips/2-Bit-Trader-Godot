@@ -22,6 +22,7 @@ config/icon="res://icon.png"
 [autoload]
 
 SignalRelay="*res://scripts/autoload/SignalRelay.gd"
+AudioHandler="*res://scripts/autoload/AudioHandler.gd"
 
 [debug]
 

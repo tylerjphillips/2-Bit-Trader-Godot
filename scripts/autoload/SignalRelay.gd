@@ -30,6 +30,8 @@ signal shop_buy_item_failed
 signal shop_buy_item_succeeded
 signal shop_sell_item_succeeded
 
+signal audio_finished # (path)
+
 func _ready():
 	pass
 	
@@ -82,3 +84,6 @@ func _on_shop_buy_item_succeeded():
 	emit_signal("shop_buy_item_succeeded")
 func _on_shop_sell_item_succeeded():
 	emit_signal("shop_sell_item_succeeded")
+	
+func _on_audio_finished(audio_path):
+	emit_signal("audio_finished", audio_path)
