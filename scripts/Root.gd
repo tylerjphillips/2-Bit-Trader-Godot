@@ -4,6 +4,7 @@ extends Node2D
 var game_data = Dictionary()
 
 # scenes
+var title_screen = preload("res://scenes/title/TitleScreen.tscn")
 var combat_screen = preload("res://scenes/combat/CombatScreen.tscn")
 var shop_screen = preload("res://scenes/shop/ShopScreen.tscn")
 var party_screen = preload("res://scenes/party/PartyScreen.tscn")
@@ -20,6 +21,7 @@ const colors = {
 
 # map scene names to prefabs
 var scene_names_to_scene = {
+	"title_screen": self.title_screen,
 	"combat_screen" : self.combat_screen,
 	"shop_screen" : self.shop_screen,
 	"party_screen" : self.party_screen,
@@ -43,7 +45,7 @@ const shops_json_filename = "shops.json"
 func _ready():
 	print("Root: Game Start")
 	self.batch_load_json(config_directory)
-	self.create_scene("combat_screen")
+	self.create_scene("title_screen")
 
 func load_json(directory, filename):
 	print("Root: loading ", filename)
