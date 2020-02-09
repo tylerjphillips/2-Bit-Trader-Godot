@@ -18,6 +18,8 @@ signal unit_sidebar_pressed # (unit)
 signal unit_clicked # (unit)
 signal unit_health_changed # (unit_health_points, unit_health_points_max)
 signal unit_killed # (unit)
+signal unit_mouse_entered # (unit)
+signal unit_mouse_exited # (unit)
 
 signal team_start_turn # (team)
 signal team_end_turn # (team)
@@ -63,6 +65,10 @@ func _on_unit_attacks_unit(attacking_unit, weapon_data, attacked_unit):
 func _on_unit_collides_unit(attacking_unit, affected_unit, collision_count, collided_unit): 
 	print("Relay: unit collides with unit")
 	emit_signal("unit_collides_unit",attacking_unit, affected_unit, collision_count, collided_unit)
+func _on_unit_mouse_entered(unit):
+	emit_signal("unit_mouse_entered", unit)
+func _on_unit_mouse_exited(unit):
+	emit_signal("unit_mouse_exited", unit)
 
 func _on_unit_sidebar_pressed(unit):
 	print("Relay: unit sidebar pressed")

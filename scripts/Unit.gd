@@ -4,8 +4,8 @@ extends Area2D
 signal unit_spawned # (unit)
 signal unit_health_changed # (unit_health_points, unit_health_points_max)
 signal unit_killed # (unit)
-signal unit_mouse_entered
-signal unit_mouse_left
+signal unit_mouse_entered #(unit)
+signal unit_mouse_exited #(unit)
 
 # ui indicators
 var health_bar
@@ -53,11 +53,15 @@ onready var relay = get_node("/root/SignalRelay")
 func _ready():
 	add_to_group("units")
 	self.connect("unit_killed", self, "_on_unit_killed")
+	self.connect("mouse_entered", self, "_on_mouse_entered")
+	self.connect("mouse_exited", self, "_on_mouse_exited")
 	
 	# emitters
 	self.connect("unit_spawned", relay, "_on_unit_spawned")
 	self.connect("unit_clicked", relay, "_on_unit_clicked")
 	self.connect("unit_killed", relay, "_on_unit_killed")
+	self.connect("unit_mouse_entered", relay, "_on_unit_mouse_entered")
+	self.connect("unit_mouse_exited", relay, "_on_unit_mouse_exited")
 	
 	# listeners
 	relay.connect("unit_selected", self, "_on_unit_selected")
@@ -159,12 +163,14 @@ func _on_unit_collides_unit(attacking_unit, affected_unit, collision_count, coll
 		print("Unit: ", affected_unit.unit_name, " collides with ", collided_unit.unit_name)
 		self.damage_unit(collision_damage)
 
-func _on_PlayerUnit_mouse_entered():
+func _on_mouse_entered():
+	emit_signal("unit_mouse_entered", self)
 	self.health_bar.show()
 	return
 	print("Mouse Entered")
 
-func _on_PlayerUnit_mouse_exited():
+func _on_mouse_exited():
+	emit_signal("unit_mouse_exited", self)
 	if not self.is_selected:
 		self.health_bar.hide()
 	return
