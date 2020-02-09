@@ -1,4 +1,4 @@
-extends Control
+extends TextureButton
 
 # unit data stored as a dictionary. Less efficient to uniquely store every unit variable
 var unit_data : Dictionary
@@ -11,10 +11,15 @@ onready var action_point_label = get_node("UnitPartyAPLabel")
 onready var name_label = get_node("UnitPartyNameLabel")
 onready var unit_avatar = get_node("UnitPartyAvatar")
 
+signal party_member_button_pressed # (unit_data)
+
 onready var root = get_tree().get_root().get_node("Root")	# reference to root game node
+onready var relay = get_node("/root/SignalRelay")
 
 func _ready():
-	pass
+	self.connect("button_up", self, "_on_button_pressed")
+	# emitters
+	self.connect("party_member_button_pressed", relay, "_on_party_member_button_pressed")
 	
 func init(unit_args):
 	self.unit_data = unit_args
@@ -27,4 +32,7 @@ func init(unit_args):
 	
 	# color background
 	var unit_team = unit_args["unit_team"]
-	self.background.modulate = self.root.colors[unit_team]
+	self.self_modulate = self.root.colors[unit_team]
+	
+func _on_button_pressed():
+	emit_signal("party_member_button_pressed", unit_data)

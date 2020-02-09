@@ -28,6 +28,8 @@ signal unit_info_weapon_selected # (weapon_id)
 
 signal end_turn_button_pressed
 
+signal party_member_button_pressed # (unit_data)
+
 signal event_choice_selected
 signal event_dialogue_typing_ended
 
@@ -83,6 +85,9 @@ func _on_team_start_turn(team):
 	emit_signal("team_start_turn", team)
 func _on_team_end_turn(team):
 	emit_signal("team_end_turn", team)
+	
+func _on_party_member_button_pressed(unit_data):
+	emit_signal("party_member_button_pressed", unit_data)
 
 func _on_caravan_started_traveling(to_location_id):
 	print("Relay: caravan started traveling")
