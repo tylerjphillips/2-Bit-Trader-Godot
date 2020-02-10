@@ -3,7 +3,7 @@ extends Node
 signal change_scene
 signal update_game_data
 
-onready var party_grid = get_node("ScrollContainer/PartyGrid")
+onready var party_grid = get_node("PartyMemberList/ScrollContainer/PartyGrid")
 var party_member_ui = preload("res://scenes/party/UnitPartyUIElement.tscn")
 
 onready var root = get_tree().get_root().get_node("Root")
