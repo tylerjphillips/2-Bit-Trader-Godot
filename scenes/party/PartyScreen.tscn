@@ -11,18 +11,18 @@ script = ExtResource( 1 )
 [node name="Settings" parent="." instance=ExtResource( 2 )]
 
 [node name="ChangeSceneButton" parent="." instance=ExtResource( 3 )]
-margin_left = 271.25
-margin_top = -106.368
-margin_right = 381.25
-margin_bottom = -69.3677
+margin_left = 228.249
+margin_top = 14.6338
+margin_right = 338.249
+margin_bottom = 51.6341
 text = "Combat Screen"
 new_scene_name = "combat_screen"
 
 [node name="ChangeSceneButton2" parent="." instance=ExtResource( 3 )]
-margin_left = 43.8291
-margin_top = -143.736
-margin_right = 168.829
-margin_bottom = -106.736
+margin_left = 85.8297
+margin_top = 22.2664
+margin_right = 210.83
+margin_bottom = 59.2664
 text = "Overworld Screen"
 new_scene_name = "overworld_screen"
 
@@ -75,13 +75,13 @@ margin_left = -9.0
 margin_right = 314.0
 margin_bottom = 567.0
 
-[node name="InventoryItemScrollContainer2" type="ScrollContainer" parent="InventoryItems"]
+[node name="InventoryItemScrollContainer" type="ScrollContainer" parent="InventoryItems"]
 margin_left = 11.0
 margin_top = 16.0
 margin_right = 287.0
 margin_bottom = 543.0
 
-[node name="InventoryItemGridContainer" type="GridContainer" parent="InventoryItems/InventoryItemScrollContainer2"]
-columns = 2
+[node name="InventoryItemGridContainer" type="GridContainer" parent="InventoryItems/InventoryItemScrollContainer"]
+columns = 4
 [connection signal="change_scene" from="ChangeSceneButton" to="." method="change_scene"]
 [connection signal="change_scene" from="ChangeSceneButton2" to="." method="change_scene"]
