@@ -10,8 +10,13 @@ var party_member_ui = preload("res://scenes/party/UnitPartyUIElement.tscn")
 
 var inventory_item_button_asset = preload("res://scenes/party/InventoryItemButton.tscn")
 
+# item containers
 onready var inventory_item_container = $InventoryItems/InventoryItemScrollContainer/InventoryItemGridContainer
 onready var party_inventory_item_container = $PartyMemberInfo/PartyMemberItemScrollContainer/PartyMemberItemGridContainer
+
+# party member and inventory parents
+onready var party_member_info = $PartyMemberInfo
+onready var inventory_items = $InventoryItems
 
 onready var root = get_tree().get_root().get_node("Root")
 onready var relay = get_node("/root/SignalRelay")
@@ -46,6 +51,11 @@ func populate_inventory_items():
 
 func _on_party_member_button_pressed(selected_unit_data):
 	self.selected_unit_data = selected_unit_data
+	
+	# show modules on the first party member selected
+	party_member_info.show()
+	inventory_items.show()
+	
 	populate_member_inventory_items()
 	
 	
