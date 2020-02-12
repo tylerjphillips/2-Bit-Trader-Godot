@@ -3,6 +3,8 @@ extends Node
 signal change_scene
 signal update_game_data
 
+var selected_unit_data
+
 onready var party_grid = get_node("PartyMemberList/ScrollContainer/PartyGrid")
 var party_member_ui = preload("res://scenes/party/UnitPartyUIElement.tscn")
 
@@ -15,7 +17,7 @@ onready var root = get_tree().get_root().get_node("Root")
 onready var relay = get_node("/root/SignalRelay")
 
 func _ready():
-	pass
+	relay.connect("party_member_button_pressed", self, "_on_party_member_button_pressed")
 
 func init(game_data):
 	populate_party_screen()
@@ -31,12 +33,31 @@ func populate_party_screen():
 			ui_element.init(root.game_data["unit_data"][unit_id])
 
 func populate_inventory_items():
-	# populat items from player inventory
+	# populate items from player inventory
 	var player_inventory_items = self.root.game_data["main_data"]["player_items"]
 	for item_id in player_inventory_items:
 		var inventory_item_button = inventory_item_button_asset.instance()
 		self.inventory_item_container.add_child(inventory_item_button)
 		inventory_item_button.init(player_inventory_items[item_id], "take")
+
+
+func _on_party_member_button_pressed(selected_unit_data):
+	self.selected_unit_data = selected_unit_data
+	populate_member_inventory_items()
+	
+	
+func clear_party_member_items():
+	for item_button in self.party_inventory_item_container.get_children():
+		item_button.queue_free()
+
+func populate_member_inventory_items():
+	self.clear_party_member_items()
+	# populate items from player inventory
+	var member_inventory_items = self.selected_unit_data["unit_weapon_data"]
+	for item_id in member_inventory_items:
+		var inventory_item_button = inventory_item_button_asset.instance()
+		self.party_inventory_item_container.add_child(inventory_item_button)
+		inventory_item_button.init(member_inventory_items[item_id], "give")
 
 func change_scene(new_scene_name):
 	emit_signal("change_scene", "party_screen", new_scene_name)

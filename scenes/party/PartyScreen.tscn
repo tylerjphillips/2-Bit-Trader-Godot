@@ -66,6 +66,7 @@ margin_right = 173.0
 margin_bottom = 542.0
 
 [node name="PartyMemberItemGridContainer" type="GridContainer" parent="PartyMemberInfo/PartyMemberItemScrollContainer"]
+columns = 2
 
 [node name="InventoryItems" type="Node2D" parent="."]
 position = Vector2( 667.417, 25.441 )
