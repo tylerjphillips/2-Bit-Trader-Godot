@@ -18,6 +18,8 @@ onready var relay = get_node("/root/SignalRelay")
 
 func _ready():
 	relay.connect("party_member_button_pressed", self, "_on_party_member_button_pressed")
+	relay.connect("party_take_item_button_up", self, "_on_party_take_item_button_up")
+	relay.connect("party_give_item_button_up", self, "_on_party_give_item_button_up")
 
 func init(game_data):
 	populate_party_screen()
@@ -33,6 +35,7 @@ func populate_party_screen():
 			ui_element.init(root.game_data["unit_data"][unit_id])
 
 func populate_inventory_items():
+	self.clear_inventory_items()
 	# populate items from player inventory
 	var player_inventory_items = self.root.game_data["main_data"]["player_items"]
 	for item_id in player_inventory_items:
@@ -49,6 +52,10 @@ func _on_party_member_button_pressed(selected_unit_data):
 func clear_party_member_items():
 	for item_button in self.party_inventory_item_container.get_children():
 		item_button.queue_free()
+		
+func clear_inventory_items():
+	for item_button in self.inventory_item_container.get_children():
+		item_button.queue_free()
 
 func populate_member_inventory_items():
 	self.clear_party_member_items()
@@ -58,6 +65,27 @@ func populate_member_inventory_items():
 		var inventory_item_button = inventory_item_button_asset.instance()
 		self.party_inventory_item_container.add_child(inventory_item_button)
 		inventory_item_button.init(member_inventory_items[item_id], "give")
+
+func _on_party_take_item_button_up(item_button):
+	if selected_unit_data != null:
+		var selected_unit_id = selected_unit_data["unit_id"]
+		# add item to unit's inventory
+		self.root.game_data["unit_data"][selected_unit_id]["unit_weapon_data"][item_button.item_id] = item_button.item_data
+		# remove item from player's inventory
+		self.root.game_data["main_data"]["player_items"].erase(item_button.item_id)
+		
+		populate_inventory_items()
+		populate_member_inventory_items()
+	
+func _on_party_give_item_button_up(item_button):
+	if selected_unit_data != null:
+		var selected_unit_id = selected_unit_data["unit_id"]
+		# add item to unit's inventory
+		self.root.game_data["unit_data"][selected_unit_id]["unit_weapon_data"].erase(item_button.item_id) 
+		# remove item from player's inventory
+		self.root.game_data["main_data"]["player_items"][item_button.item_id] = item_button.item_data
+		populate_inventory_items()
+		populate_member_inventory_items()
 
 func change_scene(new_scene_name):
 	emit_signal("change_scene", "party_screen", new_scene_name)
