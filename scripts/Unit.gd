@@ -80,16 +80,16 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 	self.position = unit_position	# world position not tile index
 	self.unit_tile_index = Vector2(unit_args["unit_tile_index"][0], unit_args["unit_tile_index"][1])
 	# unit args
-	self.unit_name = unit_args.get("unit_name", "Default name")
+	self.unit_name = unit_args["unit_name"]
 	self.unit_id = unit_args.get("unit_id", "Unit-"+str(OS.get_unix_time()))
-	self.unit_team = unit_args.get("unit_team", "red")
-	self.unit_movement_points = unit_args.get("unit_movement_points", 4)
-	self.unit_movement_points_max = unit_args.get("unit_movement_points_max", 4)
+	self.unit_team = unit_args["unit_team"]
+	self.unit_movement_points = unit_args["unit_movement_points"]
+	self.unit_movement_points_max = unit_args["unit_movement_points_max"]
 	
-	self.unit_health_points = unit_args.get("unit_health_points", 1)
-	self.unit_health_points_max = unit_args.get("unit_health_points_max", 1)
-	self.unit_class = unit_args.get("unit_class", "Archer")
-	self.unit_weapon_data = unit_args.get("unit_weapon_data", {})
+	self.unit_health_points = unit_args["unit_health_points"]
+	self.unit_health_points_max = unit_args["unit_health_points_max"]
+	self.unit_class = unit_args["unit_class"]
+	self.unit_weapon_data = unit_args["unit_weapon_data"]
 	
 	# set unit sprite
 	self.unit_texture_path = unit_args["unit_texture_path"]
