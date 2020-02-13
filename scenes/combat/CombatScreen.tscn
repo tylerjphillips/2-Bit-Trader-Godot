@@ -11,7 +11,7 @@
 [ext_resource path="res://images/terrain/blank_tile.png" type="Texture" id=9]
 [ext_resource path="res://scripts/MovementOverlay.gd" type="Script" id=10]
 [ext_resource path="res://scripts/SelectedUnitInfo.gd" type="Script" id=11]
-[ext_resource path="res://images/ui/ui_background.png" type="Texture" id=12]
+[ext_resource path="res://scenes/UIBackground.tscn" type="PackedScene" id=12]
 [ext_resource path="res://images/portraits/cat image 1.jpg" type="Texture" id=13]
 [ext_resource path="res://scripts/ItemButtonGridContainer.gd" type="Script" id=14]
 [ext_resource path="res://scripts/UnitSelectionSidebarGrid.gd" type="Script" id=15]
@@ -257,8 +257,7 @@ visible = false
 position = Vector2( 500, 60 )
 script = ExtResource( 11 )
 
-[node name="UIBackground" type="Sprite" parent="SelectedUnitInfo"]
-texture = ExtResource( 12 )
+[node name="UIBackground" parent="SelectedUnitInfo" instance=ExtResource( 12 )]
 
 [node name="UnitClassLabel" type="Label" parent="SelectedUnitInfo"]
 modulate = Color( 0, 0, 0, 1 )
