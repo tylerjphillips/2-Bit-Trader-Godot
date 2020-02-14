@@ -1,0 +1,16 @@
+[gd_scene format=2]
+
+[node name="UnitBloodParticles" type="CPUParticles2D"]
+modulate = Color( 1, 0, 0, 1 )
+scale = Vector2( 3, 3 )
+z_index = 5
+amount = 20
+lifetime = 0.1
+explosiveness = 0.63
+gravity = Vector2( 0, 0 )
+initial_velocity = 52.72
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+[connection signal="timeout" from="Timer" to="." method="_on_particle_button_pressed"]
