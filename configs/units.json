@@ -62,7 +62,8 @@
 			"damage_pattern":
 				{
 				"pattern" : "cardinal",
-				"size" : 1
+				"size" : 1,
+				"include_center": true
 				}
 			},
 		"Item-6325" :
@@ -87,7 +88,8 @@
 			"damage_pattern":
 				{
 				"pattern" : "cardinal",
-				"size" : 1
+				"size" : 1,
+				"include_center": true
 				}
 			}
 		}
@@ -170,7 +172,8 @@
 			"weapon_pattern" : 
 				{
 				"pattern" : "cardinal",
-				"size" : 2
+				"size" : 2,
+				"include_center": true
 				},
 			"damage_pattern":
 				{
@@ -211,7 +214,8 @@
 			"weapon_pattern" : 
 				{
 				"pattern" : "cardinal",
-				"size" : 2
+				"size" : 2,
+				"include_center": true
 				},
 			"damage_pattern":
 				{

@@ -214,23 +214,22 @@ func attempt_push_unit(attacking_unit, affected_unit, weapon_index, tile_index):
 	var collided_unit = null	# the unit that the affected unit may collide with
 	
 	if push_scalar != 0:
-		assert push_direction in self.directions	# weapon push direction must be defined
-		
-		# unit will be moved as many times over in the attack direction as possible, counting collisions made and then pushing the unit where needed
-		for i in range(push_scalar):
-			var checking_index = pushed_into_tile_index + (self.directions[push_direction] * (sign(push_scalar)))
-			if self.get_cell(checking_index.x, checking_index.y) != INVALID_CELL: 	# if cell is on the map
-				if self.index_to_unit.has(checking_index):	# check collisions
-					# collisions
-					collided_unit = self.index_to_unit[checking_index]
-					collision_count += 1
+		if push_direction in self.directions:
+			# unit will be moved as many times over in the attack direction as possible, counting collisions made and then pushing the unit where needed
+			for i in range(push_scalar):
+				var checking_index = pushed_into_tile_index + (self.directions[push_direction] * (sign(push_scalar)))
+				if self.get_cell(checking_index.x, checking_index.y) != INVALID_CELL: 	# if cell is on the map
+					if self.index_to_unit.has(checking_index):	# check collisions
+						# collisions
+						collided_unit = self.index_to_unit[checking_index]
+						collision_count += 1
+					else:
+						# no collision; move the unit instead
+						pushed_into_tile_index = checking_index  
 				else:
-					# no collision; move the unit instead
-					pushed_into_tile_index = checking_index  
-			else:
-				break	# no need to continue if you hit the edge of the map
-		# push unit at the end
-		self.push_unit(attacking_unit, affected_unit, pushed_into_tile_index, collision_count, collided_unit)
+					break	# no need to continue if you hit the edge of the map
+			# push unit at the end
+			self.push_unit(attacking_unit, affected_unit, pushed_into_tile_index, collision_count, collided_unit)
 			
 func push_unit(attacking_unit, affected_unit, new_tile_index : Vector2, collision_count : int, collided_unit):
 	move_unit_to_tile(affected_unit, new_tile_index)
@@ -320,7 +319,8 @@ func calculate_attack_tiles(attacking_unit, weapon_index):
 	if weapon_attack_pattern["pattern"] == "cardinal":
 		var size : int = weapon_attack_pattern.get("size", 1)
 		var blockable : bool = weapon_attack_pattern.get("blockable", false)
-		attack_pattern = generate_cardinal_pattern(unit_index, size, blockable)
+		var include_center : bool = weapon_attack_pattern.get("include_center", false)
+		attack_pattern = generate_cardinal_pattern(unit_index, size, blockable, include_center)
 	if weapon_attack_pattern["pattern"] == "single":
 		attack_pattern = generate_single_pattern(unit_index)
 	attacking_unit.last_attack_pattern = attack_pattern
@@ -337,16 +337,20 @@ func calculate_damage_tiles(attacking_unit, weapon_index, attacked_tile_index):
 	if weapon_damage_pattern["pattern"] == "cardinal":
 		var size : int = weapon_damage_pattern.get("size", 1)
 		var blockable : bool = weapon_damage_pattern.get("blockable", false)
-		damage_pattern = generate_cardinal_pattern(attacked_tile_index, size, blockable)
+		var include_center : bool = weapon_damage_pattern.get("include_center", false)
+		damage_pattern = generate_cardinal_pattern(attacked_tile_index, size, blockable, include_center)
 	if weapon_damage_pattern["pattern"] == "single":
 		damage_pattern = generate_single_pattern(attacked_tile_index, attack_tile_data["direction"])
 	attacking_unit.last_damage_pattern = damage_pattern
 	return damage_pattern
 
-func generate_cardinal_pattern(tile_index : Vector2, size := 1, blockable := false):
+func generate_cardinal_pattern(tile_index : Vector2, size := 1, blockable := false, include_center = false):
 	# generates a filtered attack pattern in the cardinals of length size
 	# if blockable units and obstacles will stop it
 	var attackable_tiles = Dictionary()
+	
+	if include_center:
+		attackable_tiles[tile_index] = {"direction": "none"}
 	
 	for direction in self.directions:
 		for scalar in range(size):

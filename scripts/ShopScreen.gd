@@ -29,10 +29,6 @@ func _ready():
 	relay.connect("shop_sell_item_button_up", self, "sell_item")
 
 func init(game_data):
-	var current_location_id = root.game_data["main_data"]["current_location_id"]
-	var current_shop_id = self.root.game_data["overworld_data"][current_location_id]["location_shop_id"]
-	var shop_items = self.root.game_data["overworld_data"][current_location_id]["location_shop_id"]
-	
 	# add items to buy and sell
 	populate_shop_items()
 
