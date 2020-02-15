@@ -9,7 +9,7 @@ func _ready():
 	relay.connect("unit_attacks_unit", self, "_on_unit_attacks_unit")
 	relay.connect("unit_killed", self, "_on_unit_killed")
 
-func _on_unit_attacks_unit(attacking_unit, weapon_data, attacked_unit):
+func _on_unit_attacks_unit(attacking_unit, weapon_data, attacked_unit, damage_tile_index):
 	self.generate_audio_sample(weapon_data["weapon_attack_audio_path"])
 	self.generate_audio_sample(attacked_unit.unit_damaged_audio_path)
 

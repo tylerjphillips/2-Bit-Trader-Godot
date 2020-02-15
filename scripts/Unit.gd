@@ -37,6 +37,7 @@ var is_selected : bool = false # whether or not the unit is selected
 
 var health_container = preload("res://scenes/combat/HealthContainer.tscn")
 var attack_animation_asset = preload("res://scenes/combat/AttackAnimation.tscn")	# attack animation on all affected tiles
+var blood_particles_asset = preload("res://scenes/combat/UnitBloodParticles.tscn")
 
 var last_bfs = Dictionary() # last pathing result from self.get_bfs. Used for checking movement. tile_indexes:cost
 var last_attack_pattern = Dictionary() # last calculated attack pattern. Used for checking attacks. tile_indexes:attack_data
@@ -150,11 +151,16 @@ func _on_unit_moved(unit, tile_index, movement_cost):
 		self.set_unit_can_move(false)
 		self.unit_tile_index = tile_index
 		
-func _on_unit_attacks_unit(attacking_unit, weapon_data, attacked_unit):
+func _on_unit_attacks_unit(attacking_unit, weapon_data, attacked_unit, damage_tile_index):
+	print("Unit, damage tile index: ", damage_tile_index)
 	if attacking_unit == self:
 		print("Unit: attacking ", attacked_unit.unit_name)
 	if attacked_unit == self:
 		self.damage_unit(weapon_data)
+		var blood_particles = self.blood_particles_asset.instance()
+		self.add_child(blood_particles)
+		blood_particles.emit(attacking_unit.last_damage_pattern[damage_tile_index].get("direction"))
+		
 		
 func _on_unit_collides_unit(attacking_unit, affected_unit, collision_count, collided_unit):
 	if affected_unit == self or collided_unit == self:

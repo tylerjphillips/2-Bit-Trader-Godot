@@ -12,7 +12,7 @@ signal unit_spawned # (unit)
 signal unit_selected # (unit)
 signal unit_deselected # (unit)
 signal unit_moved	# (unit, tile_index, cost)
-signal unit_attacks_unit # attacking_unit, attacking_unit_weapon_data, attacked_unit
+signal unit_attacks_unit(attacking_unit, attacking_unit_weapon_data, attacked_unit, damage_tile_index)
 signal unit_collides_unit # (attacking_unit, affected_unit, collision_count, collided_unit)
 signal unit_sidebar_pressed # (unit)
 signal unit_clicked # (unit)
@@ -63,9 +63,9 @@ func _on_unit_deselected(unit):
 func _on_unit_moved(unit, tile_index, movement_cost):
 	print("Relay: unit has moved")
 	emit_signal("unit_moved", unit, tile_index, movement_cost)
-func _on_unit_attacks_unit(attacking_unit, weapon_data, attacked_unit):
+func _on_unit_attacks_unit(attacking_unit, weapon_data, attacked_unit, damage_tile_index):
 	print("Relay: unit attacks")
-	emit_signal("unit_attacks_unit", attacking_unit, weapon_data, attacked_unit)
+	emit_signal("unit_attacks_unit", attacking_unit, weapon_data, attacked_unit, damage_tile_index)
 func _on_unit_collides_unit(attacking_unit, affected_unit, collision_count, collided_unit): 
 	print("Relay: unit collides with unit")
 	emit_signal("unit_collides_unit",attacking_unit, affected_unit, collision_count, collided_unit)
