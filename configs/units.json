@@ -13,6 +13,7 @@
 		"unit_texture_path":"res://images/units/armor.png",
 		"unit_death_audio_path":"res://audio/dying_1.wav",
 		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
+		"unit_is_boss": false,
 		"unit_weapon_data" :
 		{
 		"Item-48567292" :
@@ -110,6 +111,7 @@
 		"unit_texture_path":"res://images/units/archer.png",
 		"unit_death_audio_path":"res://audio/dying_1.wav",
 		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
+		"unit_is_boss": false,
 		"unit_weapon_data" :
 		{
 		"Item-904836" :
@@ -153,6 +155,7 @@
 		"unit_texture_path":"res://images/units/goblin.png",
 		"unit_death_audio_path":"res://audio/dying_1.wav",
 		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
+		"unit_is_boss": true,
 		"unit_weapon_data" :
 		{
 		"Item-348573932" :
@@ -197,6 +200,7 @@
 		"unit_texture_path":"res://images/units/goblin.png",
 		"unit_death_audio_path":"res://audio/dying_1.wav",
 		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
+		"unit_is_boss": false,
 		"unit_weapon_data" :
 		{
 		"Item-74325" :
