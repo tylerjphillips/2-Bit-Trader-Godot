@@ -1,7 +1,6 @@
 extends Node
 
 signal change_scene
-signal update_game_data
 
 
 onready var overworld_location_asset = preload("res://scenes/overworld/OverworldLocation.tscn")

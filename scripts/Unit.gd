@@ -59,7 +59,7 @@ func _ready():
 	
 	# emitters
 	self.connect("unit_spawned", relay, "_on_unit_spawned")
-	self.connect("unit_clicked", relay, "_on_unit_clicked")
+	# self.connect("unit_clicked", relay, "_on_unit_clicked")
 	self.connect("unit_killed", relay, "_on_unit_killed")
 	self.connect("unit_mouse_entered", relay, "_on_unit_mouse_entered")
 	self.connect("unit_mouse_exited", relay, "_on_unit_mouse_exited")

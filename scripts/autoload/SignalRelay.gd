@@ -1,7 +1,6 @@
 extends Node
 
 signal change_scene
-signal update_game_data
 
 signal caravan_destination_reached # (to_location_id)
 signal caravan_started_traveling # (to_location_id)

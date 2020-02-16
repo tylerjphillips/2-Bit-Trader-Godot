@@ -10,7 +10,6 @@ func _ready():
 	self.connect("finished", self, "_on_finished")
 	self.connect("audio_finished", relay, "_on_audio_finished")
 	# listeners
-	relay.connect("audio_finished", self, "_on_audio_finished")
 
 func init(audio_path):
 	print("AudioAutomaticPlayer: ", audio_path)

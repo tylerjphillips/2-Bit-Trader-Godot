@@ -1,7 +1,6 @@
 extends Node
 
 signal change_scene
-signal update_game_data
 
 onready var root = get_tree().get_root().get_node("Root")
 

@@ -1,7 +1,6 @@
 extends Node
 
 signal change_scene
-signal update_game_data
 
 var selected_unit_data
 

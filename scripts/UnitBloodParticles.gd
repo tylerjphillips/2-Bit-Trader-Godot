@@ -8,7 +8,6 @@ func _ready():
 func emit(direction):
 	self.rotation_degrees = directions_to_degrees[direction]
 	self.emitting = true
-	print("awsdawjbhdkljawnbdjklhawbd", direction)
 	
 func _on_particle_timer_end():
 	self.queue_free()
