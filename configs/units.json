@@ -25,7 +25,7 @@
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
 			"damage":
 					{
-					"normal": 4
+					"normal": 1
 					},
 			"push_scalar": 1,
 			
@@ -50,7 +50,7 @@
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
 			"damage":
 					{
-					"normal": 4
+					"normal": 1
 					},
 			"push_scalar": 1,
 			
@@ -76,7 +76,7 @@
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
 			"damage":
 					{
-					"normal": 4
+					"normal": 1
 					},
 			"push_scalar": 1,
 			
@@ -122,7 +122,7 @@
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
 			"damage":
 					{
-					"normal": 4
+					"normal": 1
 					},
 			"push_scalar": 2,
 			"weapon_pattern" : 

@@ -14,6 +14,14 @@ onready var move_indicator = get_node("MoveIndicator")
 onready var team_indicator = get_node("TeamIndicator")
 onready var unit_sprite = get_node("UnitSprite")
 
+# attacking animations
+onready var directions_to_unit_animations = {
+	"north":$NorthAttackAnimation,
+	"south":$SouthAttackAnimation,
+	"east":$EastAttackAnimation,
+	"west":$WestAttackAnimation,
+}
+
 # unit properties
 		# movement
 export (int) var unit_movement_points = 4 setget set_unit_movement_points, get_unit_movement_points
@@ -68,6 +76,7 @@ func _ready():
 	relay.connect("unit_selected", self, "_on_unit_selected")
 	relay.connect("unit_deselected", self, "_on_unit_deselected")
 	relay.connect("unit_moved", self, "_on_unit_moved")
+	relay.connect("unit_attacks_tile", self, "_on_unit_attacks_tile")
 	relay.connect("unit_attacks_unit", self, "_on_unit_attacks_unit")
 	relay.connect("unit_collides_unit", self, "_on_unit_collides_unit")
 	
@@ -122,6 +131,10 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 func damage_unit(weapon_data):
 	if weapon_data["damage"].has("normal"):
 		self.unit_health_points -= weapon_data["damage"]["normal"]
+		
+func play_attack_animation(direction):
+	if direction in self.directions_to_unit_animations:
+		self.directions_to_unit_animations[direction].play("Attacking")
 
 func _on_unit_selected(unit):
 	is_selected = false
@@ -150,16 +163,25 @@ func _on_unit_moved(unit, tile_index, movement_cost):
 	if unit == self:
 		self.set_unit_can_move(false)
 		self.unit_tile_index = tile_index
-		
+
+func _on_unit_attacks_tile(attacking_unit, tile_index, attacking_unit_attack_pattern, attacking_unit_weapon_data):
+	if self == attacking_unit:
+		print("tile index........", tile_index)
+		var attack_direction = self.last_attack_pattern[tile_index]["direction"]
+		self.play_attack_animation(attack_direction)
+
 func _on_unit_attacks_unit(attacking_unit, weapon_data, attacked_unit, damage_tile_index):
 	print("Unit, damage tile index: ", damage_tile_index)
+	# get direction attacker is attacking from
+	var attack_direction = attacking_unit.last_damage_pattern[damage_tile_index]["direction"]
+	
 	if attacking_unit == self:
 		print("Unit: attacking ", attacked_unit.unit_name)
 	if attacked_unit == self:
 		self.damage_unit(weapon_data)
 		var blood_particles = self.blood_particles_asset.instance()
 		self.add_child(blood_particles)
-		blood_particles.emit(attacking_unit.last_damage_pattern[damage_tile_index].get("direction"))
+		blood_particles.emit(attack_direction)
 		
 		
 func _on_unit_collides_unit(attacking_unit, affected_unit, collision_count, collided_unit):

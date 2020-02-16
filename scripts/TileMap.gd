@@ -16,6 +16,7 @@ onready var selected_unit_info = get_node("../SelectedUnitInfo")
 signal unit_selected # (unit)
 signal unit_deselected
 signal unit_moved	# (unit, tile_index, cost)
+signal unit_attacks_tile(attacking_unit, tile_index, attacking_unit_attack_pattern, attacking_unit_weapon_data)
 signal unit_attacks_unit # attacking_unit, attacking_unit_weapon_data, attacked_unit
 signal unit_collides_unit # (attacking_unit, affected_unit, collision_count, collided_unit)
 
@@ -51,6 +52,7 @@ func _ready():
 	self.connect("unit_selected", relay, "_on_unit_selected")
 	self.connect("unit_deselected", relay, "_on_unit_deselected")
 	self.connect("unit_moved", relay, "_on_unit_moved")
+	self.connect("unit_attacks_tile", relay, "_on_unit_attacks_tile")
 	self.connect("unit_attacks_unit", relay, "_on_unit_attacks_unit")
 	self.connect("unit_collides_unit", relay, "_on_unit_collides_unit")
 	
@@ -179,6 +181,7 @@ func unit_attack_tile(attacking_unit, weapon_index, tile_index):
 	# unit attacks a tile with a given weapon, applying a damage pattern around it
 	print("Tilemap: attacking tile ",tile_index, " with ", attacking_unit.unit_name, " damage:", attacking_unit.unit_weapon_data[weapon_index]["damage"])
 	
+	emit_signal("unit_attacks_tile", attacking_unit, tile_index, attacking_unit.last_attack_pattern, attacking_unit.unit_weapon_data[weapon_index])
 	
 	var damage_tiles = calculate_damage_tiles(attacking_unit, weapon_index, tile_index)
 	print("Tilemap: damaging tiles: ", damage_tiles)
