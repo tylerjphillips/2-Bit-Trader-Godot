@@ -14,6 +14,7 @@
 		"unit_death_audio_path":"res://audio/dying_1.wav",
 		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
 		"unit_is_boss": false,
+		"unit_equipable_subtypes":["axe","sword","bow"],
 		"unit_weapon_data" :
 		{
 		"Item-48567292" :
@@ -21,6 +22,8 @@
 			"item_id": "Item-48567292",
 			"item_sell_price":50,
 			"item_buy_price":50,
+			"item_type": "weapon",
+			"item_subtype": "axe",
 			"weapon_tooltip" : "axe",
 			"weapon_texture_path": "res://images/weapons/axe.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
@@ -46,6 +49,8 @@
 			"item_id": "Item-14344",
 			"item_sell_price":50,
 			"item_buy_price":50,
+			"item_type": "weapon",
+			"item_subtype": "sword",
 			"weapon_tooltip" : "sword",
 			"weapon_texture_path": "res://images/weapons/sword.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
@@ -72,6 +77,8 @@
 			"item_id": "Item-6325",
 			"item_sell_price":50,
 			"item_buy_price":50,
+			"item_type": "weapon",
+			"item_subtype": "bow",
 			"weapon_tooltip" : "bow",
 			"weapon_texture_path": "res://images/weapons/bow.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
@@ -112,6 +119,7 @@
 		"unit_death_audio_path":"res://audio/dying_1.wav",
 		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
 		"unit_is_boss": false,
+		"unit_equipable_subtypes":["axe","sword","bow"],
 		"unit_weapon_data" :
 		{
 		"Item-904836" :
@@ -119,6 +127,8 @@
 			"item_id": "Item-904836",
 			"item_sell_price":50,
 			"item_buy_price":50,
+			"item_type": "weapon",
+			"item_subtype": "bow",
 			"weapon_tooltip" : "test 2",
 			"weapon_texture_path": "res://images/weapons/bow.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
@@ -156,6 +166,7 @@
 		"unit_death_audio_path":"res://audio/dying_1.wav",
 		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
 		"unit_is_boss": true,
+		"unit_equipable_subtypes":["axe","sword","bow"],
 		"unit_weapon_data" :
 		{
 		"Item-348573932" :
@@ -163,9 +174,9 @@
 			"item_id": "Item-348573932",
 			"item_sell_price":50,
 			"item_buy_price":50,
+			"item_type": "weapon",
+			"item_subtype": "axe",
 			"weapon_tooltip" : "test",
-			"weapon_sell_price": 50,
-			"weapon_buy_price": 50,
 			"weapon_texture_path": "res://images/weapons/axe.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
 			"damage":
@@ -201,6 +212,7 @@
 		"unit_death_audio_path":"res://audio/dying_1.wav",
 		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
 		"unit_is_boss": false,
+		"unit_equipable_subtypes":["axe","sword","bow"],
 		"unit_weapon_data" :
 		{
 		"Item-74325" :
@@ -208,6 +220,8 @@
 			"item_id": "Item-74325",
 			"item_sell_price":50,
 			"item_buy_price":50,
+			"item_type": "weapon",
+			"item_subtype": "axe",
 			"weapon_tooltip" : "test",
 			"weapon_texture_path": "res://images/weapons/axe.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",

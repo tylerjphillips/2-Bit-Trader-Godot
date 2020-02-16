@@ -77,15 +77,24 @@ func populate_member_inventory_items():
 
 func _on_party_take_item_button_up(item_button):
 	if selected_unit_data != null:
-		var selected_unit_id = selected_unit_data["unit_id"]
-		# add item to unit's inventory
-		self.root.game_data["unit_data"][selected_unit_id]["unit_weapon_data"][item_button.item_id] = item_button.item_data
-		# remove item from player's inventory
-		self.root.game_data["main_data"]["player_items"].erase(item_button.item_id)
-		
-		populate_inventory_items()
-		populate_member_inventory_items()
-	
+		# get item's type and subtype
+		var item_type = item_button.item_data["item_type"]
+		var item_subtype = item_button.item_data["item_subtype"]
+		# check if the unit can equip the item
+		if selected_unit_data["unit_equipable_subtypes"].has(item_subtype):
+			print("PartyScreen: equipping, item types: ", item_type, ", ", item_subtype)
+			var selected_unit_id = selected_unit_data["unit_id"]
+			
+			# add item to unit's inventory
+			self.root.game_data["unit_data"][selected_unit_id]["unit_weapon_data"][item_button.item_id] = item_button.item_data
+			# remove item from player's inventory
+			self.root.game_data["main_data"]["player_items"].erase(item_button.item_id)
+			
+			populate_inventory_items()
+			populate_member_inventory_items()
+		else:
+			print("PartyScreen: Cannot equip, item types: ", item_type, ", ", item_subtype)
+			
 func _on_party_give_item_button_up(item_button):
 	if selected_unit_data != null:
 		var selected_unit_id = selected_unit_data["unit_id"]

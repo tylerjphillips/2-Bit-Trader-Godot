@@ -39,7 +39,9 @@ export var unit_name = ""
 export var unit_id = "" # used to uniquely identify unit for (de)serialization and scene changes. unix epoch of when unit is generated
 		# attacking, weapons, and gear
 var unit_can_attack : bool = true setget set_unit_can_attack, get_unit_can_attack
-var unit_weapon_data : Dictionary = {}	# contains info on weapons this unit has
+var unit_weapon_data : Dictionary # contains info on weapons this unit has
+
+var unit_equipable_subtypes : Array # List of item types this unit can equip
 
 var is_selected : bool = false # whether or not the unit is selected
 
@@ -102,6 +104,8 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 	self.unit_health_points_max = unit_args["unit_health_points_max"]
 	self.unit_class = unit_args["unit_class"]
 	self.unit_weapon_data = unit_args["unit_weapon_data"]
+	
+	self.unit_equipable_subtypes = unit_args["unit_equipable_subtypes"]
 	
 	# set unit sprite
 	self.unit_texture_path = unit_args["unit_texture_path"]
@@ -290,5 +294,6 @@ func get_unit_repr():
 	unit_data["unit_death_audio_path"] = self.unit_death_audio_path
 	unit_data["unit_damaged_audio_path"] = self.unit_damaged_audio_path
 	unit_data["unit_is_boss"] = self.unit_is_boss
+	unit_data["unit_equipable_subtypes"] = self.unit_equipable_subtypes
 	
 	return unit_data;
