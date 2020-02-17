@@ -22,6 +22,15 @@ func _ready():
 
 func init(game_data):
 	self.update_dialogue_text()
+	
+	var current_event_id = self.root.game_data["main_data"]["current_event_id"]
+	var current_event_data = self.root.game_data["event_data"][current_event_id]
+	var event_image_path = current_event_data["event_image_path"]
+	update_event_image(event_image_path)
+	
+
+func update_event_image(image_path):
+	event_image.texture = load(image_path)
 
 func update_dialogue_text():
 	#updates event dialogue text label to current event's current dialogue
@@ -62,6 +71,8 @@ func _on_event_choice_selected(selected_choice_data):
 	print("EventScreen: choice selected: ",selected_choice_data)
 	for choice in self.event_choice_container.get_children():
 		choice.queue_free()
+		
+	update_event_image(selected_choice_data["set_event_image_path"])
 		
 	if selected_choice_data["choice_starts_combat"]:
 		self.change_scene("combat_screen")

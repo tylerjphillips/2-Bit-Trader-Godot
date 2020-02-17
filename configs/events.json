@@ -5,6 +5,7 @@
 		"event_id":"Event-43832842",
 		"event_start_dialouge_id": "Dialogue-1",
 		"event_current_dialogue_id": "Dialogue-1",
+		"event_image_path": "res://images/weapons/sword.png",
 		"event_choice_data":
 			{
 			"Choice-1":
@@ -13,7 +14,8 @@
 					"choice_bbcode": "1st choice",
 					"dialogue_id": "Dialogue-2",
 					"choice_starts_combat": false,
-					"choice_returns_to_overworld": false
+					"choice_returns_to_overworld": false,
+					"set_event_image_path": "res://images/weapons/axe.png"
 				},
 			"Choice-2":
 				{
@@ -21,21 +23,24 @@
 					"choice_bbcode": "2nd choice",
 					"dialogue_id": "Dialogue-3",
 					"choice_starts_combat": false,
-					"choice_returns_to_overworld": false
+					"choice_returns_to_overworld": false,
+					"set_event_image_path": "res://images/weapons/bow.png"
 				},
 			"Choice-3":
 				{
 					"choice_id":"Choice-3",
 					"choice_bbcode": "Enter Combat",
 					"choice_starts_combat": true,
-					"choice_returns_to_overworld": false
+					"choice_returns_to_overworld": false,
+					"set_event_image_path": "res://images/weapons/bow.png"
 				},
 			"Choice-4":
 				{
 					"choice_id":"Choice-4",
 					"choice_bbcode": "Return to overworld",
 					"choice_starts_combat": false,
-					"choice_returns_to_overworld": true
+					"choice_returns_to_overworld": true,
+					"set_event_image_path": "res://images/weapons/bow.png"
 				}
 			},
 		"event_dialogue_data":
