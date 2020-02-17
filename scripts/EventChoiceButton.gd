@@ -1,4 +1,4 @@
-extends TextureRect
+extends Control
 
 signal event_choice_selected	# choice_id
 
