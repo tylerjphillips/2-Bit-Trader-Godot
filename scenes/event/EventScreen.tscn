@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/EventScreen.gd" type="Script" id=1]
-[ext_resource path="res://images/terrain/dirt.png" type="Texture" id=2]
-[ext_resource path="res://scenes/ChangeSceneButton.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scripts/EventDialogueLabel.gd" type="Script" id=4]
+[ext_resource path="res://scenes/UIBackground.tscn" type="PackedScene" id=2]
+[ext_resource path="res://images/terrain/dirt.png" type="Texture" id=3]
+[ext_resource path="res://scenes/ChangeSceneButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/EventDialogueLabel.gd" type="Script" id=5]
 
 [node name="EventScreen" type="Node"]
 script = ExtResource( 1 )
@@ -13,31 +14,45 @@ margin_right = 1020.0
 margin_bottom = 601.0
 color = Color( 0.784314, 0.392157, 0.392157, 0.352941 )
 
+[node name="UIBackground" parent="." instance=ExtResource( 2 )]
+margin_left = 150.0
+margin_top = 30.0
+margin_right = 850.0
+margin_bottom = 210.0
+rect_min_size = Vector2( 720, 200 )
+
 [node name="EventImage" type="TextureRect" parent="."]
 margin_left = 160.0
 margin_top = 40.0
 margin_right = 860.0
 margin_bottom = 220.0
 rect_min_size = Vector2( 700, 180 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 expand = true
 
-[node name="ChangeSceneButton" parent="." instance=ExtResource( 3 )]
+[node name="ChangeSceneButton" parent="." instance=ExtResource( 4 )]
 margin_left = 9.85107
 margin_top = 126.557
 margin_right = 138.851
 margin_bottom = 146.557
-text = "Overworld Screen "
-new_scene_name = "overworld_screen"
+text = "Titled Screen "
+new_scene_name = "title_screen"
+
+[node name="UIBackground2" parent="." instance=ExtResource( 2 )]
+margin_left = 160.0
+margin_top = 235.0
+margin_right = 860.0
+margin_bottom = 354.0
+rect_min_size = Vector2( 700, 110 )
 
 [node name="EventDialogueLabel" type="RichTextLabel" parent="."]
 modulate = Color( 0, 0, 0, 1 )
-margin_left = 160.0
-margin_top = 230.0
-margin_right = 859.0
-margin_bottom = 340.0
+margin_left = 170.0
+margin_top = 240.0
+margin_right = 848.0
+margin_bottom = 350.0
 bbcode_enabled = true
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 
 [node name="EventScrollContainer" type="ScrollContainer" parent="."]
 margin_left = 60.0
