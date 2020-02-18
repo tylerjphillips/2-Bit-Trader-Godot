@@ -10,6 +10,7 @@ var shop_screen = preload("res://scenes/shop/ShopScreen.tscn")
 var party_screen = preload("res://scenes/party/PartyScreen.tscn")
 var overworld_screen = preload("res://scenes/overworld/OverworldScreen.tscn")
 var event_screen = preload("res://scenes/event/EventScreen.tscn")
+var recruitment_screen = preload("res://scenes/recruitment/RecruitmentScreen.tscn")
 
 # colors used for team indication
 const colors = {
@@ -26,7 +27,8 @@ var scene_names_to_scene = {
 	"shop_screen" : self.shop_screen,
 	"party_screen" : self.party_screen,
 	"overworld_screen" : self.overworld_screen,
-	"event_screen": self.event_screen
+	"event_screen": self.event_screen,
+	"recruitment_screen": self.recruitment_screen
 	}
 
 var current_scene	 # reference to instance of currently active scene

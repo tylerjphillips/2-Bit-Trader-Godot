@@ -241,6 +241,52 @@
 				}
 			}
 		}
+	},
+	
+	"Unit-834435":
+	{
+		"unit_name": "Jerry",
+		"unit_tile_index" : [14,5],
+		"unit_id" : "Unit-834435",
+		"unit_movement_points": 6,
+		"unit_movement_points_max": 6,
+		"unit_health_points": 4,
+		"unit_health_points_max": 6,
+		"unit_team":"blue",
+		"unit_class": "Wizard",
+		"unit_texture_path":"res://images/units/wizard.png",
+		"unit_death_audio_path":"res://audio/dying_1.wav",
+		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
+		"unit_is_boss": false,
+		"unit_equipable_subtypes":["axe","sword","bow"],
+		"unit_weapon_data" :
+		{
+		"Item-87546" :
+			{
+			"item_id": "Item-74325",
+			"item_sell_price":50,
+			"item_buy_price":50,
+			"item_type": "weapon",
+			"item_subtype": "axe",
+			"weapon_tooltip" : "test",
+			"weapon_texture_path": "res://images/weapons/axe.png",
+			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
+			"damage":
+					{
+					"normal": 1
+					},
+			"weapon_pattern" : 
+				{
+				"pattern" : "cardinal",
+				"size" : 2,
+				"include_center": true
+				},
+			"damage_pattern":
+				{
+				"pattern": "single"
+				}
+			}
+		}
 	}
 	
 }

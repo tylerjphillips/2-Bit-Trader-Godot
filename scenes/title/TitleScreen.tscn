@@ -4,7 +4,6 @@
 [ext_resource path="res://images/ui/title_screen.png" type="Texture" id=2]
 [ext_resource path="res://scenes/ChangeSceneButton.tscn" type="PackedScene" id=3]
 
-
 [node name="TitleScreen" type="Node"]
 script = ExtResource( 1 )
 
@@ -44,7 +43,16 @@ margin_right = 114.761
 margin_bottom = 166.246
 text = "Shop Screen"
 new_scene_name = "shop_screen"
+
+[node name="ChangeSceneButton5" parent="." instance=ExtResource( 3 )]
+margin_left = 22.3058
+margin_top = 181.851
+margin_right = 112.306
+margin_bottom = 201.851
+text = "Recruit Screen"
+new_scene_name = "recruitment_screen"
 [connection signal="change_scene" from="ChangeSceneButton" to="." method="change_scene"]
 [connection signal="change_scene" from="ChangeSceneButton2" to="." method="change_scene"]
 [connection signal="change_scene" from="ChangeSceneButton3" to="." method="change_scene"]
 [connection signal="change_scene" from="ChangeSceneButton4" to="." method="change_scene"]
+[connection signal="change_scene" from="ChangeSceneButton5" to="." method="change_scene"]

@@ -3,6 +3,7 @@
 	{	
 		"location_id": "Location-137374783",
 		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "map test 1",
@@ -14,6 +15,7 @@
 	{	
 		"location_id" : "Location-357365873",
 		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": false,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "map test 2",
@@ -25,6 +27,7 @@
 	{	
 		"location_id": "Location-28474628",
 		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": false,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "map test 3",
@@ -36,6 +39,7 @@
 	{	
 		"location_id": "Location-982734987349",
 		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": false,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "map test 4",
@@ -47,6 +51,7 @@
 	{	
 		"location_id": "Location-3422355235",
 		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": false,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "map test 5",
@@ -58,6 +63,7 @@
 	{	
 		"location_id": "Location-234234234234",
 		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "map test 6",
@@ -68,6 +74,7 @@
 	{	
 		"location_id": "Location-23476465",
 		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": false,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "map test 7",
@@ -78,6 +85,7 @@
 	{	
 		"location_id": "Location-2196327",
 		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": false,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "map test 8",
