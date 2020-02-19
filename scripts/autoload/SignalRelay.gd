@@ -28,7 +28,7 @@ signal unit_info_weapon_selected # (weapon_id)
 
 signal end_turn_button_pressed
 
-signal party_member_button_pressed # (unit_data)
+signal party_member_button_pressed(button, unit_data)
 signal party_take_item_button_up # (item_button)
 signal party_give_item_button_up # (item_button)
 
@@ -90,8 +90,8 @@ func _on_team_start_turn(team):
 func _on_team_end_turn(team):
 	emit_signal("team_end_turn", team)
 	
-func _on_party_member_button_pressed(unit_data):
-	emit_signal("party_member_button_pressed", unit_data)
+func _on_party_member_button_pressed(button, unit_data):
+	emit_signal("party_member_button_pressed", button, unit_data)
 
 func _on_party_take_item_button_up(item_button):
 	print("Relay: take item button pressed")

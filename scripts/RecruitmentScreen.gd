@@ -7,7 +7,7 @@ onready var root = get_tree().get_root().get_node("Root")
 onready var relay = get_node("/root/SignalRelay")
 
 func _ready():
-	pass
+		relay.connect("party_member_button_pressed", self, "_on_party_member_button_pressed")
 
 func init(game_data):
 	populate_recruitment_screen()
@@ -20,3 +20,6 @@ func populate_recruitment_screen():
 		self.recruit_grid.add_child(ui_element)
 		var x = root.game_data["unit_data"]
 		ui_element.init(root.game_data["unit_data"][unit_id])
+
+func _on_party_member_button_pressed(button, unit_data):
+	print("RecruitScreen: ", unit_data)

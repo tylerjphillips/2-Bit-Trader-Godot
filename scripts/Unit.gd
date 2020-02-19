@@ -274,6 +274,7 @@ func erase_global_data_entry():
 	# removes entry from global game data at root
 	print("Unit: killed, data erased")
 	self.root.game_data["unit_data"].erase(self.unit_id)
+	self.root.game_data["main_data"]["party_unit_ids"].erase(self.unit_id)
 
 func get_unit_repr():
 	# returns dictionary containing all data for this unit

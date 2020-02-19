@@ -30,7 +30,7 @@ func init(game_data):
 	populate_inventory_items()
 	
 func populate_party_screen():
-	for unit_id in root.game_data["unit_data"]:
+	for unit_id in root.game_data["main_data"]["party_unit_ids"]:
 		var player_team = root.game_data["main_data"]["player_team"]
 		var unit_team = root.game_data["unit_data"][unit_id]["unit_team"]
 		if  player_team == unit_team:
@@ -48,7 +48,7 @@ func populate_inventory_items():
 		inventory_item_button.init(player_inventory_items[item_id], "take")
 
 
-func _on_party_member_button_pressed(selected_unit_data):
+func _on_party_member_button_pressed(button, selected_unit_data):
 	self.selected_unit_data = selected_unit_data
 	
 	# show modules on the first party member selected

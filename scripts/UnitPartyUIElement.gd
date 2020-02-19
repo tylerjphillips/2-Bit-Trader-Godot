@@ -11,7 +11,7 @@ onready var action_point_label = get_node("UnitPartyAPLabel")
 onready var name_label = get_node("UnitPartyNameLabel")
 onready var unit_avatar = get_node("UnitPartyAvatar")
 
-signal party_member_button_pressed # (unit_data)
+signal party_member_button_pressed(button, unit_data)
 
 onready var root = get_tree().get_root().get_node("Root")	# reference to root game node
 onready var relay = get_node("/root/SignalRelay")
@@ -35,4 +35,4 @@ func init(unit_args):
 	self.self_modulate = self.root.colors[unit_team]
 	
 func _on_button_pressed():
-	emit_signal("party_member_button_pressed", unit_data)
+	emit_signal("party_member_button_pressed", self, unit_data)
