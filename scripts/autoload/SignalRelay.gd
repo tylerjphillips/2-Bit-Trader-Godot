@@ -20,6 +20,8 @@ signal unit_health_changed # (unit_health_points, unit_health_points_max)
 signal unit_killed # (unit)
 signal unit_mouse_entered # (unit)
 signal unit_mouse_exited # (unit)
+signal unit_recruitment_failed(unit_data)
+signal unit_recruitment_succeeded(unit_data)
 
 signal team_start_turn # (team)
 signal team_end_turn # (team)
@@ -75,6 +77,12 @@ func _on_unit_mouse_entered(unit):
 	emit_signal("unit_mouse_entered", unit)
 func _on_unit_mouse_exited(unit):
 	emit_signal("unit_mouse_exited", unit)
+func _on_unit_recruitment_failed(unit_data):
+	print("Relay: recruitment failed")
+	emit_signal("unit_recruitment_failed", unit_data)
+func _on_unit_recruitment_succeeded(unit_data):
+	print("Relay: recruitment succeeded")
+	emit_signal("unit_recruitment_succeeded", unit_data)
 
 func _on_unit_sidebar_pressed(unit):
 	print("Relay: unit sidebar pressed")
