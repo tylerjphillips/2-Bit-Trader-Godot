@@ -60,6 +60,9 @@ var unit_damaged_audio_path : String
 
 var unit_is_boss : bool
 
+var unit_recruitment_cost : float
+var unit_upkeep_cost : float
+
 onready var root = get_tree().get_root().get_node("Root")	# reference to root game node
 onready var relay = get_node("/root/SignalRelay")
 
@@ -114,6 +117,10 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 	# audio
 	self.unit_death_audio_path = unit_args["unit_death_audio_path"]
 	self.unit_damaged_audio_path = unit_args["unit_damaged_audio_path"]
+	
+	# costs
+	self.unit_recruitment_cost = unit_args["unit_recruitment_cost"]
+	self.unit_upkeep_cost = unit_args["unit_upkeep_cost"]
 	
 	# boss unit info
 	self.unit_is_boss = unit_args["unit_is_boss"]
@@ -296,5 +303,7 @@ func get_unit_repr():
 	unit_data["unit_damaged_audio_path"] = self.unit_damaged_audio_path
 	unit_data["unit_is_boss"] = self.unit_is_boss
 	unit_data["unit_equipable_subtypes"] = self.unit_equipable_subtypes
+	unit_data["unit_recruitment_cost"] = self.unit_recruitment_cost
+	unit_data["unit_upkeep_cost"] = self.unit_upkeep_cost
 	
 	return unit_data;

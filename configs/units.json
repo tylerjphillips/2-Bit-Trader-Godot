@@ -13,6 +13,8 @@
 		"unit_texture_path":"res://images/units/armor.png",
 		"unit_death_audio_path":"res://audio/dying_1.wav",
 		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
+		"unit_recruitment_cost": 10,
+		"unit_upkeep_cost": 10,
 		"unit_is_boss": false,
 		"unit_equipable_subtypes":["axe","sword","bow"],
 		"unit_weapon_data" :
@@ -118,6 +120,8 @@
 		"unit_texture_path":"res://images/units/archer.png",
 		"unit_death_audio_path":"res://audio/dying_1.wav",
 		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
+		"unit_recruitment_cost": 10,
+		"unit_upkeep_cost": 10,
 		"unit_is_boss": false,
 		"unit_equipable_subtypes":["axe","sword","bow"],
 		"unit_weapon_data" :
@@ -165,6 +169,8 @@
 		"unit_texture_path":"res://images/units/goblin.png",
 		"unit_death_audio_path":"res://audio/dying_1.wav",
 		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
+		"unit_recruitment_cost": 10,
+		"unit_upkeep_cost": 10,
 		"unit_is_boss": true,
 		"unit_equipable_subtypes":["axe","sword","bow"],
 		"unit_weapon_data" :
@@ -211,6 +217,8 @@
 		"unit_texture_path":"res://images/units/goblin.png",
 		"unit_death_audio_path":"res://audio/dying_1.wav",
 		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
+		"unit_recruitment_cost": 10,
+		"unit_upkeep_cost": 10,
 		"unit_is_boss": false,
 		"unit_equipable_subtypes":["axe","sword","bow"],
 		"unit_weapon_data" :
@@ -257,6 +265,8 @@
 		"unit_texture_path":"res://images/units/wizard.png",
 		"unit_death_audio_path":"res://audio/dying_1.wav",
 		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
+		"unit_recruitment_cost": 10,
+		"unit_upkeep_cost": 10,
 		"unit_is_boss": false,
 		"unit_equipable_subtypes":["axe","sword","bow"],
 		"unit_weapon_data" :

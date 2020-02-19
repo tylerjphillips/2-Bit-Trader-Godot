@@ -5,7 +5,8 @@
 [ext_resource path="res://images/portraits/default unit portrait.png" type="Texture" id=3]
 
 [node name="UnitPartyUIElement" type="TextureButton"]
-margin_right = 360.0
+margin_left = -0.598755
+margin_right = 359.401
 margin_bottom = 120.0
 rect_min_size = Vector2( 360, 120 )
 texture_normal = ExtResource( 1 )
@@ -30,17 +31,33 @@ align = 1
 modulate = Color( 0, 0, 0, 1 )
 margin_left = 105.0
 margin_top = 14.0
-margin_right = 209.0
+margin_right = 190.0
 margin_bottom = 33.0
 text = "Class"
+
+[node name="UnitPartyRecruitmentCostLabel" type="Label" parent="."]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 198.236
+margin_top = 13.4013
+margin_right = 302.236
+margin_bottom = 32.4013
+text = "Recruit Cost"
 
 [node name="UnitPartyHealthPointLabel" type="Label" parent="."]
 modulate = Color( 0, 0, 0, 1 )
 margin_left = 105.0
-margin_top = 35.666
-margin_right = 209.0
-margin_bottom = 54.666
+margin_top = 36.0
+margin_right = 189.0
+margin_bottom = 55.0
 text = "Health"
+
+[node name="UnitPartyUpkeepCostLabel" type="Label" parent="."]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 198.236
+margin_top = 35.0673
+margin_right = 302.236
+margin_bottom = 54.0673
+text = "Upkeep Cost"
 
 [node name="UnitPartyAPLabel" type="Label" parent="."]
 modulate = Color( 0, 0, 0, 1 )

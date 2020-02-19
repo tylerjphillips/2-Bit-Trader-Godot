@@ -5,7 +5,7 @@ signal change_scene
 var selected_unit_data
 
 onready var party_grid = get_node("PartyMemberList/ScrollContainer/PartyGrid")
-var party_member_ui = preload("res://scenes/party/UnitPartyUIElement.tscn")
+var party_member_ui = preload("res://scenes/UnitPartyUIElement.tscn")
 
 var inventory_item_button_asset = preload("res://scenes/party/InventoryItemButton.tscn")
 

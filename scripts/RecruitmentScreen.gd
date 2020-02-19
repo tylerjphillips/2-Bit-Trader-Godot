@@ -1,7 +1,7 @@
 extends Node
 
 onready var recruit_grid = get_node("ScrollContainer/RecruitmentGridContainer")
-var party_member_ui = preload("res://scenes/party/UnitPartyUIElement.tscn")
+var party_member_ui = preload("res://scenes/UnitPartyUIElement.tscn")
 
 onready var root = get_tree().get_root().get_node("Root")
 onready var relay = get_node("/root/SignalRelay")
