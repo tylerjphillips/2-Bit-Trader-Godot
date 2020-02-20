@@ -25,6 +25,8 @@ signal unit_recruitment_succeeded(unit_data)
 
 signal team_start_turn # (team)
 signal team_end_turn # (team)
+signal round_started
+signal round_ended
 
 signal unit_info_weapon_selected # (weapon_id)
 
@@ -97,6 +99,11 @@ func _on_team_start_turn(team):
 	emit_signal("team_start_turn", team)
 func _on_team_end_turn(team):
 	emit_signal("team_end_turn", team)
+	
+func _on_round_started():
+	emit_signal("round_started")
+func _on_round_ended():
+	emit_signal("round_ended")
 	
 func _on_party_member_button_pressed(button, unit_data):
 	emit_signal("party_member_button_pressed", button, unit_data)

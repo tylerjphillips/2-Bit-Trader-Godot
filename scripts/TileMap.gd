@@ -35,6 +35,8 @@ signal create_attack_tiles
 	# turns
 signal team_start_turn # (team)
 signal team_end_turn # (team)
+signal round_started
+signal round_ended
 
 onready var unit_asset = preload("res://scenes/combat/Unit.tscn") # unit prefab
 
@@ -58,6 +60,9 @@ func _ready():
 	
 	self.connect("team_start_turn", relay, "_on_team_start_turn")
 	self.connect("team_end_turn", relay, "_on_team_end_turn")
+	
+	self.connect("round_started", relay, "_on_round_started")
+	self.connect("round_ended", relay, "_on_round_ended")
 	
 	# listeners
 	relay.connect("unit_clicked", self, "_on_unit_clicked")
@@ -257,6 +262,11 @@ func _on_end_turn_button_pressed():
 	current_team = teams[(teams.find(current_team) + 1) % len(teams)]
 	print("current team: "+current_team)
 	emit_signal("team_start_turn",current_team)
+	
+	# round ended
+	if teams.find(current_team) == 0:
+		emit_signal("round_ended")
+		emit_signal("round_started")
 	
 func _on_unit_info_weapon_selected(weapon_id):
 	# Button for selecting items to attack with
