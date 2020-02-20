@@ -28,6 +28,9 @@ signal team_end_turn # (team)
 signal round_started
 signal round_ended
 
+signal combat_victory
+signal combat_loss
+
 signal unit_info_weapon_selected # (weapon_id)
 
 signal end_turn_button_pressed
@@ -104,6 +107,13 @@ func _on_round_started():
 	emit_signal("round_started")
 func _on_round_ended():
 	emit_signal("round_ended")
+	
+func _on_combat_victory():
+	print("SignalRelay: Combat Victory")
+	emit_signal("combat_victory")
+func _on_combat_loss():
+	print("SignalRelay: Combat Loss")
+	emit_signal("combat_loss")
 	
 func _on_party_member_button_pressed(button, unit_data):
 	emit_signal("party_member_button_pressed", button, unit_data)
