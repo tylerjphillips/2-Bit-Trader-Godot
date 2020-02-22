@@ -185,7 +185,6 @@ func _on_unit_moved(unit, tile_index, movement_cost):
 
 func _on_unit_attacks_tile(attacking_unit, tile_index, attacking_unit_attack_pattern, attacking_unit_weapon_data):
 	if self == attacking_unit:
-		print("tile index........", tile_index)
 		var attack_direction = self.last_attack_pattern[tile_index]["direction"]
 		self.play_attack_animation(attack_direction)
 
