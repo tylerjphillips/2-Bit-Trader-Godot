@@ -282,6 +282,9 @@ func erase_global_data_entry():
 	print("Unit: killed, data erased")
 	self.root.game_data["unit_data"].erase(self.unit_id)
 	self.root.game_data["main_data"]["party_unit_ids"].erase(self.unit_id)
+	
+	var current_event_id = self.root.game_data["main_data"]["current_event_id"]
+	self.root.game_data["event_data"][current_event_id]["event_unit_ids"].erase(self.unit_id)
 
 func get_unit_repr():
 	# returns dictionary containing all data for this unit

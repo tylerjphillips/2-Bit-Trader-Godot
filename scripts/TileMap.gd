@@ -6,9 +6,9 @@ var selected_unit = null
 var selected_weapon_id = null
 var index_to_unit = Dictionary()
 var unit_to_index = Dictionary()
-var player_team = "blue"
-var current_team = "blue"
-var teams = ["blue", "red", "green"]
+var player_team : String
+var current_team : String
+var teams : Array
 	# unit info UI module
 onready var selected_unit_info = get_node("../SelectedUnitInfo")
 
@@ -78,6 +78,10 @@ func init():
 	var current_event_id = self.root.game_data["main_data"]["current_event_id"]
 	var current_event_data = self.root.game_data["event_data"][current_event_id]
 	var tile_data = current_event_data["map_tiles"]
+	
+	self.player_team = self.root.game_data["main_data"]["player_team"]
+	self.teams = current_event_data["event_teams"]
+	self.current_team = current_event_data["event_current_team"]
 	
 	var event_unit_ids = current_event_data["event_unit_ids"]
 	var party_unit_ids = self.root.game_data["main_data"]["party_unit_ids"]
@@ -272,6 +276,10 @@ func _on_end_turn_button_pressed():
 	self.deselect_unit()
 	emit_signal("team_end_turn",current_team)
 	current_team = teams[(teams.find(current_team) + 1) % len(teams)]
+	
+	var current_event_id = self.root.game_data["main_data"]["current_event_id"]
+	self.root.game_data["event_data"][current_event_id]["event_current_team"] = self.current_team
+	
 	print("current team: "+current_team)
 	emit_signal("team_start_turn",current_team)
 	
