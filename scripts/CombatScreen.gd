@@ -1,9 +1,5 @@
 extends Node
 
-# tilemap related
-signal batch_spawn_units
-signal set_tiles
-
 signal change_scene
 
 onready var tilemap = get_node("TileMap")
@@ -28,20 +24,13 @@ func _ready():
 	tilemap.connect("clear_movement_tiles", movement_attack_overlay, "_on_clear_movement_tiles")
 	tilemap.connect("create_attack_tiles", movement_attack_overlay, "_on_create_attack_tiles")
 	tilemap.connect("create_movement_tiles", movement_attack_overlay, "_on_create_movement_tiles")
-
-	self.connect("batch_spawn_units", tilemap, "_on_batch_spawn_units")
-	self.connect("set_tiles", tilemap, "_on_set_tiles")
 	
 	# button signals
 	change_scene_button.connect("change_scene", self, "change_scene")
-	
 
 func init(game_data):
 	var unit_data = game_data["unit_data"]
-	var current_event_id = game_data["main_data"]["current_event_id"]
-	var tile_data = game_data["event_data"][current_event_id]["map_tiles"]
-	emit_signal("batch_spawn_units", unit_data)
-	emit_signal("set_tiles", tile_data)
+	tilemap.init()
 	
 func change_scene(new_scene_name):
 	update_all_unit_data()

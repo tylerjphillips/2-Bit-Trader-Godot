@@ -48,6 +48,7 @@ var directions = {
 		}
 
 onready var relay = get_node("/root/SignalRelay")
+onready var root = get_tree().get_root().get_node("Root")
 
 func _ready():
 	# emitters
@@ -72,13 +73,24 @@ func _ready():
 	relay.connect("end_turn_button_pressed", self, "_on_end_turn_button_pressed")
 	
 	get_tree().call_group("units", "_on_start_team_turn", current_team)
+	
+func init():
+	var current_event_id = self.root.game_data["main_data"]["current_event_id"]
+	var current_event_data = self.root.game_data["event_data"][current_event_id]
+	var tile_data = current_event_data["map_tiles"]
+	
+	var event_unit_ids = current_event_data["event_unit_ids"]
+	var party_unit_ids = self.root.game_data["main_data"]["party_unit_ids"]
+	self.batch_spawn_units(event_unit_ids)
+	self.batch_spawn_units(party_unit_ids)
+	self.set_tiles(tile_data)
 
-####### Spawning and Saving units #####
+####### Spawning units #####
 
-func _on_batch_spawn_units(data):
-	# Spawn units from a JSON payload
-	for unit_id in data:
-		var unit_data = data[unit_id]
+func batch_spawn_units(unit_ids):
+	# Spawn units from a list of unit ids
+	for unit_id in unit_ids:
+		var unit_data = self.root.game_data["unit_data"][unit_id]
 		var unit_tile_index = Vector2(unit_data["unit_tile_index"][0], unit_data["unit_tile_index"][1]) # convert the json array to vector2
 		self.spawn_unit(unit_tile_index, unit_data)
 
@@ -280,7 +292,7 @@ func _on_unit_info_weapon_selected(weapon_id):
 	
 ####################### Tile based functions ###################
 
-func _on_set_tiles(tile_data):
+func set_tiles(tile_data):
 	# sets the tiles in the tilemap from a JSON payload
 	# Usually used for initialization but can also batch edit tiles on demand
 	print("Tilemap: setting tiles")
