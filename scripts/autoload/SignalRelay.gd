@@ -20,6 +20,8 @@ signal unit_health_changed # (unit_health_points, unit_health_points_max)
 signal unit_killed # (unit)
 signal unit_mouse_entered # (unit)
 signal unit_mouse_exited # (unit)
+signal unit_boss_killed(boss_unit)
+
 signal unit_recruitment_failed(unit_data)
 signal unit_recruitment_succeeded(unit_data)
 
@@ -29,7 +31,7 @@ signal round_started
 signal round_ended
 
 signal combat_victory
-signal combat_loss
+signal combat_defeat
 
 signal unit_info_weapon_selected # (weapon_id)
 
@@ -62,13 +64,13 @@ func _on_unit_killed(unit):
 	print("Relay: unit killed")
 	emit_signal("unit_killed", unit)
 func _on_unit_selected(unit):
-	print("Relay: unit selected")
+	# print("Relay: unit selected")
 	emit_signal("unit_selected", unit)
 func _on_unit_deselected(unit):
-	print("Relay: unit deselected")
+	# print("Relay: unit deselected")
 	emit_signal("unit_deselected", unit)
 func _on_unit_moved(unit, tile_index, movement_cost):
-	print("Relay: unit has moved")
+	# print("Relay: unit has moved")
 	emit_signal("unit_moved", unit, tile_index, movement_cost)
 func _on_unit_attacks_tile(attacking_unit, tile_index, attacking_unit_attack_pattern, attacking_unit_weapon_data):
 	emit_signal("unit_attacks_tile", attacking_unit, tile_index, attacking_unit_attack_pattern, attacking_unit_weapon_data)
@@ -76,24 +78,27 @@ func _on_unit_attacks_unit(attacking_unit, weapon_data, attacked_unit, damage_ti
 	print("Relay: unit attacks")
 	emit_signal("unit_attacks_unit", attacking_unit, weapon_data, attacked_unit, damage_tile_index)
 func _on_unit_collides_unit(attacking_unit, affected_unit, collision_count, collided_unit): 
-	print("Relay: unit collides with unit")
+	# print("Relay: unit collides with unit")
 	emit_signal("unit_collides_unit",attacking_unit, affected_unit, collision_count, collided_unit)
 func _on_unit_mouse_entered(unit):
 	emit_signal("unit_mouse_entered", unit)
 func _on_unit_mouse_exited(unit):
 	emit_signal("unit_mouse_exited", unit)
+func _on_unit_boss_killed(boss_unit):
+	# print("SignalRelay: Boss unit killed")
+	emit_signal("unit_boss_killed", boss_unit)
 func _on_unit_recruitment_failed(unit_data):
-	print("Relay: recruitment failed")
+	# print("Relay: recruitment failed")
 	emit_signal("unit_recruitment_failed", unit_data)
 func _on_unit_recruitment_succeeded(unit_data):
-	print("Relay: recruitment succeeded")
+	# print("Relay: recruitment succeeded")
 	emit_signal("unit_recruitment_succeeded", unit_data)
 
 func _on_unit_sidebar_pressed(unit):
-	print("Relay: unit sidebar pressed")
+	# print("Relay: unit sidebar pressed")
 	emit_signal("unit_sidebar_pressed", unit)
 func _on_unit_info_weapon_selected(weapon_id):
-	print("Relay: unit_info_weapon_selected")
+	# print("Relay: unit_info_weapon_selected")
 	emit_signal("unit_info_weapon_selected", weapon_id)
 
 func _on_end_turn_button_pressed():
@@ -111,18 +116,18 @@ func _on_round_ended():
 func _on_combat_victory():
 	print("SignalRelay: Combat Victory")
 	emit_signal("combat_victory")
-func _on_combat_loss():
+func _on_combat_defeat():
 	print("SignalRelay: Combat Loss")
-	emit_signal("combat_loss")
+	emit_signal("combat_defeat")
 	
 func _on_party_member_button_pressed(button, unit_data):
 	emit_signal("party_member_button_pressed", button, unit_data)
 
 func _on_party_take_item_button_up(item_button):
-	print("Relay: take item button pressed")
+	# print("Relay: take item button pressed")
 	emit_signal("party_take_item_button_up", item_button)
 func _on_party_give_item_button_up(item_button):
-	print("Relay: give item button pressed")
+	# print("Relay: give item button pressed")
 	emit_signal("party_give_item_button_up", item_button)
 
 func _on_caravan_started_traveling(to_location_id):

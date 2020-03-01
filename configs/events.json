@@ -15,6 +15,12 @@
 			"event_victory_kill_unit_ids": ["Unit-155927355"],
 			"event_victory_kill_threshold": 0
 		},
+		"event_defeat_conditions":
+		{
+			"event_defeat_round": 6,
+			"event_defeat_kill_unit_ids": ["Unit-155927355"],
+			"event_defeat_kill_threshold": 0
+		},
 		"event_image_path": "res://images/weapons/sword.png",
 		"event_choice_data":
 			{

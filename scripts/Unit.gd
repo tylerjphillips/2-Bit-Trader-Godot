@@ -4,6 +4,7 @@ extends Area2D
 signal unit_spawned # (unit)
 signal unit_health_changed # (unit_health_points, unit_health_points_max)
 signal unit_killed # (unit)
+signal unit_boss_killed # (unit)
 signal unit_mouse_entered #(unit)
 signal unit_mouse_exited #(unit)
 
@@ -81,6 +82,7 @@ func _ready():
 	self.connect("unit_killed", relay, "_on_unit_killed")
 	self.connect("unit_mouse_entered", relay, "_on_unit_mouse_entered")
 	self.connect("unit_mouse_exited", relay, "_on_unit_mouse_exited")
+	self.connect("unit_boss_killed", relay, "_on_unit_boss_killed")
 	
 	# listeners
 	relay.connect("unit_selected", self, "_on_unit_selected")
@@ -248,6 +250,8 @@ func set_unit_health_points(value):
 	unit_health_points = value
 	if self.unit_health_points <= 0:
 		emit_signal("unit_killed", self)
+		if self.unit_is_boss:
+			emit_signal("unit_boss_killed", self)
 	else:
 		emit_signal("unit_health_changed", unit_health_points, unit_health_points_max)
 func get_unit_health_points():
