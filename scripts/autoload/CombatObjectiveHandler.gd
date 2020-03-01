@@ -34,7 +34,8 @@ func _on_unit_killed(killed_unit):
 		# remove the unit from victory conditions
 		event_victory_kill_unit_ids.erase(killed_unit_id)
 		self.root.game_data["event_data"][current_event_id]["event_victory_conditions"]["event_victory_kill_unit_ids"] = event_victory_kill_unit_ids
-		# if that was the last important unit, then victory
-		if len(event_victory_kill_unit_ids) == 0:
+		# if less or equal than kill threshold, then victory
+		var event_victory_kill_threshold = self.root.game_data["event_data"][current_event_id]["event_victory_conditions"]["event_victory_kill_threshold"]
+		if len(event_victory_kill_unit_ids) <= event_victory_kill_threshold:
 			print("CombatObjectiveHander: Unit ", killed_unit.unit_name, " killed. YOU ARE WINNER")
 			emit_signal("combat_victory")
