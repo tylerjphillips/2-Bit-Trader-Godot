@@ -47,6 +47,7 @@ var is_selected : bool = false # whether or not the unit is selected
 
 var health_container = preload("res://scenes/combat/HealthContainer.tscn")
 var attack_animation_asset = preload("res://scenes/combat/AttackAnimation.tscn")	# attack animation on all affected tiles
+var death_animation_asset = preload("res://scenes/combat/DeathAnimation.tscn")
 var blood_particles_asset = preload("res://scenes/combat/UnitBloodParticles.tscn")
 
 var last_bfs = Dictionary() # last pathing result from self.get_bfs. Used for checking movement. tile_indexes:cost
@@ -57,6 +58,8 @@ var unit_texture_path : String
 
 var unit_death_audio_path : String
 var unit_damaged_audio_path : String
+
+var unit_death_animation_frame_paths : Array
 
 var unit_is_boss : bool
 
@@ -113,6 +116,9 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 	# set unit sprite
 	self.unit_texture_path = unit_args["unit_texture_path"]
 	self.unit_sprite.texture = load(self.unit_texture_path)
+	
+	# death animations
+	self.unit_death_animation_frame_paths = unit_args["unit_death_animation_frame_paths"]
 	
 	# audio
 	self.unit_death_audio_path = unit_args["unit_death_audio_path"]
@@ -303,6 +309,7 @@ func get_unit_repr():
 	unit_data["unit_texture_path"] = self.unit_texture_path
 	unit_data["unit_death_audio_path"] = self.unit_death_audio_path
 	unit_data["unit_damaged_audio_path"] = self.unit_damaged_audio_path
+	unit_data["unit_death_animation_frame_paths"] = self.unit_death_animation_frame_paths
 	unit_data["unit_is_boss"] = self.unit_is_boss
 	unit_data["unit_equipable_subtypes"] = self.unit_equipable_subtypes
 	unit_data["unit_recruitment_cost"] = self.unit_recruitment_cost

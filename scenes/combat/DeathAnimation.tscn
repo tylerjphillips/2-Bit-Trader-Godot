@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://images/units/armor.png" type="Texture" id=1]
+[ext_resource path="res://scripts/AttackAnimation.gd" type="Script" id=2]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 1 ), ExtResource( 1 ), ExtResource( 1 ), ExtResource( 1 ), ExtResource( 1 ), ExtResource( 1 ), ExtResource( 1 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 15.0
+} ]
+
+[node name="DeathAnimation" type="AnimatedSprite"]
+self_modulate = Color( 1, 1, 1, 0.913725 )
+scale = Vector2( 0.66, 0.66 )
+z_index = 4
+frames = SubResource( 1 )
+frame = 4
+playing = true
+centered = false
+script = ExtResource( 2 )

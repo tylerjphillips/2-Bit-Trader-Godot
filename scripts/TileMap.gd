@@ -189,6 +189,7 @@ func move_unit_to_tile(unit, tile_index):
 	if get_cell(tile_index[0],tile_index[1]) != INVALID_CELL:
 		var tile_pos = map_to_world(tile_index)
 		unit.position = tile_pos
+		unit.unit_tile_index = tile_index
 		
 		# erase old index to unit to prevent duplicates
 		index_to_unit.erase(unit_to_index[unit])
@@ -268,7 +269,19 @@ func _on_unit_killed(unit):
 	var tile_index = self.unit_to_index[unit]
 	self.unit_to_index.erase(unit)
 	self.index_to_unit.erase(tile_index)
+	
+	self.place_unit_death_animation(unit)
+	
 	unit.queue_free()
+
+func place_unit_death_animation(unit):
+	# spawn a death animation for the unit at its location
+	print("Tilemap: death animation placed at ", unit.unit_tile_index)
+	var death_animation = unit.death_animation_asset.instance()
+	var death_animation_position = map_to_world(unit.unit_tile_index)
+	death_animation.position = death_animation_position
+	death_animation.init(unit.unit_death_animation_frame_paths)
+	self.add_child(death_animation)
 
 ################## UI Buttons ##################
 
