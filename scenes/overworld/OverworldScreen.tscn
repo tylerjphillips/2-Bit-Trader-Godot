@@ -68,4 +68,13 @@ margin_right = 1009.17
 margin_bottom = 85.0212
 text = "Enter Shop"
 new_scene_name = "shop_screen"
+
+[node name="ChangeSceneButtonRecruitmentScreen" parent="." instance=ExtResource( 9 )]
+margin_left = 915.17
+margin_top = 120.0
+margin_right = 1009.17
+margin_bottom = 172.0
+text = "Recruit Units"
+new_scene_name = "recruitment_screen"
 [connection signal="change_scene" from="ChangeSceneButtonShopScreen" to="." method="change_scene"]
+[connection signal="change_scene" from="ChangeSceneButtonRecruitmentScreen" to="." method="change_scene"]

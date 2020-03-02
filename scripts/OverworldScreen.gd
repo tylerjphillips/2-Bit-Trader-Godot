@@ -13,6 +13,7 @@ onready var caravan_indicator = $CaravanSprite
 onready var caravan_travel_tween = $CaravanSprite/CaravanTravelTween
 
 onready var shop_screen_button = $ChangeSceneButtonShopScreen
+onready var recruitment_screen_button = $ChangeSceneButtonRecruitmentScreen
 
 onready var root = get_tree().get_root().get_node("Root")
 onready var relay = get_node("/root/SignalRelay")
@@ -67,12 +68,18 @@ func init(game_data):
 	self.shop_screen_button.hide()
 	if self.root.game_data["overworld_data"][current_location_id].has("location_shop_id"):
 		self.shop_screen_button.show()
+		
+	# recruitment visibility
+	self.recruitment_screen_button.hide()
+	if len(self.root.game_data["overworld_data"][current_location_id]["location_recruitment_unit_ids"]) > 0:
+		self.recruitment_screen_button.show()
 
 func change_scene(new_scene_name):
 	emit_signal("change_scene", "overworld_screen", new_scene_name)
 
 func _on_caravan_started_traveling(to_location_id):
 	self.shop_screen_button.hide()
+	self.recruitment_screen_button.hide()
 	print("OverworldScreen: caravan traveling to ",to_location_id,"....")
 
 func _on_caravan_destination_reached(to_location_id):
@@ -88,3 +95,6 @@ func _on_caravan_destination_reached(to_location_id):
 		# location has shop
 		if self.root.game_data["overworld_data"][to_location_id].has("location_shop_id"):
 			self.shop_screen_button.show()
+		# location has recruitment
+		if len(self.root.game_data["overworld_data"][to_location_id]["location_recruitment_unit_ids"]) > 0:
+			self.recruitment_screen_button.show()
