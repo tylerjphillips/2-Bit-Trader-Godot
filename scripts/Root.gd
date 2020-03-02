@@ -40,13 +40,7 @@ var current_scene	 # reference to instance of currently active scene
 # config paths
 	# directory holding the game data files
 const config_directory = "res://configs/"
-	# json filenames in selected config_directory
-const units_json_filename = "units.json"
-const overworld_json_filename = "overworld.json"
-const main_json_filename = "main.json"
-const events_json_filename = "events.json"
-const regions_json_filename = "regions.json"
-const shops_json_filename = "shops.json"
+const meta_json_filename = "meta.json"	 # holds all paths to other data files
 
 func _ready():
 	print("Root: Game Start")
@@ -78,18 +72,12 @@ func save_json(directory, filename, data):
 	file.store_line(to_json(data))
 	file.close()
 
-
-
-
 func batch_load_json(directory):
 	# loads data from a directory
 	print("Root loading configs from ", directory, " .....")
-	self.game_data["unit_data"] = self.load_json(directory,units_json_filename)
-	self.game_data["overworld_data"] = self.load_json(directory,overworld_json_filename)
-	self.game_data["main_data"] = self.load_json(directory,main_json_filename)
-	self.game_data["event_data"] = self.load_json(directory,events_json_filename)
-	self.game_data["region_data"] = self.load_json(directory,regions_json_filename)
-	self.game_data["shop_data"] = self.load_json(directory,shops_json_filename)
+	self.game_data["meta_data"] = self.load_json(directory,meta_json_filename)
+	for data_key in self.game_data["meta_data"]:
+		self.game_data[data_key] = self.load_json(directory,self.game_data["meta_data"][data_key])
 
 func create_scene(scene_name):
 	self.current_scene = self.scene_names_to_scene[scene_name].instance()

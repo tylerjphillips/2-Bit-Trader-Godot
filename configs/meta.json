@@ -1,0 +1,8 @@
+{
+	"unit_data": "units.json",
+	"overworld_data": "overworld.json",
+	"main_data": "main.json",
+	"event_data": "events.json",
+	"region_data": "regions.json",
+	"shop_data": "shops.json"
+}
