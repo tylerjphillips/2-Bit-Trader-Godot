@@ -23,7 +23,6 @@ config/icon="res://icon.png"
 
 SignalRelay="*res://scripts/autoload/SignalRelay.gd"
 AudioHandler="*res://scripts/autoload/AudioHandler.gd"
-CombatObjectiveHandler="*res://scripts/autoload/CombatObjectiveHandler.gd"
 
 [debug]
 
