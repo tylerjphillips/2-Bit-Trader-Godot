@@ -5,6 +5,8 @@ signal change_scene
 signal caravan_destination_reached # (to_location_id)
 signal caravan_started_traveling # (to_location_id)
 
+signal day_ended
+
 signal overworld_location_button_up
 
 signal unit_spawned # (unit)
@@ -43,6 +45,7 @@ signal party_give_item_button_up # (item_button)
 
 signal event_choice_selected
 signal event_dialogue_typing_ended
+
 
 signal shop_buy_item_button_up # (item_button)
 signal shop_sell_item_button_up # (item_button)
@@ -129,6 +132,9 @@ func _on_party_take_item_button_up(item_button):
 func _on_party_give_item_button_up(item_button):
 	# print("Relay: give item button pressed")
 	emit_signal("party_give_item_button_up", item_button)
+
+func _on_day_ended():
+	emit_signal("day_ended")
 
 func _on_caravan_started_traveling(to_location_id):
 	print("Relay: caravan started traveling")
