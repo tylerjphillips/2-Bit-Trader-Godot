@@ -64,8 +64,13 @@ var unit_death_animation_frame_paths : Array
 
 var unit_is_boss : bool
 
-var unit_recruitment_cost : float
-var unit_upkeep_cost : float
+var unit_xp : int
+var unit_xp_max : int
+var unit_level : int
+var unit_level_max : int
+
+var unit_recruitment_cost : int
+var unit_upkeep_cost : int
 
 onready var root = get_tree().get_root().get_node("Root")	# reference to root game node
 onready var relay = get_node("/root/SignalRelay")
@@ -127,8 +132,14 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 	self.unit_damaged_audio_path = unit_args["unit_damaged_audio_path"]
 	
 	# costs
-	self.unit_recruitment_cost = unit_args["unit_recruitment_cost"]
-	self.unit_upkeep_cost = unit_args["unit_upkeep_cost"]
+	self.unit_recruitment_cost = int(unit_args["unit_recruitment_cost"])
+	self.unit_upkeep_cost = int(unit_args["unit_upkeep_cost"])
+	
+	# xp and levels
+	self.unit_xp = int(unit_args["unit_xp"])
+	self.unit_xp_max = int(unit_args["unit_xp_max"])
+	self.unit_level = int(unit_args["unit_level"])
+	self.unit_level_max = int(unit_args["unit_level_max"])
 	
 	# boss unit info
 	self.unit_is_boss = unit_args["unit_is_boss"]
@@ -318,5 +329,9 @@ func get_unit_repr():
 	unit_data["unit_equipable_subtypes"] = self.unit_equipable_subtypes
 	unit_data["unit_recruitment_cost"] = self.unit_recruitment_cost
 	unit_data["unit_upkeep_cost"] = self.unit_upkeep_cost
+	unit_data["unit_xp"] = self.unit_xp
+	unit_data["unit_xp_max"] = self.unit_xp_max
+	unit_data["unit_level"] = self.unit_level
+	unit_data["unit_level_max"] = self.unit_level_max
 	
 	return unit_data;

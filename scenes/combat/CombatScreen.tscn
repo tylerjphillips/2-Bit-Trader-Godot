@@ -283,27 +283,44 @@ script = ExtResource( 12 )
 
 [node name="UnitClassLabel" type="Label" parent="SelectedUnitInfo"]
 modulate = Color( 0, 0, 0, 1 )
-margin_left = -65.0
+margin_left = -57.6315
 margin_top = -35.0
-margin_right = -17.0
+margin_right = -9.63153
 margin_bottom = -21.0
 text = "Class"
 
 [node name="UnitHealthPointLabel" type="Label" parent="SelectedUnitInfo"]
 modulate = Color( 0, 0, 0, 1 )
 anchor_right = 0.3
-margin_left = -66.0
+margin_left = -58.6315
 margin_top = -18.0
-margin_right = -16.0
+margin_right = -8.63153
 margin_bottom = -4.0
 text = "Health: "
 
 [node name="UnitMovementPointLabel" type="Label" parent="SelectedUnitInfo"]
 modulate = Color( 0, 0, 0, 1 )
-margin_left = -65.0
+margin_left = -57.6315
 margin_top = -2.40398
-margin_right = -24.9093
+margin_right = -17.5408
 margin_bottom = 11.596
+text = "AP: "
+
+[node name="UnitXPLabel" type="Label" parent="SelectedUnitInfo"]
+modulate = Color( 0, 0, 0, 1 )
+anchor_right = 0.3
+margin_left = -59.6841
+margin_top = 13.5793
+margin_right = -9.68414
+margin_bottom = 27.5793
+text = "Health: "
+
+[node name="UnitLevelLabel" type="Label" parent="SelectedUnitInfo"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = -58.6841
+margin_top = 29.1754
+margin_right = -18.5934
+margin_bottom = 43.1754
 text = "AP: "
 
 [node name="UnitNameLabel" type="Label" parent="SelectedUnitInfo"]

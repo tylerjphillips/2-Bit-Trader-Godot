@@ -29,40 +29,56 @@ align = 1
 
 [node name="UnitPartyClassLabel" type="Label" parent="."]
 modulate = Color( 0, 0, 0, 1 )
-margin_left = 105.0
-margin_top = 14.0
-margin_right = 190.0
-margin_bottom = 33.0
+margin_left = 118.771
+margin_top = 15.1975
+margin_right = 203.771
+margin_bottom = 34.1975
 text = "Class"
 
 [node name="UnitPartyRecruitmentCostLabel" type="Label" parent="."]
 modulate = Color( 0, 0, 0, 1 )
-margin_left = 198.236
-margin_top = 13.4013
-margin_right = 302.236
-margin_bottom = 32.4013
+margin_left = 212.007
+margin_top = 14.5988
+margin_right = 316.007
+margin_bottom = 33.5988
 text = "Recruit Cost"
 
 [node name="UnitPartyHealthPointLabel" type="Label" parent="."]
 modulate = Color( 0, 0, 0, 1 )
-margin_left = 105.0
-margin_top = 36.0
-margin_right = 189.0
-margin_bottom = 55.0
+margin_left = 118.771
+margin_top = 37.1975
+margin_right = 202.771
+margin_bottom = 56.1975
 text = "Health"
 
 [node name="UnitPartyUpkeepCostLabel" type="Label" parent="."]
 modulate = Color( 0, 0, 0, 1 )
-margin_left = 198.236
-margin_top = 35.0673
-margin_right = 302.236
-margin_bottom = 54.0673
+margin_left = 212.007
+margin_top = 36.2648
+margin_right = 316.007
+margin_bottom = 55.2648
 text = "Upkeep Cost"
 
 [node name="UnitPartyAPLabel" type="Label" parent="."]
 modulate = Color( 0, 0, 0, 1 )
-margin_left = 105.0
-margin_top = 59.653
-margin_right = 209.0
-margin_bottom = 78.653
+margin_left = 118.771
+margin_top = 56.1975
+margin_right = 203.771
+margin_bottom = 75.1975
 text = "AP"
+
+[node name="UnitPartyXPLabel" type="Label" parent="."]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 117.771
+margin_top = 75.1975
+margin_right = 197.771
+margin_bottom = 94.1975
+text = "XP"
+
+[node name="UnitPartyLevelLabel" type="Label" parent="."]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 116.574
+margin_top = 92.5609
+margin_right = 196.574
+margin_bottom = 111.561
+text = "Level"

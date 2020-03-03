@@ -17,6 +17,14 @@
 		"unit_recruitment_cost": 10,
 		"unit_upkeep_cost": 10,
 		"unit_is_boss": false,
+		"unit_xp": 0,
+		"unit_xp_max": 40,
+		"unit_level": 1,
+		"unit_level_max": 2,
+		"unit_xp": 0,
+		"unit_xp_max": 40,
+		"unit_level": 1,
+		"unit_level_max": 2,
 		"unit_equipable_subtypes":["axe","sword","bow"],
 		"unit_weapon_data" :
 		{
@@ -128,6 +136,10 @@
 		"unit_recruitment_cost": 10,
 		"unit_upkeep_cost": 10,
 		"unit_is_boss": false,
+		"unit_xp": 0,
+		"unit_xp_max": 40,
+		"unit_level": 1,
+		"unit_level_max": 2,
 		"unit_equipable_subtypes":["axe","sword","bow"],
 		"unit_weapon_data" :
 		{
@@ -179,6 +191,10 @@
 		"unit_recruitment_cost": 10,
 		"unit_upkeep_cost": 10,
 		"unit_is_boss": true,
+		"unit_xp": 0,
+		"unit_xp_max": 40,
+		"unit_level": 1,
+		"unit_level_max": 2,
 		"unit_equipable_subtypes":["axe","sword","bow"],
 		"unit_weapon_data" :
 		{
@@ -229,6 +245,10 @@
 		"unit_recruitment_cost": 10,
 		"unit_upkeep_cost": 10,
 		"unit_is_boss": false,
+		"unit_xp": 0,
+		"unit_xp_max": 40,
+		"unit_level": 1,
+		"unit_level_max": 2,
 		"unit_equipable_subtypes":["axe","sword","bow"],
 		"unit_weapon_data" :
 		{
@@ -279,6 +299,10 @@
 		"unit_recruitment_cost": 10,
 		"unit_upkeep_cost": 10,
 		"unit_is_boss": false,
+		"unit_xp": 0,
+		"unit_xp_max": 40,
+		"unit_level": 1,
+		"unit_level_max": 2,
 		"unit_equipable_subtypes":["axe","sword","bow"],
 		"unit_weapon_data" :
 		{
