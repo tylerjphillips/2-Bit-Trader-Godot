@@ -8,8 +8,12 @@ signal unit_boss_killed # (unit)
 signal unit_mouse_entered #(unit)
 signal unit_mouse_exited #(unit)
 
+signal unit_level_changed # (unit)
+signal unit_xp_changed # (unit)
+signal unit_leveled_up # (unit)
+
 # ui indicators
-var health_bar
+onready var health_bar = get_node("HealthContainer")
 onready var selection_cursor = get_node("SelectionCursor")
 onready var move_indicator = get_node("MoveIndicator")
 onready var team_indicator = get_node("TeamIndicator")
@@ -46,7 +50,6 @@ var unit_equipable_subtypes : Array # List of item types this unit can equip
 
 var is_selected : bool = false # whether or not the unit is selected
 
-var health_container = preload("res://scenes/combat/HealthContainer.tscn")
 var attack_animation_asset = preload("res://scenes/combat/AttackAnimation.tscn")	# attack animation on all affected tiles
 var death_animation_asset = preload("res://scenes/combat/DeathAnimation.tscn")
 var blood_particles_asset = preload("res://scenes/combat/UnitBloodParticles.tscn")
@@ -64,10 +67,12 @@ var unit_death_animation_frame_paths : Array
 
 var unit_is_boss : bool
 
-var unit_xp : int
+var unit_xp : int setget set_unit_xp, get_unit_xp
 var unit_xp_max : int
-var unit_level : int
+var unit_level : int setget set_unit_level, get_unit_level
 var unit_level_max : int
+var unit_xp_reward : int # xp reward for killing the unit
+var unit_level_up_rewards : Dictionary # maps xp levels to key:values that will override existing values
 
 var unit_recruitment_cost : int
 var unit_upkeep_cost : int
@@ -77,17 +82,20 @@ onready var relay = get_node("/root/SignalRelay")
 
 func _ready():
 	add_to_group("units")
-	self.connect("unit_killed", self, "_on_unit_killed")
 	self.connect("mouse_entered", self, "_on_mouse_entered")
 	self.connect("mouse_exited", self, "_on_mouse_exited")
 	
 	# emitters
+	self.connect("unit_health_changed", self.health_bar, "_on_unit_health_changed")	
 	self.connect("unit_spawned", relay, "_on_unit_spawned")
 	# self.connect("unit_clicked", relay, "_on_unit_clicked")
 	self.connect("unit_killed", relay, "_on_unit_killed")
 	self.connect("unit_mouse_entered", relay, "_on_unit_mouse_entered")
 	self.connect("unit_mouse_exited", relay, "_on_unit_mouse_exited")
 	self.connect("unit_boss_killed", relay, "_on_unit_boss_killed")
+	self.connect("unit_level_changed", relay, "_on_unit_level_changed")
+	self.connect("unit_xp_changed", relay, "_on_unit_xp_changed")
+	self.connect("unit_leveled_up", relay, "_on_unit_leveled_up")
 	
 	# listeners
 	relay.connect("unit_selected", self, "_on_unit_selected")
@@ -99,11 +107,12 @@ func _ready():
 	
 	relay.connect("team_start_turn", self, "_on_team_start_turn")
 	relay.connect("team_end_turn", self, "_on_team_end_turn")
+	relay.connect("unit_killed", self, "_on_unit_killed")
+	relay.connect("unit_leveled_up", self, "_on_unit_leveled_up")
 	
+func init(unit_position : Vector2, unit_args: Dictionary, is_leveling_up = false):
+	# Initialize unit with a position and given arguments. is_leveling_up is used for units leveling up and thus overwriting data
 	
-
-func init(unit_position : Vector2, unit_args: Dictionary):
-	# position and tile index (mandatory)
 	self.position = unit_position	# world position not tile index
 	self.unit_tile_index = Vector2(unit_args["unit_tile_index"][0], unit_args["unit_tile_index"][1])
 	# unit args
@@ -136,10 +145,12 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 	self.unit_upkeep_cost = int(unit_args["unit_upkeep_cost"])
 	
 	# xp and levels
-	self.unit_xp = int(unit_args["unit_xp"])
 	self.unit_xp_max = int(unit_args["unit_xp_max"])
-	self.unit_level = int(unit_args["unit_level"])
+	self.unit_xp = int(unit_args["unit_xp"])
 	self.unit_level_max = int(unit_args["unit_level_max"])
+	self.unit_level = int(unit_args["unit_level"])
+	self.unit_xp_reward = int(unit_args["unit_xp_reward"])
+	self.unit_level_up_rewards = unit_args["unit_level_up_rewards"]
 	
 	# boss unit info
 	self.unit_is_boss = unit_args["unit_is_boss"]
@@ -148,10 +159,7 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 		$BossSkull.show()
 	
 	# initialize health bar
-	self.health_bar = health_container.instance()
-	self.add_child(self.health_bar)
 	self.health_bar.init(unit_health_points,unit_health_points_max)
-	self.connect("unit_health_changed", self.health_bar, "_on_unit_health_changed")	
 	self.health_bar.hide()
 	
 	# UI indicators
@@ -164,7 +172,8 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 	self.unit_can_move = unit_args.get("unit_can_move", true)
 	self.unit_can_attack = unit_args.get("unit_can_attack", true)
 	
-	emit_signal("unit_spawned", self)
+	if !is_leveling_up:
+		emit_signal("unit_spawned", self)
 
 func damage_unit(weapon_data, attacking_unit = null):
 	if weapon_data["damage"].has("normal"):
@@ -174,7 +183,7 @@ func damage_unit(weapon_data, attacking_unit = null):
 		emit_signal("unit_killed", self, attacking_unit)
 		if self.unit_is_boss:
 			emit_signal("unit_boss_killed", self)
-		
+
 func play_attack_animation(direction):
 	if direction in self.directions_to_unit_animations:
 		self.directions_to_unit_animations[direction].play("Attacking")
@@ -245,8 +254,22 @@ func _on_mouse_exited():
 		self.health_bar.hide()
 	return
 	print("Mouse Exited")
+
+func _on_unit_leveled_up(unit):
+	if unit == self:
+		# Grab a dict representation of the leveling unit, overwrite one's data, then re-init
+		var unit_args = self.get_unit_repr()
+		if self.unit_level_up_rewards.has(str(self.unit_level)):
+			var level_up_rewards = self.unit_level_up_rewards[str(self.unit_level)]
+			for unit_property_name in level_up_rewards:
+				unit_args[unit_property_name] = level_up_rewards[unit_property_name]
+			print("Unit: Leveling up. Reinitizalize")
+			self.init(self.position, unit_args, true)
 	
 func _on_unit_killed(killed_unit, killer_unit):
+	if killer_unit == self:
+		self.unit_xp += killed_unit.unit_xp_reward
+	
 	if killed_unit ==  self:
 		self.erase_global_data_entry()
 	
@@ -269,6 +292,7 @@ func get_unit_health_points():
 	return unit_health_points
 func set_unit_health_points_max(value):
 	unit_health_points_max = value
+	emit_signal("unit_health_changed", unit_health_points, unit_health_points_max)
 func get_unit_health_points_max():
 	return unit_health_points_max
 
@@ -290,6 +314,25 @@ func get_unit_can_attack():
 	
 func get_team_color():
 	return self.root.colors[self.unit_team]
+	
+func set_unit_xp(xp):
+	unit_xp = xp
+	# remove xp until all level ups are achieved
+	while(unit_xp > self.unit_xp_max):
+		unit_xp = unit_xp - self.unit_xp_max
+		if self.unit_level < self.unit_level_max:
+			self.unit_level += 1
+			emit_signal("unit_leveled_up", self)
+	emit_signal("unit_xp_changed")
+	
+func get_unit_xp():
+	return unit_xp
+
+func set_unit_level(level):
+	unit_level = int(min(level, self.unit_level_max))
+	emit_signal("unit_level_changed", self)
+func get_unit_level():
+	return unit_level
 
 ###### Serialization and global data management #####
 
@@ -333,5 +376,7 @@ func get_unit_repr():
 	unit_data["unit_xp_max"] = self.unit_xp_max
 	unit_data["unit_level"] = self.unit_level
 	unit_data["unit_level_max"] = self.unit_level_max
+	unit_data["unit_xp_reward"] = self.unit_xp_reward
+	unit_data["unit_level_up_rewards"] = self.unit_level_up_rewards
 	
 	return unit_data;

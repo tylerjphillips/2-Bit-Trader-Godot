@@ -23,6 +23,9 @@ signal unit_killed # (killed_unit, killer_unit)
 signal unit_mouse_entered # (unit)
 signal unit_mouse_exited # (unit)
 signal unit_boss_killed(boss_unit)
+signal unit_level_changed # (unit)
+signal unit_xp_changed # (unit)
+signal unit_leveled_up # (unit)
 
 signal unit_recruitment_failed(unit_data)
 signal unit_recruitment_succeeded(unit_data)
@@ -90,6 +93,14 @@ func _on_unit_mouse_exited(unit):
 func _on_unit_boss_killed(boss_unit):
 	# print("SignalRelay: Boss unit killed")
 	emit_signal("unit_boss_killed", boss_unit)
+	
+func _on_unit_level_changed(unit):
+	emit_signal("unit_level_changed", unit)
+func _on_unit_xp_changed(unit):
+	emit_signal("unit_xp_changed", unit)
+func _on_unit_leveled_up(unit):
+	emit_signal("unit_leveled_up", unit)
+
 func _on_unit_recruitment_failed(unit_data):
 	# print("Relay: recruitment failed")
 	emit_signal("unit_recruitment_failed", unit_data)
