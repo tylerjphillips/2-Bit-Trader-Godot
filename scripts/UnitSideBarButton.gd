@@ -19,6 +19,6 @@ func init(unit):
 func _on_UnitSideBarButton_button_up():
 	emit_signal("unit_sidebar_pressed", self.unit)
 	
-func _on_unit_killed(killed_unit):
+func _on_unit_killed(killed_unit, killer_unit):
 	if killed_unit == self.unit:
 		self.queue_free()

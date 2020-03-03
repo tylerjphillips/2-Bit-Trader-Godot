@@ -3,7 +3,7 @@ extends Area2D
 # signals
 signal unit_spawned # (unit)
 signal unit_health_changed # (unit_health_points, unit_health_points_max)
-signal unit_killed # (unit)
+signal unit_killed # (killed_unit, killer_unit)
 signal unit_boss_killed # (unit)
 signal unit_mouse_entered #(unit)
 signal unit_mouse_exited #(unit)
@@ -166,9 +166,14 @@ func init(unit_position : Vector2, unit_args: Dictionary):
 	
 	emit_signal("unit_spawned", self)
 
-func damage_unit(weapon_data):
+func damage_unit(weapon_data, attacking_unit = null):
 	if weapon_data["damage"].has("normal"):
 		self.unit_health_points -= weapon_data["damage"]["normal"]
+		
+	if self.unit_health_points <= 0:
+		emit_signal("unit_killed", self, attacking_unit)
+		if self.unit_is_boss:
+			emit_signal("unit_boss_killed", self)
 		
 func play_attack_animation(direction):
 	if direction in self.directions_to_unit_animations:
@@ -215,18 +220,18 @@ func _on_unit_attacks_unit(attacking_unit, weapon_data, attacked_unit, damage_ti
 	if attacking_unit == self:
 		print("Unit: attacking ", attacked_unit.unit_name)
 	if attacked_unit == self:
-		self.damage_unit(weapon_data)
+		self.damage_unit(weapon_data, attacking_unit)
 		var blood_particles = self.blood_particles_asset.instance()
 		self.add_child(blood_particles)
 		blood_particles.emit(attack_direction)
 		
 		
-func _on_unit_collides_unit(attacking_unit, affected_unit, collision_count, collided_unit):
-	if affected_unit == self or collided_unit == self:
+func _on_unit_collides_unit(attacking_unit, colliding_unit, collision_count, collided_unit):
+	if colliding_unit == self or collided_unit == self:
 		var collision_damage = {"damage": { "normal": collision_count}}
 		
-		print("Unit: ", affected_unit.unit_name, " collides with ", collided_unit.unit_name)
-		self.damage_unit(collision_damage)
+		print("Unit: ", colliding_unit.unit_name, " collides with ", collided_unit.unit_name)
+		self.damage_unit(collision_damage, attacking_unit)
 
 func _on_mouse_entered():
 	emit_signal("unit_mouse_entered", self)
@@ -241,8 +246,8 @@ func _on_mouse_exited():
 	return
 	print("Mouse Exited")
 	
-func _on_unit_killed(unit):
-	if unit ==  self:
+func _on_unit_killed(killed_unit, killer_unit):
+	if killed_unit ==  self:
 		self.erase_global_data_entry()
 	
 func set_unit_movement_points(value):
@@ -259,12 +264,7 @@ func get_unit_tile_index():
 	return unit_tile_index
 func set_unit_health_points(value):
 	unit_health_points = value
-	if self.unit_health_points <= 0:
-		emit_signal("unit_killed", self)
-		if self.unit_is_boss:
-			emit_signal("unit_boss_killed", self)
-	else:
-		emit_signal("unit_health_changed", unit_health_points, unit_health_points_max)
+	emit_signal("unit_health_changed", unit_health_points, unit_health_points_max)
 func get_unit_health_points():
 	return unit_health_points
 func set_unit_health_points_max(value):

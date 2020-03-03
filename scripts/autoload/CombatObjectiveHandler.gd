@@ -34,7 +34,7 @@ func _on_round_started():
 		print("CombatObjectiveHander: YOU HAVE LOST")
 		emit_signal("combat_defeat")
 
-func _on_unit_killed(killed_unit):
+func _on_unit_killed(killed_unit, killer_unit):
 	# check if a unit was important to the event and decide win or lose
 	var killed_unit_id = killed_unit.unit_id
 	var current_event_id = self.root.game_data["main_data"]["current_event_id"]

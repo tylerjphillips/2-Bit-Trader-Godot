@@ -16,7 +16,7 @@ func _on_unit_attacks_tile(attacking_unit, tile_index, attacking_unit_attack_pat
 func _on_unit_attacks_unit(attacking_unit, weapon_data, attacked_unit, damage_tile_index):
 	self.generate_audio_sample(attacked_unit.unit_damaged_audio_path)
 
-func _on_unit_killed(killed_unit):
+func _on_unit_killed(killed_unit, killer_unit):
 	self.generate_audio_sample(killed_unit.unit_death_audio_path)
 
 func generate_audio_sample(audio_path):

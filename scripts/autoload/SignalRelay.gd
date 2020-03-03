@@ -15,11 +15,11 @@ signal unit_deselected # (unit)
 signal unit_moved	# (unit, tile_index, cost)
 signal unit_attacks_tile(attacking_unit, tile_index, attacking_unit_attack_pattern, attacking_unit_weapon_data)
 signal unit_attacks_unit(attacking_unit, attacking_unit_weapon_data, attacked_unit, damage_tile_index)
-signal unit_collides_unit # (attacking_unit, affected_unit, collision_count, collided_unit)
+signal unit_collides_unit # (attacking_unit, colliding_unit, collision_count, collided_unit)
 signal unit_sidebar_pressed # (unit)
 signal unit_clicked # (unit)
 signal unit_health_changed # (unit_health_points, unit_health_points_max)
-signal unit_killed # (unit)
+signal unit_killed # (killed_unit, killer_unit)
 signal unit_mouse_entered # (unit)
 signal unit_mouse_exited # (unit)
 signal unit_boss_killed(boss_unit)
@@ -63,9 +63,9 @@ func _on_unit_spawned(unit):
 func _on_unit_clicked(unit):
 	print("Relay: unit clicked")
 	emit_signal("unit_clicked", unit)
-func _on_unit_killed(unit):
-	print("Relay: unit killed")
-	emit_signal("unit_killed", unit)
+func _on_unit_killed(killed_unit, killer_unit):
+	print("Relay: unit killed: ", killed_unit.unit_name, " killed by ", killer_unit.unit_name)
+	emit_signal("unit_killed", killed_unit, killer_unit)
 func _on_unit_selected(unit):
 	# print("Relay: unit selected")
 	emit_signal("unit_selected", unit)
@@ -80,9 +80,9 @@ func _on_unit_attacks_tile(attacking_unit, tile_index, attacking_unit_attack_pat
 func _on_unit_attacks_unit(attacking_unit, weapon_data, attacked_unit, damage_tile_index):
 	print("Relay: unit attacks")
 	emit_signal("unit_attacks_unit", attacking_unit, weapon_data, attacked_unit, damage_tile_index)
-func _on_unit_collides_unit(attacking_unit, affected_unit, collision_count, collided_unit): 
+func _on_unit_collides_unit(attacking_unit, colliding_unit, collision_count, collided_unit): 
 	# print("Relay: unit collides with unit")
-	emit_signal("unit_collides_unit",attacking_unit, affected_unit, collision_count, collided_unit)
+	emit_signal("unit_collides_unit",attacking_unit, colliding_unit, collision_count, collided_unit)
 func _on_unit_mouse_entered(unit):
 	emit_signal("unit_mouse_entered", unit)
 func _on_unit_mouse_exited(unit):

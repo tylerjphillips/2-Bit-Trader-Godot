@@ -261,18 +261,17 @@ func push_unit(attacking_unit, affected_unit, new_tile_index : Vector2, collisio
 	if collided_unit != null:
 		emit_signal("unit_collides_unit", attacking_unit, affected_unit, collision_count, collided_unit)
 	
-func _on_unit_killed(unit):
-	print("TileMap: Killed unit ", unit.unit_name)
-	if unit == self.selected_unit:
+func _on_unit_killed(killed_unit, killer_unit):
+	if killed_unit == self.selected_unit:
 		deselect_unit()
 	
-	var tile_index = self.unit_to_index[unit]
-	self.unit_to_index.erase(unit)
+	var tile_index = self.unit_to_index[killed_unit]
+	self.unit_to_index.erase(killed_unit)
 	self.index_to_unit.erase(tile_index)
 	
-	self.place_unit_death_animation(unit)
+	self.place_unit_death_animation(killed_unit)
 	
-	unit.queue_free()
+	killed_unit.queue_free()
 
 func place_unit_death_animation(unit):
 	# spawn a death animation for the unit at its location
