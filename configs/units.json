@@ -30,6 +30,7 @@
 			"weapon_tooltip" : "axe",
 			"weapon_texture_path": "res://images/weapons/axe.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
+			"item_is_soulbound": true,
 			"damage":
 					{
 					"normal": 1
@@ -57,6 +58,7 @@
 			"weapon_tooltip" : "sword",
 			"weapon_texture_path": "res://images/weapons/sword.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
+			"item_is_soulbound": false,
 			"damage":
 					{
 					"normal": 1
@@ -85,6 +87,7 @@
 			"weapon_tooltip" : "bow",
 			"weapon_texture_path": "res://images/weapons/bow.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
+			"item_is_soulbound": false,
 			"damage":
 					{
 					"normal": 1
@@ -138,6 +141,7 @@
 			"weapon_tooltip" : "test 2",
 			"weapon_texture_path": "res://images/weapons/bow.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
+			"item_is_soulbound": false,
 			"damage":
 					{
 					"normal": 4
@@ -188,6 +192,7 @@
 			"weapon_tooltip" : "test",
 			"weapon_texture_path": "res://images/weapons/axe.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
+			"item_is_soulbound": false,
 			"damage":
 					{
 					"normal": 2
@@ -237,6 +242,7 @@
 			"weapon_tooltip" : "test",
 			"weapon_texture_path": "res://images/weapons/axe.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
+			"item_is_soulbound": false,
 			"damage":
 					{
 					"normal": 1
@@ -286,6 +292,7 @@
 			"weapon_tooltip" : "test",
 			"weapon_texture_path": "res://images/weapons/axe.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
+			"item_is_soulbound": false,
 			"damage":
 					{
 					"normal": 1

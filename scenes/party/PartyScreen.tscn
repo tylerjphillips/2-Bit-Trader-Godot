@@ -44,7 +44,6 @@ margin_bottom = 497.0
 [node name="PartyGrid" type="GridContainer" parent="PartyMemberList/ScrollContainer"]
 
 [node name="PartyMemberInfo" type="Node2D" parent="."]
-visible = false
 position = Vector2( 434.939, 22.2157 )
 
 [node name="PartyMemberInfoBackground" type="ColorRect" parent="PartyMemberInfo"]
@@ -70,7 +69,6 @@ margin_bottom = 542.0
 columns = 2
 
 [node name="InventoryItems" type="Node2D" parent="."]
-visible = false
 position = Vector2( 667.417, 25.441 )
 
 [node name="InventoryItemsBackground" type="ColorRect" parent="InventoryItems"]
@@ -79,9 +77,7 @@ margin_right = 314.0
 margin_bottom = 567.0
 
 [node name="InventoryItemScrollContainer" type="ScrollContainer" parent="InventoryItems"]
-margin_left = 11.0
-margin_top = 16.0
-margin_right = 287.0
+margin_right = 278.0
 margin_bottom = 543.0
 
 [node name="InventoryItemGridContainer" type="GridContainer" parent="InventoryItems/InventoryItemScrollContainer"]

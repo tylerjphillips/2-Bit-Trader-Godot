@@ -21,6 +21,7 @@
 			"weapon_tooltip" : "axe",
 			"weapon_texture_path": "res://images/weapons/bow.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
+			"item_is_soulbound": false,
 			"damage":
 					{
 					"normal": 4
@@ -48,6 +49,7 @@
 			"weapon_tooltip" : "club",
 			"weapon_texture_path": "res://images/weapons/club.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
+			"item_is_soulbound": false,
 			"damage":
 					{
 					"normal": 4
@@ -75,6 +77,7 @@
 			"weapon_tooltip" : "axe",
 			"weapon_texture_path": "res://images/weapons/axe.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
+			"item_is_soulbound": false,
 			"damage":
 					{
 					"normal": 4
@@ -102,6 +105,7 @@
 			"weapon_tooltip" : "axe",
 			"weapon_texture_path": "res://images/weapons/sword.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
+			"item_is_soulbound": false,
 			"damage":
 					{
 					"normal": 4

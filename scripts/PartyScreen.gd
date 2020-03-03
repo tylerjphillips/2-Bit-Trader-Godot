@@ -98,12 +98,16 @@ func _on_party_take_item_button_up(item_button):
 func _on_party_give_item_button_up(item_button):
 	if selected_unit_data != null:
 		var selected_unit_id = selected_unit_data["unit_id"]
-		# add item to unit's inventory
-		self.root.game_data["unit_data"][selected_unit_id]["unit_weapon_data"].erase(item_button.item_id) 
-		# remove item from player's inventory
-		self.root.game_data["main_data"]["player_items"][item_button.item_id] = item_button.item_data
-		populate_inventory_items()
-		populate_member_inventory_items()
+		var item_data = self.root.game_data["unit_data"][selected_unit_id]["unit_weapon_data"][item_button.item_id]
+		# check if item is bound to the character
+		var item_is_soulbound : bool = item_data["item_is_soulbound"]
+		if !item_is_soulbound:
+			# remove item from unit's inventory
+			self.root.game_data["unit_data"][selected_unit_id]["unit_weapon_data"].erase(item_button.item_id) 
+			# add item to player's inventory
+			self.root.game_data["main_data"]["player_items"][item_button.item_id] = item_button.item_data
+			populate_inventory_items()
+			populate_member_inventory_items()
 
 func change_scene(new_scene_name):
 	emit_signal("change_scene", "party_screen", new_scene_name)
