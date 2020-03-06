@@ -222,8 +222,6 @@ func unit_attack_tile(attacking_unit, weapon_index, tile_index):
 				emit_signal("unit_attacks_unit", attacking_unit, attacking_unit.unit_weapon_data[weapon_index], affected_unit, damage_tile_index)
 
 	self.deselect_unit()
-	attacking_unit.set_unit_can_attack(false)
-	attacking_unit.set_unit_can_move(false)
 	emit_signal("clear_attack_tiles")
 	attacking_unit.last_attack_pattern.clear()	# clear the cache to prevent accessing old tiles after moving
 	

@@ -17,6 +17,7 @@ onready var health_bar = get_node("HealthContainer")
 onready var selection_cursor = get_node("SelectionCursor")
 onready var move_indicator = get_node("MoveIndicator")
 onready var team_indicator = get_node("TeamIndicator")
+onready var attack_indicator = get_node("AttackIndicator")
 onready var unit_sprite = get_node("UnitSprite")
 onready var xp_bar = get_node("Node2D/UnitXPBar")
 
@@ -224,6 +225,8 @@ func _on_unit_attacks_tile(attacking_unit, tile_index, attacking_unit_attack_pat
 	if self == attacking_unit:
 		var attack_direction = self.last_attack_pattern[tile_index]["direction"]
 		self.play_attack_animation(attack_direction)
+		self.unit_can_attack = false
+		self.unit_can_move = false
 
 func _on_unit_attacks_unit(attacking_unit, weapon_data, attacked_unit, damage_tile_index):
 	print("Unit, damage tile index: ", damage_tile_index)
@@ -312,6 +315,10 @@ func get_unit_can_move():
 	
 func set_unit_can_attack(canAttack : bool):
 	unit_can_attack = canAttack
+	if unit_can_attack:
+		attack_indicator.modulate = self.get_team_color()
+	else:
+		attack_indicator.modulate = self.root.colors["white"]
 		
 func get_unit_can_attack():
 	return unit_can_attack

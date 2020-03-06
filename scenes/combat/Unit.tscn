@@ -101,14 +101,21 @@ texture = ExtResource( 4 )
 
 [node name="TeamIndicator" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.427451 )
-position = Vector2( 10, -14 )
-scale = Vector2( 0.08, 0.08 )
-z_index = 11
+position = Vector2( 16, 16 )
+scale = Vector2( 0.16, 0.16 )
+z_index = 4
 texture = ExtResource( 5 )
 
 [node name="MoveIndicator" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.427451 )
-position = Vector2( 22, -14 )
+position = Vector2( 13, -10 )
+scale = Vector2( 0.08, 0.08 )
+z_index = 11
+texture = ExtResource( 5 )
+
+[node name="AttackIndicator" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.427451 )
+position = Vector2( 19, -10 )
 scale = Vector2( 0.08, 0.08 )
 z_index = 11
 texture = ExtResource( 5 )
