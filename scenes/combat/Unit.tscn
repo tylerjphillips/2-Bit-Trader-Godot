@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scripts/Unit.gd" type="Script" id=1]
 [ext_resource path="res://images/units/boss_skull.png" type="Texture" id=2]
@@ -6,7 +6,8 @@
 [ext_resource path="res://images/units/archer.png" type="Texture" id=4]
 [ext_resource path="res://images/ui/unit_team_indicator.png" type="Texture" id=5]
 [ext_resource path="res://scenes/combat/HealthContainer.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scripts/UnitXPBar.gd" type="Script" id=7]
+[ext_resource path="res://scenes/combat/UnitDamageFloatingText.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scripts/UnitXPBar.gd" type="Script" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -123,6 +124,9 @@ texture = ExtResource( 5 )
 [node name="HealthContainer" parent="." instance=ExtResource( 6 )]
 position = Vector2( 0, -1 )
 
+[node name="UnitDamageFloatingText" parent="." instance=ExtResource( 7 )]
+visible = false
+
 [node name="EastAttackAnimation" type="AnimationPlayer" parent="."]
 anims/Attacking = SubResource( 2 )
 
@@ -144,7 +148,7 @@ margin_top = 19.4318
 margin_right = 16.4101
 margin_bottom = 23.4318
 color = Color( 0, 0.160784, 1, 1 )
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 low_color = Color( 0.686275, 0.686275, 1, 1 )
 
 [node name="XPTween" type="Tween" parent="Node2D/UnitXPBar"]

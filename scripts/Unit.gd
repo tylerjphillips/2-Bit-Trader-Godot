@@ -20,6 +20,7 @@ onready var team_indicator = get_node("TeamIndicator")
 onready var attack_indicator = get_node("AttackIndicator")
 onready var unit_sprite = get_node("UnitSprite")
 onready var xp_bar = get_node("Node2D/UnitXPBar")
+onready var floating_damage_text = get_node("UnitDamageFloatingText")
 
 # attacking animations
 onready var directions_to_unit_animations = {
@@ -183,7 +184,7 @@ func init(unit_position : Vector2, unit_args: Dictionary, is_leveling_up = false
 func damage_unit(weapon_data, attacking_unit = null):
 	if weapon_data["damage"].has("normal"):
 		self.unit_health_points -= weapon_data["damage"]["normal"]
-		
+		self.floating_damage_text.init(weapon_data["damage"]["normal"])
 	if self.unit_health_points <= 0:
 		emit_signal("unit_killed", self, attacking_unit)
 		if self.unit_is_boss:
