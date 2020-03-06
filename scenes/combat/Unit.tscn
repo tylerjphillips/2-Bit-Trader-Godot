@@ -132,9 +132,12 @@ anims/Attacking = SubResource( 5 )
 z_index = 5
 
 [node name="UnitXPBar" type="ColorRect" parent="Node2D"]
-margin_left = 17.5815
-margin_top = 26.4359
-margin_right = 33.5815
-margin_bottom = 30.4359
+margin_left = 0.410124
+margin_top = 19.4318
+margin_right = 16.4101
+margin_bottom = 23.4318
 color = Color( 0, 0.160784, 1, 1 )
 script = ExtResource( 7 )
+low_color = Color( 0.686275, 0.686275, 1, 1 )
+
+[node name="XPTween" type="Tween" parent="Node2D/UnitXPBar"]
