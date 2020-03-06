@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scripts/Unit.gd" type="Script" id=1]
 [ext_resource path="res://images/units/boss_skull.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://images/units/archer.png" type="Texture" id=4]
 [ext_resource path="res://images/ui/unit_team_indicator.png" type="Texture" id=5]
 [ext_resource path="res://scenes/combat/HealthContainer.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scripts/UnitXPBar.gd" type="Script" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -81,7 +82,7 @@ script = ExtResource( 1 )
 unit_name = "Bob"
 
 [node name="BossSkull" type="Sprite" parent="."]
-position = Vector2( 23.6017, 23.9514 )
+position = Vector2( 24, 18 )
 z_index = 6
 texture = ExtResource( 2 )
 
@@ -100,19 +101,20 @@ texture = ExtResource( 4 )
 
 [node name="TeamIndicator" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.427451 )
-position = Vector2( 16, -20 )
-scale = Vector2( 0.125, 0.125 )
+position = Vector2( 10, -14 )
+scale = Vector2( 0.08, 0.08 )
 z_index = 11
 texture = ExtResource( 5 )
 
 [node name="MoveIndicator" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.427451 )
-position = Vector2( 16, -42.55 )
-scale = Vector2( 0.125, 0.125 )
+position = Vector2( 22, -14 )
+scale = Vector2( 0.08, 0.08 )
 z_index = 11
 texture = ExtResource( 5 )
 
 [node name="HealthContainer" parent="." instance=ExtResource( 6 )]
+position = Vector2( 0, -1 )
 
 [node name="EastAttackAnimation" type="AnimationPlayer" parent="."]
 anims/Attacking = SubResource( 2 )
@@ -125,3 +127,14 @@ anims/Attacking = SubResource( 4 )
 
 [node name="WestAttackAnimation" type="AnimationPlayer" parent="."]
 anims/Attacking = SubResource( 5 )
+
+[node name="Node2D" type="Node2D" parent="."]
+z_index = 5
+
+[node name="UnitXPBar" type="ColorRect" parent="Node2D"]
+margin_left = 17.5815
+margin_top = 26.4359
+margin_right = 33.5815
+margin_bottom = 30.4359
+color = Color( 0, 0.160784, 1, 1 )
+script = ExtResource( 7 )

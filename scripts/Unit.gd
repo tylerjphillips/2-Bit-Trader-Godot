@@ -18,6 +18,7 @@ onready var selection_cursor = get_node("SelectionCursor")
 onready var move_indicator = get_node("MoveIndicator")
 onready var team_indicator = get_node("TeamIndicator")
 onready var unit_sprite = get_node("UnitSprite")
+onready var xp_bar = get_node("Node2D/UnitXPBar")
 
 # attacking animations
 onready var directions_to_unit_animations = {
@@ -161,6 +162,9 @@ func init(unit_position : Vector2, unit_args: Dictionary, is_leveling_up = false
 	# initialize health bar
 	self.health_bar.init(unit_health_points,unit_health_points_max)
 	self.health_bar.hide()
+	
+	# xp bar
+	self.xp_bar.init(self)
 	
 	# UI indicators
 	self.selection_cursor.hide()
@@ -323,7 +327,7 @@ func set_unit_xp(xp):
 		if self.unit_level < self.unit_level_max:
 			self.unit_level += 1
 			emit_signal("unit_leveled_up", self)
-	emit_signal("unit_xp_changed")
+	emit_signal("unit_xp_changed", self)
 	
 func get_unit_xp():
 	return unit_xp
