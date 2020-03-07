@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://scripts/Area2D.gd" type="Script" id=1]
+[ext_resource path="res://scripts/SettingsButton.gd" type="Script" id=1]
 [ext_resource path="res://images/ui/gear.png" type="Texture" id=2]
+[ext_resource path="res://scenes/UIBackground.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 
 [node name="Settings" type="Area2D"]
+pause_mode = 2
 position = Vector2( 40, 40 )
 z_index = 7
 script = ExtResource( 1 )
@@ -19,3 +21,58 @@ one_way_collision_margin = 0.0
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 2 )
+
+[node name="SettingsModal" type="Node2D" parent="."]
+visible = false
+z_index = 1000
+
+[node name="UIBackground" parent="SettingsModal" instance=ExtResource( 3 )]
+self_modulate = Color( 1, 1, 1, 0.815686 )
+margin_left = -13.0
+margin_top = -13.0
+margin_right = 951.0
+margin_bottom = 525.0
+
+[node name="CloseButton" type="Button" parent="SettingsModal/UIBackground"]
+margin_left = 889.992
+margin_top = 16.8466
+margin_right = 939.992
+margin_bottom = 63.8466
+text = "X"
+
+[node name="HSlider2" type="HSlider" parent="SettingsModal/UIBackground"]
+margin_left = 681.731
+margin_top = 252.064
+margin_right = 891.731
+margin_bottom = 293.064
+rect_scale = Vector2( 1, 2 )
+
+[node name="HSlider" type="HSlider" parent="SettingsModal/UIBackground"]
+margin_left = 679.653
+margin_top = 193.156
+margin_right = 883.653
+margin_bottom = 231.156
+rect_scale = Vector2( 1, 2 )
+tick_count = 7
+ticks_on_borders = true
+
+[node name="CheckBox" type="CheckBox" parent="SettingsModal/UIBackground"]
+margin_left = 375.956
+margin_top = 160.615
+margin_right = 399.956
+margin_bottom = 184.615
+rect_scale = Vector2( 2, 2 )
+
+[node name="CheckBox2" type="CheckBox" parent="SettingsModal/UIBackground"]
+margin_left = 373.518
+margin_top = 216.21
+margin_right = 397.518
+margin_bottom = 240.21
+rect_scale = Vector2( 2, 2 )
+
+[node name="CheckBox3" type="CheckBox" parent="SettingsModal/UIBackground"]
+margin_left = 371.079
+margin_top = 309.845
+margin_right = 395.079
+margin_bottom = 333.845
+rect_scale = Vector2( 2, 2 )

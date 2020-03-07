@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/OverworldScreen.gd" type="Script" id=1]
 [ext_resource path="res://scenes/UIBackground.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://images/units/caravan.png" type="Texture" id=8]
 [ext_resource path="res://scripts/CaravanSprite.gd" type="Script" id=9]
 [ext_resource path="res://scenes/ChangeSceneButton.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/SettingsButton.tscn" type="PackedScene" id=11]
 
 [node name="OverworldScreen" type="Node"]
 script = ExtResource( 1 )
@@ -82,5 +83,7 @@ margin_right = 1009.17
 margin_bottom = 172.0
 text = "Recruit Units"
 new_scene_name = "recruitment_screen"
+
+[node name="Settings" parent="." instance=ExtResource( 11 )]
 [connection signal="change_scene" from="ChangeSceneButtonShopScreen" to="." method="change_scene"]
 [connection signal="change_scene" from="ChangeSceneButtonRecruitmentScreen" to="." method="change_scene"]
