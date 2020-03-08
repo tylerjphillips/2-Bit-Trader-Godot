@@ -152,3 +152,17 @@ script = ExtResource( 8 )
 low_color = Color( 0.686275, 0.686275, 1, 1 )
 
 [node name="XPTween" type="Tween" parent="Node2D/UnitXPBar"]
+
+[node name="UnitLevelUpParticles" type="CPUParticles2D" parent="."]
+position = Vector2( 16, 16 )
+emitting = false
+amount = 100
+one_shot = true
+emission_shape = 2
+emission_rect_extents = Vector2( 12, 8 )
+gravity = Vector2( 0, -150 )
+angle = 353.8
+angle_random = 1.0
+scale_amount = 2.0
+scale_amount_random = 1.0
+color = Color( 0, 0.905882, 1, 1 )

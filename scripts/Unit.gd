@@ -21,6 +21,7 @@ onready var attack_indicator = get_node("AttackIndicator")
 onready var unit_sprite = get_node("UnitSprite")
 onready var xp_bar = get_node("Node2D/UnitXPBar")
 onready var floating_damage_text = get_node("UnitDamageFloatingText")
+onready var levelup_particles = get_node("UnitLevelUpParticles")
 
 # attacking animations
 onready var directions_to_unit_animations = {
@@ -194,6 +195,10 @@ func play_attack_animation(direction):
 	if direction in self.directions_to_unit_animations:
 		self.directions_to_unit_animations[direction].play("Attacking")
 
+func emit_levelup_particles():
+	self.levelup_particles.emitting = false
+	self.levelup_particles.emitting = true
+
 func _on_unit_selected(unit):
 	is_selected = false
 	self.health_bar.hide()
@@ -265,6 +270,8 @@ func _on_mouse_exited():
 
 func _on_unit_leveled_up(unit):
 	if unit == self:
+		self.emit_levelup_particles()
+		
 		# Grab a dict representation of the leveling unit, overwrite one's data, then re-init
 		var unit_args = self.get_unit_repr()
 		if self.unit_level_up_rewards.has(str(self.unit_level)):
