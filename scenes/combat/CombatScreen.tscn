@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://scripts/CombatScreen.gd" type="Script" id=1]
 [ext_resource path="res://scenes/ChangeSceneButton.tscn" type="PackedScene" id=2]
@@ -15,11 +15,12 @@
 [ext_resource path="res://scenes/UIBackground.tscn" type="PackedScene" id=13]
 [ext_resource path="res://images/portraits/cat image 1.jpg" type="Texture" id=14]
 [ext_resource path="res://scripts/ItemButtonGridContainer.gd" type="Script" id=15]
-[ext_resource path="res://scripts/UnitSelectionSidebarGrid.gd" type="Script" id=16]
-[ext_resource path="res://scenes/SettingsButton.tscn" type="PackedScene" id=17]
-[ext_resource path="res://scripts/EndTurnButton.gd" type="Script" id=18]
-[ext_resource path="res://scripts/ScreenShake.gd" type="Script" id=19]
-[ext_resource path="res://scripts/autoload/CombatObjectiveHandler.gd" type="Script" id=20]
+[ext_resource path="res://scripts/CombatVictoryModal.gd" type="Script" id=16]
+[ext_resource path="res://scripts/UnitSelectionSidebarGrid.gd" type="Script" id=17]
+[ext_resource path="res://scenes/SettingsButton.tscn" type="PackedScene" id=18]
+[ext_resource path="res://scripts/EndTurnButton.gd" type="Script" id=19]
+[ext_resource path="res://scripts/ScreenShake.gd" type="Script" id=20]
+[ext_resource path="res://scripts/autoload/CombatObjectiveHandler.gd" type="Script" id=21]
 
 [sub_resource type="TileSet" id=1]
 0/name = "dirt.png 0"
@@ -275,6 +276,7 @@ script = ExtResource( 10 )
 position = Vector2( 12.83, 82.812 )
 
 [node name="SelectedUnitInfo" type="Node2D" parent="."]
+editor/display_folded = true
 visible = false
 position = Vector2( 500, 60 )
 script = ExtResource( 12 )
@@ -349,6 +351,37 @@ rect_scale = Vector2( 0.75, 0.75 )
 columns = 2
 script = ExtResource( 15 )
 
+[node name="CombatVictoryModal" type="Node2D" parent="."]
+pause_mode = 2
+visible = false
+z_index = 1000
+script = ExtResource( 16 )
+
+[node name="UIBackground" parent="CombatVictoryModal" instance=ExtResource( 13 )]
+self_modulate = Color( 1, 1, 1, 0.784314 )
+margin_left = 58.0519
+margin_top = 113.688
+margin_right = 965.052
+margin_bottom = 516.688
+
+[node name="ChangeSceneButton" parent="CombatVictoryModal/UIBackground" instance=ExtResource( 2 )]
+margin_left = 391.478
+margin_top = 334.507
+margin_right = 519.478
+margin_bottom = 366.507
+text = "Continue"
+new_scene_name = "overworld_screen"
+
+[node name="CombatVictoryLabel" type="RichTextLabel" parent="CombatVictoryModal/UIBackground"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 364.631
+margin_top = 48.0
+margin_right = 420.631
+margin_bottom = 88.0
+rect_scale = Vector2( 3, 3 )
+bbcode_text = "Congrats"
+text = "Congrats"
+
 [node name="UnitSelectionSidebar" type="ScrollContainer" parent="."]
 margin_left = 887.0
 margin_top = 165.0
@@ -356,9 +389,9 @@ margin_right = 1008.0
 margin_bottom = 547.0
 
 [node name="UnitSelectionSidebarGrid" type="GridContainer" parent="UnitSelectionSidebar"]
-script = ExtResource( 16 )
+script = ExtResource( 17 )
 
-[node name="Settings" parent="." instance=ExtResource( 17 )]
+[node name="Settings" parent="." instance=ExtResource( 18 )]
 
 [node name="UndoButton" type="Button" parent="."]
 margin_left = 13.6362
@@ -375,14 +408,15 @@ margin_right = 132.681
 margin_bottom = 572.932
 hint_tooltip = "End your turn"
 text = "End Turn"
-script = ExtResource( 18 )
+script = ExtResource( 19 )
 
 [node name="ScreenShake" type="AnimationPlayer" parent="."]
 anims/ScreenShake = SubResource( 4 )
-script = ExtResource( 19 )
+script = ExtResource( 20 )
 
 [node name="CombatObjectiveHandler" type="Node" parent="."]
-script = ExtResource( 20 )
+editor/display_folded = true
+script = ExtResource( 21 )
 
 [node name="CombatObjectivesContainer" type="GridContainer" parent="CombatObjectiveHandler"]
 margin_left = 4.0

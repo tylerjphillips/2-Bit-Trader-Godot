@@ -11,7 +11,6 @@ var party_screen = preload("res://scenes/party/PartyScreen.tscn")
 var overworld_screen = preload("res://scenes/overworld/OverworldScreen.tscn")
 var event_screen = preload("res://scenes/event/EventScreen.tscn")
 var recruitment_screen = preload("res://scenes/recruitment/RecruitmentScreen.tscn")
-var combat_victory_screen = preload("res://scenes/combat_victory/CombatVictoryScreen.tscn")
 var game_over_screen = preload("res://scenes/game_over/GameOverScreen.tscn")
 
 # colors used for team indication
@@ -31,7 +30,6 @@ var scene_names_to_scene = {
 	"overworld_screen" : self.overworld_screen,
 	"event_screen": self.event_screen,
 	"recruitment_screen": self.recruitment_screen,
-	"combat_victory_screen": self.combat_victory_screen,
 	"game_over_screen": self.game_over_screen
 	}
 

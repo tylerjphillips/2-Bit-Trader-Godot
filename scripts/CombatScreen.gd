@@ -27,6 +27,7 @@ func _ready():
 	
 	# button signals
 	change_scene_button.connect("change_scene", self, "change_scene")
+	$CombatVictoryModal/UIBackground/ChangeSceneButton.connect("change_scene", self, "change_scene")
 
 func init(game_data):
 	var unit_data = game_data["unit_data"]
