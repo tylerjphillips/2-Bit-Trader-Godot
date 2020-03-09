@@ -46,11 +46,20 @@
 				{
 					"choice_id":"Choice-3",
 					"choice_bbcode": "Enter Combat",
+					"dialogue_id": "Combat-Victory-Dialogue",
 					"choice_starts_combat": true,
 					"choice_returns_to_overworld": false,
 					"set_event_image_path": "res://images/weapons/bow.png"
 				},
 			"Choice-4":
+				{
+					"choice_id":"Choice-4",
+					"choice_bbcode": "Return to overworld",
+					"choice_starts_combat": false,
+					"choice_returns_to_overworld": true,
+					"set_event_image_path": "res://images/weapons/bow.png"
+				},
+			"Choice-5":
 				{
 					"choice_id":"Choice-4",
 					"choice_bbcode": "Return to overworld",
@@ -78,6 +87,12 @@
 				"dialogue_id": "Dialogue-3",
 				"dialogue_bbcode":"You selected the 2nd choice",
 				"choice_ids": ["Choice-3","Choice-4"]
+			},
+			"Combat-Victory-Dialogue":
+			{
+				"dialogue_id": "Combat-Victory-Dialogue",
+				"dialogue_bbcode":"You defated them in combat",
+				"choice_ids": ["Choice-5"]
 			}
 		}
 	}

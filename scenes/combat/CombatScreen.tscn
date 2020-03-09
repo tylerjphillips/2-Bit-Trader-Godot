@@ -370,7 +370,7 @@ margin_top = 334.507
 margin_right = 519.478
 margin_bottom = 366.507
 text = "Continue"
-new_scene_name = "overworld_screen"
+new_scene_name = "event_screen"
 
 [node name="CombatVictoryLabel" type="RichTextLabel" parent="CombatVictoryModal/UIBackground"]
 modulate = Color( 0, 0, 0, 1 )

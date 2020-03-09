@@ -76,6 +76,8 @@ func _on_event_choice_selected(selected_choice_data):
 		
 	if selected_choice_data["choice_starts_combat"]:
 		self.change_scene("combat_screen")
+		var current_event_id = self.root.game_data["main_data"]["current_event_id"]
+		self.root.game_data["event_data"][current_event_id]["event_current_dialogue_id"] = selected_choice_data["dialogue_id"]
 	elif selected_choice_data["choice_returns_to_overworld"]:
 		self.end_event()
 	else:
