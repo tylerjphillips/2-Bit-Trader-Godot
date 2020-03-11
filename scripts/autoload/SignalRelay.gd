@@ -58,6 +58,9 @@ signal shop_sell_item_succeeded
 
 signal audio_finished # (path)
 
+signal load_campaign_button_pressed # (campaign_data)
+signal campaign_button_up # (campaign_data)
+
 func _ready():
 	pass
 	
@@ -172,3 +175,9 @@ func _on_shop_sell_item_succeeded():
 	
 func _on_audio_finished(audio_path):
 	emit_signal("audio_finished", audio_path)
+	
+	
+func _on_load_campaign_button_pressed(campaign_data):
+	emit_signal("load_campaign_button_pressed", campaign_data)
+func _on_campaign_button_up(campaign_data):
+	emit_signal("campaign_button_up", campaign_data)

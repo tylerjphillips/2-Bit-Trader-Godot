@@ -1,0 +1,377 @@
+{
+	"Unit-145927595":
+	{
+		"unit_tile_index" : [10,10],
+		"unit_name": "Carl",
+		"unit_id" : "Unit-145927595",
+		"unit_team": "blue",
+		"unit_movement_points": 6,
+		"unit_movement_points_max": 6,
+		"unit_health_points": 6,
+		"unit_health_points_max": 6,
+		"unit_class": "Archer",
+		"unit_texture_path":"res://images/units/armor.png",
+		"unit_death_audio_path":"res://audio/dying_1.wav",
+		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
+		"unit_death_animation_frame_paths":["res://images/units/armor.png", "res://images/units/armor.png", "res://images/units/armor.png", "res://images/units/armor.png", "res://images/units/armor.png"],
+		"unit_recruitment_cost": 10,
+		"unit_upkeep_cost": 10,
+		"unit_is_boss": false,
+		"unit_xp": 0,
+		"unit_xp_max": 40,
+		"unit_level": 1,
+		"unit_level_max": 2,
+		"unit_xp_reward": 35,
+		"unit_level_up_rewards":
+		{
+			"2": 
+			{
+			"unit_health_points_max": 8
+			}
+		},
+		"unit_equipable_subtypes":["axe","sword","bow"],
+		"unit_weapon_data" :
+		{
+		"Item-48567292" :
+			{
+			"item_id": "Item-48567292",
+			"item_sell_price":50,
+			"item_buy_price":50,
+			"item_type": "weapon",
+			"item_subtype": "axe",
+			"weapon_tooltip" : "axe",
+			"weapon_texture_path": "res://images/weapons/axe.png",
+			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
+			"item_is_soulbound": true,
+			"damage":
+					{
+					"normal": 1
+					},
+			"push_scalar": 1,
+			
+			"weapon_pattern" : 
+				{
+				"pattern" : "cardinal",
+				"size" : 5
+				},
+			"damage_pattern":
+				{
+				"pattern" : "cardinal",
+				"size" : 1
+				}
+			},
+		"Item-14344" :
+			{
+			"item_id": "Item-14344",
+			"item_sell_price":50,
+			"item_buy_price":50,
+			"item_type": "weapon",
+			"item_subtype": "sword",
+			"weapon_tooltip" : "sword",
+			"weapon_texture_path": "res://images/weapons/sword.png",
+			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
+			"item_is_soulbound": false,
+			"damage":
+					{
+					"normal": 1
+					},
+			"push_scalar": 1,
+			
+			"weapon_pattern" : 
+				{
+				"pattern" : "cardinal",
+				"size" : 5
+				},
+			"damage_pattern":
+				{
+				"pattern" : "cardinal",
+				"size" : 1,
+				"include_center": true
+				}
+			},
+		"Item-6325" :
+			{
+			"item_id": "Item-6325",
+			"item_sell_price":50,
+			"item_buy_price":50,
+			"item_type": "weapon",
+			"item_subtype": "bow",
+			"weapon_tooltip" : "bow",
+			"weapon_texture_path": "res://images/weapons/bow.png",
+			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
+			"item_is_soulbound": false,
+			"damage":
+					{
+					"normal": 1
+					},
+			"push_scalar": 1,
+			
+			"weapon_pattern" : 
+				{
+				"pattern" : "cardinal",
+				"size" : 5
+				},
+			"damage_pattern":
+				{
+				"pattern" : "cardinal",
+				"size" : 1,
+				"include_center": true
+				}
+			}
+		}
+		
+	},
+	
+	"Unit-14592735":
+	{
+		"unit_name": "Jake", 
+		"unit_tile_index" : [11,5],
+		"unit_id" : "Unit-14592735",
+		"unit_movement_points": 6,
+		"unit_movement_points_max": 6,
+		"unit_health_points": 6,
+		"unit_health_points_max": 6,
+		"unit_class": "Archer",
+		"unit_team":"blue",
+		"unit_texture_path":"res://images/units/archer.png",
+		"unit_death_audio_path":"res://audio/dying_1.wav",
+		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
+		"unit_death_animation_frame_paths":["res://images/units/archer.png", "res://images/units/archer.png", "res://images/units/archer.png", "res://images/units/archer.png", "res://images/units/archer.png"],
+		"unit_recruitment_cost": 10,
+		"unit_upkeep_cost": 10,
+		"unit_is_boss": false,
+		"unit_xp": 0,
+		"unit_xp_max": 40,
+		"unit_level": 1,
+		"unit_level_max": 2,
+		"unit_xp_reward": 35,
+		"unit_level_up_rewards":
+		{
+			"2": 
+			{
+			"unit_health_points_max": 8,
+			"unit_is_boss": true,
+			"unit_texture_path":"res://images/units/wizard.png",
+			
+			}
+		},
+		"unit_equipable_subtypes":["axe","sword","bow"],
+		"unit_weapon_data" :
+		{
+		"Item-904836" :
+			{
+			"item_id": "Item-904836",
+			"item_sell_price":50,
+			"item_buy_price":50,
+			"item_type": "weapon",
+			"item_subtype": "bow",
+			"weapon_tooltip" : "test 2",
+			"weapon_texture_path": "res://images/weapons/bow.png",
+			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
+			"item_is_soulbound": false,
+			"damage":
+					{
+					"normal": 4
+					},
+			"push_scalar": 2,
+			"weapon_pattern" : 
+				{
+				"pattern" : "cardinal",
+				"size" : 4,
+				"blockable": true
+				},
+			"damage_pattern":
+				{
+				"pattern": "single"
+				}
+			}
+		}
+	},
+	
+	"Unit-145927534":
+	{
+		"unit_tile_index" : [11,10],
+		"unit_name": "Goblin 1",
+		"unit_id": "Unit-145927534",
+		"unit_team": "green",
+		"unit_movement_points": 6,
+		"unit_movement_points_max": 6,
+		"unit_health_points": 6,
+		"unit_health_points_max": 6,
+		"unit_class": "Archer",
+		"unit_texture_path":"res://images/units/goblin.png",
+		"unit_death_audio_path":"res://audio/dying_1.wav",
+		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
+		"unit_death_animation_frame_paths":["res://images/units/goblin.png", "res://images/units/goblin.png", "res://images/units/goblin.png", "res://images/units/goblin.png", "res://images/units/goblin.png"],
+		"unit_recruitment_cost": 10,
+		"unit_upkeep_cost": 10,
+		"unit_is_boss": true,
+		"unit_xp": 0,
+		"unit_xp_max": 40,
+		"unit_level": 1,
+		"unit_level_max": 2,
+		"unit_xp_reward": 135,
+		"unit_level_up_rewards":
+		{
+			"2": 
+			{
+			"unit_health_points_max": 8
+			}
+		},
+		"unit_equipable_subtypes":["axe","sword","bow"],
+		"unit_weapon_data" :
+		{
+		"Item-348573932" :
+			{
+			"item_id": "Item-348573932",
+			"item_sell_price":50,
+			"item_buy_price":50,
+			"item_type": "weapon",
+			"item_subtype": "axe",
+			"weapon_tooltip" : "test",
+			"weapon_texture_path": "res://images/weapons/axe.png",
+			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
+			"item_is_soulbound": false,
+			"damage":
+					{
+					"normal": 2
+					},
+			"weapon_pattern" : 
+				{
+				"pattern" : "cardinal",
+				"size" : 2,
+				"include_center": true
+				},
+			"damage_pattern":
+				{
+				"pattern": "single"
+				}
+			}
+		}
+	},
+	
+	"Unit-155927355":
+	{
+		"unit_name": "Goblin 2",
+		"unit_tile_index" : [12,5],
+		"unit_id" : "Unit-155927355",
+		"unit_movement_points": 6,
+		"unit_movement_points_max": 6,
+		"unit_health_points": 4,
+		"unit_health_points_max": 6,
+		"unit_team":"red",
+		"unit_class": "Archer",
+		"unit_texture_path":"res://images/units/goblin.png",
+		"unit_death_audio_path":"res://audio/dying_1.wav",
+		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
+		"unit_death_animation_frame_paths":["res://images/units/goblin.png", "res://images/units/goblin.png", "res://images/units/goblin.png", "res://images/units/goblin.png", "res://images/units/goblin.png"],
+		"unit_recruitment_cost": 10,
+		"unit_upkeep_cost": 10,
+		"unit_is_boss": false,
+		"unit_xp": 0,
+		"unit_xp_max": 40,
+		"unit_level": 1,
+		"unit_level_max": 2,
+		"unit_xp_reward": 35,
+		"unit_level_up_rewards":
+		{
+			"2": 
+			{
+			"unit_health_points_max": 8
+			}
+		},
+		"unit_equipable_subtypes":["axe","sword","bow"],
+		"unit_weapon_data" :
+		{
+		"Item-74325" :
+			{
+			"item_id": "Item-74325",
+			"item_sell_price":50,
+			"item_buy_price":50,
+			"item_type": "weapon",
+			"item_subtype": "axe",
+			"weapon_tooltip" : "test",
+			"weapon_texture_path": "res://images/weapons/axe.png",
+			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
+			"item_is_soulbound": false,
+			"damage":
+					{
+					"normal": 1
+					},
+			"weapon_pattern" : 
+				{
+				"pattern" : "cardinal",
+				"size" : 2,
+				"include_center": true
+				},
+			"damage_pattern":
+				{
+				"pattern": "single"
+				}
+			}
+		}
+	},
+	
+	"Unit-834435":
+	{
+		"unit_name": "Jerry",
+		"unit_tile_index" : [14,5],
+		"unit_id" : "Unit-834435",
+		"unit_movement_points": 6,
+		"unit_movement_points_max": 6,
+		"unit_health_points": 4,
+		"unit_health_points_max": 6,
+		"unit_team":"blue",
+		"unit_class": "Wizard",
+		"unit_texture_path":"res://images/units/wizard.png",
+		"unit_death_audio_path":"res://audio/dying_1.wav",
+		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
+		"unit_death_animation_frame_paths":["res://images/units/wizard.png", "res://images/units/wizard.png", "res://images/units/wizard.png", "res://images/units/wizard.png", "res://images/units/wizard.png"],
+		"unit_recruitment_cost": 10,
+		"unit_upkeep_cost": 10,
+		"unit_is_boss": false,
+		"unit_xp": 0,
+		"unit_xp_max": 40,
+		"unit_level": 1,
+		"unit_level_max": 2,
+		"unit_xp_reward": 35,
+		"unit_level_up_rewards":
+		{
+			"2": 
+			{
+			"unit_health_points_max": 8
+			}
+		},
+		"unit_equipable_subtypes":["axe","sword","bow"],
+		"unit_weapon_data" :
+		{
+		"Item-87546" :
+			{
+			"item_id": "Item-87546",
+			"item_sell_price":50,
+			"item_buy_price":50,
+			"item_type": "weapon",
+			"item_subtype": "axe",
+			"weapon_tooltip" : "test",
+			"weapon_texture_path": "res://images/weapons/axe.png",
+			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
+			"item_is_soulbound": false,
+			"damage":
+					{
+					"normal": 1
+					},
+			"weapon_pattern" : 
+				{
+				"pattern" : "cardinal",
+				"size" : 2,
+				"include_center": true
+				},
+			"damage_pattern":
+				{
+				"pattern": "single"
+				}
+			}
+		}
+	}
+	
+}

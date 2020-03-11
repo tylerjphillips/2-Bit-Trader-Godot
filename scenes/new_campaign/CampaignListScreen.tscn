@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scripts/CampaignListScreen.gd" type="Script" id=1]
+[ext_resource path="res://scripts/LoadCampaignButton.gd" type="Script" id=2]
+
+[node name="CampaignListScreen" type="Node"]
+script = ExtResource( 1 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+margin_left = 488.201
+margin_top = 35.1095
+margin_right = 806.201
+margin_bottom = 409.109
+
+[node name="GridContainer" type="GridContainer" parent="ScrollContainer"]
+
+[node name="CampaignDescLabel" type="Label" parent="."]
+margin_left = 60.0
+margin_top = 56.0
+margin_right = 273.0
+margin_bottom = 270.0
+
+[node name="LoadCampaignButton" type="Button" parent="."]
+visible = false
+margin_left = 55.0
+margin_top = 367.0
+margin_right = 234.0
+margin_bottom = 387.0
+text = "Load Campaign"
+script = ExtResource( 2 )

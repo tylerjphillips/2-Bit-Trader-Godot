@@ -12,6 +12,7 @@ var overworld_screen = preload("res://scenes/overworld/OverworldScreen.tscn")
 var event_screen = preload("res://scenes/event/EventScreen.tscn")
 var recruitment_screen = preload("res://scenes/recruitment/RecruitmentScreen.tscn")
 var game_over_screen = preload("res://scenes/game_over/GameOverScreen.tscn")
+var new_campaign_screen = preload("res://scenes/new_campaign/CampaignListScreen.tscn")
 
 # colors used for team indication
 const colors = {
@@ -30,17 +31,25 @@ var scene_names_to_scene = {
 	"overworld_screen" : self.overworld_screen,
 	"event_screen": self.event_screen,
 	"recruitment_screen": self.recruitment_screen,
-	"game_over_screen": self.game_over_screen
+	"game_over_screen": self.game_over_screen,
+	"new_campaign_screen": self.new_campaign_screen
 	}
 
 var current_scene	 # reference to instance of currently active scene
 
 # config paths
 	# directory holding the game data files
-const config_directory = "res://configs/"
-const meta_json_filename = "meta.json"	 # holds all paths to other data files
+var config_directory = "res://configs/"
+var meta_json_filename = "meta.json"	 # holds all paths to other data files
+
+
+onready var relay = get_node("/root/SignalRelay")
 
 func _ready():
+	# listeners
+	relay.connect("load_campaign_button_pressed", self, "_on_load_campaign_button_pressed")
+	
+	# initialize game
 	print("Root: Game Start")
 	self.batch_load_json(config_directory)
 	self.create_scene("title_screen")
@@ -91,4 +100,12 @@ func _on_change_scene(old_scene_name, new_scene_name):
 func _on_update_game_data(key, data):
 	print("Root: updating game data") 
 	self.game_data[key] = data
+	
+func _on_load_campaign_button_pressed(campaign_data):
+	print("Root: load campaign button pressed")
+	self.game_data.clear()
+	self.meta_json_filename = campaign_data["campaign_meta_path"]
+	self.config_directory = campaign_data["campaign_directory_path"]
+	self.batch_load_json(config_directory)
+	_on_change_scene("", "event_screen")
 	

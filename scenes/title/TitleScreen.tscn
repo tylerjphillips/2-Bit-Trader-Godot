@@ -14,10 +14,10 @@ texture = ExtResource( 2 )
 expand = true
 
 [node name="ChangeSceneButton" parent="." instance=ExtResource( 3 )]
-margin_left = 23.9875
-margin_top = 100.593
-margin_right = 114.987
-margin_bottom = 120.593
+margin_left = 380.036
+margin_top = 35.5221
+margin_right = 471.036
+margin_bottom = 55.5221
 text = "Party Screen"
 
 [node name="ChangeSceneButton2" parent="." instance=ExtResource( 3 )]
@@ -29,30 +29,39 @@ text = "Combat Screen"
 new_scene_name = "combat_screen"
 
 [node name="ChangeSceneButton3" parent="." instance=ExtResource( 3 )]
-margin_left = 21.6661
-margin_top = 68.0935
-margin_right = 115.666
-margin_bottom = 88.0935
+margin_left = 151.808
+margin_top = 36.1719
+margin_right = 245.808
+margin_bottom = 56.1719
 text = "Event Screen"
 new_scene_name = "event_screen"
 
 [node name="ChangeSceneButton4" parent="." instance=ExtResource( 3 )]
-margin_left = 24.7613
-margin_top = 146.246
-margin_right = 114.761
-margin_bottom = 166.246
+margin_left = 267.856
+margin_top = 36.976
+margin_right = 357.856
+margin_bottom = 56.976
 text = "Shop Screen"
 new_scene_name = "shop_screen"
 
 [node name="ChangeSceneButton5" parent="." instance=ExtResource( 3 )]
-margin_left = 22.3058
-margin_top = 181.851
-margin_right = 112.306
-margin_bottom = 201.851
+margin_left = 486.396
+margin_top = 35.7484
+margin_right = 590.396
+margin_bottom = 55.7484
 text = "Recruit Screen"
 new_scene_name = "recruitment_screen"
+
+[node name="ChangeSceneButton6" parent="." instance=ExtResource( 3 )]
+margin_left = 58.0
+margin_top = 179.0
+margin_right = 255.0
+margin_bottom = 217.0
+text = "New Campaign"
+new_scene_name = "new_campaign_screen"
 [connection signal="change_scene" from="ChangeSceneButton" to="." method="change_scene"]
 [connection signal="change_scene" from="ChangeSceneButton2" to="." method="change_scene"]
 [connection signal="change_scene" from="ChangeSceneButton3" to="." method="change_scene"]
 [connection signal="change_scene" from="ChangeSceneButton4" to="." method="change_scene"]
 [connection signal="change_scene" from="ChangeSceneButton5" to="." method="change_scene"]
+[connection signal="change_scene" from="ChangeSceneButton6" to="." method="change_scene"]

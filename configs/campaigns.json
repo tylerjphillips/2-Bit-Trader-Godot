@@ -1,0 +1,14 @@
+{
+	"test campaign name": {
+		"campaign_name": "test campaign name",
+		"campaign_description":"This is a campaign",
+		"campaign_directory_path": "res://configs/campaign 1/",
+		"campaign_meta_path": "meta.json"
+	},
+	"test campaign name 2": {
+		"campaign_name": "test campaign name 2",
+		"campaign_description":"This is also a campaign",
+		"campaign_directory_path": "res://configs/campaign 2/",
+		"campaign_meta_path": "meta.json"
+	}
+}
