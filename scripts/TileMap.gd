@@ -114,11 +114,19 @@ func _on_tilemap_left_click():
 	var mouse_pos = get_viewport().get_mouse_position()
 	var tile_index = world_to_map(mouse_pos)
 	click_tile(tile_index)
+
 func _on_tilemap_hover():
 	var mouse_pos = get_viewport().get_mouse_position()
 	var tile_index = world_to_map(mouse_pos)
 	if self.get_cell(tile_index[0], tile_index[1]) != INVALID_CELL:
 		self.selection_cursor.position = map_to_world(tile_index)
+		
+	# attack preview
+	if movement_mode == ATTACK_MODE and self.selected_unit.unit_can_attack:
+		if selected_unit.last_attack_pattern.has(tile_index):
+			var damage_tiles = calculate_damage_tiles(self.selected_unit, self.selected_weapon_id, tile_index)
+			self.movement_attack_overlay.create_damage_tiles(self.selected_unit.last_attack_pattern, damage_tiles)
+
 func _on_tilemap_right_click():
 	deselect_unit()
 
@@ -128,7 +136,7 @@ func click_tile(tile_index):
 	if movement_mode == SELECTION_MODE:
 		# if another unit is at clicked tile
 		if index_to_unit.has(tile_index):
-				attempt_select_unit(index_to_unit[tile_index])	# select unit
+			attempt_select_unit(index_to_unit[tile_index])	# select unit
 	else:
 		# movement and attacking
 		if selected_unit != null:
