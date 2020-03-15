@@ -14,7 +14,7 @@ signal unit_leveled_up # (unit)
 
 # ui indicators
 onready var health_bar = get_node("HealthContainer")
-onready var selection_cursor = get_node("SelectionCursor")
+
 onready var move_indicator = get_node("MoveIndicator")
 onready var team_indicator = get_node("TeamIndicator")
 onready var attack_indicator = get_node("AttackIndicator")
@@ -169,12 +169,8 @@ func init(unit_position : Vector2, unit_args: Dictionary, is_leveling_up = false
 	# xp bar
 	self.xp_bar.init(self)
 	
-	# UI indicators
-	self.selection_cursor.hide()
-	
 	# change colors on UI stuff
 	team_indicator.modulate = self.root.colors[self.unit_team]
-	selection_cursor.modulate = self.root.colors[self.unit_team]
 	
 	self.unit_can_move = unit_args.get("unit_can_move", true)
 	self.unit_can_attack = unit_args.get("unit_can_attack", true)
@@ -205,12 +201,10 @@ func _on_unit_selected(unit):
 	if unit == self:
 		is_selected = true
 		self.health_bar.show()
-		self.selection_cursor.show()
 		
 func _on_unit_deselected(unit):
 	is_selected = false
 	self.health_bar.hide()
-	self.selection_cursor.hide()
 
 func _on_team_start_turn(team):
 	if self.unit_team == team:

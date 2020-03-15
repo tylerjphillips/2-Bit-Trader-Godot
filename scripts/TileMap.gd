@@ -11,6 +11,7 @@ var current_team : String
 var teams : Array
 	# unit info UI module
 onready var selected_unit_info = get_node("../SelectedUnitInfo")
+onready var selection_cursor = get_node("SelectionCursor")
 
 	# unit related signals
 signal unit_selected # (unit)
@@ -66,6 +67,10 @@ func _ready():
 	self.connect("round_ended", relay, "_on_round_ended")
 	
 	# listeners
+	$TileMapMouseHandler.connect("tilemap_left_click", self, "_on_tilemap_left_click")
+	$TileMapMouseHandler.connect("tilemap_hover", self, "_on_tilemap_hover")
+	$TileMapMouseHandler.connect("tilemap_right_click", self, "_on_tilemap_right_click")
+	
 	relay.connect("unit_clicked", self, "_on_unit_clicked")
 	relay.connect("unit_killed", self, "_on_unit_killed")
 	relay.connect("unit_sidebar_pressed", self, "attempt_select_unit")
@@ -110,14 +115,16 @@ func spawn_unit(tile_index, unit_args):
 	index_to_unit[tile_index] = unit
 	
 ################ Clicking #############
-func _unhandled_input(event):
-	if event is InputEventMouseButton and event.is_pressed():
-		if event.button_index == BUTTON_LEFT:
-			var mouse_pos = get_viewport().get_mouse_position()
-			var tile_index = world_to_map(mouse_pos)
-			click_tile(tile_index)
-		if event.button_index == BUTTON_RIGHT:
-			deselect_unit()
+func _on_tilemap_left_click():
+	var mouse_pos = get_viewport().get_mouse_position()
+	var tile_index = world_to_map(mouse_pos)
+	click_tile(tile_index)
+func _on_tilemap_hover():
+	var mouse_pos = get_viewport().get_mouse_position()
+	var tile_index = world_to_map(mouse_pos)
+	self.selection_cursor.position = map_to_world(tile_index)
+func _on_tilemap_right_click():
+	deselect_unit()
 
 func click_tile(tile_index):
 	var tile_pos = map_to_world(tile_index)
@@ -165,6 +172,8 @@ func select_unit(unit):
 	# select new unit
 	selected_unit = unit
 	emit_signal("unit_selected", self.selected_unit)
+	selection_cursor.modulate = self.root.colors[unit.unit_team]
+	selection_cursor.show()
 	
 	if unit.unit_can_move:
 		self.get_bfs(unit)
@@ -172,6 +181,8 @@ func select_unit(unit):
 		self.movement_mode = MOVE_MODE
 
 func deselect_unit():
+	selection_cursor.hide()
+	
 	if selected_unit != null:
 		emit_signal("unit_deselected", self.selected_unit)
 		emit_signal("clear_movement_tiles")
