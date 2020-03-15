@@ -3,6 +3,7 @@ extends Node
 signal change_scene
 
 signal day_ended
+signal gold_amount_changed
 
 onready var overworld_location_asset = preload("res://scenes/overworld/OverworldLocation.tscn")
 onready var overworld_route_line_asset = preload("res://scenes/overworld/OverworldRouteLine.tscn")
@@ -22,6 +23,7 @@ func _ready():
 	
 	# emitters
 	self.connect("day_ended", relay, "_on_day_ended")
+	self.connect("gold_amount_changed", relay, "_on_gold_amount_changed")
 	
 	# listeners
 	relay.connect("caravan_started_traveling", self, "_on_caravan_started_traveling")
@@ -84,6 +86,7 @@ func _on_caravan_started_traveling(to_location_id):
 func _on_caravan_destination_reached(to_location_id):
 	print("OverworldScreen: caravan reached ",to_location_id)
 	self.increment_day()
+	self.subtract_upkeep_costs()
 	
 	root.game_data["main_data"]["current_location_id"] = to_location_id
 	var location_event_complete = self.root.game_data["overworld_data"][to_location_id]["location_event_complete"]
@@ -103,3 +106,15 @@ func _on_caravan_destination_reached(to_location_id):
 func increment_day():
 	self.root.game_data["main_data"]["day"] += 1
 	emit_signal("day_ended")
+	
+func subtract_upkeep_costs():
+	# remove upkeep from the player
+	var party_unit_ids = self.root.game_data["main_data"]["party_unit_ids"]
+	var gold = self.root.game_data["main_data"]["gold"]
+	for unit_id in party_unit_ids:
+		var unit_upkeep_cost = self.root.game_data["unit_data"][unit_id]["unit_upkeep_cost"]
+		gold -= unit_upkeep_cost
+	self.root.game_data["main_data"]["gold"] = gold
+	emit_signal("gold_amount_changed")
+
+

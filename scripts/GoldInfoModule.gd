@@ -7,8 +7,7 @@ onready var relay = get_node("/root/SignalRelay")
 
 func _ready():
 	# listeners
-	relay.connect("shop_buy_item_succeeded", self, "update_gold_text_label")
-	relay.connect("shop_sell_item_succeeded", self, "update_gold_text_label")
+	relay.connect("gold_amount_changed", self, "update_gold_text_label")
 	update_gold_text_label()
 
 func update_gold_text_label():

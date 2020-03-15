@@ -8,6 +8,8 @@ signal shop_buy_item_failed
 signal shop_buy_item_succeeded
 signal shop_sell_item_succeeded
 
+signal gold_amount_changed # (gold)
+
 var shop_item_button_asset = preload("res://scenes/shop/ShopItemButton.tscn")
 
 onready var buy_item_container = $BuyItemContainer/BuyItemGridContainer
@@ -23,6 +25,7 @@ func _ready():
 	self.connect("shop_buy_item_failed", relay, "_on_shop_buy_item_failed")
 	self.connect("shop_buy_item_succeeded", relay, "_on_shop_buy_item_succeeded")
 	self.connect("shop_sell_item_succeeded", relay, "_on_shop_sell_item_succeeded")
+	self.connect("gold_amount_changed", relay, "_on_gold_amount_changed")
 	
 	# listeners
 	relay.connect("shop_buy_item_button_up", self, "attempt_buy_item")
@@ -72,6 +75,7 @@ func attempt_buy_item(item_button):
 func buy_item(item_button):
 	# remove value from player
 	self.root.game_data["main_data"]["gold"] = self.root.game_data["main_data"]["gold"] - item_button.value
+	emit_signal("gold_amount_changed")
 	
 	print("ShopScreen: Bought. Remaining gold: ", self.root.game_data["main_data"]["gold"])
 	
@@ -91,6 +95,7 @@ func buy_item(item_button):
 func sell_item(item_button):
 	# add value to player
 	self.root.game_data["main_data"]["gold"] = self.root.game_data["main_data"]["gold"] + item_button.value
+	emit_signal("gold_amount_changed")
 	
 	print("ShopScreen: Sold. Remaining gold: ", self.root.game_data["main_data"]["gold"])
 	

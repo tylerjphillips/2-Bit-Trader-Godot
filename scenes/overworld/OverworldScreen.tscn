@@ -1,16 +1,17 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scripts/OverworldScreen.gd" type="Script" id=1]
 [ext_resource path="res://scenes/UIBackground.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/GoldInfoModule.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/DayInfoModule.gd" type="Script" id=4]
 [ext_resource path="res://images/ui/sun_icon.png" type="Texture" id=5]
-[ext_resource path="res://images/overworld/map_background.png" type="Texture" id=6]
-[ext_resource path="res://images/overworld/map_rose.png" type="Texture" id=7]
-[ext_resource path="res://images/units/caravan.png" type="Texture" id=8]
-[ext_resource path="res://scripts/CaravanSprite.gd" type="Script" id=9]
-[ext_resource path="res://scenes/ChangeSceneButton.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/SettingsButton.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scripts/UpkeepInfoModule.gd" type="Script" id=6]
+[ext_resource path="res://images/overworld/map_background.png" type="Texture" id=7]
+[ext_resource path="res://images/overworld/map_rose.png" type="Texture" id=8]
+[ext_resource path="res://images/units/caravan.png" type="Texture" id=9]
+[ext_resource path="res://scripts/CaravanSprite.gd" type="Script" id=10]
+[ext_resource path="res://scenes/ChangeSceneButton.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/SettingsButton.tscn" type="PackedScene" id=12]
 
 [node name="OverworldScreen" type="Node"]
 script = ExtResource( 1 )
@@ -32,6 +33,7 @@ margin_right = -44.9999
 margin_bottom = -19.11
 
 [node name="DayInfoModule" type="Control" parent="OverworldInfoModule"]
+editor/display_folded = true
 margin_right = 40.0
 margin_bottom = 40.0
 script = ExtResource( 4 )
@@ -49,26 +51,41 @@ margin_right = -82.7702
 margin_bottom = 3.98971
 text = "Day #"
 
+[node name="UpkeepInfoModule" type="Control" parent="OverworldInfoModule"]
+margin_left = 75.0
+margin_top = -24.0
+margin_right = 115.0
+margin_bottom = 16.0
+script = ExtResource( 6 )
+
+[node name="UpkeepLabel" type="Label" parent="OverworldInfoModule/UpkeepInfoModule"]
+self_modulate = Color( 0, 0, 0, 1 )
+margin_left = -125.77
+margin_top = -10.0103
+margin_right = -82.7702
+margin_bottom = 3.98971
+text = "Upkeep"
+
 [node name="OverworldBackgroundSprite" type="Sprite" parent="."]
 position = Vector2( 510.867, 298.706 )
 scale = Vector2( 0.814481, 0.677103 )
 z_index = -1
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
 [node name="OverworldMapRose" type="Sprite" parent="."]
 position = Vector2( 81.3943, 520.571 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
 [node name="CaravanSprite" type="Sprite" parent="."]
 position = Vector2( 167.852, 320.773 )
 scale = Vector2( 0.5, 0.5 )
 z_index = 3
-texture = ExtResource( 8 )
-script = ExtResource( 9 )
+texture = ExtResource( 9 )
+script = ExtResource( 10 )
 
 [node name="CaravanTravelTween" type="Tween" parent="CaravanSprite"]
 
-[node name="ChangeSceneButtonShopScreen" parent="." instance=ExtResource( 10 )]
+[node name="ChangeSceneButtonShopScreen" parent="." instance=ExtResource( 11 )]
 margin_left = 915.17
 margin_top = 33.0212
 margin_right = 1009.17
@@ -76,7 +93,7 @@ margin_bottom = 85.0212
 text = "Enter Shop"
 new_scene_name = "shop_screen"
 
-[node name="ChangeSceneButtonRecruitmentScreen" parent="." instance=ExtResource( 10 )]
+[node name="ChangeSceneButtonRecruitmentScreen" parent="." instance=ExtResource( 11 )]
 margin_left = 915.17
 margin_top = 120.0
 margin_right = 1009.17
@@ -84,6 +101,6 @@ margin_bottom = 172.0
 text = "Recruit Units"
 new_scene_name = "recruitment_screen"
 
-[node name="Settings" parent="." instance=ExtResource( 11 )]
+[node name="Settings" parent="." instance=ExtResource( 12 )]
 [connection signal="change_scene" from="ChangeSceneButtonShopScreen" to="." method="change_scene"]
 [connection signal="change_scene" from="ChangeSceneButtonRecruitmentScreen" to="." method="change_scene"]

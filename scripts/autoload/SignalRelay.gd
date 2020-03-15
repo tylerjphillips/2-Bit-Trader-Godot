@@ -55,6 +55,7 @@ signal shop_sell_item_button_up # (item_button)
 signal shop_buy_item_failed
 signal shop_buy_item_succeeded
 signal shop_sell_item_succeeded
+signal gold_amount_changed
 
 signal audio_finished # (path)
 
@@ -172,7 +173,10 @@ func _on_shop_buy_item_succeeded():
 	emit_signal("shop_buy_item_succeeded")
 func _on_shop_sell_item_succeeded():
 	emit_signal("shop_sell_item_succeeded")
-	
+
+func _on_gold_amount_changed():
+	emit_signal("gold_amount_changed")
+
 func _on_audio_finished(audio_path):
 	emit_signal("audio_finished", audio_path)
 	
