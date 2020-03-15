@@ -8,7 +8,7 @@ onready var change_scene_button = get_node("ChangeSceneButton")
 onready var end_turn_button = get_node("EndTurnButton")
 onready var selected_unit_info = get_node("SelectedUnitInfo") # unit info UI module
 onready var unit_selection_sidebar = get_node("UnitSelectionSidebar") #	Sidebar for seeing all units on player team
-onready var movement_attack_overlay = get_node("MovementAttackOverlay") # movement and attack indicator
+
 
 func _ready():
 	assert tilemap
@@ -17,13 +17,6 @@ func _ready():
 	assert end_turn_button
 	assert selected_unit_info
 	assert unit_selection_sidebar
-	assert movement_attack_overlay
-	
-	# movement and attack overlay signals
-	tilemap.connect("clear_attack_tiles", movement_attack_overlay, "_on_clear_attack_tiles")
-	tilemap.connect("clear_movement_tiles", movement_attack_overlay, "_on_clear_movement_tiles")
-	tilemap.connect("create_attack_tiles", movement_attack_overlay, "_on_create_attack_tiles")
-	tilemap.connect("create_movement_tiles", movement_attack_overlay, "_on_create_movement_tiles")
 	
 	# button signals
 	change_scene_button.connect("change_scene", self, "change_scene")

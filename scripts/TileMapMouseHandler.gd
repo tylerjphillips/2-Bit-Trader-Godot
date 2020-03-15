@@ -11,11 +11,9 @@ func _ready():
 	self.connect("mouse_exited", self, "_on_mouse_exited")
 	
 func _on_mouse_entered():
-	print("mouse entered")
 	self.mouse_inside = true
 
 func _on_mouse_exited():
-	print("mouse exited")
 	self.mouse_inside = false
 
 func _unhandled_input(event):
@@ -24,7 +22,7 @@ func _unhandled_input(event):
 			if event.button_index == BUTTON_LEFT:
 				emit_signal("tilemap_left_click")
 			if event.button_index == BUTTON_RIGHT:
-				emit_signal("tilemap_left_click")
+				emit_signal("tilemap_right_click")
 				
 
 func _process(delta):

@@ -12,6 +12,7 @@ var teams : Array
 	# unit info UI module
 onready var selected_unit_info = get_node("../SelectedUnitInfo")
 onready var selection_cursor = get_node("SelectionCursor")
+onready var movement_attack_overlay = get_node("MovementAttackOverlay") # movement and attack indicator
 
 	# unit related signals
 signal unit_selected # (unit)
@@ -27,12 +28,6 @@ const MOVE_MODE = "move"
 const ATTACK_MODE = "attack"
 var movement_mode = SELECTION_MODE	 # what to do when a tile is clicked
 
-	# movement overlay signals
-signal clear_movement_tiles 
-signal create_movement_tiles # (bfs_results)
-	# attack overlay signal
-signal clear_attack_tiles
-signal create_attack_tiles
 	# turns
 signal team_start_turn # (team)
 signal team_end_turn # (team)
@@ -122,7 +117,8 @@ func _on_tilemap_left_click():
 func _on_tilemap_hover():
 	var mouse_pos = get_viewport().get_mouse_position()
 	var tile_index = world_to_map(mouse_pos)
-	self.selection_cursor.position = map_to_world(tile_index)
+	if self.get_cell(tile_index[0], tile_index[1]) != INVALID_CELL:
+		self.selection_cursor.position = map_to_world(tile_index)
 func _on_tilemap_right_click():
 	deselect_unit()
 
@@ -143,7 +139,7 @@ func click_tile(tile_index):
 					if self.selected_unit.unit_can_move:
 						if selected_unit.last_bfs.has(tile_index):
 							emit_signal("unit_moved", selected_unit, tile_index, self.selected_unit.last_bfs[tile_index]) 
-							emit_signal("clear_movement_tiles")
+							movement_attack_overlay.clear_movement_tiles()
 							self.selected_unit.last_bfs.clear()	# clear the cache to prevent accessing old tiles after moving
 							self.move_unit_to_tile(selected_unit, tile_index)
 				else:
@@ -177,7 +173,7 @@ func select_unit(unit):
 	
 	if unit.unit_can_move:
 		self.get_bfs(unit)
-		emit_signal("create_movement_tiles", unit.last_bfs)
+		self.movement_attack_overlay.create_movement_tiles(unit.last_bfs)
 		self.movement_mode = MOVE_MODE
 
 func deselect_unit():
@@ -185,7 +181,7 @@ func deselect_unit():
 	
 	if selected_unit != null:
 		emit_signal("unit_deselected", self.selected_unit)
-		emit_signal("clear_movement_tiles")
+		self.movement_attack_overlay.clear_attack_tiles()
 	selected_unit = null
 	selected_weapon_id = null
 	self.movement_mode = SELECTION_MODE
@@ -233,7 +229,7 @@ func unit_attack_tile(attacking_unit, weapon_index, tile_index):
 				emit_signal("unit_attacks_unit", attacking_unit, attacking_unit.unit_weapon_data[weapon_index], affected_unit, damage_tile_index)
 
 	self.deselect_unit()
-	emit_signal("clear_attack_tiles")
+	self.movement_attack_overlay.clear_attack_tiles()
 	attacking_unit.last_attack_pattern.clear()	# clear the cache to prevent accessing old tiles after moving
 	
 func attempt_push_unit(attacking_unit, affected_unit, weapon_index, tile_index):
@@ -316,7 +312,7 @@ func _on_unit_info_weapon_selected(weapon_id):
 		self.selected_weapon_id = weapon_id
 		print("Tilemap: weapon id selected: ", weapon_id)
 		var attackable_tiles = calculate_attack_tiles(self.selected_unit, weapon_id)
-		emit_signal("create_attack_tiles", attackable_tiles)
+		self.movement_attack_overlay.create_attack_tiles(attackable_tiles)
 		self.movement_mode = ATTACK_MODE
 	
 ####################### Tile based functions ###################
