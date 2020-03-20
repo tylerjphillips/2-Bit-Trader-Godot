@@ -21,6 +21,7 @@ func _ready():
 	relay.connect("team_end_turn", self, "_on_team_end_turn")
 
 func clear_undo_stack():
+	self.hide()
 	self.unit_undo_order.clear()
 	self.unit_undo_state.clear()
 
@@ -30,6 +31,8 @@ func _on_unit_moved(unit, previous_tile_index, tile_index, movement_cost):
 	var unit_repr = unit.get_unit_repr()
 	unit_repr["unit_tile_index"] = previous_tile_index
 	self.unit_undo_state.push_back(unit_repr)
+	
+	self.show()
 
 func _on_team_end_turn(team):
 	self.clear_undo_stack()
@@ -48,3 +51,6 @@ func undo_button_pressed():
 		var undo_unit = self.unit_undo_order.pop_back()
 		var undo_unit_state = self.unit_undo_state.pop_back()
 		emit_signal("undo_button_pressed", undo_unit, undo_unit_state)
+	# hide if empty	
+	if len(self.unit_undo_order) == 0:
+		self.hide()

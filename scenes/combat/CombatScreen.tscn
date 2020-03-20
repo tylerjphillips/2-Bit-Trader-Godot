@@ -409,6 +409,7 @@ script = ExtResource( 19 )
 [node name="Settings" parent="." instance=ExtResource( 20 )]
 
 [node name="UndoButton" type="Button" parent="."]
+visible = false
 margin_left = 13.6362
 margin_top = 460.611
 margin_right = 132.636
