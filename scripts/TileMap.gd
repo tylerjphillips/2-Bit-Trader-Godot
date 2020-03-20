@@ -9,6 +9,7 @@ var unit_to_index = Dictionary()
 var player_team : String
 var current_team : String
 var teams : Array
+	
 	# unit info UI module
 onready var selected_unit_info = get_node("../SelectedUnitInfo")
 onready var selection_cursor = get_node("SelectionCursor")
@@ -17,7 +18,7 @@ onready var movement_attack_overlay = get_node("MovementAttackOverlay") # moveme
 	# unit related signals
 signal unit_selected # (unit)
 signal unit_deselected
-signal unit_moved	# (unit, tile_index, cost)
+signal unit_moved	# (unit, previous_tile_index, tile_index, cost)
 signal unit_attacks_tile(attacking_unit, tile_index, attacking_unit_attack_pattern, attacking_unit_weapon_data)
 signal unit_attacks_unit # attacking_unit, attacking_unit_weapon_data, attacked_unit
 signal unit_collides_unit # (attacking_unit, affected_unit, collision_count, collided_unit)
@@ -70,6 +71,7 @@ func _ready():
 	relay.connect("unit_killed", self, "_on_unit_killed")
 	relay.connect("unit_sidebar_pressed", self, "attempt_select_unit")
 	relay.connect("unit_info_weapon_selected", self, "_on_unit_info_weapon_selected")
+	relay.connect("undo_button_pressed", self, "_on_undo_button_pressed")
 	relay.connect("end_turn_button_pressed", self, "_on_end_turn_button_pressed")
 	
 	get_tree().call_group("units", "_on_start_team_turn", current_team)
@@ -146,7 +148,8 @@ func click_tile(tile_index):
 				if not index_to_unit.has(tile_index):
 					if self.selected_unit.unit_can_move:
 						if selected_unit.last_bfs.has(tile_index):
-							emit_signal("unit_moved", selected_unit, tile_index, self.selected_unit.last_bfs[tile_index]) 
+							var previous_tile_index = self.unit_to_index[selected_unit]
+							emit_signal("unit_moved", selected_unit, previous_tile_index, tile_index, self.selected_unit.last_bfs[tile_index]) 
 							movement_attack_overlay.clear_movement_tiles()
 							self.selected_unit.last_bfs.clear()	# clear the cache to prevent accessing old tiles after moving
 							self.move_unit_to_tile(selected_unit, tile_index)
@@ -297,10 +300,15 @@ func place_unit_death_animation(unit):
 
 ################## UI Buttons ##################
 
+func _on_undo_button_pressed(undo_unit, undo_unit_state):
+	# move the unit back to its previous position and reinitialize it to its previous state
+	self.move_unit_to_tile(undo_unit, undo_unit_state["unit_tile_index"])
+	undo_unit.init(undo_unit.position, undo_unit_state, true)
+
 func _on_end_turn_button_pressed():
 	self.deselect_unit()
 	emit_signal("team_end_turn",current_team)
-	current_team = teams[(teams.find(current_team) + 1) % len(teams)]
+	current_team = teams[(teams.find(current_team) + 1) % len(teams)]	 # rotate to next team
 	
 	var current_event_id = self.root.game_data["main_data"]["current_event_id"]
 	self.root.game_data["event_data"][current_event_id]["event_current_team"] = self.current_team

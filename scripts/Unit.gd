@@ -114,8 +114,8 @@ func _ready():
 	relay.connect("unit_killed", self, "_on_unit_killed")
 	relay.connect("unit_leveled_up", self, "_on_unit_leveled_up")
 	
-func init(unit_position : Vector2, unit_args: Dictionary, is_leveling_up = false):
-	# Initialize unit with a position and given arguments. is_leveling_up is used for units leveling up and thus overwriting data
+func init(unit_position : Vector2, unit_args: Dictionary, is_reinitializing = false):
+	# Initialize unit with a position and given arguments. is_reinitializing is used for units leveling up and undoing state and thus overwriting data
 	
 	self.position = unit_position	# world position not tile index
 	self.unit_tile_index = Vector2(unit_args["unit_tile_index"][0], unit_args["unit_tile_index"][1])
@@ -175,7 +175,7 @@ func init(unit_position : Vector2, unit_args: Dictionary, is_leveling_up = false
 	self.unit_can_move = unit_args.get("unit_can_move", true)
 	self.unit_can_attack = unit_args.get("unit_can_attack", true)
 	
-	if !is_leveling_up:
+	if !is_reinitializing:
 		emit_signal("unit_spawned", self)
 
 func damage_unit(weapon_data, attacking_unit = null):
@@ -216,7 +216,7 @@ func _on_team_end_turn(team):
 		self.unit_can_move = false
 		self.unit_can_attack = false
 		
-func _on_unit_moved(unit, tile_index, movement_cost):
+func _on_unit_moved(unit, previous_tile_index, tile_index, movement_cost):
 	if unit == self:
 		self.set_unit_can_move(false)
 		self.unit_tile_index = tile_index

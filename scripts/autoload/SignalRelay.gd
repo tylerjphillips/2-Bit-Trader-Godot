@@ -12,7 +12,7 @@ signal overworld_location_button_up
 signal unit_spawned # (unit)
 signal unit_selected # (unit)
 signal unit_deselected # (unit)
-signal unit_moved	# (unit, tile_index, cost)
+signal unit_moved	# (unit, previous_tile_index, tile_index, cost)
 signal unit_attacks_tile(attacking_unit, tile_index, attacking_unit_attack_pattern, attacking_unit_weapon_data)
 signal unit_attacks_unit(attacking_unit, attacking_unit_weapon_data, attacked_unit, damage_tile_index)
 signal unit_collides_unit # (attacking_unit, colliding_unit, collision_count, collided_unit)
@@ -40,6 +40,7 @@ signal combat_defeat
 
 signal unit_info_weapon_selected # (weapon_id)
 
+signal undo_button_pressed
 signal end_turn_button_pressed
 
 signal party_member_button_pressed(button, unit_data)
@@ -79,9 +80,9 @@ func _on_unit_selected(unit):
 func _on_unit_deselected(unit):
 	# print("Relay: unit deselected")
 	emit_signal("unit_deselected", unit)
-func _on_unit_moved(unit, tile_index, movement_cost):
+func _on_unit_moved(unit, previous_tile_index, tile_index, movement_cost):
 	# print("Relay: unit has moved")
-	emit_signal("unit_moved", unit, tile_index, movement_cost)
+	emit_signal("unit_moved", unit, previous_tile_index, tile_index, movement_cost)
 func _on_unit_attacks_tile(attacking_unit, tile_index, attacking_unit_attack_pattern, attacking_unit_weapon_data):
 	emit_signal("unit_attacks_tile", attacking_unit, tile_index, attacking_unit_attack_pattern, attacking_unit_weapon_data)
 func _on_unit_attacks_unit(attacking_unit, weapon_data, attacked_unit, damage_tile_index):
@@ -119,8 +120,11 @@ func _on_unit_info_weapon_selected(weapon_id):
 	# print("Relay: unit_info_weapon_selected")
 	emit_signal("unit_info_weapon_selected", weapon_id)
 
+func _on_undo_button_pressed(undo_unit, undo_unit_state):
+	emit_signal("undo_button_pressed", undo_unit, undo_unit_state)
 func _on_end_turn_button_pressed():
 	emit_signal("end_turn_button_pressed")
+
 func _on_team_start_turn(team):
 	emit_signal("team_start_turn", team)
 func _on_team_end_turn(team):
