@@ -23,7 +23,7 @@ signal unit_selected # (unit)
 signal unit_deselected
 signal unit_moved	# (unit, previous_tile_index, tile_index, cost)
 signal unit_attacks_tile(attacking_unit, tile_index, attacking_unit_attack_pattern, attacking_unit_weapon_data)
-signal unit_attacks_unit # attacking_unit, attacking_unit_weapon_data, attacked_unit
+signal unit_attacks_unit # attacking_unit, damage_pattern, attacked_unit
 signal unit_collides_unit # (attacking_unit, affected_unit, collision_count, collided_unit)
 
 	# used for checking what to do if a tile is clicked when a unit is selected; eg what overlay is being used
@@ -141,7 +141,7 @@ func _on_tilemap_hover():
 			# create an attack preview if user is selecting an attack
 			if movement_mode == ATTACK_MODE and self.selected_unit.unit_can_attack:
 				if selected_unit.last_attack_pattern.has(tile_index):
-					var damage_pattern = calculate_damage_tiles(self.selected_unit, self.selected_weapon_id, tile_index)
+					var damage_pattern = calculate_damage_pattern(self.selected_unit, self.selected_weapon_id, tile_index)
 					self.movement_attack_overlay.create_damage_tiles(self.selected_unit.last_attack_pattern, damage_pattern)
 					emit_signal("tilemap_damage_preview", damage_pattern)
 
@@ -236,12 +236,11 @@ func move_unit_to_tile(unit, tile_index):
 		
 func unit_attack_tile(attacking_unit, weapon_index, tile_index):
 	# unit attacks a tile with a given weapon, applying a damage pattern around it
-	print("Tilemap: attacking tile ",tile_index, " with ", attacking_unit.unit_name, " damage:", attacking_unit.unit_weapon_data[weapon_index]["damage"])
+	print("Tilemap: attacking tile ",tile_index, " with ", attacking_unit.unit_name)
 	
 	emit_signal("unit_attacks_tile", attacking_unit, tile_index, attacking_unit.last_attack_pattern, attacking_unit.unit_weapon_data[weapon_index])
 	
-	var damage_tiles = calculate_damage_tiles(attacking_unit, weapon_index, tile_index)
-	print("Tilemap: damaging tiles: ", damage_tiles)
+	var damage_tiles = calculate_damage_pattern(attacking_unit, weapon_index, tile_index)
 	for damage_tile_index in damage_tiles: 
 		# create damage animations at each affected tile
 		var attack_animation = attacking_unit.attack_animation_asset.instance()
@@ -252,47 +251,17 @@ func unit_attack_tile(attacking_unit, weapon_index, tile_index):
 		# check if unit there to damage
 		if self.index_to_unit.has(damage_tile_index):
 			var affected_unit = self.index_to_unit[damage_tile_index]
-			self.attempt_push_unit(attacking_unit, affected_unit, weapon_index, damage_tile_index) # try to push the unit
+			if damage_tiles[damage_tile_index].has("push_into_tile_index"): # try to push the unit
+				self.push_unit(affected_unit, damage_tiles[damage_tile_index]["push_into_tile_index"]) 
 			if self.unit_to_index.has(affected_unit):	# check if unit didn't die from possible push
-				emit_signal("unit_attacks_unit", attacking_unit, attacking_unit.unit_weapon_data[weapon_index], affected_unit, damage_tile_index)
+				emit_signal("unit_attacks_unit", attacking_unit, damage_tiles, affected_unit, damage_tile_index)
 
 	self.deselect_unit()
 	self.movement_attack_overlay.clear_attack_tiles()
 	attacking_unit.last_attack_pattern.clear()	# clear the cache to prevent accessing old tiles after moving
-	
-func attempt_push_unit(attacking_unit, affected_unit, weapon_index, tile_index):
-	# attempt to push an attacked unit a number of tiles indicated by last_attack_pattern and the weapon's push scalar. Negative scalars allowed
-	# if units are pushed into things then collisions are generated
-	var affected_unit_tile_index : Vector2 = self.unit_to_index[affected_unit]
-	var pushed_into_tile_index	: Vector2 = affected_unit_tile_index	# where the affected unit winds up
-	var push_scalar : int = attacking_unit.unit_weapon_data[weapon_index].get("push_scalar", 0)		# the amount of tiles the attack will push. 0 if undefined
-	var push_direction : Vector2 = attacking_unit.last_damage_pattern[affected_unit_tile_index]["direction"]
-	# collision vars
-	var collision_count : int = 0 # number of times attempting to move into a tile would cause a collision. Used for damage calculations
-	var collided_unit = null	# the unit that the affected unit may collide with
-	
-	if push_scalar != 0:
-		if push_direction in self.directions:
-			# unit will be moved as many times over in the attack direction as possible, counting collisions made and then pushing the unit where needed
-			for i in range(push_scalar):
-				var checking_index = pushed_into_tile_index + (self.directions[push_direction] * (sign(push_scalar)))
-				if self.get_cell(checking_index.x, checking_index.y) != INVALID_CELL: 	# if cell is on the map
-					if self.index_to_unit.has(checking_index):	# check collisions
-						# collisions
-						collided_unit = self.index_to_unit[checking_index]
-						collision_count += 1
-					else:
-						# no collision; move the unit instead
-						pushed_into_tile_index = checking_index  
-				else:
-					break	# no need to continue if you hit the edge of the map
-			# push unit at the end
-			self.push_unit(attacking_unit, affected_unit, pushed_into_tile_index, collision_count, collided_unit)
 			
-func push_unit(attacking_unit, affected_unit, new_tile_index : Vector2, collision_count : int, collided_unit):
-	move_unit_to_tile(affected_unit, new_tile_index)
-	if collided_unit != null:
-		emit_signal("unit_collides_unit", attacking_unit, affected_unit, collision_count, collided_unit)
+func push_unit(pushed_unit, pushed_into_tile_index : Vector2):
+	move_unit_to_tile(pushed_unit, pushed_into_tile_index)
 	
 func _on_unit_killed(killed_unit, killer_unit):
 	if killed_unit == self.selected_unit:
@@ -344,7 +313,7 @@ func _on_unit_info_weapon_selected(weapon_id):
 		# weapon selected
 		self.selected_weapon_id = weapon_id
 		print("Tilemap: weapon id selected: ", weapon_id)
-		var attackable_tiles = calculate_attack_tiles(self.selected_unit, weapon_id)
+		var attackable_tiles = calculate_attack_pattern(self.selected_unit, weapon_id)
 		self.movement_attack_overlay.create_attack_tiles(attackable_tiles)
 		self.movement_mode = ATTACK_MODE
 	
@@ -382,18 +351,9 @@ func get_bfs(unit):
 	unit.last_bfs = moveable_tile_indexes
 	return moveable_tile_indexes;
 
-func filter_tiles_in_bounds(tile_indexes : Array) -> Array:
-	# helper method
-	# takes a list of tile indexes and returns a filtered version of all indexes that are defined
-	var filtered_tiles = []
-	for tile_index in tile_indexes:
-		if self.get_cell(tile_index.x, tile_index.y) != INVALID_CELL:
-			 filtered_tiles.append(tile_index)
-	return filtered_tiles
-
 #################### Attack and damage pattern generators ####################
 
-func calculate_attack_tiles(attacking_unit, weapon_index):
+func calculate_attack_pattern(attacking_unit, weapon_index):
 	# given a unit and weapon calculate the tiles it can attack given the weapon attack pattern in the unit's weapon data
 	# the weapon attack pattern name decides which functions will be applied to get the tiles
 	var attack_pattern = Dictionary() # pattern of tile_indexes:attack_data
@@ -409,23 +369,74 @@ func calculate_attack_tiles(attacking_unit, weapon_index):
 	attacking_unit.last_attack_pattern = attack_pattern
 	return attack_pattern
 	
-func calculate_damage_tiles(attacking_unit, weapon_index, attacked_tile_index):
+func calculate_damage_pattern(attacking_unit, weapon_index, attacked_tile_index):
 	# given a unit use the unit's attack pattern data and the tile it wishes to attack to generate the tiles it affects
 	# the weapon damage pattern name decides which functions will be applied to get the tiles
 	
-	var damage_pattern = Dictionary() # pattern of tile_indexes:attack_data
-	var weapon_damage_pattern : Dictionary = attacking_unit.unit_weapon_data[weapon_index]["damage_pattern"]
+	var final_damage_pattern = Dictionary() # pattern of tile_indexes:attack_data
+	var weapon_damage_patterns : Dictionary = attacking_unit.unit_weapon_data[weapon_index]["damage_patterns"]
 	var attack_tile_data = attacking_unit.last_attack_pattern[attacked_tile_index]	# data from unit's attack pattern at selected tile
 	
-	if weapon_damage_pattern["pattern"] == "cardinal":
-		var size : int = weapon_damage_pattern.get("size", 1)
-		var blockable : bool = weapon_damage_pattern.get("blockable", false)
-		var include_center : bool = weapon_damage_pattern.get("include_center", false)
-		damage_pattern = generate_cardinal_pattern(attacked_tile_index, size, blockable, include_center)
-	if weapon_damage_pattern["pattern"] == "single":
-		damage_pattern = generate_single_pattern(attacked_tile_index, attack_tile_data["direction"])
-	attacking_unit.last_damage_pattern = damage_pattern
-	return damage_pattern
+	# iterate over all the damage patterns to generate a combined pattern
+	for damage_pattern_data in weapon_damage_patterns:
+		var damage_pattern
+		
+		if damage_pattern_data["pattern"] == "cardinal":
+			var size : int = damage_pattern_data.get("size", 1)
+			var blockable : bool = damage_pattern_data.get("blockable", false)
+			var include_center : bool = damage_pattern_data.get("include_center", false)
+			damage_pattern = generate_cardinal_pattern(attacked_tile_index, size, blockable, include_center)
+		if damage_pattern_data["pattern"] == "single":
+			damage_pattern = generate_single_pattern(attacked_tile_index, attack_tile_data["direction"])
+		
+		# Tiles will only be written to once in final pattern, meaning first patterns take precedence
+		for tile_index in damage_pattern:
+			if !final_damage_pattern.has(tile_index):
+				final_damage_pattern[tile_index] = damage_pattern[tile_index]
+				final_damage_pattern[tile_index]["damage"] = damage_pattern_data["damage"]
+				final_damage_pattern[tile_index]["push_scalar"] = damage_pattern_data["push_scalar"]
+				
+		final_damage_pattern = self.calculate_push_damage(final_damage_pattern)
+					
+	attacking_unit.last_damage_pattern = final_damage_pattern
+	return final_damage_pattern
+
+func calculate_push_damage(damage_pattern : Dictionary):
+	# takes a damage pattern, calculates push related damage and data, and returns a new damage pattern
+	var push_damage_pattern = damage_pattern.duplicate(true)	# this has to be a deep copy to make it immutable
+	for tile_index in damage_pattern:
+		var push_scalar : int = damage_pattern[tile_index].get("push_scalar", 0)		# the amount of tiles the attack will push. 0 if undefined
+		var pushed_into_tile_index : Vector2 = tile_index
+		if self.index_to_unit.has(tile_index):	# if unit exists to be pushed
+			if push_scalar != 0:
+				var push_direction : Vector2 = damage_pattern[tile_index]["direction"]
+				if push_direction in self.directions:
+					# unit will be moved as many times over in the attack direction as possible, counting collisions made and then pushing the unit where needed
+					for i in range(push_scalar):
+						var checking_index = pushed_into_tile_index + (self.directions[push_direction] * (sign(push_scalar)))
+						if self.get_cell(checking_index.x, checking_index.y) != INVALID_CELL: 	# if cell is on the map
+							if self.index_to_unit.has(checking_index):	# check collisions
+								# set collision damage at original tile
+								var collision_damage : int = abs(push_scalar) - abs(i)
+								push_damage_pattern[tile_index]["damage"]["normal"] = push_damage_pattern[tile_index]["damage"].get("normal", 0) + collision_damage
+								
+								# other collision must be added as an entry to damage pattern if it doesn't exist
+								push_damage_pattern[checking_index] = push_damage_pattern.get(checking_index, Dictionary())
+								push_damage_pattern[checking_index]["direction"] = "none"
+								push_damage_pattern[checking_index]["push_scalar"] = 0
+								push_damage_pattern[checking_index]["damage"] = push_damage_pattern[checking_index].get("damage", Dictionary())
+								push_damage_pattern[checking_index]["damage"]["normal"] = push_damage_pattern[checking_index]["damage"].get("normal", 0) + collision_damage
+								break
+							else:
+								# no collision; move the unit instead
+								pushed_into_tile_index = checking_index
+								if tile_index != pushed_into_tile_index:
+									push_damage_pattern[tile_index]["push_into_tile_index"] = pushed_into_tile_index
+						else:
+							break	# no need to continue if you hit the edge of the map
+	return push_damage_pattern			
+	
+	
 
 func generate_cardinal_pattern(tile_index : Vector2, size := 1, blockable := false, include_center = false):
 	# generates a filtered attack pattern in the cardinals of length size

@@ -43,80 +43,24 @@
 			"weapon_texture_path": "res://images/weapons/axe.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
 			"item_is_soulbound": true,
-			"damage":
-					{
-					"normal": 1
-					},
-			"push_scalar": 1,
 			
 			"weapon_pattern" : 
 				{
 				"pattern" : "cardinal",
 				"size" : 5
 				},
-			"damage_pattern":
-				{
-				"pattern" : "cardinal",
-				"size" : 1
-				}
-			},
-		"Item-14344" :
-			{
-			"item_id": "Item-14344",
-			"item_sell_price":50,
-			"item_buy_price":50,
-			"item_type": "weapon",
-			"item_subtype": "sword",
-			"weapon_tooltip" : "sword",
-			"weapon_texture_path": "res://images/weapons/sword.png",
-			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
-			"item_is_soulbound": false,
-			"damage":
+			"damage_patterns":
+				[
 					{
-					"normal": 1
-					},
-			"push_scalar": 1,
-			
-			"weapon_pattern" : 
-				{
-				"pattern" : "cardinal",
-				"size" : 5
-				},
-			"damage_pattern":
-				{
-				"pattern" : "cardinal",
-				"size" : 1,
-				"include_center": true
-				}
-			},
-		"Item-6325" :
-			{
-			"item_id": "Item-6325",
-			"item_sell_price":50,
-			"item_buy_price":50,
-			"item_type": "weapon",
-			"item_subtype": "bow",
-			"weapon_tooltip" : "bow",
-			"weapon_texture_path": "res://images/weapons/bow.png",
-			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
-			"item_is_soulbound": false,
-			"damage":
-					{
-					"normal": 1
-					},
-			"push_scalar": 1,
-			
-			"weapon_pattern" : 
-				{
-				"pattern" : "cardinal",
-				"size" : 5
-				},
-			"damage_pattern":
-				{
-				"pattern" : "cardinal",
-				"size" : 1,
-				"include_center": true
-				}
+					"pattern" : "cardinal",
+					"size" : 1,
+					"damage":
+						{
+						"normal": 1
+						},
+					"push_scalar": 3,
+					}
+				]
 			}
 		}
 		
@@ -169,21 +113,25 @@
 			"weapon_texture_path": "res://images/weapons/bow.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
 			"item_is_soulbound": false,
-			"damage":
-					{
-					"normal": 4
-					},
-			"push_scalar": 2,
+			
 			"weapon_pattern" : 
 				{
 				"pattern" : "cardinal",
 				"size" : 4,
 				"blockable": true
 				},
-			"damage_pattern":
-				{
-				"pattern": "single"
-				}
+			"damage_patterns":
+				[
+					{
+					"pattern" : "cardinal",
+					"size" : 1,
+					"damage":
+						{
+						"normal": 1
+						},
+					"push_scalar": 1,
+					}
+				]
 			}
 		}
 	},
@@ -232,20 +180,24 @@
 			"weapon_texture_path": "res://images/weapons/axe.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
 			"item_is_soulbound": false,
-			"damage":
-					{
-					"normal": 2
-					},
 			"weapon_pattern" : 
 				{
 				"pattern" : "cardinal",
 				"size" : 2,
 				"include_center": true
 				},
-			"damage_pattern":
-				{
-				"pattern": "single"
-				}
+			"damage_patterns":
+				[
+					{
+					"pattern" : "cardinal",
+					"size" : 1,
+					"damage":
+						{
+						"normal": 1
+						},
+					"push_scalar": 1,
+					}
+				]
 			}
 		}
 	},
@@ -294,20 +246,24 @@
 			"weapon_texture_path": "res://images/weapons/axe.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
 			"item_is_soulbound": false,
-			"damage":
-					{
-					"normal": 1
-					},
 			"weapon_pattern" : 
 				{
 				"pattern" : "cardinal",
 				"size" : 2,
 				"include_center": true
 				},
-			"damage_pattern":
-				{
-				"pattern": "single"
-				}
+			"damage_patterns":
+				[
+					{
+					"pattern" : "cardinal",
+					"size" : 1,
+					"damage":
+						{
+						"normal": 1
+						},
+					"push_scalar": 1,
+					}
+				]
 			}
 		}
 	},
@@ -356,20 +312,25 @@
 			"weapon_texture_path": "res://images/weapons/axe.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
 			"item_is_soulbound": false,
-			"damage":
-					{
-					"normal": 1
-					},
+			
 			"weapon_pattern" : 
 				{
 				"pattern" : "cardinal",
 				"size" : 2,
 				"include_center": true
 				},
-			"damage_pattern":
-				{
-				"pattern": "single"
-				}
+			"damage_patterns":
+				[
+					{
+					"pattern" : "cardinal",
+					"size" : 1,
+					"damage":
+						{
+						"normal": 1
+						},
+					"push_scalar": 1,
+					}
+				]
 			}
 		}
 	}

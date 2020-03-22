@@ -33,10 +33,8 @@ func init(item_data, sell_or_buy : String):
 	var item_texture_path = self.item_data["weapon_texture_path"]
 	self.texture_normal = load(item_texture_path)
 	
-	# set the tooltip text to display flavor text and damages
+	# set the tooltip text to display flavor text
 	var tooltip_text = self.item_data.get("weapon_tooltip", "")
-	for damage_type in self.item_data["damage"]:
-		tooltip_text += "\n" + damage_type + ": " + str(self.item_data["damage"][damage_type])
 	self.hint_tooltip = tooltip_text
 	
 	# set price label

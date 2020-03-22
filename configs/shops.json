@@ -22,106 +22,23 @@
 			"weapon_texture_path": "res://images/weapons/bow.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
 			"item_is_soulbound": false,
-			"damage":
-					{
-					"normal": 4
-					},
-			"push_scalar": 1,
-			
 			"weapon_pattern" : 
 				{
 				"pattern" : "cardinal",
 				"size" : 5
 				},
-			"damage_pattern":
-				{
-				"pattern" : "cardinal",
-				"size" : 1
-				}
-			},
-			"Item-54" :
-			{
-			"item_id": "Item-54",
-			"item_sell_price":123,
-			"item_buy_price":123,
-			"item_type": "weapon",
-			"item_subtype": "club",
-			"weapon_tooltip" : "club",
-			"weapon_texture_path": "res://images/weapons/club.png",
-			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
-			"item_is_soulbound": false,
-			"damage":
+			"damage_patterns":
+				[
 					{
-					"normal": 4
-					},
-			"push_scalar": 1,
-			
-			"weapon_pattern" : 
-				{
-				"pattern" : "cardinal",
-				"size" : 5
-				},
-			"damage_pattern":
-				{
-				"pattern" : "cardinal",
-				"size" : 1
-				}
-			},
-			"Item-44" :
-			{
-			"item_id": "Item-44",
-			"item_sell_price":123,
-			"item_buy_price":123,
-			"item_type": "weapon",
-			"item_subtype": "axe",
-			"weapon_tooltip" : "axe",
-			"weapon_texture_path": "res://images/weapons/axe.png",
-			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
-			"item_is_soulbound": false,
-			"damage":
-					{
-					"normal": 4
-					},
-			"push_scalar": 1,
-			
-			"weapon_pattern" : 
-				{
-				"pattern" : "cardinal",
-				"size" : 5
-				},
-			"damage_pattern":
-				{
-				"pattern" : "cardinal",
-				"size" : 1
-				}
-			},
-			"Item-22" :
-			{
-			"item_id": "Item-22",
-			"item_sell_price":123,
-			"item_buy_price":123,
-			"item_type": "weapon",
-			"item_subtype": "sword",
-			"weapon_tooltip" : "axe",
-			"weapon_texture_path": "res://images/weapons/sword.png",
-			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
-			"item_is_soulbound": false,
-			"damage":
-					{
-					"normal": 4
-					},
-			"push_scalar": 1,
-			
-			"weapon_pattern" : 
-				{
-				"pattern" : "cardinal",
-				"size" : 5
-				},
-			"damage_pattern":
-				{
-				"pattern" : "cardinal",
-				"size" : 1
-				}
+					"pattern" : "cardinal",
+					"size" : 1,
+					"damage":
+						{
+						"normal": 4
+						},
+					"push_scalar": 1,
+					}
+				]
 			}
 		}
 	}

@@ -88,9 +88,9 @@ func _on_unit_moved(unit, previous_tile_index, tile_index, movement_cost):
 	emit_signal("unit_moved", unit, previous_tile_index, tile_index, movement_cost)
 func _on_unit_attacks_tile(attacking_unit, tile_index, attacking_unit_attack_pattern, attacking_unit_weapon_data):
 	emit_signal("unit_attacks_tile", attacking_unit, tile_index, attacking_unit_attack_pattern, attacking_unit_weapon_data)
-func _on_unit_attacks_unit(attacking_unit, weapon_data, attacked_unit, damage_tile_index):
+func _on_unit_attacks_unit(attacking_unit, damage_pattern, attacked_unit, damage_tile_index):
 	print("Relay: unit attacks")
-	emit_signal("unit_attacks_unit", attacking_unit, weapon_data, attacked_unit, damage_tile_index)
+	emit_signal("unit_attacks_unit", attacking_unit, damage_pattern, attacked_unit, damage_tile_index)
 func _on_unit_collides_unit(attacking_unit, colliding_unit, collision_count, collided_unit): 
 	# print("Relay: unit collides with unit")
 	emit_signal("unit_collides_unit",attacking_unit, colliding_unit, collision_count, collided_unit)

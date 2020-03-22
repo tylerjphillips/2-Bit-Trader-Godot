@@ -180,10 +180,10 @@ func init(unit_position : Vector2, unit_args: Dictionary, is_reinitializing = fa
 	if !is_reinitializing:
 		emit_signal("unit_spawned", self)
 
-func damage_unit(weapon_data, attacking_unit = null):
-	if weapon_data["damage"].has("normal"):
-		self.unit_health_points -= weapon_data["damage"]["normal"]
-		self.floating_damage_text.init(weapon_data["damage"]["normal"])
+func damage_unit(damage, attacking_unit = null):
+	if damage.has("normal"):
+		self.unit_health_points -= damage["normal"]
+		self.floating_damage_text.init(damage["normal"])
 	if self.unit_health_points <= 0:
 		emit_signal("unit_killed", self, attacking_unit)
 		if self.unit_is_boss:
@@ -230,23 +230,25 @@ func _on_unit_attacks_tile(attacking_unit, tile_index, attacking_unit_attack_pat
 		self.unit_can_attack = false
 		self.unit_can_move = false
 
-func _on_unit_attacks_unit(attacking_unit, weapon_data, attacked_unit, damage_tile_index):
+func _on_unit_attacks_unit(attacking_unit, damage_pattern, attacked_unit, damage_tile_index):
 	print("Unit, damage tile index: ", damage_tile_index)
 	# get direction attacker is attacking from
-	var attack_direction = attacking_unit.last_damage_pattern[damage_tile_index]["direction"]
+	var attack_direction = damage_pattern[damage_tile_index]["direction"]
 	
 	if attacking_unit == self:
 		print("Unit: attacking ", attacked_unit.unit_name)
 	if attacked_unit == self:
-		self.damage_unit(weapon_data, attacking_unit)
+		var damage = damage_pattern[damage_tile_index]["damage"]
+		self.damage_unit(damage, attacking_unit)
 		var blood_particles = self.blood_particles_asset.instance()
 		self.add_child(blood_particles)
 		blood_particles.emit(attack_direction)
 		
 		
 func _on_unit_collides_unit(attacking_unit, colliding_unit, collision_count, collided_unit):
+	pass
 	if colliding_unit == self or collided_unit == self:
-		var collision_damage = {"damage": { "normal": collision_count}}
+		var collision_damage = { "normal": collision_count}
 		
 		print("Unit: ", colliding_unit.unit_name, " collides with ", collided_unit.unit_name)
 		self.damage_unit(collision_damage, attacking_unit)
@@ -278,11 +280,13 @@ func _on_unit_leveled_up(unit):
 			self.init(self.position, unit_args, true)
 			
 func _on_tilemap_damage_preview(damage_pattern):
+	self.health_bar.generate_health_bar(self.unit_health_points, self.unit_health_points_max)
 	if !self.is_selected:
 		self.health_bar.hide()
 	
 	if self.unit_tile_index in damage_pattern.keys():
-		self.health_bar.generate_health_bar(self.unit_health_points, self.unit_health_points_max)
+		var damage_preview = damage_pattern[self.unit_tile_index]["damage"]["normal"]
+		self.health_bar.generate_health_bar(self.unit_health_points, self.unit_health_points_max, damage_preview)
 		self.health_bar.show()
 	
 		
