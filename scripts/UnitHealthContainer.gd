@@ -9,7 +9,7 @@ func init(unit_health, unit_health_max):
 func _on_unit_health_changed(unit_health, unit_health_max):
 	generate_health_bar(unit_health, unit_health_max)
 	
-func generate_health_bar(unit_health : int, unit_max_health : int, damage_preview = 2):
+func generate_health_bar(unit_health : int, unit_max_health : int, damage_preview = 0):
 	# free existing health bars
 	for i in self.get_children():
 		i.queue_free()

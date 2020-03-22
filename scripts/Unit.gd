@@ -114,6 +114,8 @@ func _ready():
 	relay.connect("unit_killed", self, "_on_unit_killed")
 	relay.connect("unit_leveled_up", self, "_on_unit_leveled_up")
 	
+	relay.connect("tilemap_damage_preview", self, "_on_tilemap_damage_preview")
+	
 func init(unit_position : Vector2, unit_args: Dictionary, is_reinitializing = false):
 	# Initialize unit with a position and given arguments. is_reinitializing is used for units leveling up and undoing state and thus overwriting data
 	
@@ -274,6 +276,16 @@ func _on_unit_leveled_up(unit):
 				unit_args[unit_property_name] = level_up_rewards[unit_property_name]
 			print("Unit: Leveling up. Reinitizalize")
 			self.init(self.position, unit_args, true)
+			
+func _on_tilemap_damage_preview(damage_pattern):
+	if !self.is_selected:
+		self.health_bar.hide()
+	
+	if self.unit_tile_index in damage_pattern.keys():
+		self.health_bar.generate_health_bar(self.unit_health_points, self.unit_health_points_max)
+		self.health_bar.show()
+	
+		
 	
 func _on_unit_killed(killed_unit, killer_unit):
 	if killer_unit == self:

@@ -9,6 +9,9 @@ var unit_to_index = Dictionary()
 var player_team : String
 var current_team : String
 var teams : Array
+
+# tilemap hover
+var currently_hovered_tile_index = Vector2(0,0)	# used for detecting changes in the hovered over tile
 	
 	# unit info UI module
 onready var selected_unit_info = get_node("../SelectedUnitInfo")
@@ -34,6 +37,8 @@ signal team_start_turn # (team)
 signal team_end_turn # (team)
 signal round_started
 signal round_ended
+	# damage previews
+signal tilemap_damage_preview # (damage_pattern)		When a tile is hovered over communicate the damage pattern at that tile
 
 onready var unit_asset = preload("res://scenes/combat/Unit.tscn") # unit prefab
 
@@ -61,6 +66,8 @@ func _ready():
 	
 	self.connect("round_started", relay, "_on_round_started")
 	self.connect("round_ended", relay, "_on_round_ended")
+	
+	self.connect("tilemap_damage_preview", relay, "_on_tilemap_damage_preview")
 	
 	# listeners
 	$TileMapMouseHandler.connect("tilemap_left_click", self, "_on_tilemap_left_click")
@@ -111,28 +118,38 @@ func spawn_unit(tile_index, unit_args):
 	unit_to_index[unit] = tile_index
 	index_to_unit[tile_index] = unit
 	
-################ Clicking #############
+################ Mouse Related #############
+
 func _on_tilemap_left_click():
 	var mouse_pos = get_viewport().get_mouse_position()
 	var tile_index = world_to_map(mouse_pos)
 	click_tile(tile_index)
 
 func _on_tilemap_hover():
+	# user hovered over a tile
 	var mouse_pos = get_viewport().get_mouse_position()
 	var tile_index = world_to_map(mouse_pos)
-	if self.get_cell(tile_index[0], tile_index[1]) != INVALID_CELL:
-		self.selection_cursor.position = map_to_world(tile_index)
+	
+	# a different tile has been hovered over
+	if self.currently_hovered_tile_index != tile_index:
+		self.currently_hovered_tile_index = tile_index
 		
-	# attack preview
-	if movement_mode == ATTACK_MODE and self.selected_unit.unit_can_attack:
-		if selected_unit.last_attack_pattern.has(tile_index):
-			var damage_tiles = calculate_damage_tiles(self.selected_unit, self.selected_weapon_id, tile_index)
-			self.movement_attack_overlay.create_damage_tiles(self.selected_unit.last_attack_pattern, damage_tiles)
+		# place the cursor at the tile user is hovering over
+		if self.get_cell(tile_index[0], tile_index[1]) != INVALID_CELL:
+			self.selection_cursor.position = map_to_world(tile_index)
+			
+			# create an attack preview if user is selecting an attack
+			if movement_mode == ATTACK_MODE and self.selected_unit.unit_can_attack:
+				if selected_unit.last_attack_pattern.has(tile_index):
+					var damage_pattern = calculate_damage_tiles(self.selected_unit, self.selected_weapon_id, tile_index)
+					self.movement_attack_overlay.create_damage_tiles(self.selected_unit.last_attack_pattern, damage_pattern)
+					emit_signal("tilemap_damage_preview", damage_pattern)
 
 func _on_tilemap_right_click():
 	deselect_unit()
 
 func click_tile(tile_index):
+	# handle the logic for clicking at a given tile index
 	var tile_pos = map_to_world(tile_index)
 	
 	if movement_mode == SELECTION_MODE:

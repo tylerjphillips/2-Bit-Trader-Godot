@@ -1,7 +1,7 @@
 extends Node
 
 signal change_scene
-
+	# caravans
 signal caravan_destination_reached # (to_location_id)
 signal caravan_started_traveling # (to_location_id)
 
@@ -9,6 +9,7 @@ signal day_ended
 
 signal overworld_location_button_up
 
+	# unit signals
 signal unit_spawned # (unit)
 signal unit_selected # (unit)
 signal unit_deselected # (unit)
@@ -26,14 +27,16 @@ signal unit_boss_killed(boss_unit)
 signal unit_level_changed # (unit)
 signal unit_xp_changed # (unit)
 signal unit_leveled_up # (unit)
-
+	# recruitment screen
 signal unit_recruitment_failed(unit_data)
 signal unit_recruitment_succeeded(unit_data)
-
+	# tilemap/combat
 signal team_start_turn # (team)
 signal team_end_turn # (team)
 signal round_started
 signal round_ended
+	# damage previews
+signal tilemap_damage_preview # (damage_pattern)
 
 signal combat_victory
 signal combat_defeat
@@ -42,15 +45,15 @@ signal unit_info_weapon_selected # (weapon_id)
 
 signal undo_button_pressed
 signal end_turn_button_pressed
-
+	# party screen
 signal party_member_button_pressed(button, unit_data)
 signal party_take_item_button_up # (item_button)
 signal party_give_item_button_up # (item_button)
-
+	# event screen
 signal event_choice_selected
 signal event_dialogue_typing_ended
 
-
+	# shop screen
 signal shop_buy_item_button_up # (item_button)
 signal shop_sell_item_button_up # (item_button)
 signal shop_buy_item_failed
@@ -59,7 +62,7 @@ signal shop_sell_item_succeeded
 signal gold_amount_changed
 
 signal audio_finished # (path)
-
+	# loading screen
 signal load_campaign_button_pressed # (campaign_data)
 signal campaign_button_up # (campaign_data)
 
@@ -134,6 +137,9 @@ func _on_round_started():
 	emit_signal("round_started")
 func _on_round_ended():
 	emit_signal("round_ended")
+	
+func _on_tilemap_damage_preview(damage_pattern):
+	emit_signal("tilemap_damage_preview", damage_pattern)	
 	
 func _on_combat_victory():
 	print("SignalRelay: Combat Victory")
