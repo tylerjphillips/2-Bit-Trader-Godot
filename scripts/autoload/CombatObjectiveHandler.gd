@@ -13,6 +13,7 @@ func _ready():
 	# listeners
 	relay.connect("round_started", self, "_on_round_started")
 	relay.connect("unit_killed", self, "_on_unit_killed")
+	relay.connect("unit_moved", self, "_on_unit_moved")
 	
 func _on_round_started():
 	var current_event_id = self.root.game_data["main_data"]["current_event_id"]
@@ -62,3 +63,31 @@ func _on_unit_killed(killed_unit, killer_unit):
 		if len(event_defeat_kill_unit_ids) <= event_defeat_kill_threshold:
 			print("CombatObjectiveHander: Unit ", killed_unit.unit_name, " killed. YOU HAVE LOST")
 			emit_signal("combat_defeat")
+			
+func _on_unit_moved(unit, previous_tile_index, tile_index, movement_cost):
+	# check if certain units have moved into a defined region to create a victory or loss condition
+	var current_event_id = self.root.game_data["main_data"]["current_event_id"]
+	
+	# victory movement
+	var event_victory_conditions = self.root.game_data["event_data"][current_event_id]["event_victory_conditions"]
+	if event_victory_conditions.has("event_victory_units_move_to_region"):
+		var event_victory_units_move_to_region = self.root.game_data["event_data"][current_event_id]["event_victory_conditions"]["event_victory_units_move_to_region"]
+		var unit_ids = event_victory_units_move_to_region["unit_ids"]
+		var region_tile_indexes = event_victory_units_move_to_region["region_tile_indexes"]
+		if unit.unit_id in unit_ids:
+			if [tile_index[0], tile_index[1]] in region_tile_indexes:
+				print("CombatObjectiveHander: Unit ", unit.unit_name, " moved to region.",region_tile_indexes ," YOU HAVE WON")
+				emit_signal("combat_victory")
+				
+	# defeat movement
+	var event_defeat_conditions = self.root.game_data["event_data"][current_event_id]["event_defeat_conditions"]
+	if event_defeat_conditions.has("event_defeat_units_move_to_region"):
+		var event_defeat_units_move_to_region = self.root.game_data["event_data"][current_event_id]["event_defeat_conditions"]["event_defeat_units_move_to_region"]
+		var unit_ids = event_defeat_units_move_to_region["unit_ids"]
+		var region_tile_indexes = event_defeat_units_move_to_region["region_tile_indexes"]
+		if unit.unit_id in unit_ids:
+			if [tile_index[0], tile_index[1]] in region_tile_indexes:
+				print("CombatObjectiveHander: Unit ", unit.unit_name, " moved to region.",region_tile_indexes ," YOU HAVE LOST")
+				emit_signal("combat_defeat")
+	
+	

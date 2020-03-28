@@ -13,13 +13,23 @@
 		{
 			"event_victory_round": 5,
 			"event_victory_kill_unit_ids": ["Unit-155927355"],
-			"event_victory_kill_threshold": 0
+			"event_victory_kill_threshold": 0,
+			"event_victory_units_move_to_region":
+			{
+				"unit_ids": ["Unit-347234234"],
+				"region_tile_indexes":[[5,6]],
+			}
 		},
 		"event_defeat_conditions":
 		{
 			"event_defeat_round": 6,
 			"event_defeat_kill_unit_ids": ["Unit-155927355"],
-			"event_defeat_kill_threshold": 0
+			"event_defeat_kill_threshold": 0,
+			"event_defeat_units_move_to_region":
+			{
+				"unit_ids": ["Unit-347234234"],
+				"region_tile_indexes":[[5,7]],
+			}
 		},
 		"event_image_path": "res://images/weapons/sword.png",
 		"event_choice_data":

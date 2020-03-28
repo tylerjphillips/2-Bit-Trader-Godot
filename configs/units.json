@@ -333,6 +333,35 @@
 				]
 			}
 		}
-	}
+	},
+	
+	"Unit-347234234":
+	{
+		"unit_tile_index" : [5,5],
+		"unit_name": "Caravan 1",
+		"unit_id" : "Unit-347234234",
+		"unit_team": "blue",
+		"unit_movement_points": 3,
+		"unit_movement_points_max": 3,
+		"unit_health_points": 5,
+		"unit_health_points_max": 5,
+		"unit_class": "Caravan",
+		"unit_texture_path":"res://images/units/caravan.png",
+		"unit_death_audio_path":"res://audio/dying_1.wav",
+		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
+		"unit_death_animation_frame_paths":["res://images/units/caravan.png"],
+		"unit_recruitment_cost": 10,
+		"unit_upkeep_cost": 0,
+		"unit_is_boss": false,
+		"unit_xp": 0,
+		"unit_xp_max": 5,
+		"unit_level": 1,
+		"unit_level_max": 1,
+		"unit_xp_reward": 0,
+		"unit_level_up_rewards":{},
+		"unit_equipable_subtypes":[],
+		"unit_weapon_data" : {}
+		
+	},
 	
 }
