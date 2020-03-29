@@ -1,3 +1,4 @@
 {
-	"unit_level_up_sound":"res://audio/levelup_chorus.wav"
+	"unit_level_up_sound":"res://audio/levelup_chorus.wav",
+	"shop_music": "res://audio/shop_music.ogg"
 }
