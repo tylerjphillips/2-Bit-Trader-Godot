@@ -1,6 +1,6 @@
 extends Node
 
-signal change_scene
+signal change_scene # (old_scene_name, new_scene_name)
 	# caravans
 signal caravan_destination_reached # (to_location_id)
 signal caravan_started_traveling # (to_location_id)
@@ -69,7 +69,11 @@ signal campaign_button_up # (campaign_data)
 
 func _ready():
 	pass
-	
+
+func _on_change_scene(old_scene_name, new_scene_name):
+	emit_signal("change_scene", old_scene_name, new_scene_name)
+	print("SignalRelay: Changing scene from ", old_scene_name, " to ", new_scene_name)
+
 func _on_unit_spawned(unit):
 	emit_signal("unit_spawned", unit)
 func _on_unit_clicked(unit):

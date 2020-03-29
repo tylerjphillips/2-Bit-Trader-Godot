@@ -48,6 +48,7 @@ onready var relay = get_node("/root/SignalRelay")
 func _ready():
 	# listeners
 	relay.connect("load_campaign_button_pressed", self, "_on_load_campaign_button_pressed")
+	relay.connect("change_scene", self, "_on_change_scene")
 	
 	# initialize game
 	print("Root: Game Start")
@@ -89,7 +90,6 @@ func batch_load_json(directory):
 func create_scene(scene_name):
 	self.current_scene = self.scene_names_to_scene[scene_name].instance()
 	self.add_child(current_scene)
-	self.current_scene.connect("change_scene", self, "_on_change_scene")
 	self.current_scene.connect("update_game_data", self, "_on_update_game_data")
 	self.current_scene.init(self.game_data)
 	

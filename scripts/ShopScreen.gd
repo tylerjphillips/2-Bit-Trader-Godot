@@ -2,7 +2,7 @@ extends Node
 
 onready var overworld_screen_button = $ChangeSceneButtonOverworldScreen
 
-signal change_scene
+signal change_scene # (old_scene_name, new_scene_name)
 
 signal shop_buy_item_failed
 signal shop_buy_item_succeeded
@@ -22,6 +22,7 @@ func _ready():
 	overworld_screen_button.connect("change_scene", self, "change_scene")
 	
 	# emitters
+	self.connect("change_scene", relay, "_on_change_scene")
 	self.connect("shop_buy_item_failed", relay, "_on_shop_buy_item_failed")
 	self.connect("shop_buy_item_succeeded", relay, "_on_shop_buy_item_succeeded")
 	self.connect("shop_sell_item_succeeded", relay, "_on_shop_sell_item_succeeded")

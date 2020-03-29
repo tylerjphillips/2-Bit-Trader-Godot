@@ -1,6 +1,6 @@
 extends Node
 
-signal change_scene
+signal change_scene # (old_scene_name, new_scene_name)
 
 signal day_ended
 signal gold_amount_changed
@@ -24,6 +24,7 @@ func _ready():
 	# emitters
 	self.connect("day_ended", relay, "_on_day_ended")
 	self.connect("gold_amount_changed", relay, "_on_gold_amount_changed")
+	self.connect("change_scene", relay, "_on_change_scene")
 	
 	# listeners
 	relay.connect("caravan_started_traveling", self, "_on_caravan_started_traveling")

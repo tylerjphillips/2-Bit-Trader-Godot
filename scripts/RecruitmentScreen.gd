@@ -11,11 +11,12 @@ onready var relay = get_node("/root/SignalRelay")
 signal unit_recruitment_failed(unit_data)
 signal unit_recruitment_succeeded(unit_data)
 
-signal change_scene
+signal change_scene # (old_scene_name, new_scene_name)
 
 func _ready():
 	title_screen_button.connect("change_scene", self, "change_scene")
 	# emitters
+	self.connect("change_scene", relay, "_on_change_scene")
 	self.connect("unit_recruitment_failed", relay, "_on_unit_recruitment_failed")
 	self.connect("unit_recruitment_succeeded", relay, "_on_unit_recruitment_succeeded")
 	# listeners	

@@ -1,6 +1,6 @@
 extends Node
 
-signal change_scene
+signal change_scene # (old_scene_name, new_scene_name)
 
 var selected_unit_data
 
@@ -21,6 +21,9 @@ onready var root = get_tree().get_root().get_node("Root")
 onready var relay = get_node("/root/SignalRelay")
 
 func _ready():
+	# emitters
+	self.connect("change_scene", relay, "_on_change_scene")
+	# listeners
 	relay.connect("party_member_button_pressed", self, "_on_party_member_button_pressed")
 	relay.connect("party_take_item_button_up", self, "_on_party_take_item_button_up")
 	relay.connect("party_give_item_button_up", self, "_on_party_give_item_button_up")

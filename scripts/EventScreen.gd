@@ -1,8 +1,11 @@
 extends Node
 
-signal change_scene
+signal change_scene # (old_scene_name, new_scene_name)
 
 onready var root = get_tree().get_root().get_node("Root")
+onready var relay = get_node("/root/SignalRelay")
+
+
 onready var change_scene_button = get_node("ChangeSceneButton")	
 onready var event_image = get_node("EventImage")
 onready var event_choice_container = get_node("EventScrollContainer/EventChoiceContainer")
@@ -19,6 +22,11 @@ func _ready():
 	
 	change_scene_button.connect("change_scene", self, "change_scene")
 	event_dialogue.connect("event_dialogue_typing_ended", self, "_on_event_dialogue_typing_ended")
+	
+	# emitters
+	self.connect("change_scene", relay, "_on_change_scene")
+	
+	
 
 func init(game_data):
 	self.update_dialogue_text()
