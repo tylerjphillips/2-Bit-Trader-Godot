@@ -42,7 +42,7 @@ func update_dialogue_text():
 	
 	var current_dialogue_data = dialogue_data[event_current_dialogue_id]
 	var dialogue_bbcode = current_dialogue_data["dialogue_bbcode"]
-	event_dialogue.set_dialogue_text(dialogue_bbcode)
+	event_dialogue.set_typewriter_bbcode(dialogue_bbcode)
 	
 func change_scene(new_scene_name):
 	emit_signal("change_scene", "combat_screen", new_scene_name)

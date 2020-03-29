@@ -22,6 +22,7 @@ margin_bottom = 342.0
 text = "Welcome to my shop
 This is a description of the item. Pls buy it"
 script = ExtResource( 3 )
+typewriter_speed = 1.5
 
 [node name="BuyText" type="Label" parent="."]
 margin_left = 462.694

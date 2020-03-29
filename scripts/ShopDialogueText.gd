@@ -1,4 +1,4 @@
-extends RichTextLabel
+extends RichTextTypewriter
 
 onready var root = get_tree().get_root().get_node("Root")
 onready var relay = get_node("/root/SignalRelay")
@@ -17,26 +17,26 @@ func _ready():
 	self.current_shop_id = self.root.game_data["overworld_data"][current_location_id]["location_shop_id"]
 	
 	var shop_welcome_bbcode = root.game_data["shop_data"][self.current_shop_id]["shop_welcome_bbcode"]
-	self.parse_bbcode(shop_welcome_bbcode)
+	self.set_typewriter_bbcode(shop_welcome_bbcode)
 
 func _on_shop_buy_item_button_up(item_button):
 	# confirmation text
 	var shop_buy_confirm_bbcode = root.game_data["shop_data"][self.current_shop_id]["shop_buy_confirm_bbcode"]
-	self.parse_bbcode(shop_buy_confirm_bbcode)
+	self.set_typewriter_bbcode(shop_buy_confirm_bbcode)
 	
 func _on_shop_sell_item_button_up(item_button):
 	# confirmation text
 	var shop_sell_confirm_bbcode = root.game_data["shop_data"][self.current_shop_id]["shop_sell_confirm_bbcode"]
-	self.parse_bbcode(shop_sell_confirm_bbcode)
+	self.set_typewriter_bbcode(shop_sell_confirm_bbcode)
 
 func _on_shop_buy_item_succeeded():
 	var shop_buy_succeeded_bbcode = root.game_data["shop_data"][self.current_shop_id]["shop_buy_succeeded_bbcode"]
-	self.parse_bbcode(shop_buy_succeeded_bbcode)
+	self.set_typewriter_bbcode(shop_buy_succeeded_bbcode)
 
 func _on_shop_buy_item_failed():
 	var shop_buy_failed_bbcode = root.game_data["shop_data"][self.current_shop_id]["shop_buy_failed_bbcode"]
-	self.parse_bbcode(shop_buy_failed_bbcode)
+	self.set_typewriter_bbcode(shop_buy_failed_bbcode)
 	
 func _on_shop_sell_item_succeeded():
 	var shop_sell_succeeded_bbcode = root.game_data["shop_data"][self.current_shop_id]["shop_sell_succeeded_bbcode"]
-	self.parse_bbcode(shop_sell_succeeded_bbcode)
+	self.set_typewriter_bbcode(shop_sell_succeeded_bbcode)
