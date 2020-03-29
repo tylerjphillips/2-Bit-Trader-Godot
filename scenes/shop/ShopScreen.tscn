@@ -4,62 +4,56 @@
 [ext_resource path="res://images/portraits/cat image 1.jpg" type="Texture" id=2]
 [ext_resource path="res://scripts/ShopDialogueText.gd" type="Script" id=3]
 [ext_resource path="res://scenes/GoldInfoModule.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scripts/ConfirmTransactionButton.gd" type="Script" id=5]
-[ext_resource path="res://scenes/ChangeSceneButton.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/ChangeSceneButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scripts/ConfirmTransactionButton.gd" type="Script" id=6]
 
 [node name="ShopScreen" type="Node"]
 script = ExtResource( 1 )
 
-[node name="ShopSprite" type="Sprite" parent="."]
-position = Vector2( 228.199, 171.919 )
+[node name="ShopSprite" type="TextureRect" parent="."]
+margin_left = 364.103
+margin_top = 15.0318
+margin_right = 648.103
+margin_bottom = 175.032
 texture = ExtResource( 2 )
 
 [node name="ShopDialogueText" type="RichTextLabel" parent="."]
-margin_left = 89.0
-margin_top = 278.0
-margin_right = 359.0
-margin_bottom = 342.0
+margin_left = 366.107
+margin_top = 226.0
+margin_right = 661.107
+margin_bottom = 362.0
 text = "Welcome to my shop
 This is a description of the item. Pls buy it"
 script = ExtResource( 3 )
 typewriter_speed = 1.5
 
 [node name="BuyText" type="Label" parent="."]
-margin_left = 462.694
-margin_top = 97.1147
-margin_right = 486.694
-margin_bottom = 111.115
+margin_left = 202.994
+margin_top = 215.017
+margin_right = 226.994
+margin_bottom = 229.017
 text = "Buy"
 
 [node name="SellText" type="Label" parent="."]
-margin_left = 810.0
-margin_top = 97.607
-margin_right = 840.0
-margin_bottom = 123.607
+margin_left = 775.233
+margin_top = 215.509
+margin_right = 805.233
+margin_bottom = 241.509
 rect_pivot_offset = Vector2( 15, 0 )
 text = "Sell"
 
 [node name="GoldInfoModule" parent="." instance=ExtResource( 4 )]
-margin_left = 855.495
-margin_top = 94.0346
-margin_right = 960.495
-margin_bottom = 114.035
-
-[node name="ConfirmTransactionButton" type="Button" parent="."]
-visible = false
-margin_left = 174.434
-margin_top = 386.162
-margin_right = 263.434
-margin_bottom = 435.162
-text = "Confirm"
-script = ExtResource( 5 )
+margin_left = 466.655
+margin_top = 193.09
+margin_right = 571.655
+margin_bottom = 213.09
 
 [node name="BuyItemContainer" type="ScrollContainer" parent="."]
 self_modulate = Color( 0.898039, 0.0313726, 0.0313726, 1 )
-margin_left = 400.0
-margin_top = 140.0
-margin_right = 634.0
-margin_bottom = 440.0
+margin_left = 104.843
+margin_top = 250.146
+margin_right = 338.843
+margin_bottom = 550.146
 rect_min_size = Vector2( 200, 300 )
 
 [node name="BuyItemGridContainer" type="GridContainer" parent="BuyItemContainer"]
@@ -69,10 +63,10 @@ columns = 3
 
 [node name="SellItemContainer" type="ScrollContainer" parent="."]
 self_modulate = Color( 0.898039, 0.0313726, 0.0313726, 1 )
-margin_left = 700.0
-margin_top = 140.0
-margin_right = 934.0
-margin_bottom = 440.0
+margin_left = 676.314
+margin_top = 257.902
+margin_right = 910.314
+margin_bottom = 557.902
 rect_min_size = Vector2( 200, 300 )
 
 [node name="SellItemGridContainer" type="GridContainer" parent="SellItemContainer"]
@@ -80,10 +74,18 @@ custom_constants/vseparation = 24
 custom_constants/hseparation = 24
 columns = 3
 
-[node name="ChangeSceneButtonOverworldScreen" parent="." instance=ExtResource( 6 )]
-margin_left = 148.145
-margin_top = 28.8525
-margin_right = 289.145
-margin_bottom = 48.8525
+[node name="ChangeSceneButtonOverworldScreen" parent="." instance=ExtResource( 5 )]
+margin_left = 135.188
+margin_top = 92.1981
+margin_right = 295.188
+margin_bottom = 128.198
 text = "<----"
 new_scene_name = "overworld_screen"
+
+[node name="ConfirmTransactionButton" type="Button" parent="."]
+margin_left = 448.91
+margin_top = 367.929
+margin_right = 537.91
+margin_bottom = 416.929
+text = "Confirm"
+script = ExtResource( 6 )

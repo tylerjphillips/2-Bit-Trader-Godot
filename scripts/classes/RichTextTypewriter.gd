@@ -6,9 +6,6 @@ signal typewriter_ended
 export var typewriter_speed := .75
 var dialogue_typing_has_ended := false
 
-func _ready():
-	set_typewriter_bbcode("hi")
-
 func _process(delta):
 	if !self.dialogue_typing_has_ended:
 		self.percent_visible = min(1, percent_visible + typewriter_speed * delta)

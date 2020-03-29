@@ -4,12 +4,12 @@
 		"shop_id": "Shop-2745345",
 		"shop_name": "Test shop",
 		
-		"shop_welcome_bbcode": "Hello welcome to the shop",
-		"shop_buy_confirm_bbcode": "You sure about buying that?",
-		"shop_sell_confirm_bbcode": "You sure about selling that?",
-		"shop_buy_failed_bbcode": "You don't have the money",
-		"shop_buy_succeeded_bbcode": "Another satisfied customer",
-		"shop_sell_succeeded_bbcode": "I'll take that off your hands",
+		"shop_welcome_bbcode": "[center]Hello welcome to the shop.[/center]",
+		"shop_buy_confirm_bbcode": "[center]You sure about buying that?[/center]",
+		"shop_sell_confirm_bbcode": "[center]You sure about selling that?[/center]",
+		"shop_buy_failed_bbcode": "[center]Seems that you don't have the money.[/center]",
+		"shop_buy_succeeded_bbcode": "[center]Another satisfied customer.[/center]",
+		"shop_sell_succeeded_bbcode": "[center]I'll take that off your hands.[/center]",
 		
 		"shop_items":
 		{
