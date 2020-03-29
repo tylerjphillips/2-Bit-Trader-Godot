@@ -1,4 +1,6 @@
 {
 	"unit_level_up_sound":"res://audio/levelup_chorus.wav",
-	"shop_music": "res://audio/shop_music.ogg"
+	"shop_music": "res://audio/shop_music.ogg",
+	"button_click": "res://audio/click_1.wav",
+	"transaction_coins": "res://audio/coins_1.wav"
 }

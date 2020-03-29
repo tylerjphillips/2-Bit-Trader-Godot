@@ -15,6 +15,25 @@ func _ready():
 	relay.connect("unit_killed", self, "_on_unit_killed")
 	relay.connect("unit_leveled_up", self, "_on_unit_leveled_up")
 	relay.connect("change_scene", self, "_on_change_scene")
+	
+	relay.connect("shop_buy_item_button_up",self, "_on_shop_buy_item_button_up")
+	relay.connect("shop_sell_item_button_up",self, "_on_shop_sell_item_button_up")
+	relay.connect("shop_confirm_button_up",self, "_on_shop_confirm_button_up")
+	
+	relay.connect("shop_buy_item_succeeded", self, "_on_shop_buy_item_succeeded")
+	relay.connect("shop_sell_item_succeeded", self, "_on_shop_sell_item_succeeded")
+
+func _on_shop_buy_item_button_up(item_button):
+	self.generate_audio_sample(self.root.game_data["audio_data"]["button_click"])
+func _on_shop_sell_item_button_up(item_button):
+	self.generate_audio_sample(self.root.game_data["audio_data"]["button_click"])
+func _on_shop_confirm_button_up(item_button):
+	self.generate_audio_sample(self.root.game_data["audio_data"]["button_click"])
+	
+func _on_shop_buy_item_succeeded():
+	self.generate_audio_sample(self.root.game_data["audio_data"]["transaction_coins"])
+func _on_shop_sell_item_succeeded():
+	self.generate_audio_sample(self.root.game_data["audio_data"]["transaction_coins"])
 
 func _on_change_scene(old_scene_name, new_scene_name):
 	# turn off the music on scene change
@@ -38,6 +57,8 @@ func _on_unit_killed(killed_unit, killer_unit):
 	
 func _on_unit_leveled_up(unit):
 	generate_audio_sample(self.root.game_data["audio_data"]["unit_level_up_sound"])
+	
+
 
 func generate_audio_sample(audio_path):
 	var audio_sample = audio_sample_asset.instance()
