@@ -11,7 +11,6 @@ onready var relay = get_node("/root/SignalRelay")
 func _ready():
 	self.connect("button_up", self, "undo_button_pressed")
 	# emitters
-	
 	self.connect("undo_button_pressed", relay, "_on_undo_button_pressed")
 	
 	# listeners
@@ -19,6 +18,9 @@ func _ready():
 	relay.connect("unit_killed", self, "_on_unit_killed")
 	relay.connect("unit_moved", self, "_on_unit_moved")
 	relay.connect("team_end_turn", self, "_on_team_end_turn")
+	
+	relay.connect("combat_defeat", self, "_on_combat_defeat")
+	relay.connect("combat_victory", self, "_on_combat_victory")
 
 func clear_undo_stack():
 	self.hide()
@@ -44,7 +46,12 @@ func _on_unit_killed(killed_unit, killer_unit):
 func _on_unit_attacks_tile(attacking_unit, tile_index, attacking_unit_attack_pattern, attacking_unit_weapon_data):
 	# clear the stack when a unit attacks something
 	self.clear_undo_stack()
-	
+
+func _on_combat_defeat():
+	self.disabled = true
+func _on_combat_victory():
+	self.disabled = true	
+
 func undo_button_pressed():
 	if len(self.unit_undo_order) > 0:
 		# pop the last unit to move and pass it and its previous state out to be handled

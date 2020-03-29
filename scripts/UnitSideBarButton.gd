@@ -10,6 +10,8 @@ func _ready():
 	self.connect("unit_sidebar_pressed", relay, "_on_unit_sidebar_pressed")
 	# listeners
 	relay.connect("unit_killed", self, "_on_unit_killed")
+	relay.connect("combat_defeat", self, "_on_combat_defeat")
+	relay.connect("combat_victory", self, "_on_combat_victory")
 
 func init(unit):
 	self.unit = unit
@@ -22,3 +24,8 @@ func _on_UnitSideBarButton_button_up():
 func _on_unit_killed(killed_unit, killer_unit):
 	if killed_unit == self.unit:
 		self.queue_free()
+		
+func _on_combat_defeat():
+	self.disabled = true
+func _on_combat_victory():
+	self.disabled = true	
