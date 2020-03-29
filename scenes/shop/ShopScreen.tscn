@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/ShopScreen.gd" type="Script" id=1]
 [ext_resource path="res://images/portraits/cat image 1.jpg" type="Texture" id=2]
 [ext_resource path="res://scripts/ShopDialogueText.gd" type="Script" id=3]
 [ext_resource path="res://scenes/GoldInfoModule.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/ChangeSceneButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scripts/ConfirmTransactionButton.gd" type="Script" id=5]
+[ext_resource path="res://scenes/ChangeSceneButton.tscn" type="PackedScene" id=6]
 
 [node name="ShopScreen" type="Node"]
 script = ExtResource( 1 )
@@ -44,11 +45,13 @@ margin_right = 960.495
 margin_bottom = 114.035
 
 [node name="ConfirmTransactionButton" type="Button" parent="."]
+visible = false
 margin_left = 174.434
 margin_top = 386.162
 margin_right = 263.434
 margin_bottom = 435.162
 text = "Confirm"
+script = ExtResource( 5 )
 
 [node name="BuyItemContainer" type="ScrollContainer" parent="."]
 self_modulate = Color( 0.898039, 0.0313726, 0.0313726, 1 )
@@ -76,7 +79,7 @@ custom_constants/vseparation = 24
 custom_constants/hseparation = 24
 columns = 3
 
-[node name="ChangeSceneButtonOverworldScreen" parent="." instance=ExtResource( 5 )]
+[node name="ChangeSceneButtonOverworldScreen" parent="." instance=ExtResource( 6 )]
 margin_left = 148.145
 margin_top = 28.8525
 margin_right = 289.145

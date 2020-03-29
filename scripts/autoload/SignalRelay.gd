@@ -54,6 +54,7 @@ signal event_choice_selected
 signal event_dialogue_typing_ended
 
 	# shop screen
+signal shop_confirm_button_up # (item button)
 signal shop_buy_item_button_up # (item_button)
 signal shop_sell_item_button_up # (item_button)
 signal shop_buy_item_failed
@@ -170,13 +171,13 @@ func _on_caravan_destination_reached(to_location_id):
 	
 func _on_overworld_location_button_up(location_id):
 	emit_signal("overworld_location_button_up", location_id)
-	
+
+func _on_shop_confirm_button_up(item_button):
+	emit_signal("shop_confirm_button_up", item_button)
 func _on_shop_buy_item_button_up(item_button):
 	emit_signal("shop_buy_item_button_up", item_button)
-	print("Relay: buying "+str(item_button.value))
 func _on_shop_sell_item_button_up(item_button):
 	emit_signal("shop_sell_item_button_up", item_button)
-	print("Relay: selling "+str(item_button.value))
 func _on_shop_buy_item_failed():
 	emit_signal("shop_buy_item_failed")
 func _on_shop_buy_item_succeeded():

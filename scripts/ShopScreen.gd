@@ -28,12 +28,18 @@ func _ready():
 	self.connect("gold_amount_changed", relay, "_on_gold_amount_changed")
 	
 	# listeners
-	relay.connect("shop_buy_item_button_up", self, "attempt_buy_item")
-	relay.connect("shop_sell_item_button_up", self, "sell_item")
+	relay.connect("shop_confirm_button_up", self, "_on_shop_confirm_button_up")
 
 func init(game_data):
 	# add items to buy and sell
 	populate_shop_items()
+
+func _on_shop_confirm_button_up(item_button):
+	# confirmation button pressed, place the transaction
+	if item_button.sell_or_buy == "buy":
+		self.attempt_buy_item(item_button)
+	else:
+		self.sell_item(item_button)
 
 func get_shop_items():
 	# helper method for getting items from the current location's shop

@@ -5,6 +5,8 @@
 		"shop_name": "Test shop",
 		
 		"shop_welcome_bbcode": "Hello welcome to the shop",
+		"shop_buy_confirm_bbcode": "You sure about buying that?",
+		"shop_sell_confirm_bbcode": "You sure about selling that?",
 		"shop_buy_failed_bbcode": "You don't have the money",
 		"shop_buy_succeeded_bbcode": "Another satisfied customer",
 		"shop_sell_succeeded_bbcode": "I'll take that off your hands",
