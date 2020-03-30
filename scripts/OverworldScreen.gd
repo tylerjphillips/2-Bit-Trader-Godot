@@ -105,7 +105,12 @@ func _on_caravan_destination_reached(to_location_id):
 			self.recruitment_screen_button.show()
 
 func increment_day():
+	var day = self.root.game_data["main_data"]["day"] + 1
 	self.root.game_data["main_data"]["day"] += 1
+	var days_until_defeat = self.root.game_data["main_data"]["days_until_defeat"]
+	if (days_until_defeat != -1) and (day > days_until_defeat):
+		emit_signal("change_scene", "overworld_screen", "game_over_screen")
+		
 	emit_signal("day_ended")
 	
 func subtract_upkeep_costs():

@@ -15,8 +15,8 @@ texture = ExtResource( 2 )
 
 [node name="DayCountLabel" type="Label" parent="."]
 self_modulate = Color( 0, 0, 0, 1 )
-margin_left = -125.77
-margin_top = -10.0103
-margin_right = -82.7702
-margin_bottom = 3.98971
+margin_left = -125.0
+margin_top = -10.0
+margin_right = -82.0002
+margin_bottom = 4.00001
 text = "Day #"
