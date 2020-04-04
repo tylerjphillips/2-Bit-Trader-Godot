@@ -38,10 +38,10 @@ func _on_shop_sell_item_succeeded():
 func _on_change_scene(old_scene_name, new_scene_name):
 	# turn off the music on scene change
 	if current_music_sample != null:
-		self.current_music_sample.queue_free()
+		self.current_music_sample.fade_out_volume()
 		self.current_music_sample = null
 	if new_scene_name == "shop_screen":
-		self.current_music_sample = self.generate_audio_sample(self.root.game_data["audio_data"]["shop_music"])
+		self.current_music_sample = self.generate_audio_sample(self.root.game_data["audio_data"]["shop_music"], true)
 
 func _on_audio_finished(audio_path):
 	pass
@@ -60,8 +60,8 @@ func _on_unit_leveled_up(unit):
 	
 
 
-func generate_audio_sample(audio_path):
+func generate_audio_sample(audio_path, fade_in = false):
 	var audio_sample = audio_sample_asset.instance()
 	self.add_child(audio_sample)
-	audio_sample.init(audio_path)
+	audio_sample.init(audio_path, fade_in)
 	return audio_sample
