@@ -41,7 +41,8 @@
 					"dialogue_id": "Dialogue-2",
 					"choice_starts_combat": false,
 					"choice_returns_to_overworld": false,
-					"set_event_image_path": "res://images/weapons/axe.png"
+					"set_event_image_path": "res://images/weapons/axe.png",
+					"choice_rewards": {}
 				},
 			"Choice-2":
 				{
@@ -50,7 +51,8 @@
 					"dialogue_id": "Dialogue-3",
 					"choice_starts_combat": false,
 					"choice_returns_to_overworld": false,
-					"set_event_image_path": "res://images/weapons/bow.png"
+					"set_event_image_path": "res://images/weapons/bow.png",
+					"choice_rewards": {}
 				},
 			"Choice-3":
 				{
@@ -59,7 +61,8 @@
 					"dialogue_id": "Combat-Victory-Dialogue",
 					"choice_starts_combat": true,
 					"choice_returns_to_overworld": false,
-					"set_event_image_path": "res://images/weapons/bow.png"
+					"set_event_image_path": "res://images/weapons/bow.png",
+					"choice_rewards": {}
 				},
 			"Choice-4":
 				{
@@ -67,7 +70,8 @@
 					"choice_bbcode": "Return to overworld",
 					"choice_starts_combat": false,
 					"choice_returns_to_overworld": true,
-					"set_event_image_path": "res://images/weapons/bow.png"
+					"set_event_image_path": "res://images/weapons/bow.png",
+					"choice_rewards": {}
 				},
 			"Choice-5":
 				{
@@ -75,7 +79,13 @@
 					"choice_bbcode": "Return to overworld",
 					"choice_starts_combat": false,
 					"choice_returns_to_overworld": true,
-					"set_event_image_path": "res://images/weapons/bow.png"
+					"set_event_image_path": "res://images/weapons/bow.png",
+					"choice_rewards": 
+					{
+					"gold": 1115,
+					"items": {},
+					"unit_ids": ["Unit-568127643"]
+					}
 				}
 			},
 		"event_dialogue_data":
@@ -101,8 +111,8 @@
 			"Combat-Victory-Dialogue":
 			{
 				"dialogue_id": "Combat-Victory-Dialogue",
-				"dialogue_bbcode":"You defated them in combat",
-				"choice_ids": ["Choice-5"]
+				"dialogue_bbcode":"You defated them in combat. You earn gold and a party member",
+				"choice_ids": ["Choice-5"],
 			}
 		}
 	}

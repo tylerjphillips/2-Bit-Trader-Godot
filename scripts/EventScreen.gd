@@ -77,16 +77,33 @@ func populate_choices():
 		
 func _on_event_choice_selected(selected_choice_data):
 	print("EventScreen: choice selected: ",selected_choice_data)
+	# remove existing choices
 	for choice in self.event_choice_container.get_children():
 		choice.queue_free()
-		
+	# update event image
 	update_event_image(selected_choice_data["set_event_image_path"])
-		
+	
+	# handle rewards
+	if selected_choice_data["choice_rewards"].has("gold"):
+		# gold
+		self.root.game_data["main_data"]["gold"] += selected_choice_data["choice_rewards"]["gold"]
+	if selected_choice_data["choice_rewards"].has("items"):
+		# items
+		for item_id in selected_choice_data["choice_rewards"]["items"]:
+			self.root.game_data["main_data"]["player_items"][item_id] = selected_choice_data["choice_rewards"]["items"]
+	if selected_choice_data["choice_rewards"].has("unit_ids"):
+		# units
+		for unit_id in selected_choice_data["choice_rewards"]["unit_ids"]:
+			if !self.root.game_data["main_data"]["party_unit_ids"].has(unit_id):
+				self.root.game_data["main_data"]["party_unit_ids"].push_back(unit_id)
+	
 	if selected_choice_data["choice_starts_combat"]:
+		# start combat if possible
 		self.change_scene("combat_screen")
 		var current_event_id = self.root.game_data["main_data"]["current_event_id"]
 		self.root.game_data["event_data"][current_event_id]["event_current_dialogue_id"] = selected_choice_data["dialogue_id"]
 	elif selected_choice_data["choice_returns_to_overworld"]:
+		# return to overworld if possible
 		self.end_event()
 	else:
 		# continue dialogue

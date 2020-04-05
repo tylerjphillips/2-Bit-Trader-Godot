@@ -83,6 +83,7 @@ text = "<----"
 new_scene_name = "overworld_screen"
 
 [node name="ConfirmTransactionButton" type="Button" parent="."]
+visible = false
 margin_left = 448.91
 margin_top = 367.929
 margin_right = 537.91
