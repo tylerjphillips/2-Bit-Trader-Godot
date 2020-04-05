@@ -7,6 +7,13 @@ var current_music_sample
 onready var relay = get_node("/root/SignalRelay")
 onready var root = get_tree().get_root().get_node("Root")
 
+const screens_to_music = {
+	"shop_screen": "shop_music", 
+	"combat_screen": "combat_music",
+	"overworld_screen": "overworld_music",
+	"event_screen": "overworld_music"
+} 
+
 func _ready():
 	# listeners
 	relay.connect("audio_finished", self, "_on_audio_finished")
@@ -36,12 +43,15 @@ func _on_shop_sell_item_succeeded():
 	self.generate_audio_sample(self.root.game_data["audio_data"]["transaction_coins"])
 
 func _on_change_scene(old_scene_name, new_scene_name):
+	var old_music = screens_to_music.get(old_scene_name, "")
+	var new_music = screens_to_music.get(new_scene_name, "")
+	
 	# turn off the music on scene change
-	if current_music_sample != null:
+	if current_music_sample != null and new_music != old_music:
 		self.current_music_sample.fade_out_volume()
 		self.current_music_sample = null
-	if new_scene_name == "shop_screen":
-		self.current_music_sample = self.generate_audio_sample(self.root.game_data["audio_data"]["shop_music"], true)
+	if new_music != "" and new_music != old_music:
+		self.current_music_sample = self.generate_audio_sample(self.root.game_data["audio_data"][new_music], true)
 
 func _on_audio_finished(audio_path):
 	pass

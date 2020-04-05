@@ -53,7 +53,7 @@ func update_dialogue_text():
 	event_dialogue.set_typewriter_bbcode(dialogue_bbcode)
 	
 func change_scene(new_scene_name):
-	emit_signal("change_scene", "combat_screen", new_scene_name)
+	emit_signal("change_scene", "event_screen", new_scene_name)
 
 func _on_event_dialogue_typing_ended():
 	print("EventScreen: end of dialogue typing")
