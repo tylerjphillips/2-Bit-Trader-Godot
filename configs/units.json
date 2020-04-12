@@ -22,7 +22,7 @@
 		"unit_level": 1,
 		"unit_level_max": 5,
 		"unit_xp_reward": 35,
-		"unit_pending_bonus_xp": 0,
+		"unit_pending_bonus_xp": 200,
 		"unit_level_up_rewards":
 		{
 			"2": 

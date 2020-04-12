@@ -32,7 +32,7 @@ func init(unit_args):
 	class_label.text = self.unit_data["unit_class"]
 	health_point_label.text = "Health: "+ str(self.unit_data["unit_health_points"]) + "/" + str(self.unit_data["unit_health_points_max"])
 	action_point_label.text = "AP: "+ str(self.unit_data["unit_movement_points"]) + "/" + str(self.unit_data["unit_movement_points_max"])
-	xp_label.text = "XP: " + str(self.unit_data["unit_xp"]) + "/" + str(self.unit_data["unit_xp_max"])
+	xp_label.text = "XP: " + str(self.unit_data["unit_xp"] + self.unit_data["unit_pending_bonus_xp"]) + "/" + str(self.unit_data["unit_xp_max"])
 	level_label.text = "Level " + str(self.unit_data["unit_level"])
 	recruit_cost_label.text = "Recruit Cost: "+ str(self.unit_data["unit_recruitment_cost"])
 	upkeep_cost_label.text = "Upkeep Cost: "+ str(self.unit_data["unit_upkeep_cost"])

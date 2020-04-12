@@ -27,12 +27,19 @@ func _ready():
 	relay.connect("party_member_button_pressed", self, "_on_party_member_button_pressed")
 	relay.connect("party_take_item_button_up", self, "_on_party_take_item_button_up")
 	relay.connect("party_give_item_button_up", self, "_on_party_give_item_button_up")
+	relay.connect("award_bonus_xp_button_up", self, "_on_award_bonus_xp_button_up")
 
 func init(game_data):
 	populate_party_screen()
 	populate_inventory_items()
-	
+
+func clear_party_screen():
+	self.selected_unit_data = null
+	for party_member in self.party_grid.get_children():
+		party_member.queue_free()
+
 func populate_party_screen():
+	self.clear_party_screen()
 	for unit_id in root.game_data["main_data"]["party_unit_ids"]:
 		var player_team = root.game_data["main_data"]["player_team"]
 		var unit_team = root.game_data["unit_data"][unit_id]["unit_team"]
@@ -111,6 +118,23 @@ func _on_party_give_item_button_up(item_button):
 			self.root.game_data["main_data"]["player_items"][item_button.item_id] = item_button.item_data
 			populate_inventory_items()
 			populate_member_inventory_items()
+
+func _on_award_bonus_xp_button_up():
+	# award xp to the currently selected unit
+	if selected_unit_data != null:
+		var selected_unit_id = selected_unit_data["unit_id"]
+		var selected_unit_xp =  selected_unit_data["unit_xp"]
+		var selected_unit_xp_max =  selected_unit_data["unit_xp_max"]
+		var selected_unit_pending_bonus_xp =  selected_unit_data["unit_pending_bonus_xp"]
+		var bonus_xp =  self.root.game_data["main_data"]["bonus_xp"]
+		var awarded_xp = min(bonus_xp, selected_unit_xp_max - (selected_unit_xp + selected_unit_pending_bonus_xp))
+		self.root.game_data["main_data"]["bonus_xp"] -= awarded_xp
+		self.root.game_data["unit_data"][selected_unit_id]["unit_pending_bonus_xp"] += awarded_xp
+		
+		self.selected_unit_data = self.root.game_data["unit_data"][selected_unit_id]
+		self.populate_party_screen()
+
+		
 
 func change_scene(new_scene_name):
 	emit_signal("change_scene", "party_screen", new_scene_name)

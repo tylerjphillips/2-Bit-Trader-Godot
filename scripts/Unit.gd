@@ -349,9 +349,9 @@ func set_unit_xp(xp):
 	var unit_args : Dictionary # maintain a dict repr of the unit which will keep track of all level up stat changes
 	
 	# remove xp until all level ups are achieved
-	while(unit_xp > self.unit_xp_max):
-		unit_xp = unit_xp - self.unit_xp_max
+	while(unit_xp >= self.unit_xp_max):
 		if self.unit_level < self.unit_level_max:
+			unit_xp = unit_xp - self.unit_xp_max
 			self.unit_level += 1
 			has_leveled_up = true
 			
@@ -361,6 +361,9 @@ func set_unit_xp(xp):
 				var level_up_rewards = self.unit_level_up_rewards[str(self.unit_level)]
 				for unit_property_name in level_up_rewards:
 					unit_args[unit_property_name] = level_up_rewards[unit_property_name]
+		else:
+			unit_xp = self.unit_xp_max
+			break
 					
 	# If a level up has happened apply all the changes and reinitialize unit
 	if has_leveled_up:

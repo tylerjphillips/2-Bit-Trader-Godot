@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/PartyScreen.gd" type="Script" id=1]
 [ext_resource path="res://scenes/SettingsButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/ChangeSceneButton.tscn" type="PackedScene" id=3]
 [ext_resource path="res://images/portraits/default unit portrait.png" type="Texture" id=4]
+[ext_resource path="res://scripts/AwardBonusXPButton.gd" type="Script" id=5]
 
 [node name="PartyScreen" type="Node"]
 script = ExtResource( 1 )
@@ -44,7 +45,6 @@ margin_bottom = 497.0
 [node name="PartyGrid" type="GridContainer" parent="PartyMemberList/ScrollContainer"]
 
 [node name="PartyMemberInfo" type="Node2D" parent="."]
-visible = false
 position = Vector2( 434.939, 22.2157 )
 
 [node name="PartyMemberInfoBackground" type="ColorRect" parent="PartyMemberInfo"]
@@ -62,12 +62,20 @@ expand = true
 
 [node name="PartyMemberItemScrollContainer" type="ScrollContainer" parent="PartyMemberInfo"]
 margin_left = 8.0
-margin_top = 206.0
+margin_top = 277.0
 margin_right = 173.0
 margin_bottom = 542.0
 
 [node name="PartyMemberItemGridContainer" type="GridContainer" parent="PartyMemberInfo/PartyMemberItemScrollContainer"]
 columns = 2
+
+[node name="AwardBonusXPButton" type="Button" parent="PartyMemberInfo"]
+margin_left = 25.296
+margin_top = 226.64
+margin_right = 151.296
+margin_bottom = 266.64
+text = "Level up"
+script = ExtResource( 5 )
 
 [node name="InventoryItems" type="Node2D" parent="."]
 visible = false

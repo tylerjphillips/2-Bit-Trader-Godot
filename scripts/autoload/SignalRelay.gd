@@ -49,6 +49,7 @@ signal end_turn_button_pressed
 signal party_member_button_pressed(button, unit_data)
 signal party_take_item_button_up # (item_button)
 signal party_give_item_button_up # (item_button)
+signal award_bonus_xp_button_up
 	# event screen
 signal event_choice_selected
 signal event_dialogue_typing_ended
@@ -162,6 +163,9 @@ func _on_party_take_item_button_up(item_button):
 func _on_party_give_item_button_up(item_button):
 	# print("Relay: give item button pressed")
 	emit_signal("party_give_item_button_up", item_button)
+func _on_award_bonus_xp_button_up():
+	emit_signal("award_bonus_xp_button_up")
+
 
 func _on_day_ended():
 	emit_signal("day_ended")
