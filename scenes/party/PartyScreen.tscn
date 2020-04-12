@@ -45,6 +45,7 @@ margin_bottom = 497.0
 [node name="PartyGrid" type="GridContainer" parent="PartyMemberList/ScrollContainer"]
 
 [node name="PartyMemberInfo" type="Node2D" parent="."]
+visible = false
 position = Vector2( 434.939, 22.2157 )
 
 [node name="PartyMemberInfoBackground" type="ColorRect" parent="PartyMemberInfo"]
@@ -62,7 +63,7 @@ expand = true
 
 [node name="PartyMemberItemScrollContainer" type="ScrollContainer" parent="PartyMemberInfo"]
 margin_left = 8.0
-margin_top = 277.0
+margin_top = 300.0
 margin_right = 173.0
 margin_bottom = 542.0
 
@@ -70,12 +71,20 @@ margin_bottom = 542.0
 columns = 2
 
 [node name="AwardBonusXPButton" type="Button" parent="PartyMemberInfo"]
-margin_left = 25.296
-margin_top = 226.64
-margin_right = 151.296
-margin_bottom = 266.64
-text = "Level up"
+margin_left = 27.7514
+margin_top = 197.174
+margin_right = 153.751
+margin_bottom = 237.174
+grow_horizontal = 2
+text = "Award Bonus XP"
 script = ExtResource( 5 )
+
+[node name="RemainingBonusXPLabel" type="RichTextLabel" parent="PartyMemberInfo/AwardBonusXPButton"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = -1.0
+margin_top = 44.0
+margin_right = 128.0
+margin_bottom = 84.0
 
 [node name="InventoryItems" type="Node2D" parent="."]
 visible = false
