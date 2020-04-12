@@ -291,7 +291,6 @@ tile_data = PoolIntArray( 327685, 0, 0, 327686, 0, 0, 327687, 1, 0, 327688, 0, 0
 position = Vector2( 12.83, 82.812 )
 
 [node name="SelectedUnitInfo" type="Node2D" parent="."]
-editor/display_folded = true
 visible = false
 position = Vector2( 500, 60 )
 script = ExtResource( 14 )

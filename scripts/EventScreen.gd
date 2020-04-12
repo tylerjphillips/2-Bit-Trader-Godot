@@ -87,6 +87,9 @@ func _on_event_choice_selected(selected_choice_data):
 	if selected_choice_data["choice_rewards"].has("gold"):
 		# gold
 		self.root.game_data["main_data"]["gold"] += selected_choice_data["choice_rewards"]["gold"]
+	if selected_choice_data["choice_rewards"].has("bonus_xp"):
+		# bonus xp
+		self.root.game_data["main_data"]["bonus_xp"] += selected_choice_data["choice_rewards"]["bonus_xp"]	
 	if selected_choice_data["choice_rewards"].has("items"):
 		# items
 		for item_id in selected_choice_data["choice_rewards"]["items"]:

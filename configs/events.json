@@ -84,7 +84,8 @@
 					{
 					"gold": 1115,
 					"items": {},
-					"unit_ids": ["Unit-568127643"]
+					"unit_ids": ["Unit-568127643"],
+					"bonus_xp": 100
 					}
 				}
 			},

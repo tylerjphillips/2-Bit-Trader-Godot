@@ -81,6 +81,8 @@ var unit_level_up_rewards : Dictionary # maps xp levels to key:values that will 
 var unit_recruitment_cost : int
 var unit_upkeep_cost : int
 
+var unit_pending_bonus_xp : int # xp that's been awarded 
+
 onready var root = get_tree().get_root().get_node("Root")	# reference to root game node
 onready var relay = get_node("/root/SignalRelay")
 
@@ -179,6 +181,11 @@ func init(unit_position : Vector2, unit_args: Dictionary, is_reinitializing = fa
 	
 	if !is_reinitializing:
 		emit_signal("unit_spawned", self)
+		
+	# award pending bonus xp
+	self.unit_pending_bonus_xp = 0
+	var bonus_xp = int(unit_args["unit_pending_bonus_xp"])
+	self.unit_xp += bonus_xp
 
 func damage_unit(damage, attacking_unit = null):
 	if damage.has("normal"):
@@ -269,15 +276,6 @@ func _on_mouse_exited():
 func _on_unit_leveled_up(unit):
 	if unit == self:
 		self.emit_levelup_particles()
-		
-		# Grab a dict representation of the leveling unit, overwrite one's data, then re-init
-		var unit_args = self.get_unit_repr()
-		if self.unit_level_up_rewards.has(str(self.unit_level)):
-			var level_up_rewards = self.unit_level_up_rewards[str(self.unit_level)]
-			for unit_property_name in level_up_rewards:
-				unit_args[unit_property_name] = level_up_rewards[unit_property_name]
-			print("Unit: Leveling up. Reinitizalize")
-			self.init(self.position, unit_args, true)
 			
 func _on_tilemap_damage_preview(damage_pattern):
 	self.health_bar.generate_health_bar(self.unit_health_points, self.unit_health_points_max)
@@ -346,12 +344,29 @@ func get_team_color():
 	
 func set_unit_xp(xp):
 	unit_xp = xp
+	
+	var has_leveled_up = false
+	var unit_args : Dictionary # maintain a dict repr of the unit which will keep track of all level up stat changes
+	
 	# remove xp until all level ups are achieved
 	while(unit_xp > self.unit_xp_max):
 		unit_xp = unit_xp - self.unit_xp_max
 		if self.unit_level < self.unit_level_max:
 			self.unit_level += 1
-			emit_signal("unit_leveled_up", self)
+			has_leveled_up = true
+			
+			# Grab a dict representation of the leveling unit and make changes to it on each level up
+			unit_args = self.get_unit_repr()
+			if self.unit_level_up_rewards.has(str(self.unit_level)):
+				var level_up_rewards = self.unit_level_up_rewards[str(self.unit_level)]
+				for unit_property_name in level_up_rewards:
+					unit_args[unit_property_name] = level_up_rewards[unit_property_name]
+					
+	# If a level up has happened apply all the changes and reinitialize unit
+	if has_leveled_up:
+		print("Unit: Leveling up. Reinitizalize")
+		self.init(self.position, unit_args, true)
+		emit_signal("unit_leveled_up", self)
 	emit_signal("unit_xp_changed", self)
 	
 func get_unit_xp():
@@ -406,6 +421,7 @@ func get_unit_repr():
 	unit_data["unit_level"] = self.unit_level
 	unit_data["unit_level_max"] = self.unit_level_max
 	unit_data["unit_xp_reward"] = self.unit_xp_reward
+	unit_data["unit_pending_bonus_xp"] = self.unit_pending_bonus_xp
 	unit_data["unit_level_up_rewards"] = self.unit_level_up_rewards
 	
 	return unit_data;

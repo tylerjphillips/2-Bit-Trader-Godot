@@ -3,6 +3,7 @@
 	"day": 1,
 	"days_until_defeat": 15,
 	"gold": 500,
+	"bonus_xp": 23,
 	"current_event_id": "Event-43832842",
 	"current_location_id": "Location-137374783",
 	"party_unit_ids": ["Unit-145927595", "Unit-14592735", "Unit-347234234"],
