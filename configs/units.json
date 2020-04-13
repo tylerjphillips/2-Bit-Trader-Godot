@@ -313,27 +313,24 @@
 			"item_buy_price":50,
 			"item_type": "weapon",
 			"item_subtype": "axe",
-			"weapon_tooltip" : "test",
-			"weapon_texture_path": "res://images/weapons/axe.png",
+			"weapon_tooltip" : "healing staff",
+			"weapon_texture_path": "res://images/weapons/club.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
 			"item_is_soulbound": false,
 			
 			"weapon_pattern" : 
 				{
-				"pattern" : "cardinal",
-				"size" : 2,
-				"include_center": true
+				"pattern" : "allies",
+				"include_self": true
 				},
 			"damage_patterns":
 				[
 					{
-					"pattern" : "cardinal",
-					"size" : 1,
+					"pattern" : "single",
 					"damage":
 						{
-						"normal": 1
-						},
-					"push_scalar": 1,
+						"normal": -3
+						}
 					}
 				]
 			}

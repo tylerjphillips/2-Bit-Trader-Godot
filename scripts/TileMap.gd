@@ -366,6 +366,9 @@ func calculate_attack_pattern(attacking_unit, weapon_index):
 		attack_pattern = generate_cardinal_pattern(unit_index, size, blockable, include_center)
 	if weapon_attack_pattern["pattern"] == "single":
 		attack_pattern = generate_single_pattern(unit_index)
+	if weapon_attack_pattern["pattern"] == "allies":
+		var include_self : bool = weapon_attack_pattern.get("include_self", false)
+		attack_pattern = generate_allied_pattern(attacking_unit, include_self)
 	attacking_unit.last_attack_pattern = attack_pattern
 	return attack_pattern
 	
@@ -388,13 +391,16 @@ func calculate_damage_pattern(attacking_unit, weapon_index, attacked_tile_index)
 			damage_pattern = generate_cardinal_pattern(attacked_tile_index, size, blockable, include_center)
 		if damage_pattern_data["pattern"] == "single":
 			damage_pattern = generate_single_pattern(attacked_tile_index, attack_tile_data["direction"])
+		if damage_pattern_data["pattern"] == "allies":
+			var include_self : bool = damage_pattern_data.get("include_self", false)
+			damage_pattern = generate_allied_pattern(attacking_unit, include_self)
 		
 		# Tiles will only be written to once in final pattern, meaning first patterns take precedence
 		for tile_index in damage_pattern:
 			if !final_damage_pattern.has(tile_index):
 				final_damage_pattern[tile_index] = damage_pattern[tile_index]
 				final_damage_pattern[tile_index]["damage"] = damage_pattern_data["damage"]
-				final_damage_pattern[tile_index]["push_scalar"] = damage_pattern_data["push_scalar"]
+				final_damage_pattern[tile_index]["push_scalar"] = damage_pattern_data.get("push_scalar", 0)
 				
 		final_damage_pattern = self.calculate_push_damage(final_damage_pattern)
 					
@@ -460,6 +466,18 @@ func generate_single_pattern(tile_index, direction = "none"):
 	# direction param used for inheriting damage direction from attack direction
 	var attackable_tiles = Dictionary()
 	attackable_tiles[tile_index] = {"direction": direction}
+	return attackable_tiles
+	
+func generate_allied_pattern(attacking_unit, include_self = true):
+	# generate pattern corresponding to all allied locations
+	var attackable_tiles = Dictionary()
+	
+	for unit in self.unit_to_index:
+		if unit.unit_team == attacking_unit.unit_team: 
+			if unit != attacking_unit or include_self:
+				var tile_index = self.unit_to_index[unit]
+				attackable_tiles[tile_index] = {"direction": "none"}
+		
 	return attackable_tiles
 	
 
