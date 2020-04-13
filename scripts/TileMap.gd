@@ -369,6 +369,8 @@ func calculate_attack_pattern(attacking_unit, weapon_index):
 	if weapon_attack_pattern["pattern"] == "allies":
 		var include_self : bool = weapon_attack_pattern.get("include_self", false)
 		attack_pattern = generate_allied_pattern(attacking_unit, include_self)
+	if weapon_attack_pattern["pattern"] == "enemies":
+		attack_pattern = generate_enemy_pattern(attacking_unit)
 	attacking_unit.last_attack_pattern = attack_pattern
 	return attack_pattern
 	
@@ -394,6 +396,8 @@ func calculate_damage_pattern(attacking_unit, weapon_index, attacked_tile_index)
 		if damage_pattern_data["pattern"] == "allies":
 			var include_self : bool = damage_pattern_data.get("include_self", false)
 			damage_pattern = generate_allied_pattern(attacking_unit, include_self)
+		if damage_pattern_data["pattern"] == "enemies":
+			damage_pattern = generate_enemy_pattern(attacking_unit)
 		
 		# Tiles will only be written to once in final pattern, meaning first patterns take precedence
 		for tile_index in damage_pattern:
@@ -478,6 +482,17 @@ func generate_allied_pattern(attacking_unit, include_self = true):
 				var tile_index = self.unit_to_index[unit]
 				attackable_tiles[tile_index] = {"direction": "none"}
 		
+	return attackable_tiles
+	
+func generate_enemy_pattern(attacking_unit):
+	# generate pattern corresponding to all allied locations
+	var attackable_tiles = Dictionary()
+	
+	for unit in self.unit_to_index:
+		if unit.unit_team != attacking_unit.unit_team: 
+			var tile_index = self.unit_to_index[unit]
+			attackable_tiles[tile_index] = {"direction": "none"}
+	
 	return attackable_tiles
 	
 

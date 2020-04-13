@@ -62,6 +62,34 @@
 					"push_scalar": 3,
 					}
 				]
+			},
+		"Item-3564453643" :
+			{
+			"item_id": "Item-3564453643",
+			"item_sell_price":50,
+			"item_buy_price":50,
+			"item_type": "weapon",
+			"item_subtype": "sword",
+			"weapon_tooltip" : "sword",
+			"weapon_texture_path": "res://images/weapons/sword.png",
+			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
+			"item_is_soulbound": true,
+			
+			"weapon_pattern" : 
+				{
+				"pattern" : "enemies",
+				},
+			"damage_patterns":
+				[
+					{
+					"pattern" : "enemies",
+					"damage":
+						{
+						"normal": 2
+						},
+					"push_scalar": 0,
+					}
+				]
 			}
 		}
 		
