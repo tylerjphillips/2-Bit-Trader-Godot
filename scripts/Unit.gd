@@ -189,7 +189,7 @@ func init(unit_position : Vector2, unit_args: Dictionary, is_reinitializing = fa
 
 func damage_unit(damage, attacking_unit = null):
 	if damage.has("normal"):
-		self.unit_health_points -= damage["normal"]
+		self.unit_health_points = clamp(self.unit_health_points - damage["normal"], 0, self.unit_health_points_max)
 		self.floating_damage_text.init(damage["normal"])
 	if self.unit_health_points <= 0:
 		emit_signal("unit_killed", self, attacking_unit)

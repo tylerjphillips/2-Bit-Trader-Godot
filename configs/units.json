@@ -57,7 +57,7 @@
 					"size" : 1,
 					"damage":
 						{
-						"normal": 1
+						"normal": -3
 						},
 					"push_scalar": 3,
 					}
