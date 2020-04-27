@@ -20,17 +20,25 @@ func _ready():
 	
 
 func init():
+	# get the max party count
+	var current_event_id = self.root.game_data["main_data"]["current_event_id"]
+	var current_event_data = self.root.game_data["event_data"][current_event_id]
+	self.event_party_max_members = int(current_event_data["event_party_max_members"])
+	var event_required_member_ids = current_event_data["event_required_member_ids"] # get required party members
+	
 	# populate buttons
 	for unit_id in root.game_data["main_data"]["party_unit_ids"]:
 		var unit_data = root.game_data["unit_data"][unit_id]
 		var ui_element = self.combat_selection_unit.instance()
 		self.grid.add_child(ui_element)
 		ui_element.init(unit_data)
+		
+		# if required member, disable button and add to units
+		if event_required_member_ids.has(unit_id):
+			ui_element.pressed = true
+			ui_element.disabled = true
+			self.selected_party_unit_ids.append(unit_id)
 	
-	# get the max party count
-	var current_event_id = self.root.game_data["main_data"]["current_event_id"]
-	var current_event_data = self.root.game_data["event_data"][current_event_id]
-	self.event_party_max_members = int(current_event_data["event_party_max_members"])
 	
 	
 	$PartyMemberCountLabel.text = str(len(selected_party_unit_ids)) + " / " + str(self.event_party_max_members)
