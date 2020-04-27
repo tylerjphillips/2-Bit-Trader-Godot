@@ -86,10 +86,10 @@
 3/z_index = 0
 
 [sub_resource type="TileSet" id=2]
-0/name = "movement_tile"
+0/name = "movement"
 0/texture = ExtResource( 8 )
 0/tex_offset = Vector2( 0, 0 )
-0/modulate = Color( 0.0470588, 0.0588235, 0.894118, 1 )
+0/modulate = Color( 0.00392157, 0.0901961, 1, 1 )
 0/region = Rect2( 0, 0, 32, 32 )
 0/tile_mode = 1
 0/autotile/bitmask_mode = 0
@@ -105,10 +105,10 @@
 0/navigation_offset = Vector2( 0, 0 )
 0/shapes = [  ]
 0/z_index = 0
-1/name = "attack_tile"
+1/name = "attack"
 1/texture = ExtResource( 8 )
 1/tex_offset = Vector2( 0, 0 )
-1/modulate = Color( 0.866667, 0.0235294, 0.0235294, 1 )
+1/modulate = Color( 1, 0, 0, 1 )
 1/region = Rect2( 0, 0, 32, 32 )
 1/tile_mode = 1
 1/autotile/bitmask_mode = 0
@@ -124,6 +124,25 @@
 1/navigation_offset = Vector2( 0, 0 )
 1/shapes = [  ]
 1/z_index = 0
+2/name = "placement"
+2/texture = ExtResource( 8 )
+2/tex_offset = Vector2( 0, 0 )
+2/modulate = Color( 0.996078, 0.560784, 0, 1 )
+2/region = Rect2( 0, 0, 32, 32 )
+2/tile_mode = 1
+2/autotile/bitmask_mode = 0
+2/autotile/bitmask_flags = [  ]
+2/autotile/icon_coordinate = Vector2( 0, 0 )
+2/autotile/tile_size = Vector2( 32, 32 )
+2/autotile/spacing = 0
+2/autotile/occluder_map = [  ]
+2/autotile/navpoly_map = [  ]
+2/autotile/priority_map = [  ]
+2/autotile/z_index_map = [  ]
+2/occluder_offset = Vector2( 0, 0 )
+2/navigation_offset = Vector2( 0, 0 )
+2/shapes = [  ]
+2/z_index = 0
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 349.392, 192.061 )
@@ -291,6 +310,7 @@ tile_data = PoolIntArray( 327685, 0, 0, 327686, 0, 0, 327687, 1, 0, 327688, 0, 0
 position = Vector2( 12.83, 82.812 )
 
 [node name="SelectedUnitInfo" type="Node2D" parent="."]
+editor/display_folded = true
 visible = false
 position = Vector2( 500, 60 )
 script = ExtResource( 14 )
@@ -367,6 +387,7 @@ script = ExtResource( 17 )
 
 [node name="CombatVictoryModal" type="Node2D" parent="."]
 pause_mode = 2
+editor/display_folded = true
 visible = false
 z_index = 1000
 script = ExtResource( 18 )
@@ -431,7 +452,6 @@ anims/ScreenShake = SubResource( 5 )
 script = ExtResource( 23 )
 
 [node name="CombatObjectiveHandler" type="Node" parent="."]
-editor/display_folded = true
 script = ExtResource( 24 )
 
 [node name="CombatObjectivesContainer" type="GridContainer" parent="CombatObjectiveHandler"]

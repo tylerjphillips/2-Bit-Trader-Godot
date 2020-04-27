@@ -30,6 +30,7 @@ signal unit_collides_unit # (attacking_unit, affected_unit, collision_count, col
 const SELECTION_MODE = "selection"
 const MOVE_MODE = "move"
 const ATTACK_MODE = "attack"
+const PLACEMENT_MODE = "placement"
 var movement_mode = SELECTION_MODE	 # what to do when a tile is clicked
 
 	# turns
@@ -41,6 +42,7 @@ signal round_ended
 signal tilemap_damage_preview # (damage_pattern)		When a tile is hovered over communicate the damage pattern at that tile
 
 onready var unit_asset = preload("res://scenes/combat/Unit.tscn") # unit prefab
+onready var combat_selection_modal = preload("res://scenes/combat/CombatPartySelectionModal.tscn")
 
 var directions = {
 		"north": Vector2(0,-1),
@@ -81,6 +83,8 @@ func _ready():
 	relay.connect("undo_button_pressed", self, "_on_undo_button_pressed")
 	relay.connect("end_turn_button_pressed", self, "_on_end_turn_button_pressed")
 	
+	relay.connect("combat_party_selection_finished", self, "_on_combat_party_selection_finished")
+	
 	get_tree().call_group("units", "_on_start_team_turn", current_team)
 	
 func init():
@@ -91,14 +95,38 @@ func init():
 	self.player_team = self.root.game_data["main_data"]["player_team"]
 	self.teams = current_event_data["event_teams"]
 	self.current_team = current_event_data["event_current_team"]
-	
+
 	var event_unit_ids = current_event_data["event_unit_ids"]
 	var party_unit_ids = self.root.game_data["main_data"]["party_unit_ids"]
 	self.batch_spawn_units(event_unit_ids)
-	self.batch_spawn_units(party_unit_ids)
 	self.set_tiles(tile_data)
+	
+	var event_current_round = current_event_data["event_current_round"]
+	if event_current_round == 0:
+		self.movement_mode = PLACEMENT_MODE
+		#self.movement_attack_overlay.create_placement_tiles(current_event_data["event_party_starting_positions"])
+		# add combat selection modal
+		var ui_element = self.combat_selection_modal.instance()
+		self.add_child(ui_element)
+		ui_element.init()
+
 
 ####### Spawning units #####
+
+func _on_combat_party_selection_finished(selected_party_unit_ids):
+	# set the selected units tile index to their starting positions defined by event_party_starting_positions, add them to the event, then spawn them
+	var current_event_id = self.root.game_data["main_data"]["current_event_id"]
+	var current_event_data = self.root.game_data["event_data"][current_event_id]
+	var event_party_starting_positions : Array = current_event_data["event_party_starting_positions"]
+	for i in range(len(selected_party_unit_ids)):
+		var unit_id = selected_party_unit_ids[i]	# get unit id of each selected unit
+		self.root.game_data["unit_data"][unit_id]["unit_tile_index"] = event_party_starting_positions[i]	# set its tile index to a starting point
+		self.root.game_data["event_data"][current_event_id]["event_unit_ids"].append(unit_id) # add unit to event units
+	
+	batch_spawn_units(selected_party_unit_ids)
+	emit_signal("round_ended")
+	emit_signal("round_started")
+	self.movement_mode = SELECTION_MODE
 
 func batch_spawn_units(unit_ids):
 	# Spawn units from a list of unit ids
@@ -151,6 +179,9 @@ func _on_tilemap_right_click():
 func click_tile(tile_index):
 	# handle the logic for clicking at a given tile index
 	var tile_pos = map_to_world(tile_index)
+	
+	if movement_mode == PLACEMENT_MODE:
+		pass
 	
 	if movement_mode == SELECTION_MODE:
 		# if another unit is at clicked tile

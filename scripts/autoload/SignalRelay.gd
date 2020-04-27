@@ -38,6 +38,12 @@ signal round_ended
 	# damage previews
 signal tilemap_damage_preview # (damage_pattern)
 
+# start of combat signals used for party selection
+signal combat_selecton_button_toggled(button)
+signal combat_party_selection_finished(selected_party_unit_ids)
+signal combat_party_selection_finish_button_pressed
+
+
 signal combat_victory
 signal combat_defeat
 
@@ -146,6 +152,13 @@ func _on_round_ended():
 	
 func _on_tilemap_damage_preview(damage_pattern):
 	emit_signal("tilemap_damage_preview", damage_pattern)	
+	
+func _on_combat_selecton_button_toggled(button):
+	emit_signal("combat_selecton_button_toggled", button)
+func _on_combat_party_selection_finished(selected_party_unit_ids):
+	emit_signal("combat_party_selection_finished", selected_party_unit_ids)
+func _on_combat_party_selection_finish_button_pressed():
+	emit_signal("combat_party_selection_finish_button_pressed")
 	
 func _on_combat_victory():
 	print("SignalRelay: Combat Victory")
