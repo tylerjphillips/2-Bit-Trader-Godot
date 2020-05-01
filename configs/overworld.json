@@ -1,96 +1,310 @@
 {
-	"Location-137374783":
+	"Location-Alzan":
 	{	
-		"location_id": "Location-137374783",
+		"location_id": "Location-Alzan",
 		"event_id":"Event-43832842",
 		"location_recruitment_unit_ids": ["Unit-834435"],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
-		"location_name": "map test 1",
-		"location_coords": [340,234],
-		"location_neighbor_ids": ["Location-357365873", "Location-28474628", "Location-982734987349","Location-3422355235", "Location-234234234234", "Location-23476465", "Location-2196327"],
-		},
-	
-	"Location-357365873":
-	{	
-		"location_id" : "Location-357365873",
-		"event_id":"Event-43832842",
-		"location_recruitment_unit_ids": [],
-		"location_event_complete": false,
-		"location_shop_id": "Shop-2745345",
-		"location_name": "map test 2",
-		"location_coords": [234,24],
-		"location_neighbor_ids": ["Location-137374783","Location-982734987349"]
+		"location_name": "Alzan",
+		"location_coords": [100,50],
+		"location_neighbor_ids": ["Location-AlzanForest"]
 	},
-	
-	"Location-28474628":
+	"Location-AlzanForest":
 	{	
-		"location_id": "Location-28474628",
+		"location_id": "Location-AlzanForest",
 		"event_id":"Event-43832842",
-		"location_recruitment_unit_ids": [],
-		"location_event_complete": false,
-		"location_shop_id": "Shop-2745345",
-		"location_name": "map test 3",
-		"location_coords": [200,378],
-		"location_neighbor_ids": ["Location-137374783"],
-	},
-	
-	"Location-982734987349":
-	{	
-		"location_id": "Location-982734987349",
-		"event_id":"Event-43832842",
-		"location_recruitment_unit_ids": [],
-		"location_event_complete": false,
-		"location_shop_id": "Shop-2745345",
-		"location_name": "map test 4",
-		"location_coords": [400,112],
-		"location_neighbor_ids": ["Location-137374783", "Location-357365873"],
-	},
-	
-	"Location-3422355235":
-	{	
-		"location_id": "Location-3422355235",
-		"event_id":"Event-43832842",
-		"location_recruitment_unit_ids": [],
-		"location_event_complete": false,
-		"location_shop_id": "Shop-2745345",
-		"location_name": "map test 5",
-		"location_coords": [136,75],
-		"location_neighbor_ids": ["Location-137374783"],
-	},
-	
-	"Location-234234234234":
-	{	
-		"location_id": "Location-234234234234",
-		"event_id":"Event-43832842",
-		"location_recruitment_unit_ids": [],
+		"location_recruitment_unit_ids": ["Unit-834435"],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
-		"location_name": "map test 6",
-		"location_coords": [390,180],
-		"location_neighbor_ids": ["Location-137374783"],
+		"location_name": "Alzan Forest",
+		"location_coords": [150,75],
+		"location_neighbor_ids": ["Location-AlzanMountains", "Location-Alzan", "Location-AlzanPlains"]
 	},
-	"Location-23476465":
+	"Location-AlzanMountains":
 	{	
-		"location_id": "Location-23476465",
+		"location_id": "Location-AlzanMountains",
 		"event_id":"Event-43832842",
-		"location_recruitment_unit_ids": [],
-		"location_event_complete": false,
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
-		"location_name": "map test 7",
-		"location_coords": [500,170],
-		"location_neighbor_ids": ["Location-137374783"],
+		"location_name": "Alzan Mountains",
+		"location_coords": [180,120],
+		"location_neighbor_ids": ["Location-Farval", "Location-AlzanForest"]
 	},
-	"Location-2196327":
+	"Location-AlzanPlains":
 	{	
-		"location_id": "Location-2196327",
+		"location_id": "Location-AlzanPlains",
 		"event_id":"Event-43832842",
-		"location_recruitment_unit_ids": [],
-		"location_event_complete": false,
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
-		"location_name": "map test 8",
-		"location_coords": [543,190],
-		"location_neighbor_ids": ["Location-137374783"],
+		"location_name": "Alzan Plains",
+		"location_coords": [105,200],
+		"location_neighbor_ids": ["Location-Kraksur", "Location-AlzanForest"]
 	},
-
+	"Location-Akinhur":
+	{	
+		"location_id": "Location-Akinhur",
+		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Akinhur",
+		"location_coords": [400,40],
+		"location_neighbor_ids": ["Location-FarvalBandits", "Location-AkinhurSwamps"]
+	},
+	"Location-Farval":
+	{	
+		"location_id": "Location-Farval",
+		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Farval",
+		"location_coords": [250,100],
+		"location_neighbor_ids": ["Location-AlzanMountains", "Location-FarvalOutskirts"]
+	},
+	"Location-FarvalOutskirts":
+	{	
+		"location_id": "Location-FarvalOutskirts",
+		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Farval Outskirts",
+		"location_coords": [275,130],
+		"location_neighbor_ids": ["Location-Farval", "Location-FarvalBandits", "Location-FarvalCaves"]
+	},
+	"Location-FarvalCaves":
+	{	
+		"location_id": "Location-FarvalCaves",
+		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Farval Caves",
+		"location_coords": [300,210],
+		"location_neighbor_ids": ["Location-N'thal", "Location-FarvalOutskirts", "Location-Balmor"]
+	},
+	"Location-FarvalBandits":
+	{	
+		"location_id": "Location-FarvalBandits",
+		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Farval Bandits",
+		"location_coords": [350,100],
+		"location_neighbor_ids": ["Location-FarvalOutskirts", "Location-Akinhur"]
+	},
+	"Location-AkinhurSwamps":
+	{	
+		"location_id": "Location-AkinhurSwamps",
+		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Farval Swamps",
+		"location_coords": [465,85],
+		"location_neighbor_ids": ["Location-Akinhur", "Location-ZaharRuins"]
+	},
+	"Location-ZaharRuins":
+	{	
+		"location_id": "Location-ZaharRuins",
+		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Zahar Ruins",
+		"location_coords": [540,100],
+		"location_neighbor_ids": ["Location-AkinhurSwamps", "Location-Zahar"]
+	},
+	"Location-Zahar":
+	{	
+		"location_id": "Location-Zahar",
+		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Zahar",
+		"location_coords": [600,120],
+		"location_neighbor_ids": ["Location-ZaharRuins","Location-BalmorForest","Location-ManisValley"]
+	},
+	"Location-Kraksur":
+	{	
+		"location_id": "Location-Kraksur",
+		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Kraksur",
+		"location_coords": [80,300],
+		"location_neighbor_ids": ["Location-AlzanPlains", "Location-KraksurValley"]
+	},
+	"Location-KraksurValley":
+	{	
+		"location_id": "Location-KraksurValley",
+		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Kraksur Valley",
+		"location_coords": [130,310],
+		"location_neighbor_ids": ["Location-Kraksur", "Location-N'thalPlains"]
+	},
+	"Location-N'thalPlains":
+	{	
+		"location_id": "Location-N'thalPlains",
+		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "N'thal Plains",
+		"location_coords": [265,325],
+		"location_neighbor_ids": ["Location-KraksurValley","Location-N'thal"]
+	},
+	"Location-N'thal":
+	{	
+		"location_id": "Location-N'thal",
+		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "N'thal",
+		"location_coords": [320,275],
+		"location_neighbor_ids": ["Location-VelRivers", "Location-FarvalCaves", "Location-N'thalPlains"]
+	},
+	"Location-Balmor":
+	{	
+		"location_id": "Location-Balmor",
+		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Balmor",
+		"location_coords": [455,235],
+		"location_neighbor_ids": ["Location-FarvalCaves", "Location-BalmorForest", "Location-BalmorKeep"]
+	},
+	"Location-BalmorKeep":
+	{	
+		"location_id": "Location-BalmorKeep",
+		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Balmor Keep",
+		"location_coords": [480,295],
+		"location_neighbor_ids": ["Location-Balmor", "Location-Vel"]
+	},
+	"Location-BalmorForest":
+	{	
+		"location_id": "Location-BalmorForest",
+		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Balmor Forest",
+		"location_coords": [530,200],
+		"location_neighbor_ids": ["Location-Balmor", "Location-Zahar"]
+	},
+	"Location-VelRivers":
+	{	
+		"location_id": "Location-VelRivers",
+		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Vel Rivers",
+		"location_coords": [380,345],
+		"location_neighbor_ids": ["Location-N'thal", "Location-VelPass"]
+	},
+	"Location-VelPass":
+	{	
+		"location_id": "Location-VelPass",
+		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Vel Pass",
+		"location_coords": [420,415],
+		"location_neighbor_ids": ["Location-VelRivers", "Location-Vel"]
+	},
+	"Location-Vel":
+	{	
+		"location_id": "Location-Vel",
+		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Vel",
+		"location_coords": [460,370],
+		"location_neighbor_ids": ["Location-VelPass", "Location-Grath", "Location-BalmorKeep"]
+	},
+	"Location-Grath":
+	{	
+		"location_id": "Location-Grath",
+		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Grath",
+		"location_coords": [515,450],
+		"location_neighbor_ids": ["Location-Vel", "Location-GrathBorder"]
+	},
+	"Location-GrathBorder":
+	{	
+		"location_id": "Location-GrathBorder",
+		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Grath Border",
+		"location_coords": [575,400],
+		"location_neighbor_ids": ["Location-Grath", "Location-Shupku"]
+	},
+	"Location-Shupku":
+	{	
+		"location_id": "Location-Shupku",
+		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Shupku",
+		"location_coords": [630,355],
+		"location_neighbor_ids": ["Location-GrathBorder", "Location-PellasBorder"]
+	},
+	"Location-ManisValley":
+	{	
+		"location_id": "Location-ManisValley",
+		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Manis Valley",
+		"location_coords": [665,170],
+		"location_neighbor_ids": ["Location-Zahar", "Location-Pellas"]
+	},
+	"Location-PellasBorder":
+	{	
+		"location_id": "Location-PellasBorder",
+		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Pellas Border",
+		"location_coords": [685,310],
+		"location_neighbor_ids": ["Location-Pellas","Location-Shupku"]
+	},
+	"Location-Pellas":
+	{	
+		"location_id": "Location-Pellas",
+		"event_id":"Event-43832842",
+		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_event_complete": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Pellas",
+		"location_coords": [740,230],
+		"location_neighbor_ids": ["Location-PellasBorder", "Location-ManisValley"]
+	}
 }

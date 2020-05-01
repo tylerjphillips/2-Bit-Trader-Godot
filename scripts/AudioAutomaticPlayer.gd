@@ -36,7 +36,7 @@ func fade_out_volume():
 	volume_out_tween.interpolate_property(self, "volume_db", self.fade_in_db, self.fade_out_db, self.fade_out_time ,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	volume_out_tween.start()
 
-func _on_fade_out():
+func _on_fade_out(object, key):
 	self._on_finished()
 
 func _on_finished():

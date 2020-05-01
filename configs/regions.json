@@ -3,6 +3,6 @@
 	{	
 		"region_id": "Region-26784",
 		"region_name":"Berg",
-		"region_polygon_point_list":[[200,200], [400,200], [400,450], [200,400]],
+		"region_polygon_point_list":[[0,0], [10,0], [10,10], [0,10]],
 	}
 }
