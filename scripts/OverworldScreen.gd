@@ -92,9 +92,11 @@ func _on_caravan_destination_reached(to_location_id):
 	root.game_data["main_data"]["current_location_id"] = to_location_id
 	var location_event_complete = self.root.game_data["overworld_data"][to_location_id]["location_event_complete"]
 	print("OverworldScreen: current event completion at this location ",location_event_complete )
-	# if location's event complete
+	# if location's event not complete
 	if !location_event_complete:
 		print("OverworldScreen: starting event at location....")
+		# set the current event to location's event
+		root.game_data["main_data"]["current_event_id"] = self.root.game_data["overworld_data"][to_location_id]["event_id"]
 		self.change_scene("event_screen")
 	else:
 		# location has shop

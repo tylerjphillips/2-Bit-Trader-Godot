@@ -425,4 +425,181 @@
 		
 	},
 	
+	"Unit-AlzanForest-Spider-1":
+	{
+		"unit_name": "Spider",
+		"unit_tile_index" : [12,5],
+		"unit_id" : "Unit-AlzanForest-Spider-1",
+		"unit_movement_points": 5,
+		"unit_movement_points_max": 5,
+		"unit_health_points": 3,
+		"unit_health_points_max": 3,
+		"unit_team":"red",
+		"unit_class": "Spider",
+		"unit_texture_path":"res://images/units/spider.png",
+		"unit_death_audio_path":"res://audio/dying_1.wav",
+		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
+		"unit_death_animation_frame_paths":["res://images/units/spider.png", "res://images/units/spider.png", "res://images/units/spider.png", "res://images/units/spider.png", "res://images/units/spider.png"],
+		"unit_recruitment_cost": 0,
+		"unit_upkeep_cost": 0,
+		"unit_is_boss": false,
+		"unit_xp": 0,
+		"unit_xp_max": 10,
+		"unit_level": 1,
+		"unit_level_max": 1,
+		"unit_xp_reward": 0,
+		"unit_pending_bonus_xp": 0,
+		"unit_level_up_rewards":{},
+		"unit_equipable_subtypes":["fangs"],
+		"unit_weapon_data" :
+		{
+		"Item-Fangs" :
+			{
+			"item_id": "Item-Fangs",
+			"item_sell_price":0,
+			"item_buy_price":0,
+			"item_type": "weapon",
+			"item_subtype": "fangs",
+			"weapon_tooltip" : "A vicious bite",
+			"weapon_texture_path": "res://images/weapons/sword.png",
+			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
+			"item_is_soulbound": true,
+			"weapon_pattern" : 
+				{
+				"pattern" : "cardinal",
+				"size" : 1,
+				"include_center": false
+				},
+			"damage_patterns":
+				[
+					{
+					"pattern" : "single",
+					"damage":
+						{
+						"normal": 2
+						},
+					"push_scalar": 0,
+					}
+				]
+			}
+		}
+	},
+	"Unit-AlzanForest-Spider-2":
+	{
+		"unit_name": "Spider",
+		"unit_tile_index" : [12,10],
+		"unit_id" : "Unit-AlzanForest-Spider-2",
+		"unit_movement_points": 5,
+		"unit_movement_points_max": 5,
+		"unit_health_points": 3,
+		"unit_health_points_max": 3,
+		"unit_team":"red",
+		"unit_class": "Spider",
+		"unit_texture_path":"res://images/units/spider.png",
+		"unit_death_audio_path":"res://audio/dying_1.wav",
+		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
+		"unit_death_animation_frame_paths":["res://images/units/spider.png", "res://images/units/spider.png", "res://images/units/spider.png", "res://images/units/spider.png", "res://images/units/spider.png"],
+		"unit_recruitment_cost": 0,
+		"unit_upkeep_cost": 0,
+		"unit_is_boss": false,
+		"unit_xp": 0,
+		"unit_xp_max": 10,
+		"unit_level": 1,
+		"unit_level_max": 1,
+		"unit_xp_reward": 0,
+		"unit_pending_bonus_xp": 0,
+		"unit_level_up_rewards":{},
+		"unit_equipable_subtypes":["fangs"],
+		"unit_weapon_data" :
+		{
+		"Item-Fangs" :
+			{
+			"item_id": "Item-Fangs",
+			"item_sell_price":0,
+			"item_buy_price":0,
+			"item_type": "weapon",
+			"item_subtype": "fangs",
+			"weapon_tooltip" : "A vicious bite",
+			"weapon_texture_path": "res://images/weapons/sword.png",
+			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
+			"item_is_soulbound": true,
+			"weapon_pattern" : 
+				{
+				"pattern" : "cardinal",
+				"size" : 1,
+				"include_center": false
+				},
+			"damage_patterns":
+				[
+					{
+					"pattern" : "single",
+					"damage":
+						{
+						"normal": 2
+						},
+					"push_scalar": 0,
+					}
+				]
+			}
+		}
+	},
+	"Unit-AlzanForest-Spider-3":
+	{
+		"unit_name": "Spider",
+		"unit_tile_index" : [12,8],
+		"unit_id" : "Unit-AlzanForest-Spider-3",
+		"unit_movement_points": 5,
+		"unit_movement_points_max": 5,
+		"unit_health_points": 3,
+		"unit_health_points_max": 3,
+		"unit_team":"red",
+		"unit_class": "Spider",
+		"unit_texture_path":"res://images/units/spider.png",
+		"unit_death_audio_path":"res://audio/dying_1.wav",
+		"unit_damaged_audio_path":"res://audio/grunt_1.wav",
+		"unit_death_animation_frame_paths":["res://images/units/spider.png", "res://images/units/spider.png", "res://images/units/spider.png", "res://images/units/spider.png", "res://images/units/spider.png"],
+		"unit_recruitment_cost": 0,
+		"unit_upkeep_cost": 0,
+		"unit_is_boss": false,
+		"unit_xp": 0,
+		"unit_xp_max": 10,
+		"unit_level": 1,
+		"unit_level_max": 1,
+		"unit_xp_reward": 0,
+		"unit_pending_bonus_xp": 0,
+		"unit_level_up_rewards":{},
+		"unit_equipable_subtypes":["fangs"],
+		"unit_weapon_data" :
+		{
+		"Item-Fangs" :
+			{
+			"item_id": "Item-Fangs",
+			"item_sell_price":0,
+			"item_buy_price":0,
+			"item_type": "weapon",
+			"item_subtype": "fangs",
+			"weapon_tooltip" : "A vicious bite",
+			"weapon_texture_path": "res://images/weapons/sword.png",
+			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
+			"item_is_soulbound": true,
+			"weapon_pattern" : 
+				{
+				"pattern" : "cardinal",
+				"size" : 1,
+				"include_center": false
+				},
+			"damage_patterns":
+				[
+					{
+					"pattern" : "single",
+					"damage":
+						{
+						"normal": 2
+						},
+					"push_scalar": 0,
+					}
+				]
+			}
+		}
+	}
 }

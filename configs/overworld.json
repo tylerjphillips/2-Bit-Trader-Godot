@@ -2,7 +2,7 @@
 	"Location-Alzan":
 	{	
 		"location_id": "Location-Alzan",
-		"event_id":"Event-43832842",
+		"event_id":"Event-Alzan",
 		"location_recruitment_unit_ids": ["Unit-834435"],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
@@ -13,9 +13,9 @@
 	"Location-AlzanForest":
 	{	
 		"location_id": "Location-AlzanForest",
-		"event_id":"Event-43832842",
+		"event_id":"Event-AlzanForest",
 		"location_recruitment_unit_ids": ["Unit-834435"],
-		"location_event_complete": true,
+		"location_event_complete": false,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Alzan Forest",
 		"location_coords": [150,75],
