@@ -1,9 +1,9 @@
 {
-	"Unit-145927595":
+	"Unit-Player-Carl":
 	{
 		"unit_tile_index" : [10,10],
 		"unit_name": "Carl",
-		"unit_id" : "Unit-145927595",
+		"unit_id" : "Unit-Player-Carl",
 		"unit_team": "blue",
 		"unit_movement_points": 6,
 		"unit_movement_points_max": 6,
@@ -95,11 +95,11 @@
 		
 	},
 	
-	"Unit-14592735":
+	"Unit-Player-Jake":
 	{
 		"unit_name": "Jake", 
 		"unit_tile_index" : [11,5],
-		"unit_id" : "Unit-14592735",
+		"unit_id" : "Unit-Player-Jake",
 		"unit_movement_points": 6,
 		"unit_movement_points_max": 6,
 		"unit_health_points": 6,
@@ -300,11 +300,11 @@
 		}
 	},
 	
-	"Unit-834435":
+	"Unit-Player-Jerry":
 	{
 		"unit_name": "Jerry",
 		"unit_tile_index" : [14,5],
-		"unit_id" : "Unit-834435",
+		"unit_id" : "Unit-Player-Jerry",
 		"unit_movement_points": 6,
 		"unit_movement_points_max": 6,
 		"unit_health_points": 4,
@@ -365,11 +365,11 @@
 		}
 	},
 	
-	"Unit-347234234":
+	"Unit-Player-Caravan-1":
 	{
 		"unit_tile_index" : [5,5],
 		"unit_name": "Caravan 1",
-		"unit_id" : "Unit-347234234",
+		"unit_id" : "Unit-Player-Caravan-1",
 		"unit_team": "blue",
 		"unit_movement_points": 3,
 		"unit_movement_points_max": 3,
@@ -394,11 +394,11 @@
 		"unit_weapon_data" : {}
 		
 	},
-	"Unit-568127643":
+	"Unit-Player-Reward":
 	{
 		"unit_tile_index" : [7,7],
 		"unit_name": "Reward unit",
-		"unit_id" : "Unit-568127643",
+		"unit_id" : "Unit-Player-Reward",
 		"unit_team": "blue",
 		"unit_movement_points": 3,
 		"unit_movement_points_max": 3,

@@ -3,7 +3,7 @@
 	{	
 		"location_id": "Location-Alzan",
 		"event_id":"Event-Alzan",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": ["Unit-Player-Jerry"],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Alzan",
@@ -14,8 +14,8 @@
 	{	
 		"location_id": "Location-AlzanForest",
 		"event_id":"Event-AlzanForest",
-		"location_recruitment_unit_ids": ["Unit-834435"],
-		"location_event_complete": true,
+		"location_recruitment_unit_ids": [],
+		"location_event_complete": false,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Alzan Forest",
 		"location_coords": [150,75],
@@ -25,7 +25,7 @@
 	{	
 		"location_id": "Location-AlzanMountains",
 		"event_id":"Event-AlzanMountains",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": false,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Alzan Mountains",
@@ -36,7 +36,7 @@
 	{	
 		"location_id": "Location-AlzanPlains",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Alzan Plains",
@@ -47,7 +47,7 @@
 	{	
 		"location_id": "Location-Akinhur",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Akinhur",
@@ -58,7 +58,7 @@
 	{	
 		"location_id": "Location-Farval",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Farval",
@@ -69,7 +69,7 @@
 	{	
 		"location_id": "Location-FarvalOutskirts",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Farval Outskirts",
@@ -80,7 +80,7 @@
 	{	
 		"location_id": "Location-FarvalCaves",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Farval Caves",
@@ -91,7 +91,7 @@
 	{	
 		"location_id": "Location-FarvalBandits",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Farval Bandits",
@@ -102,7 +102,7 @@
 	{	
 		"location_id": "Location-AkinhurSwamps",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Farval Swamps",
@@ -113,7 +113,7 @@
 	{	
 		"location_id": "Location-ZaharRuins",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Zahar Ruins",
@@ -124,7 +124,7 @@
 	{	
 		"location_id": "Location-Zahar",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Zahar",
@@ -135,7 +135,7 @@
 	{	
 		"location_id": "Location-Kraksur",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Kraksur",
@@ -146,7 +146,7 @@
 	{	
 		"location_id": "Location-KraksurValley",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Kraksur Valley",
@@ -157,7 +157,7 @@
 	{	
 		"location_id": "Location-N'thalPlains",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "N'thal Plains",
@@ -168,7 +168,7 @@
 	{	
 		"location_id": "Location-N'thal",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "N'thal",
@@ -179,7 +179,7 @@
 	{	
 		"location_id": "Location-Balmor",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Balmor",
@@ -190,7 +190,7 @@
 	{	
 		"location_id": "Location-BalmorKeep",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Balmor Keep",
@@ -201,7 +201,7 @@
 	{	
 		"location_id": "Location-BalmorForest",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Balmor Forest",
@@ -212,7 +212,7 @@
 	{	
 		"location_id": "Location-VelRivers",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Vel Rivers",
@@ -223,7 +223,7 @@
 	{	
 		"location_id": "Location-VelPass",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Vel Pass",
@@ -234,7 +234,7 @@
 	{	
 		"location_id": "Location-Vel",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Vel",
@@ -245,7 +245,7 @@
 	{	
 		"location_id": "Location-Grath",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Grath",
@@ -256,7 +256,7 @@
 	{	
 		"location_id": "Location-GrathBorder",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Grath Border",
@@ -267,7 +267,7 @@
 	{	
 		"location_id": "Location-Shupku",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Shupku",
@@ -278,7 +278,7 @@
 	{	
 		"location_id": "Location-ManisValley",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Manis Valley",
@@ -289,7 +289,7 @@
 	{	
 		"location_id": "Location-PellasBorder",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Pellas Border",
@@ -300,7 +300,7 @@
 	{	
 		"location_id": "Location-Pellas",
 		"event_id":"Event-Test-1",
-		"location_recruitment_unit_ids": ["Unit-834435"],
+		"location_recruitment_unit_ids": [],
 		"location_event_complete": true,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Pellas",

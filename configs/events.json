@@ -65,7 +65,7 @@
 		"event_current_dialogue_id": "Dialogue-1",
 		"event_current_round": 0,
 		"event_party_max_members": 3,
-		"event_required_member_ids": ["Unit-347234234"],
+		"event_required_member_ids": ["Unit-Player-Caravan-1"],
 		"event_party_starting_positions": [[5,5],[5,6],[5,7],[5,8],[5,9]],
 		"event_victory_conditions":
 		{
@@ -89,7 +89,7 @@
 				"region_tile_indexes":[],
 			}
 		},
-		"event_image_path": "res://images/weapons/sword.png",
+		"event_image_path": "res://images/event/plains.jpg",
 		"event_dialogue_data":
 		{
 			"Dialogue-1":
@@ -114,7 +114,7 @@
 				"dialogue_id": "Dialogue-Victory",
 				"choice_starts_combat": true,
 				"choice_returns_to_overworld": false,
-				"set_event_image_path": "res://images/weapons/bow.png",
+				"set_event_image_path": "res://images/event/plains.jpg",
 				"choice_rewards": {}
 			},
 			"Choice-2":
@@ -124,7 +124,7 @@
 				"dialogue_id": "",
 				"choice_starts_combat": false,
 				"choice_returns_to_overworld": true,
-				"set_event_image_path": "res://images/weapons/bow.png",
+				"set_event_image_path": "res://images/event/plains.jpg",
 				"choice_rewards": {}
 			}
 		}
@@ -140,7 +140,7 @@
 		"event_current_dialogue_id": "Dialogue-1",
 		"event_current_round": 0,
 		"event_party_max_members": 3,
-		"event_required_member_ids": ["Unit-347234234"],
+		"event_required_member_ids": ["Unit-Player-Caravan-1"],
 		"event_party_starting_positions": [[5,5],[5,6],[5,7],[5,8],[5,9]],
 		"event_victory_conditions":
 		{
@@ -164,7 +164,7 @@
 				"region_tile_indexes":[],
 			}
 		},
-		"event_image_path": "res://images/weapons/sword.png",
+		"event_image_path": "res://images/event/mountains.png",
 		"event_dialogue_data":
 		{
 			"Dialogue-1":
@@ -201,7 +201,7 @@
 				"dialogue_id": "Dialogue-2",
 				"choice_starts_combat": false,
 				"choice_returns_to_overworld": false,
-				"set_event_image_path": "res://images/weapons/bow.png",
+				"set_event_image_path": "res://images/event/mountains.png",
 				"choice_rewards": {}
 			},
 			"Choice-2":
@@ -211,7 +211,7 @@
 				"dialogue_id": "Dialogue-3",
 				"choice_starts_combat": false,
 				"choice_returns_to_overworld": false,
-				"set_event_image_path": "res://images/weapons/bow.png",
+				"set_event_image_path": "res://images/event/mountains.png",
 				"choice_rewards": {}
 			},
 			"Choice-3":
@@ -221,7 +221,7 @@
 				"dialogue_id": "Dialogue-Victory",
 				"choice_starts_combat": true,
 				"choice_returns_to_overworld": false,
-				"set_event_image_path": "res://images/weapons/bow.png",
+				"set_event_image_path": "res://images/event/mountains.png",
 				"choice_rewards": {}
 			},
 			"Choice-4":
@@ -231,7 +231,7 @@
 				"dialogue_id": "",
 				"choice_starts_combat": false,
 				"choice_returns_to_overworld": true,
-				"set_event_image_path": "res://images/weapons/bow.png",
+				"set_event_image_path": "res://images/event/mountains.png",
 				"choice_rewards": {}
 			}
 		}
@@ -247,7 +247,7 @@
 		"event_current_dialogue_id": "Dialogue-1",
 		"event_current_round": 0,
 		"event_party_max_members": 2,
-		"event_required_member_ids": ["Unit-347234234"],
+		"event_required_member_ids": ["Unit-Player-Caravan-1"],
 		"event_party_starting_positions": [[5,5],[5,6],[5,7],[5,8],[5,9]],
 		"event_victory_conditions":
 		{
@@ -256,7 +256,7 @@
 			"event_victory_kill_threshold": 0,
 			"event_victory_units_move_to_region":
 			{
-				"unit_ids": ["Unit-347234234"],
+				"unit_ids": ["Unit-Player-Caravan-1"],
 				"region_tile_indexes":[[5,6]],
 			}
 		},
@@ -267,7 +267,7 @@
 			"event_defeat_kill_threshold": 0,
 			"event_defeat_units_move_to_region":
 			{
-				"unit_ids": ["Unit-347234234"],
+				"unit_ids": ["Unit-Player-Caravan-1"],
 				"region_tile_indexes":[[5,7]],
 			}
 		},
@@ -324,7 +324,7 @@
 					{
 					"gold": 1115,
 					"items": {},
-					"unit_ids": ["Unit-568127643"],
+					"unit_ids": ["Unit-Player-Reward"],
 					"bonus_xp": 100
 					}
 				}
