@@ -68,9 +68,9 @@
 	"Location-FarvalOutskirts":
 	{	
 		"location_id": "Location-FarvalOutskirts",
-		"event_id":"Event-Test-1",
+		"event_id":"Event-FarvalOutskirts",
 		"location_recruitment_unit_ids": [],
-		"location_event_complete": true,
+		"location_event_complete": false,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Farval Outskirts",
 		"location_coords": [275,130],
@@ -79,9 +79,9 @@
 	"Location-FarvalCaves":
 	{	
 		"location_id": "Location-FarvalCaves",
-		"event_id":"Event-Test-1",
+		"event_id":"Event-FarvalCaves",
 		"location_recruitment_unit_ids": [],
-		"location_event_complete": true,
+		"location_event_complete": false,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Farval Caves",
 		"location_coords": [300,210],
@@ -90,9 +90,9 @@
 	"Location-FarvalBandits":
 	{	
 		"location_id": "Location-FarvalBandits",
-		"event_id":"Event-Test-1",
+		"event_id":"Event-FarvalBandits",
 		"location_recruitment_unit_ids": [],
-		"location_event_complete": true,
+		"location_event_complete": false,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Farval Bandits",
 		"location_coords": [350,100],
