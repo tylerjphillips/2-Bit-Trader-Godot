@@ -85,8 +85,6 @@ func _ready():
 	
 	relay.connect("combat_party_selection_finished", self, "_on_combat_party_selection_finished")
 	
-	get_tree().call_group("units", "_on_start_team_turn", current_team)
-	
 func init():
 	var current_event_id = self.root.game_data["main_data"]["current_event_id"]
 	var current_event_data = self.root.game_data["event_data"][current_event_id]
@@ -127,6 +125,7 @@ func _on_combat_party_selection_finished(selected_party_unit_ids):
 	emit_signal("round_ended")
 	emit_signal("round_started")
 	self.movement_mode = SELECTION_MODE
+	emit_signal("team_start_turn", current_team)	# reset turn and AP
 
 func batch_spawn_units(unit_ids):
 	# Spawn units from a list of unit ids

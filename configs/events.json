@@ -636,7 +636,7 @@
 			"Choice-Overworld":
 			{
 				"choice_id":"Choice-Overworld",
-				"choice_bbcode": "[center]\[\][/center]",
+				"choice_bbcode": "[center]\[Return to Overworld\][/center]",
 				"dialogue_id": "",
 				"choice_starts_combat": false,
 				"choice_returns_to_overworld": true,

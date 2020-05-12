@@ -1311,7 +1311,7 @@
 	"Unit-AlzanPlains-Skeleton-4":
 	{
 		"unit_name": "Skeleton",
-		"unit_tile_index" : [8,13],
+		"unit_tile_index" : [8,8],
 		"unit_id" : "Unit-AlzanPlains-Skeleton-4",
 		"unit_movement_points": 5,
 		"unit_movement_points_max": 5,
