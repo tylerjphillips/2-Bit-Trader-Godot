@@ -4,8 +4,8 @@
 	"days_until_defeat": 23,
 	"gold": 500,
 	"bonus_xp": 200,
-	"current_event_id": "Event-FarvalCaves",
-	"current_location_id": "Location-FarvalCaves",
+	"current_event_id": "Event-AlzanMountains",
+	"current_location_id": "Location-AlzanMountains",
 	"party_unit_ids": ["Unit-Player-Carl", "Unit-Player-Jake", "Unit-Player-Caravan-1"],
 	"player_items": 
 	{

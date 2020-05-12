@@ -35,9 +35,9 @@
 	"Location-AlzanPlains":
 	{	
 		"location_id": "Location-AlzanPlains",
-		"event_id":"Event-Test-1",
+		"event_id":"Event-AlzanPlains",
 		"location_recruitment_unit_ids": [],
-		"location_event_complete": true,
+		"location_event_complete": false,
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Alzan Plains",
 		"location_coords": [105,200],
