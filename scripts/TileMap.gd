@@ -88,7 +88,8 @@ func _ready():
 func init():
 	var current_event_id = self.root.game_data["main_data"]["current_event_id"]
 	var current_event_data = self.root.game_data["event_data"][current_event_id]
-	var tile_data = current_event_data["map_tiles"]
+	var map_tiles = current_event_data["map_tiles"]
+	var map_decoration_tiles = current_event_data["map_decoration_tiles"]
 	
 	self.player_team = self.root.game_data["main_data"]["player_team"]
 	self.teams = current_event_data["event_teams"]
@@ -97,7 +98,7 @@ func init():
 	var event_unit_ids = current_event_data["event_unit_ids"]
 	var party_unit_ids = self.root.game_data["main_data"]["party_unit_ids"]
 	self.batch_spawn_units(event_unit_ids)
-	self.set_tiles(tile_data)
+	self.set_tiles(map_tiles, map_decoration_tiles)
 	
 	var event_current_round = current_event_data["event_current_round"]
 	if event_current_round == 0:
@@ -349,12 +350,14 @@ func _on_unit_info_weapon_selected(weapon_id):
 	
 ####################### Tile based functions ###################
 
-func set_tiles(tile_data):
-	# sets the tiles in the tilemap from a JSON payload
+func set_tiles(tiles, decorations):
+	# sets the tiles and decorations in the tilemap from a JSON payload
 	# Usually used for initialization but can also batch edit tiles on demand
 	print("Tilemap: setting tiles")
-	for tile in tile_data:
+	for tile in tiles:
 		self.set_cell(tile[0],tile[1], tile[2])
+	for decoration in decorations:
+		$Decorations.set_cell(decoration[0],decoration[1], decoration[2])
 	
 func get_bfs(unit):
 	# returns all the tile indexes that a unit can move to
