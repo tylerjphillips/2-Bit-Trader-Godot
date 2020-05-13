@@ -35,6 +35,7 @@ onready var directions_to_unit_animations = {
 		# movement
 export (int) var unit_movement_points = 4 setget set_unit_movement_points, get_unit_movement_points
 export (int) var unit_movement_points_max = 4 setget set_unit_movement_points_max, get_unit_movement_points_max
+export (Dictionary) var unit_tile_movement_costs # maps tile types to the movement cost for moving across that type of tile
 var unit_can_move : bool = true setget set_unit_can_move, get_unit_can_move
 		# position
 var unit_tile_index : Vector2	 setget set_unit_tile_index, get_unit_tile_index # Unit does not directly change tile index, must be handled by tilemap. Stored in unit for serialization purposes
@@ -129,6 +130,7 @@ func init(unit_position : Vector2, unit_args: Dictionary, is_reinitializing = fa
 	self.unit_team = unit_args["unit_team"]
 	self.unit_movement_points = unit_args["unit_movement_points"]
 	self.unit_movement_points_max = unit_args["unit_movement_points_max"]
+	self.unit_tile_movement_costs = unit_args["unit_tile_movement_costs"]
 	
 	self.unit_health_points = unit_args["unit_health_points"]
 	self.unit_health_points_max = unit_args["unit_health_points_max"]
@@ -404,6 +406,7 @@ func get_unit_repr():
 	unit_data["unit_team"] = self.unit_team
 	unit_data["unit_movement_points"] = self.unit_movement_points
 	unit_data["unit_movement_points_max"] = self.unit_movement_points_max
+	unit_data["unit_tile_movement_costs"] = self.unit_tile_movement_costs
 	unit_data["unit_tile_index"] = self.unit_tile_index
 	unit_data["unit_health_points"] = self.unit_health_points
 	unit_data["unit_health_points_max"] = self.unit_health_points_max

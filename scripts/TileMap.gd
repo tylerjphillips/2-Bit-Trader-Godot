@@ -364,21 +364,28 @@ func get_bfs(unit):
 	var moveable_tile_indexes = Dictionary(); # end result. maps tile_index:cost
 	var unvisited_tiles = []
 	var starting_point = unit_to_index[unit]
-	unvisited_tiles.append(starting_point)
+	unvisited_tiles.append(starting_point)	# add current location as unvisited
 	moveable_tile_indexes[starting_point] = 0
 
 	var current_index
 	var possible_index
-
+	
 	while(len(unvisited_tiles)):
-		current_index = unvisited_tiles.pop_front()
+		current_index = unvisited_tiles.pop_front() # get the next tile
 		for direction in self.directions:
+			# check neighbor
 			possible_index = current_index + self.directions[direction]
+			# check if neighbor within bounds
 			if self.get_cell(possible_index.x, possible_index.y) != INVALID_CELL:
-				if not moveable_tile_indexes.has(possible_index):
-					if moveable_tile_indexes[current_index] + 1 <= unit.unit_movement_points:
-						unvisited_tiles.append(possible_index)
-						moveable_tile_indexes[possible_index] = moveable_tile_indexes[current_index] + 1
+				# get the cost that unit has to move to the tile type
+				var tile_type : String = str(self.get_cell(possible_index.x, possible_index.y))
+				var movement_cost : int = unit.unit_tile_movement_costs.get(tile_type, 1) 
+					
+				# check if not already visited
+				#if not moveable_tile_indexes.has(possible_index):
+				if moveable_tile_indexes[current_index] + movement_cost <= unit.unit_movement_points:
+					unvisited_tiles.append(possible_index)
+					moveable_tile_indexes[possible_index] = moveable_tile_indexes[current_index] + movement_cost
 	
 	moveable_tile_indexes.erase(starting_point)
 	unit.last_bfs = moveable_tile_indexes
