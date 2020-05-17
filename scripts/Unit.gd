@@ -71,6 +71,7 @@ var unit_damaged_audio_path : String
 var unit_death_animation_frame_paths : Array
 
 var unit_is_boss : bool
+var unit_move_after_attack : bool	# if unit can move again after attacking
 
 var unit_xp : int setget set_unit_xp, get_unit_xp
 var unit_xp_max : int
@@ -180,6 +181,7 @@ func init(unit_position : Vector2, unit_args: Dictionary, is_reinitializing = fa
 	
 	self.unit_can_move = unit_args.get("unit_can_move", true)
 	self.unit_can_attack = unit_args.get("unit_can_attack", true)
+	self.unit_move_after_attack = unit_args["unit_move_after_attack"]
 	
 	if !is_reinitializing:
 		emit_signal("unit_spawned", self)
@@ -221,6 +223,7 @@ func _on_team_start_turn(team):
 	if self.unit_team == team:
 		self.unit_can_move = true
 		self.unit_can_attack = true
+		self.unit_movement_points = self.unit_movement_points_max
 
 func _on_team_end_turn(team):
 	if self.unit_team == team:
@@ -231,6 +234,7 @@ func _on_unit_moved(unit, previous_tile_index, tile_index, movement_cost):
 	if unit == self:
 		self.set_unit_can_move(false)
 		self.unit_tile_index = tile_index
+		self.unit_movement_points -= movement_cost
 
 func _on_unit_attacks_tile(attacking_unit, tile_index, attacking_unit_attack_pattern, attacking_unit_weapon_data):
 	if self == attacking_unit:
@@ -238,6 +242,8 @@ func _on_unit_attacks_tile(attacking_unit, tile_index, attacking_unit_attack_pat
 		self.play_attack_animation(attack_direction)
 		self.unit_can_attack = false
 		self.unit_can_move = false
+		if self.unit_move_after_attack and self.unit_movement_points > 0:
+			self.unit_can_move = true
 
 func _on_unit_attacks_unit(attacking_unit, damage_pattern, attacked_unit, damage_tile_index):
 	print("Unit, damage tile index: ", damage_tile_index)
@@ -414,6 +420,7 @@ func get_unit_repr():
 	unit_data["unit_weapon_data"] = self.unit_weapon_data
 	unit_data["unit_can_move"] = self.unit_can_move
 	unit_data["unit_can_attack"] = self.unit_can_attack
+	unit_data["unit_move_after_attack"] = self.unit_move_after_attack
 	unit_data["unit_texture_path"] = self.unit_texture_path
 	unit_data["unit_death_audio_path"] = self.unit_death_audio_path
 	unit_data["unit_damaged_audio_path"] = self.unit_damaged_audio_path

@@ -290,6 +290,9 @@ func unit_attack_tile(attacking_unit, weapon_index, tile_index):
 	self.deselect_unit()
 	self.movement_attack_overlay.clear_attack_tiles()
 	attacking_unit.last_attack_pattern.clear()	# clear the cache to prevent accessing old tiles after moving
+	
+	if attacking_unit.unit_move_after_attack:
+		self.select_unit(attacking_unit)
 			
 func push_unit(pushed_unit, pushed_into_tile_index : Vector2):
 	move_unit_to_tile(pushed_unit, pushed_into_tile_index)
@@ -379,13 +382,13 @@ func get_bfs(unit):
 			if self.get_cell(possible_index.x, possible_index.y) != INVALID_CELL:
 				# get the cost that unit has to move to the tile type
 				var tile_type : String = str(self.get_cell(possible_index.x, possible_index.y))
-				var movement_cost : int = unit.unit_tile_movement_costs.get(tile_type, 1) 
+				var movement_cost : int = moveable_tile_indexes[current_index] + unit.unit_tile_movement_costs.get(tile_type, 1) 
 					
 				# check if not already visited
 				#if not moveable_tile_indexes.has(possible_index):
-				if moveable_tile_indexes[current_index] + movement_cost <= unit.unit_movement_points:
+				if  movement_cost <= unit.unit_movement_points and movement_cost <= moveable_tile_indexes.get(possible_index, movement_cost):
 					unvisited_tiles.append(possible_index)
-					moveable_tile_indexes[possible_index] = moveable_tile_indexes[current_index] + movement_cost
+					moveable_tile_indexes[possible_index] = movement_cost
 	
 	moveable_tile_indexes.erase(starting_point)
 	unit.last_bfs = moveable_tile_indexes
