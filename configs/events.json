@@ -13,6 +13,15 @@
 		"event_party_max_members": 2,
 		"event_required_member_ids": [],
 		"event_party_starting_positions": [],
+		"event_reinforcement_data":
+		[
+			{
+			"reinforcement_round": 1,
+			"reinforcement_team": "red",
+			"reinforcement_unit_ids": [],
+			"reinforcement_tile_indexes": []
+			}
+		],
 		"event_victory_conditions":{},
 		"event_defeat_conditions":{},
 		"event_image_path": "res://images/weapons/sword.png",
@@ -69,6 +78,15 @@
 		"event_party_max_members": 3,
 		"event_required_member_ids": ["Unit-Player-Caravan-1"],
 		"event_party_starting_positions": [[5,5],[5,6],[5,7],[5,8],[5,9]],
+		"event_reinforcement_data":
+		[
+			{
+			"reinforcement_round": 2,
+			"reinforcement_team": "red",
+			"reinforcement_unit_ids": ["Unit-AlzanForest-Spider-4"],
+			"reinforcement_tile_indexes": [[12,12]]
+			}
+		],
 		"event_victory_conditions":
 		{
 			"event_victory_round": 5,
@@ -145,6 +163,15 @@
 		"event_party_max_members": 3,
 		"event_required_member_ids": ["Unit-Player-Caravan-1"],
 		"event_party_starting_positions": [[5,5],[5,6],[5,7],[5,8],[5,9]],
+		"event_reinforcement_data":
+		[
+			{
+			"reinforcement_round": 1,
+			"reinforcement_team": "red",
+			"reinforcement_unit_ids": [],
+			"reinforcement_tile_indexes": []
+			}
+		],
 		"event_victory_conditions":
 		{
 			"event_victory_round": 7,
@@ -253,6 +280,15 @@
 		"event_party_max_members": 3,
 		"event_required_member_ids": ["Unit-Player-Caravan-1"],
 		"event_party_starting_positions": [[5,5],[5,6],[5,7],[5,8],[5,9]],
+		"event_reinforcement_data":
+		[
+			{
+			"reinforcement_round": 1,
+			"reinforcement_team": "red",
+			"reinforcement_unit_ids": [],
+			"reinforcement_tile_indexes": []
+			}
+		],
 		"event_victory_conditions":
 		{
 			"event_victory_round": 7,
@@ -371,6 +407,15 @@
 		"event_party_max_members": 3,
 		"event_required_member_ids": ["Unit-Player-Caravan-1"],
 		"event_party_starting_positions": [[5,5],[5,6],[5,7],[5,8],[5,9]],
+		"event_reinforcement_data":
+		[
+			{
+			"reinforcement_round": 1,
+			"reinforcement_team": "red",
+			"reinforcement_unit_ids": [],
+			"reinforcement_tile_indexes": []
+			}
+		],
 		"event_victory_conditions":
 		{
 			"event_victory_round": 7,
@@ -472,6 +517,15 @@
 		"event_party_max_members": 3,
 		"event_required_member_ids": ["Unit-Player-Caravan-1"],
 		"event_party_starting_positions": [[5,5],[5,6],[5,7],[5,8],[5,9]],
+		"event_reinforcement_data":
+		[
+			{
+			"reinforcement_round": 1,
+			"reinforcement_team": "red",
+			"reinforcement_unit_ids": [],
+			"reinforcement_tile_indexes": []
+			}
+		],
 		"event_victory_conditions":
 		{
 			"event_victory_round": 7,
@@ -564,6 +618,15 @@
 		"event_party_max_members": 3,
 		"event_required_member_ids": ["Unit-Player-Caravan-1"],
 		"event_party_starting_positions": [[5,5],[5,6],[5,7],[5,8],[5,9]],
+		"event_reinforcement_data":
+		[
+			{
+			"reinforcement_round": 1,
+			"reinforcement_team": "red",
+			"reinforcement_unit_ids": [],
+			"reinforcement_tile_indexes": []
+			}
+		],
 		"event_victory_conditions":
 		{
 			"event_victory_round": 7,
@@ -669,6 +732,15 @@
 		"event_party_max_members": 2,
 		"event_required_member_ids": ["Unit-Player-Caravan-1"],
 		"event_party_starting_positions": [[5,5],[5,6],[5,7],[5,8],[5,9]],
+		"event_reinforcement_data":
+		[
+			{
+			"reinforcement_round": 1,
+			"reinforcement_team": "red",
+			"reinforcement_unit_ids": [],
+			"reinforcement_tile_indexes": []
+			}
+		],
 		"event_victory_conditions":
 		{
 			"event_victory_round": 5,

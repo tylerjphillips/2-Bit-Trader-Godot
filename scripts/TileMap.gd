@@ -84,6 +84,8 @@ func _ready():
 	relay.connect("end_turn_button_pressed", self, "_on_end_turn_button_pressed")
 	
 	relay.connect("combat_party_selection_finished", self, "_on_combat_party_selection_finished")
+	relay.connect("round_started", self, "_on_round_started")
+	relay.connect("team_start_turn", self, "_on_team_start_turn")
 	
 func init():
 	var current_event_id = self.root.game_data["main_data"]["current_event_id"]
@@ -145,7 +147,42 @@ func spawn_unit(tile_index, unit_args):
 	# initialize tile index <-> unit bindings
 	unit_to_index[unit] = tile_index
 	index_to_unit[tile_index] = unit
+
+func attempt_spawn_event_reinforcements():
+	# spawn event reinforcements where possible
+	var current_event_id = self.root.game_data["main_data"]["current_event_id"]
+	var current_event_data = self.root.game_data["event_data"][current_event_id]
 	
+	var event_current_round : int = current_event_data["event_current_round"]
+	var event_current_team : String = current_event_data["event_current_team"]
+	var event_reinforcement_data : Array = current_event_data["event_reinforcement_data"]
+	
+
+	
+	if len(event_reinforcement_data) > 0:
+		var reinforcement_data = event_reinforcement_data[0]
+		var spawnable_unit_ids = Array() # list of unit ids for units that can be spawned at the reinforcement tiles
+		
+		var reinforcement_round : int = reinforcement_data["reinforcement_round"]
+		var reinforcement_team : String = reinforcement_data["reinforcement_team"]
+		# spawn reinforcements if matches current round and team
+		if reinforcement_round == event_current_round and reinforcement_team == event_current_team:
+			var reinforcement_unit_ids : Array = reinforcement_data["reinforcement_unit_ids"]
+			var reinforcement_tile_indexes : Array = reinforcement_data["reinforcement_tile_indexes"]
+			# go through all reinforcements and try to spawn them at available tiles
+			for unit_id in reinforcement_unit_ids:
+				var unit_data = self.root.game_data["unit_data"][unit_id]
+				for t_i in reinforcement_tile_indexes:
+					var possible_tile_index = Vector2(t_i[0], t_i[1])
+					if not self.index_to_unit.has(possible_tile_index):
+						self.spawn_unit(possible_tile_index, unit_data)
+						self.root.game_data["event_data"][current_event_id]["event_unit_ids"].append(unit_id) # add unit to event units
+						spawnable_unit_ids.append(unit_id)
+						break
+	
+			assert(len(reinforcement_unit_ids) == len(spawnable_unit_ids)) # all units must be spawnable
+			event_reinforcement_data.pop_front()	# remove the round
+
 ################ Mouse Related #############
 
 func _on_tilemap_left_click():
@@ -244,8 +281,15 @@ func deselect_unit():
 	selected_unit = null
 	selected_weapon_id = null
 	self.movement_mode = SELECTION_MODE
+
+################# Rounds and Turns ################
+
+func _on_round_started():
+	pass
 	
-	
+func _on_team_start_turn(team):
+	self.attempt_spawn_event_reinforcements()
+
 ################## Unit moving and attacking ##############
 
 func move_unit_to_tile(unit, tile_index):
