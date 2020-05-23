@@ -12,8 +12,10 @@ onready var overworld_region_asset = preload("res://scenes/overworld/OverworldRe
 onready var caravan_indicator = $CaravanSprite
 onready var caravan_travel_tween = $CaravanSprite/CaravanTravelTween
 
-onready var shop_screen_button = $ChangeSceneButtonShopScreen
-onready var recruitment_screen_button = $ChangeSceneButtonRecruitmentScreen
+onready var actions_container = $ActionsContainer
+onready var shop_screen_button = $ActionsContainer/ChangeSceneButtonShopScreen
+onready var recruitment_screen_button = $ActionsContainer/ChangeSceneButtonRecruitmentScreen
+onready var rest_party_button = $ActionsContainer/RestPartyButton
 
 onready var root = get_tree().get_root().get_node("Root")
 onready var relay = get_node("/root/SignalRelay")
@@ -29,6 +31,7 @@ func _ready():
 	# listeners
 	relay.connect("caravan_started_traveling", self, "_on_caravan_started_traveling")
 	relay.connect("caravan_destination_reached", self, "_on_caravan_destination_reached")
+	relay.connect("overworld_rest_button_up", self, "_on_overworld_rest_button_up")
 
 func init(game_data):
 	#  create regions
@@ -75,17 +78,22 @@ func init(game_data):
 	self.recruitment_screen_button.hide()
 	if len(self.root.game_data["overworld_data"][current_location_id]["location_recruitment_unit_ids"]) > 0:
 		self.recruitment_screen_button.show()
+		
+	# location has resting
+	self.rest_party_button.hide()
+	if self.root.game_data["overworld_data"][current_location_id]["location_can_rest"]:
+		self.rest_party_button.show()
 
 func change_scene(new_scene_name):
 	emit_signal("change_scene", "overworld_screen", new_scene_name)
 
 func _on_caravan_started_traveling(to_location_id):
-	self.shop_screen_button.hide()
-	self.recruitment_screen_button.hide()
+	self.actions_container.hide()
 	print("OverworldScreen: caravan traveling to ",to_location_id,"....")
 
 func _on_caravan_destination_reached(to_location_id):
 	print("OverworldScreen: caravan reached ",to_location_id)
+	self.actions_container.show()
 	self.increment_day()
 	self.subtract_upkeep_costs()
 	
@@ -100,11 +108,27 @@ func _on_caravan_destination_reached(to_location_id):
 		self.change_scene("event_screen")
 	else:
 		# location has shop
+		self.shop_screen_button.hide()
 		if self.root.game_data["overworld_data"][to_location_id].has("location_shop_id"):
 			self.shop_screen_button.show()
 		# location has recruitment
+		self.recruitment_screen_button.hide()
 		if len(self.root.game_data["overworld_data"][to_location_id]["location_recruitment_unit_ids"]) > 0:
 			self.recruitment_screen_button.show()
+		# location has resting
+		self.rest_party_button.hide()
+		if self.root.game_data["overworld_data"][to_location_id]["location_can_rest"]:
+			self.rest_party_button.show()
+
+func _on_overworld_rest_button_up():
+	self.increment_day()
+	self.heal_player_party()
+	self.rest_party_button.hide()
+	
+func heal_player_party():
+	var party_unit_ids = self.root.game_data["main_data"]["party_unit_ids"]
+	for party_unit_id in party_unit_ids:
+		self.root.game_data["unit_data"][party_unit_id]["unit_health_points"] = self.root.game_data["unit_data"][party_unit_id]["unit_health_points_max"]
 
 func increment_day():
 	var day = self.root.game_data["main_data"]["day"] + 1

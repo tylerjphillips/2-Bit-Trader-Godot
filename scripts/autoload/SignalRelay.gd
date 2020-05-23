@@ -8,6 +8,7 @@ signal caravan_started_traveling # (to_location_id)
 signal day_ended
 
 signal overworld_location_button_up
+signal overworld_rest_button_up
 
 	# unit signals
 signal unit_spawned # (unit)
@@ -192,6 +193,8 @@ func _on_caravan_destination_reached(to_location_id):
 	
 func _on_overworld_location_button_up(location_id):
 	emit_signal("overworld_location_button_up", location_id)
+func _on_overworld_rest_button_up():
+	emit_signal("overworld_rest_button_up")
 
 func _on_shop_confirm_button_up(item_button):
 	emit_signal("shop_confirm_button_up", item_button)

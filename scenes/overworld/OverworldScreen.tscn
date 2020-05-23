@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scripts/OverworldScreen.gd" type="Script" id=1]
 [ext_resource path="res://scenes/UIBackground.tscn" type="PackedScene" id=2]
@@ -10,7 +10,8 @@
 [ext_resource path="res://images/units/caravan.png" type="Texture" id=8]
 [ext_resource path="res://scripts/CaravanSprite.gd" type="Script" id=9]
 [ext_resource path="res://scenes/ChangeSceneButton.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/SettingsButton.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scripts/RestPartyButton.gd" type="Script" id=11]
+[ext_resource path="res://scenes/SettingsButton.tscn" type="PackedScene" id=12]
 
 [node name="OverworldScreen" type="Node"]
 script = ExtResource( 1 )
@@ -67,22 +68,31 @@ script = ExtResource( 9 )
 
 [node name="CaravanTravelTween" type="Tween" parent="CaravanSprite"]
 
-[node name="ChangeSceneButtonShopScreen" parent="." instance=ExtResource( 10 )]
+[node name="ActionsContainer" type="VBoxContainer" parent="."]
 margin_left = 915.17
 margin_top = 33.0212
-margin_right = 1009.17
-margin_bottom = 85.0212
+margin_right = 1015.17
+margin_bottom = 300.021
+
+[node name="ChangeSceneButtonShopScreen" parent="ActionsContainer" instance=ExtResource( 10 )]
+margin_right = 100.0
 text = "Enter Shop"
 new_scene_name = "shop_screen"
 
-[node name="ChangeSceneButtonRecruitmentScreen" parent="." instance=ExtResource( 10 )]
-margin_left = 915.17
-margin_top = 120.0
-margin_right = 1009.17
-margin_bottom = 172.0
+[node name="ChangeSceneButtonRecruitmentScreen" parent="ActionsContainer" instance=ExtResource( 10 )]
+margin_top = 24.0
+margin_right = 100.0
+margin_bottom = 44.0
 text = "Recruit Units"
 new_scene_name = "recruitment_screen"
 
-[node name="Settings" parent="." instance=ExtResource( 11 )]
-[connection signal="change_scene" from="ChangeSceneButtonShopScreen" to="." method="change_scene"]
-[connection signal="change_scene" from="ChangeSceneButtonRecruitmentScreen" to="." method="change_scene"]
+[node name="RestPartyButton" type="Button" parent="ActionsContainer"]
+margin_top = 48.0
+margin_right = 100.0
+margin_bottom = 68.0
+text = "Rest Party"
+script = ExtResource( 11 )
+
+[node name="Settings" parent="." instance=ExtResource( 12 )]
+[connection signal="change_scene" from="ActionsContainer/ChangeSceneButtonShopScreen" to="." method="change_scene"]
+[connection signal="change_scene" from="ActionsContainer/ChangeSceneButtonRecruitmentScreen" to="." method="change_scene"]
