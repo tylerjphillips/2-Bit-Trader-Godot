@@ -335,8 +335,9 @@ func unit_attack_tile(attacking_unit, weapon_index, tile_index):
 	self.movement_attack_overlay.clear_attack_tiles()
 	attacking_unit.last_attack_pattern.clear()	# clear the cache to prevent accessing old tiles after moving
 	
-	if attacking_unit.unit_move_after_attack:
-		self.select_unit(attacking_unit)
+	if self.unit_to_index.has(attacking_unit):	# if attacking unit survived
+		if attacking_unit.unit_move_after_attack:	# check if it can move after attacking
+			self.select_unit(attacking_unit)
 			
 func push_unit(pushed_unit, pushed_into_tile_index : Vector2):
 	move_unit_to_tile(pushed_unit, pushed_into_tile_index)

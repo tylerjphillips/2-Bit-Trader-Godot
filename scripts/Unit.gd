@@ -73,6 +73,8 @@ var unit_death_animation_frame_paths : Array
 var unit_is_boss : bool
 var unit_move_after_attack : bool	# if unit can move again after attacking
 
+var unit_damage_resistances : Dictionary
+
 var unit_xp : int setget set_unit_xp, get_unit_xp
 var unit_xp_max : int
 var unit_level : int setget set_unit_level, get_unit_level
@@ -140,6 +142,8 @@ func init(unit_position : Vector2, unit_args: Dictionary, is_reinitializing = fa
 	
 	self.unit_equipable_subtypes = unit_args["unit_equipable_subtypes"]
 	
+	self.unit_damage_resistances = unit_args["unit_damage_resistances"]
+	
 	# set unit sprite
 	self.unit_texture_path = unit_args["unit_texture_path"]
 	self.unit_sprite.texture = load(self.unit_texture_path)
@@ -193,8 +197,10 @@ func init(unit_position : Vector2, unit_args: Dictionary, is_reinitializing = fa
 
 func damage_unit(damage, attacking_unit = null):
 	if damage.has("normal"):
-		self.unit_health_points = clamp(self.unit_health_points - damage["normal"], 0, self.unit_health_points_max)
-		self.floating_damage_text.init(damage["normal"])
+		var resistance = self.unit_damage_resistances.get("normal", 0)
+		var total_damage = damage["normal"] - resistance
+		self.unit_health_points = clamp(self.unit_health_points - total_damage, 0, self.unit_health_points_max)
+		self.floating_damage_text.init(total_damage)
 	if self.unit_health_points <= 0:
 		emit_signal("unit_killed", self, attacking_unit)
 		if self.unit_is_boss:
@@ -286,12 +292,14 @@ func _on_unit_leveled_up(unit):
 		self.emit_levelup_particles()
 			
 func _on_tilemap_damage_preview(damage_pattern):
+	# given a damage pattern, show how much damage will be done
 	self.health_bar.generate_health_bar(self.unit_health_points, self.unit_health_points_max)
 	if !self.is_selected:
 		self.health_bar.hide()
 	
 	if self.unit_tile_index in damage_pattern.keys():
-		var damage_preview = damage_pattern[self.unit_tile_index]["damage"]["normal"]
+		var resistance = self.unit_damage_resistances.get("normal", 0)
+		var damage_preview = damage_pattern[self.unit_tile_index]["damage"]["normal"] - resistance
 		self.health_bar.generate_health_bar(self.unit_health_points, self.unit_health_points_max, damage_preview)
 		self.health_bar.show()
 	
@@ -436,5 +444,6 @@ func get_unit_repr():
 	unit_data["unit_xp_reward"] = self.unit_xp_reward
 	unit_data["unit_pending_bonus_xp"] = self.unit_pending_bonus_xp
 	unit_data["unit_level_up_rewards"] = self.unit_level_up_rewards
+	unit_data["unit_damage_resistances"] = self.unit_damage_resistances
 	
 	return unit_data;
