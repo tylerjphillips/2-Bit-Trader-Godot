@@ -17,7 +17,7 @@ func generate_health_bar(unit_health : int, unit_max_health : int, damage_previe
 	for index in range(unit_max_health):
 		var health = health_icon.instance();
 		self.add_child(health)
-		health.position = self.position + Vector2(8 * index, 0);
+		health.position = self.position + Vector2(8 * (index - (int(index / 4) * 4)) , int(index / 4) * 9);
 		
 		# marked out health
 		if (index + 1 > unit_health): 
