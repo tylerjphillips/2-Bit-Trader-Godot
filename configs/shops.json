@@ -16,6 +16,8 @@
 			"Item-652876" :
 			{
 			"item_id": "Item-652876",
+			"item_durability": 3,
+			"item_durability_max": 10,
 			"item_sell_price":123,
 			"item_buy_price":123,
 			"item_type": "weapon",

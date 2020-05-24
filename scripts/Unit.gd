@@ -11,6 +11,7 @@ signal unit_mouse_exited #(unit)
 signal unit_level_changed # (unit)
 signal unit_xp_changed # (unit)
 signal unit_leveled_up # (unit)
+signal unit_item_broke # (unit, item_id)
 
 # ui indicators
 onready var health_bar = get_node("HealthContainer")
@@ -106,6 +107,7 @@ func _ready():
 	self.connect("unit_level_changed", relay, "_on_unit_level_changed")
 	self.connect("unit_xp_changed", relay, "_on_unit_xp_changed")
 	self.connect("unit_leveled_up", relay, "_on_unit_leveled_up")
+	self.connect("unit_item_broke", relay, "_on_unit_item_broke")
 	
 	# listeners
 	relay.connect("unit_selected", self, "_on_unit_selected")
@@ -119,6 +121,7 @@ func _ready():
 	relay.connect("team_end_turn", self, "_on_team_end_turn")
 	relay.connect("unit_killed", self, "_on_unit_killed")
 	relay.connect("unit_leveled_up", self, "_on_unit_leveled_up")
+	relay.connect("unit_item_broke", self, "_on_unit_item_broke")
 	
 	relay.connect("tilemap_damage_preview", self, "_on_tilemap_damage_preview")
 	
@@ -213,6 +216,16 @@ func play_attack_animation(direction):
 func emit_levelup_particles():
 	self.levelup_particles.emitting = false
 	self.levelup_particles.emitting = true
+	
+func degrade_weapon_durability(item_id):
+	if self.unit_weapon_data[item_id].has("item_durability"):
+		self.unit_weapon_data[item_id]["item_durability"] -= 1
+		if self.unit_weapon_data[item_id]["item_durability"] <= 0:
+			emit_signal("unit_item_broke", self, item_id)
+
+func _on_unit_item_broke(unit, item_id):
+	if unit == self:
+		self.unit_weapon_data.erase(item_id)
 
 func _on_unit_selected(unit):
 	is_selected = false
@@ -250,6 +263,8 @@ func _on_unit_attacks_tile(attacking_unit, tile_index, attacking_unit_attack_pat
 		self.unit_can_move = false
 		if self.unit_move_after_attack and self.unit_movement_points > 0:
 			self.unit_can_move = true
+		
+		self.degrade_weapon_durability(attacking_unit_weapon_data["item_id"])
 
 func _on_unit_attacks_unit(attacking_unit, damage_pattern, attacked_unit, damage_tile_index):
 	print("Unit, damage tile index: ", damage_tile_index)

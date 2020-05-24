@@ -313,8 +313,6 @@ func unit_attack_tile(attacking_unit, weapon_index, tile_index):
 	# unit attacks a tile with a given weapon, applying a damage pattern around it
 	print("Tilemap: attacking tile ",tile_index, " with ", attacking_unit.unit_name)
 	
-	emit_signal("unit_attacks_tile", attacking_unit, tile_index, attacking_unit.last_attack_pattern, attacking_unit.unit_weapon_data[weapon_index])
-	
 	var damage_tiles = calculate_damage_pattern(attacking_unit, weapon_index, tile_index)
 	for damage_tile_index in damage_tiles: 
 		# create damage animations at each affected tile
@@ -330,7 +328,9 @@ func unit_attack_tile(attacking_unit, weapon_index, tile_index):
 				self.push_unit(affected_unit, damage_tiles[damage_tile_index]["push_into_tile_index"]) 
 			if self.unit_to_index.has(affected_unit):	# check if unit didn't die from possible push
 				emit_signal("unit_attacks_unit", attacking_unit, damage_tiles, affected_unit, damage_tile_index)
-
+	
+	emit_signal("unit_attacks_tile", attacking_unit, tile_index, attacking_unit.last_attack_pattern, attacking_unit.unit_weapon_data[weapon_index])
+	
 	self.deselect_unit()
 	self.movement_attack_overlay.clear_attack_tiles()
 	attacking_unit.last_attack_pattern.clear()	# clear the cache to prevent accessing old tiles after moving

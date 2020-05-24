@@ -28,6 +28,7 @@ signal unit_boss_killed(boss_unit)
 signal unit_level_changed # (unit)
 signal unit_xp_changed # (unit)
 signal unit_leveled_up # (unit)
+signal unit_item_broke # (unit, item_id):
 	# recruitment screen
 signal unit_recruitment_failed(unit_data)
 signal unit_recruitment_succeeded(unit_data)
@@ -121,6 +122,8 @@ func _on_unit_xp_changed(unit):
 	emit_signal("unit_xp_changed", unit)
 func _on_unit_leveled_up(unit):
 	emit_signal("unit_leveled_up", unit)
+func _on_unit_item_broke(unit, item_id):
+	emit_signal("unit_item_broke", unit, item_id)
 
 func _on_unit_recruitment_failed(unit_data):
 	# print("Relay: recruitment failed")
