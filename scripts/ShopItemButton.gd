@@ -35,6 +35,8 @@ func init(item_data, sell_or_buy : String):
 	
 	# set the tooltip text to display flavor text
 	var tooltip_text = self.item_data.get("weapon_tooltip", "")
+	if self.item_data.has("item_durability"):
+		tooltip_text += "\n" + str(self.item_data["item_durability"]) + "/" +  str(self.item_data["item_durability_max"])
 	self.hint_tooltip = tooltip_text
 	
 	# set price label
