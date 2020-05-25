@@ -24,10 +24,12 @@ func init(item_data, sell_or_buy : String):
 	self.item_id = item_data["item_id"]
 	self.sell_or_buy = sell_or_buy
 	assert sell_or_buy in ["sell","buy"]
+	var durability_cost_multiplier : float = self.item_data.get("item_durability", 1) / self.item_data.get("item_durability_max", 1)
+	
 	if sell_or_buy == "sell":
-		self.value = item_data["item_sell_price"]
+		self.value = ceil(item_data["item_sell_price"] * durability_cost_multiplier)
 	else:
-		self.value = item_data["item_buy_price"]
+		self.value =  ceil(item_data["item_buy_price"] * durability_cost_multiplier)
 	
 	# set button attributes
 	var item_texture_path = self.item_data["weapon_texture_path"]
