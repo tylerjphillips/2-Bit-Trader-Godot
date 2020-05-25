@@ -103,6 +103,8 @@ func init():
 	self.batch_spawn_units(event_unit_ids)
 	self.set_tiles(map_tiles, map_decoration_tiles)
 	
+	self.attempt_spawn_event_reinforcements()
+	
 	var event_current_round = current_event_data["event_current_round"]
 	if event_current_round == 0:
 		self.movement_mode = PLACEMENT_MODE
@@ -148,6 +150,8 @@ func spawn_unit(tile_index, unit_args):
 	# initialize tile index <-> unit bindings
 	unit_to_index[unit] = tile_index
 	index_to_unit[tile_index] = unit
+	
+	return unit
 
 func attempt_spawn_event_reinforcements():
 	# spawn event reinforcements where possible
@@ -176,11 +180,12 @@ func attempt_spawn_event_reinforcements():
 				for t_i in reinforcement_tile_indexes:
 					var possible_tile_index = Vector2(t_i[0], t_i[1])
 					if not self.index_to_unit.has(possible_tile_index):
-						self.spawn_unit(possible_tile_index, unit_data)
-						self.root.game_data["event_data"][current_event_id]["event_unit_ids"].append(unit_id) # add unit to event units
-						spawnable_unit_ids.append(unit_id)
-						break
-	
+						unit_data["unit_tile_index"] = possible_tile_index	# overwrite the tile index with the new location
+						var unit = self.spawn_unit(possible_tile_index, unit_data)
+						var new_unit_id = unit.unit_id # If the unit was generated as a template, this will ensure the generated ID is used
+						self.root.game_data["event_data"][current_event_id]["event_unit_ids"].append(new_unit_id) # add unit to event units
+						spawnable_unit_ids.append(new_unit_id)
+						break	# no need to keep looking through locations once spawned
 			assert(len(reinforcement_unit_ids) == len(spawnable_unit_ids)) # all units must be spawnable
 			event_reinforcement_data.pop_front()	# remove the round
 

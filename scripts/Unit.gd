@@ -132,7 +132,7 @@ func init(unit_position : Vector2, unit_args: Dictionary, is_reinitializing = fa
 	self.unit_tile_index = Vector2(unit_args["unit_tile_index"][0], unit_args["unit_tile_index"][1])
 	# unit args
 	self.unit_name = unit_args["unit_name"]
-	self.unit_id = unit_args.get("unit_id", "Unit-"+str(OS.get_unix_time()))
+	self.unit_id = unit_args.get("unit_id", "Unit-"+str(OS.get_unix_time())+"-"+str(OS.get_ticks_msec()))	# generate an ID from system time if one was not specified
 	self.unit_team = unit_args["unit_team"]
 	self.unit_movement_points = unit_args["unit_movement_points"]
 	self.unit_movement_points_max = unit_args["unit_movement_points_max"]
@@ -197,6 +197,10 @@ func init(unit_position : Vector2, unit_args: Dictionary, is_reinitializing = fa
 	self.unit_pending_bonus_xp = 0
 	var bonus_xp = int(unit_args["unit_pending_bonus_xp"])
 	self.unit_xp += bonus_xp
+	
+	# write to data if the unit wasn't given an ID, which means it's a template and needs to be saved
+	if not unit_args.has("unit_id"):
+		self.update_global_data_entry()
 
 func damage_unit(damage, attacking_unit = null):
 	if damage.has("normal"):

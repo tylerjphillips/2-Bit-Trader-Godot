@@ -81,6 +81,12 @@
 		"event_reinforcement_data":
 		[
 			{
+			"reinforcement_round": 0,
+			"reinforcement_team": "blue",
+			"reinforcement_unit_ids": ["Spider", "Spider", "Spider"],
+			"reinforcement_tile_indexes": [[14,14], [15,14], [16,14]]
+			},
+			{
 			"reinforcement_round": 2,
 			"reinforcement_team": "red",
 			"reinforcement_unit_ids": ["Unit-AlzanForest-Spider-4"],
