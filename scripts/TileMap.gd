@@ -42,6 +42,7 @@ signal round_ended
 signal tilemap_damage_preview # (damage_pattern)		When a tile is hovered over communicate the damage pattern at that tile
 
 onready var unit_asset = preload("res://scenes/combat/Unit.tscn") # unit prefab
+onready var push_preview_unit_asset = preload("res://scenes/combat/PushPreviewUnit.tscn")
 onready var combat_selection_modal = preload("res://scenes/combat/CombatPartySelectionModal.tscn")
 
 var directions = {
@@ -208,6 +209,7 @@ func _on_tilemap_hover():
 				if selected_unit.last_attack_pattern.has(tile_index):
 					var damage_pattern = calculate_damage_pattern(self.selected_unit, self.selected_weapon_id, tile_index)
 					self.movement_attack_overlay.create_damage_tiles(self.selected_unit.last_attack_pattern, damage_pattern)
+					self.generate_push_preview(damage_pattern)
 					emit_signal("tilemap_damage_preview", damage_pattern)
 
 func _on_tilemap_right_click():
@@ -273,6 +275,7 @@ func select_unit(unit):
 		self.movement_mode = MOVE_MODE
 
 func deselect_unit():
+	self.clear_push_preview()
 	selection_cursor.hide()
 	
 	if selected_unit != null:
@@ -291,6 +294,29 @@ func _on_team_start_turn(team):
 	self.attempt_spawn_event_reinforcements()
 
 ################## Unit moving and attacking ##############
+
+func clear_push_preview():
+	for preview_unit in get_tree().get_nodes_in_group("push_preview_unit"):
+    	preview_unit.queue_free()
+
+func generate_push_preview(damage_pattern):
+	# Show preview depicting where units that are pushed will end up
+	self.clear_push_preview()
+	
+	for tile_index in damage_pattern:
+		# only units attacked
+		if self.index_to_unit.has(tile_index):
+			# only tiles being pushed
+			if damage_pattern[tile_index].has("push_into_tile_index"):
+				var start_pos : Vector2 = map_to_world(tile_index)
+				var end_pos : Vector2 = map_to_world(damage_pattern[tile_index]["push_into_tile_index"])
+				# only if being pushed into a different tile
+				if start_pos != end_pos:
+					var unit = self.index_to_unit[tile_index]
+					var push_preview_unit = self.push_preview_unit_asset.instance()
+					self.add_child(push_preview_unit)
+					push_preview_unit.position = end_pos
+					push_preview_unit.init(unit, start_pos, end_pos)
 
 func move_unit_to_tile(unit, tile_index):
 	print("Tilemap: moving unit ", unit.unit_name, " to ", tile_index)  

@@ -175,7 +175,38 @@
 					"push_scalar": 1,
 					}
 				]
+			},
+		"Item-47326569" :
+			{
+			"item_id": "Item-47326569",
+			"item_durability": 3,
+			"item_durability_max": 3,
+			"item_sell_price":200,
+			"item_buy_price":200,
+			"item_type": "weapon",
+			"item_subtype": "bow",
+			"weapon_tooltip" : "A health potion",
+			"weapon_texture_path": "res://images/weapons/health_potion.png",
+			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
+			"item_is_soulbound": false,
+			
+			"weapon_pattern" : 
+				{
+				"pattern" : "single",
+				},
+			"damage_patterns":
+				[
+					{
+					"pattern" : "single",
+					"damage":
+						{
+						"normal": -3
+						},
+					"push_scalar": 0,
+					}
+				]
 			}
+		
 		}
 	},
 	
