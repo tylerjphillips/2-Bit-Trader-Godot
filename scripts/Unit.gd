@@ -74,7 +74,8 @@ var unit_death_animation_frame_paths : Array
 var unit_is_boss : bool
 var unit_move_after_attack : bool	# if unit can move again after attacking
 
-var unit_damage_resistances : Dictionary
+var unit_damage_resistances : Dictionary # maps damage types to how much is resisted before damage application
+var unit_tile_damage : Dictionary # maps tile types to damage applied for standing on it at turn start
 
 var unit_xp : int setget set_unit_xp, get_unit_xp
 var unit_xp_max : int
@@ -146,6 +147,7 @@ func init(unit_position : Vector2, unit_args: Dictionary, is_reinitializing = fa
 	self.unit_equipable_subtypes = unit_args["unit_equipable_subtypes"]
 	
 	self.unit_damage_resistances = unit_args["unit_damage_resistances"]
+	self.unit_tile_damage = unit_args["unit_tile_damage"]
 	
 	# set unit sprite
 	self.unit_texture_path = unit_args["unit_texture_path"]
@@ -464,5 +466,6 @@ func get_unit_repr():
 	unit_data["unit_pending_bonus_xp"] = self.unit_pending_bonus_xp
 	unit_data["unit_level_up_rewards"] = self.unit_level_up_rewards
 	unit_data["unit_damage_resistances"] = self.unit_damage_resistances
+	unit_data["unit_tile_damage"] = self.unit_tile_damage
 	
 	return unit_data;

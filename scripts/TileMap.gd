@@ -297,6 +297,16 @@ func _on_round_started():
 	
 func _on_team_start_turn(team):
 	self.attempt_spawn_event_reinforcements()
+	self.apply_unit_tile_damage()
+
+func apply_unit_tile_damage():
+	# applies damage to all units standing on tiles if they take damage from that tile
+	for unit in self.unit_to_index:
+		if unit.unit_team == self.current_team:
+			var tile_type= str(self.get_cell(unit.unit_tile_index.x, unit.unit_tile_index.y))
+			if unit.unit_tile_damage.has(tile_type):
+				var damage = unit.unit_tile_damage[tile_type]
+				unit.damage_unit(damage, null)
 
 ################## Unit moving and attacking ##############
 
@@ -569,7 +579,7 @@ func calculate_push_damage(damage_pattern : Dictionary):
 
 func generate_cardinal_pattern(tile_index : Vector2, size := 1, blockable := false, include_center = false):
 	# generates a filtered attack pattern in the cardinals of length size
-	# if blockable units and obstacles will stop it
+	# if blockable, units and obstacles will stop it
 	var attackable_tiles = Dictionary()
 	
 	if include_center:
