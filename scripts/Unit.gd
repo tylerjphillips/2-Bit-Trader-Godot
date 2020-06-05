@@ -77,6 +77,9 @@ var unit_move_after_attack : bool	# if unit can move again after attacking
 var unit_damage_resistances : Dictionary # maps damage types to how much is resisted before damage application
 var unit_tile_damage : Dictionary # maps tile types to damage applied for standing on it at turn start
 
+var unit_status_immunities: Array # list of status effects unit cannot be under
+var unit_status_effects: Dictionary	 # status effects unit is under 
+
 var unit_xp : int setget set_unit_xp, get_unit_xp
 var unit_xp_max : int
 var unit_level : int setget set_unit_level, get_unit_level
@@ -149,6 +152,9 @@ func init(unit_position : Vector2, unit_args: Dictionary, is_reinitializing = fa
 	self.unit_damage_resistances = unit_args["unit_damage_resistances"]
 	self.unit_tile_damage = unit_args["unit_tile_damage"]
 	
+	self.unit_status_immunities = unit_args["unit_status_immunities"]
+	self.unit_status_effects = unit_args["unit_status_effects"]
+	
 	# set unit sprite
 	self.unit_texture_path = unit_args["unit_texture_path"]
 	self.unit_sprite.texture = load(self.unit_texture_path)
@@ -205,11 +211,12 @@ func init(unit_position : Vector2, unit_args: Dictionary, is_reinitializing = fa
 		self.update_global_data_entry()
 
 func damage_unit(damage, attacking_unit = null):
-	if damage.has("normal"):
-		var resistance = self.unit_damage_resistances.get("normal", 0)
-		var total_damage = damage["normal"] - resistance
-		self.unit_health_points = clamp(self.unit_health_points - total_damage, 0, self.unit_health_points_max)
-		self.floating_damage_text.init(total_damage)
+	var total_damage : int = 0
+	for damage_type in damage:
+		var resistance = self.unit_damage_resistances.get(damage_type, 0)
+		var unresisted_damage = max(0, damage[damage_type] - resistance)
+		self.unit_health_points = clamp(self.unit_health_points - unresisted_damage, 0, self.unit_health_points_max)
+		self.floating_damage_text.init(unresisted_damage)
 	if self.unit_health_points <= 0:
 		emit_signal("unit_killed", self, attacking_unit)
 		if self.unit_is_boss:
@@ -228,6 +235,28 @@ func degrade_weapon_durability(item_id):
 		self.unit_weapon_data[item_id]["item_durability"] -= 1
 		if self.unit_weapon_data[item_id]["item_durability"] <= 0:
 			emit_signal("unit_item_broke", self, item_id)
+
+func handle_status_effects():
+	var expired_effect_ids = [] # list of ids of effects that will be cleared
+	
+	for effect_id in unit_status_effects:
+		var status_duration : int = self.unit_status_effects[effect_id]["status_duration"]
+		var status_intensity : int = self.unit_status_effects[effect_id]["status_intensity"]
+		
+		# check if the status effect expired
+		if status_duration <= 0:
+			expired_effect_ids.append(effect_id)
+			continue
+		else:
+			self.unit_status_effects[effect_id]["status_duration"] -= 1
+			
+			if effect_id == "Effect-Poison":
+				var damage = {"poison": status_intensity}
+				self.damage_unit(damage, null)
+	
+	# remove expired effects
+	for effect_id in expired_effect_ids:
+		self.unit_status_effects.erase(effect_id)
 
 func _on_unit_item_broke(unit, item_id):
 	if unit == self:
@@ -249,6 +278,7 @@ func _on_team_start_turn(team):
 		self.unit_can_move = true
 		self.unit_can_attack = true
 		self.unit_movement_points = self.unit_movement_points_max
+		self.handle_status_effects()
 
 func _on_team_end_turn(team):
 	if self.unit_team == team:
@@ -467,5 +497,8 @@ func get_unit_repr():
 	unit_data["unit_level_up_rewards"] = self.unit_level_up_rewards
 	unit_data["unit_damage_resistances"] = self.unit_damage_resistances
 	unit_data["unit_tile_damage"] = self.unit_tile_damage
+	unit_data["unit_status_immunities"] = self.unit_status_immunities
+	unit_data["unit_status_effects"] = self.unit_status_effects
+	
 	
 	return unit_data;

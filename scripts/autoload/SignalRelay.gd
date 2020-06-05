@@ -89,7 +89,7 @@ func _on_unit_clicked(unit):
 	print("Relay: unit clicked")
 	emit_signal("unit_clicked", unit)
 func _on_unit_killed(killed_unit, killer_unit):
-	print("Relay: unit killed: ", killed_unit.unit_name, " killed by ", killer_unit.unit_name)
+	# print("Relay: unit killed: ", killed_unit.unit_name, " killed by ", killer_unit.unit_name)
 	emit_signal("unit_killed", killed_unit, killer_unit)
 func _on_unit_selected(unit):
 	# print("Relay: unit selected")
