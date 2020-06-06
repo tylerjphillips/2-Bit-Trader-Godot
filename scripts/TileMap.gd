@@ -51,6 +51,8 @@ var directions = {
 		"east": Vector2(1,0),
 		"west": Vector2(-1,0)
 		}
+		
+
 
 onready var relay = get_node("/root/SignalRelay")
 onready var root = get_tree().get_root().get_node("Root")
@@ -557,14 +559,14 @@ func calculate_push_damage(damage_pattern : Dictionary):
 							if self.index_to_unit.has(checking_index):	# check collisions
 								# set collision damage at original tile
 								var collision_damage : int = abs(push_scalar) - abs(i)
-								push_damage_pattern[tile_index]["damage"]["normal"] = push_damage_pattern[tile_index]["damage"].get("normal", 0) + collision_damage
+								push_damage_pattern[tile_index]["damage"]["push"] = push_damage_pattern[tile_index]["damage"].get("push", 0) + collision_damage
 								
 								# other collision must be added as an entry to damage pattern if it doesn't exist
 								push_damage_pattern[checking_index] = push_damage_pattern.get(checking_index, Dictionary())
 								push_damage_pattern[checking_index]["direction"] = "none"
 								push_damage_pattern[checking_index]["push_scalar"] = 0
 								push_damage_pattern[checking_index]["damage"] = push_damage_pattern[checking_index].get("damage", Dictionary())
-								push_damage_pattern[checking_index]["damage"]["normal"] = push_damage_pattern[checking_index]["damage"].get("normal", 0) + collision_damage
+								push_damage_pattern[checking_index]["damage"]["push"] = push_damage_pattern[checking_index]["damage"].get("push", 0) + collision_damage
 								break
 							else:
 								# no collision; move the unit instead

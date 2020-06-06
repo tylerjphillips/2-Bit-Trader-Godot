@@ -211,12 +211,10 @@ func init(unit_position : Vector2, unit_args: Dictionary, is_reinitializing = fa
 		self.update_global_data_entry()
 
 func damage_unit(damage, attacking_unit = null):
-	var total_damage : int = 0
-	for damage_type in damage:
-		var resistance = self.unit_damage_resistances.get(damage_type, 0)
-		var unresisted_damage = max(0, damage[damage_type] - resistance)
-		self.unit_health_points = clamp(self.unit_health_points - unresisted_damage, 0, self.unit_health_points_max)
-		self.floating_damage_text.init(unresisted_damage)
+	var unresisted_damage = self.calculate_unresisted_damage(damage)
+	self.unit_health_points = clamp(self.unit_health_points - unresisted_damage, 0, self.unit_health_points_max)
+	self.floating_damage_text.init(unresisted_damage)
+		
 	if self.unit_health_points <= 0:
 		emit_signal("unit_killed", self, attacking_unit)
 		if self.unit_is_boss:
@@ -235,6 +233,15 @@ func degrade_weapon_durability(item_id):
 		self.unit_weapon_data[item_id]["item_durability"] -= 1
 		if self.unit_weapon_data[item_id]["item_durability"] <= 0:
 			emit_signal("unit_item_broke", self, item_id)
+
+func calculate_unresisted_damage(damage) -> int:
+	# take damage and calculate the damage done after resistances
+	var total_damage : int = 0
+	for damage_type in damage:
+		var resistance = self.unit_damage_resistances.get(damage_type, 0)
+		var unresisted_damage = max(0, damage[damage_type] - resistance)
+		total_damage += unresisted_damage
+	return total_damage
 
 func handle_status_effects():
 	var expired_effect_ids = [] # list of ids of effects that will be cleared
@@ -349,12 +356,10 @@ func _on_tilemap_damage_preview(damage_pattern):
 		self.health_bar.hide()
 	
 	if self.unit_tile_index in damage_pattern.keys():
-		var resistance = self.unit_damage_resistances.get("normal", 0)
-		var damage_preview = damage_pattern[self.unit_tile_index]["damage"]["normal"] - resistance
-		self.health_bar.generate_health_bar(self.unit_health_points, self.unit_health_points_max, damage_preview)
+		var damage = damage_pattern[self.unit_tile_index]["damage"]
+		var unresisted_damage = self.calculate_unresisted_damage(damage)
+		self.health_bar.generate_health_bar(self.unit_health_points, self.unit_health_points_max, unresisted_damage)
 		self.health_bar.show()
-	
-		
 	
 func _on_unit_killed(killed_unit, killer_unit):
 	if killer_unit == self:
