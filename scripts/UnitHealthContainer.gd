@@ -38,3 +38,11 @@ func generate_health_bar(unit_health : int, unit_max_health : int, damage_previe
 		status.texture = load(unit_status_effects[status_id]["status_image"])
 		status.position = self.position + Vector2(8 * (index - (int(index / 4) * 4)) , int(index / 4) * 9);
 		index += 1
+		
+	for status_id in unit_applied_status_effects:
+		var status = status_icon.instance();
+		self.add_child(status)
+		status.texture = load(unit_applied_status_effects[status_id]["status_image"])
+		status.position = self.position + Vector2(8 * (index - (int(index / 4) * 4)) , int(index / 4) * 9);
+		status.get_node("DamagePreviewPlayer").play("DamagePreview")
+		index += 1

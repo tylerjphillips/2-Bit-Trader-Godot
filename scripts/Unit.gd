@@ -210,9 +210,10 @@ func init(unit_position : Vector2, unit_args: Dictionary, is_reinitializing = fa
 	if not unit_args.has("unit_id"):
 		self.update_global_data_entry()
 
-func damage_unit(damage, attacking_unit = null):
+func damage_unit(damage, attacking_unit = null, status_effects = {}):
 	var unresisted_damage = self.calculate_unresisted_damage(damage)
 	self.unit_health_points = clamp(self.unit_health_points - unresisted_damage, 0, self.unit_health_points_max)
+	self.apply_status_effects(status_effects)
 	self.floating_damage_text.init(unresisted_damage)
 		
 	if self.unit_health_points <= 0:
@@ -243,7 +244,25 @@ func calculate_unresisted_damage(damage) -> int:
 		total_damage += unresisted_damage
 	return total_damage
 
+func apply_status_effects(status_effects):
+	# apply status effects to unit, if applicable
+	var appliable_effects = self.calculate_status_applicability(status_effects)
+	for status_effect in appliable_effects:
+		self.unit_status_effects[status_effect] = appliable_effects[status_effect]
+
+func calculate_status_applicability(status_effects) -> Dictionary:
+	# return a new dictionary containing the status effects that can be applied to this unit, after immunities and other rules
+	var appliable_effects = Dictionary()
+	for status_effect in status_effects:
+		if !self.unit_status_immunities.has(status_effect): # not immune
+		# check if intensity of new effect is greater than current
+			if self.unit_status_effects.get(status_effect, {}).get("status_intensity", 0) <= status_effects[status_effect]["status_intensity"]:
+				appliable_effects[status_effect] = status_effects[status_effect]
+	return appliable_effects	
+	
+
 func handle_status_effects():
+	# handle status effects, such as applying poison damage, and clear expired effects
 	var expired_effect_ids = [] # list of ids of effects that will be cleared
 	
 	for effect_id in unit_status_effects:
@@ -259,7 +278,7 @@ func handle_status_effects():
 			
 			if effect_id == "Effect-Poison":
 				var damage = {"poison": status_intensity}
-				self.damage_unit(damage, null)
+				self.damage_unit(damage, null, {})
 	
 	# remove expired effects
 	for effect_id in expired_effect_ids:
@@ -321,7 +340,8 @@ func _on_unit_attacks_unit(attacking_unit, damage_pattern, attacked_unit, damage
 		print("Unit: attacking ", attacked_unit.unit_name)
 	if attacked_unit == self:
 		var damage = damage_pattern[damage_tile_index]["damage"]
-		self.damage_unit(damage, attacking_unit)
+		var status_effects = damage_pattern[damage_tile_index]["status_effects"]
+		self.damage_unit(damage, attacking_unit, status_effects)
 		var blood_particles = self.blood_particles_asset.instance()
 		self.add_child(blood_particles)
 		blood_particles.emit(attack_direction)
@@ -363,7 +383,9 @@ func _on_tilemap_damage_preview(damage_pattern):
 	if self.unit_tile_index in damage_pattern.keys():
 		var damage = damage_pattern[self.unit_tile_index]["damage"]
 		var unresisted_damage = self.calculate_unresisted_damage(damage)
-		self.health_bar.generate_health_bar(self.unit_health_points, self.unit_health_points_max, unresisted_damage, self.unit_status_effects)
+		var possible_status_effects = damage_pattern[self.unit_tile_index].get("status_effects", {})
+		var appliable_status_effects = self.calculate_status_applicability(possible_status_effects)
+		self.health_bar.generate_health_bar(self.unit_health_points, self.unit_health_points_max, unresisted_damage, self.unit_status_effects, appliable_status_effects)
 		self.health_bar.show()
 	
 func _on_unit_killed(killed_unit, killer_unit):

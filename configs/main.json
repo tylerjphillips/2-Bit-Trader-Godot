@@ -22,22 +22,24 @@
 			"weapon_texture_path": "res://images/weapons/sword.png",
 			"weapon_attack_audio_path": "res://audio/sword_clash_1.wav",
 			"item_is_soulbound": false,
-			"damage":
-					{
-					"normal": 4
-					},
-			"push_scalar": 1,
-			
 			"weapon_pattern" : 
 				{
 				"pattern" : "cardinal",
-				"size" : 5
+				"size" : 1,
+				"include_center": false
 				},
-			"damage_pattern":
-				{
-				"pattern" : "cardinal",
-				"size" : 1
-				}
+			"damage_patterns":
+				[
+					{
+					"pattern" : "single",
+					"damage":
+						{
+						"normal": 2
+						},
+					"push_scalar": 0,
+					"status_effects": {}
+					}
+				]
 			}
 		}
 }

@@ -535,6 +535,7 @@ func calculate_damage_pattern(attacking_unit, weapon_index, attacked_tile_index)
 			if !final_damage_pattern.has(tile_index):
 				final_damage_pattern[tile_index] = damage_pattern[tile_index]
 				final_damage_pattern[tile_index]["damage"] = damage_pattern_data["damage"]
+				final_damage_pattern[tile_index]["status_effects"] = damage_pattern_data["status_effects"]
 				final_damage_pattern[tile_index]["push_scalar"] = damage_pattern_data.get("push_scalar", 0)
 				
 		final_damage_pattern = self.calculate_push_damage(final_damage_pattern)

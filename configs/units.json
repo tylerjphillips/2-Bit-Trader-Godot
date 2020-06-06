@@ -80,6 +80,17 @@
 						"normal": -3
 						},
 					"push_scalar": 3,
+					"status_effects": 
+						{
+						"Effect-Poison": 
+							{
+							"status_id": "Effect-Poison",
+							"status_description": "A foul poison does damage to afflicted units",
+							"status_image": "res://images/status effects/poison.png",
+							"status_duration": 2,
+							"status_intensity": 1
+							}
+						}
 					}
 				]
 			},
@@ -110,6 +121,7 @@
 						"normal": 2
 						},
 					"push_scalar": 0,
+					"status_effects": {}
 					}
 				]
 			}
@@ -189,6 +201,7 @@
 						"normal": 3
 						},
 					"push_scalar": 1,
+					"status_effects": {}
 					}
 				]
 			},
@@ -219,6 +232,7 @@
 						"normal": -3
 						},
 					"push_scalar": 0,
+					"status_effects": {}
 					}
 				]
 			}
@@ -295,6 +309,7 @@
 						"normal": 1
 						},
 					"push_scalar": 1,
+					"status_effects": {}
 					}
 				]
 			}
@@ -369,6 +384,7 @@
 						"normal": 1
 						},
 					"push_scalar": 1,
+					"status_effects": {}
 					}
 				]
 			}
@@ -577,6 +593,7 @@
 						"normal": 2
 						},
 					"push_scalar": 0,
+					"status_effects": {}
 					}
 				]
 			}
@@ -644,6 +661,7 @@
 						"normal": 2
 						},
 					"push_scalar": 0,
+					"status_effects": {}
 					}
 				]
 			}
@@ -710,6 +728,7 @@
 						"normal": 2
 						},
 					"push_scalar": 0,
+					"status_effects": {}
 					}
 				]
 			}
@@ -776,6 +795,7 @@
 						"normal": 2
 						},
 					"push_scalar": 0,
+					"status_effects": {}
 					}
 				]
 			}
@@ -843,6 +863,7 @@
 						"normal": 2
 						},
 					"push_scalar": 0,
+					"status_effects": {}
 					}
 				]
 			}
@@ -910,6 +931,7 @@
 						"normal": 2
 						},
 					"push_scalar": 0,
+					"status_effects": {}
 					}
 				]
 			}
@@ -976,6 +998,7 @@
 						"normal": 2
 						},
 					"push_scalar": 0,
+					"status_effects": {}
 					}
 				]
 			}
@@ -1043,6 +1066,7 @@
 						"normal": 2
 						},
 					"push_scalar": 0,
+					"status_effects": {}
 					}
 				]
 			}
@@ -1109,6 +1133,7 @@
 						"normal": 2
 						},
 					"push_scalar": 0,
+					"status_effects": {}
 					}
 				]
 			}
@@ -1175,6 +1200,7 @@
 						"normal": 2
 						},
 					"push_scalar": 0,
+					"status_effects": {}
 					}
 				]
 			}
@@ -1241,6 +1267,7 @@
 						"normal": 2
 						},
 					"push_scalar": 0,
+					"status_effects": {}
 					}
 				]
 			}
@@ -1307,6 +1334,7 @@
 						"normal": 2
 						},
 					"push_scalar": 0,
+					"status_effects": {}
 					}
 				]
 			}
@@ -1373,6 +1401,7 @@
 						"normal": 2
 						},
 					"push_scalar": 0,
+					"status_effects": {}
 					}
 				]
 			}
@@ -1439,6 +1468,7 @@
 						"normal": 2
 						},
 					"push_scalar": 0,
+					"status_effects": {}
 					}
 				]
 			}
@@ -1505,6 +1535,7 @@
 						"normal": 2
 						},
 					"push_scalar": 0,
+					"status_effects": {}
 					}
 				]
 			}
@@ -1571,6 +1602,7 @@
 						"normal": 2
 						},
 					"push_scalar": 0,
+					"status_effects": {}
 					}
 				]
 			}
@@ -1637,6 +1669,7 @@
 						"normal": 2
 						},
 					"push_scalar": 0,
+					"status_effects": {}
 					}
 				]
 			}
@@ -1703,6 +1736,7 @@
 						"normal": 2
 						},
 					"push_scalar": 0,
+					"status_effects": {}
 					}
 				]
 			}
