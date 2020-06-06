@@ -30,7 +30,7 @@
 			{
 				"status_id": "Effect-Poison",
 				"status_description": "A foul poison does damage to afflicted units",
-				"status_image": "",
+				"status_image": "res://images/status effects/poison.png",
 				"status_duration": 2,
 				"status_intensity": 1
 			}

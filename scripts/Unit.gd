@@ -185,7 +185,7 @@ func init(unit_position : Vector2, unit_args: Dictionary, is_reinitializing = fa
 		$BossSkull.show()
 	
 	# initialize health bar
-	self.health_bar.init(unit_health_points,unit_health_points_max)
+	self.health_bar.init(unit_health_points,unit_health_points_max, unit_status_effects)
 	self.health_bar.hide()
 	
 	# xp bar
@@ -264,6 +264,9 @@ func handle_status_effects():
 	# remove expired effects
 	for effect_id in expired_effect_ids:
 		self.unit_status_effects.erase(effect_id)
+	
+	# regenerate health indicator
+	self.health_bar.generate_health_bar(self.unit_health_points, self.unit_health_points_max, 0, self.unit_status_effects)
 
 func _on_unit_item_broke(unit, item_id):
 	if unit == self:
@@ -351,14 +354,16 @@ func _on_unit_leveled_up(unit):
 			
 func _on_tilemap_damage_preview(damage_pattern):
 	# given a damage pattern, show how much damage will be done
-	self.health_bar.generate_health_bar(self.unit_health_points, self.unit_health_points_max)
+	
 	if !self.is_selected:
 		self.health_bar.hide()
+	else:
+		self.health_bar.generate_health_bar(self.unit_health_points, self.unit_health_points_max, 0, self.unit_status_effects)
 	
 	if self.unit_tile_index in damage_pattern.keys():
 		var damage = damage_pattern[self.unit_tile_index]["damage"]
 		var unresisted_damage = self.calculate_unresisted_damage(damage)
-		self.health_bar.generate_health_bar(self.unit_health_points, self.unit_health_points_max, unresisted_damage)
+		self.health_bar.generate_health_bar(self.unit_health_points, self.unit_health_points_max, unresisted_damage, self.unit_status_effects)
 		self.health_bar.show()
 	
 func _on_unit_killed(killed_unit, killer_unit):
