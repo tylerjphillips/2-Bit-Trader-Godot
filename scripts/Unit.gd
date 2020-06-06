@@ -301,6 +301,7 @@ func _on_unit_selected(unit):
 func _on_unit_deselected(unit):
 	is_selected = false
 	self.health_bar.hide()
+	self.health_bar.generate_health_bar(self.unit_health_points, self.unit_health_points_max, 0, self.unit_status_effects)
 
 func _on_team_start_turn(team):
 	if self.unit_team == team:
@@ -377,8 +378,6 @@ func _on_tilemap_damage_preview(damage_pattern):
 	
 	if !self.is_selected:
 		self.health_bar.hide()
-	else:
-		self.health_bar.generate_health_bar(self.unit_health_points, self.unit_health_points_max, 0, self.unit_status_effects)
 	
 	if self.unit_tile_index in damage_pattern.keys():
 		var damage = damage_pattern[self.unit_tile_index]["damage"]
@@ -387,6 +386,8 @@ func _on_tilemap_damage_preview(damage_pattern):
 		var appliable_status_effects = self.calculate_status_applicability(possible_status_effects)
 		self.health_bar.generate_health_bar(self.unit_health_points, self.unit_health_points_max, unresisted_damage, self.unit_status_effects, appliable_status_effects)
 		self.health_bar.show()
+	else:
+		self.health_bar.generate_health_bar(self.unit_health_points, self.unit_health_points_max, 0, self.unit_status_effects)
 	
 func _on_unit_killed(killed_unit, killer_unit):
 	if killer_unit == self:
