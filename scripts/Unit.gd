@@ -75,6 +75,7 @@ var unit_is_boss : bool
 var unit_move_after_attack : bool	# if unit can move again after attacking
 
 var unit_damage_resistances : Dictionary # maps damage types to how much is resisted before damage application
+var unit_damage_type_heals :  Array # Any damage types listed here will heal the unit for the damage taken instead of damaging
 var unit_tile_damage : Dictionary # maps tile types to damage applied for standing on it at turn start
 
 var unit_status_immunities: Array # list of status effects unit cannot be under
@@ -150,6 +151,7 @@ func init(unit_position : Vector2, unit_args: Dictionary, is_reinitializing = fa
 	self.unit_equipable_subtypes = unit_args["unit_equipable_subtypes"]
 	
 	self.unit_damage_resistances = unit_args["unit_damage_resistances"]
+	self.unit_damage_type_heals = unit_args["unit_damage_type_heals"]
 	self.unit_tile_damage = unit_args["unit_tile_damage"]
 	
 	self.unit_status_immunities = unit_args["unit_status_immunities"]
@@ -241,7 +243,11 @@ func calculate_unresisted_damage(damage) -> int:
 	for damage_type in damage:
 		var resistance = self.unit_damage_resistances.get(damage_type, 0)
 		var unresisted_damage = max(0, damage[damage_type] - resistance)
-		total_damage += unresisted_damage
+		# check if the damage heals
+		if self.unit_damage_type_heals.has(damage_type):
+			total_damage -= unresisted_damage
+		else:
+			total_damage += unresisted_damage
 	return total_damage
 
 func apply_status_effects(status_effects):
@@ -529,6 +535,7 @@ func get_unit_repr():
 	unit_data["unit_pending_bonus_xp"] = self.unit_pending_bonus_xp
 	unit_data["unit_level_up_rewards"] = self.unit_level_up_rewards
 	unit_data["unit_damage_resistances"] = self.unit_damage_resistances
+	unit_data["unit_damage_type_heals"] = self.unit_damage_type_heals
 	unit_data["unit_tile_damage"] = self.unit_tile_damage
 	unit_data["unit_status_immunities"] = self.unit_status_immunities
 	unit_data["unit_status_effects"] = self.unit_status_effects

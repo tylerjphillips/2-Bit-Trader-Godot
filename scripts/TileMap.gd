@@ -568,6 +568,7 @@ func calculate_push_damage(damage_pattern : Dictionary):
 								push_damage_pattern[checking_index]["push_scalar"] = 0
 								push_damage_pattern[checking_index]["damage"] = push_damage_pattern[checking_index].get("damage", Dictionary())
 								push_damage_pattern[checking_index]["damage"]["push"] = push_damage_pattern[checking_index]["damage"].get("push", 0) + collision_damage
+								push_damage_pattern[checking_index]["status_effects"] = {}
 								break
 							else:
 								# no collision; move the unit instead
