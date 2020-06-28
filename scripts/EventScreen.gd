@@ -84,6 +84,12 @@ func _on_event_choice_selected(selected_choice_data):
 	update_event_image(selected_choice_data["set_event_image_path"])
 	
 	# handle rewards
+	if selected_choice_data["choice_rewards"].has("region_id"):
+		# region change
+		self.root.game_data["main_data"]["current_region_id"] = selected_choice_data["choice_rewards"]["region_id"]	
+	if selected_choice_data["choice_rewards"].has("location_id"):
+		# location change
+		self.root.game_data["main_data"]["current_location_id"] = selected_choice_data["choice_rewards"]["location_id"]	
 	if selected_choice_data["choice_rewards"].has("gold"):
 		# gold
 		self.root.game_data["main_data"]["gold"] += selected_choice_data["choice_rewards"]["gold"]

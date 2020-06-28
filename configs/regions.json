@@ -6,7 +6,8 @@
 		"region_polygon_point_list":[[0,0], [10,0], [10,10], [0,10]],
 		"region_location_ids": [
 			"Location-Alzan",
-			"Location-AlzanForest", 
+			"Location-AlzanForest",
+			"Location-SaratalEntrance",
 			"Location-AlzanMountains", 
 			"Location-AlzanPlains", 
 			"Location-Akinhur", 
@@ -33,6 +34,17 @@
 			"Location-ManisValley", 
 			"Location-PellasBorder", 
 			"Location-Pellas"
+			]
+	},
+	
+	"Region-Saratal":
+	{	
+		"region_id": "Region-Saratal",
+		"region_name":"Berg",
+		"region_polygon_point_list":[],
+		"region_location_ids": [
+			"Location-FrelOutskirts",
+			"Location-Frel",
 			]
 	}
 }

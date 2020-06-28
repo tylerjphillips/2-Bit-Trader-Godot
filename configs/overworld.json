@@ -21,7 +21,19 @@
 		"location_shop_id": "Shop-2745345",
 		"location_name": "Alzan Forest",
 		"location_coords": [150,75],
-		"location_neighbor_ids": ["Location-AlzanMountains", "Location-Alzan", "Location-AlzanPlains"]
+		"location_neighbor_ids": ["Location-AlzanMountains", "Location-Alzan", "Location-AlzanPlains", "Location-SaratalEntrance"]
+	},
+	"Location-SaratalEntrance":
+	{	
+		"location_id": "Location-SaratalEntrance",
+		"event_id":"Event-SaratalEntrance",
+		"location_recruitment_unit_ids": [],
+		"location_event_complete": false,
+		"location_can_rest": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Saratal Region Entrance",
+		"location_coords": [150,25],
+		"location_neighbor_ids": ["Location-AlzanForest"]
 	},
 	"Location-AlzanMountains":
 	{	
@@ -333,5 +345,30 @@
 		"location_name": "Pellas",
 		"location_coords": [740,230],
 		"location_neighbor_ids": ["Location-PellasBorder", "Location-ManisValley"]
+	},
+	
+	"Location-FrelOutskirts":
+	{	
+		"location_id": "Location-FrelOutskirts",
+		"event_id":"Event-Test-1",
+		"location_recruitment_unit_ids": [],
+		"location_event_complete": true,
+		"location_can_rest": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Frel Outskirts",
+		"location_coords": [685,310],
+		"location_neighbor_ids": ["Location-Frel"]
+	},
+	"Location-Frel":
+	{	
+		"location_id": "Location-Frel",
+		"event_id":"Event-Test-1",
+		"location_recruitment_unit_ids": [],
+		"location_event_complete": true,
+		"location_can_rest": true,
+		"location_shop_id": "Shop-2745345",
+		"location_name": "Frel",
+		"location_coords": [740,230],
+		"location_neighbor_ids": ["Location-FrelOutskirts"]
 	}
 }
