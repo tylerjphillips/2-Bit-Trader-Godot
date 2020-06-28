@@ -1,8 +1,38 @@
 {
-	"Region-26784":
+	"Region-Berg":
 	{	
-		"region_id": "Region-26784",
+		"region_id": "Region-Berg",
 		"region_name":"Berg",
 		"region_polygon_point_list":[[0,0], [10,0], [10,10], [0,10]],
+		"region_location_ids": [
+			"Location-Alzan",
+			"Location-AlzanForest", 
+			"Location-AlzanMountains", 
+			"Location-AlzanPlains", 
+			"Location-Akinhur", 
+			"Location-Farval", 
+			"Location-FarvalOutskirts", 
+			"Location-FarvalCaves", 
+			"Location-FarvalBandits", 
+			"Location-AkinhurSwamps", 
+			"Location-ZaharRuins", 
+			"Location-Zahar", 
+			"Location-Kraksur", 
+			"Location-KraksurValley", 
+			"Location-N'thalPlains", 
+			"Location-N'thal", 
+			"Location-Balmor", 
+			"Location-BalmorKeep", 
+			"Location-BalmorForest", 
+			"Location-VelRivers", 
+			"Location-VelPass", 
+			"Location-Vel", 
+			"Location-Grath", 
+			"Location-GrathBorder", 
+			"Location-Shupku", 
+			"Location-ManisValley", 
+			"Location-PellasBorder", 
+			"Location-Pellas"
+			]
 	}
 }

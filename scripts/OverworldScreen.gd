@@ -36,15 +36,14 @@ func _ready():
 func init(game_data):
 	#  create regions
 	var region_data = root.game_data["region_data"]
-	for region_id in root.game_data["region_data"]:
-		var current_region_data = root.game_data["region_data"][region_id]
-		var region = overworld_region_asset.instance()
-		self.add_child(region)
-		region.init(current_region_data)
+	var current_region_id = root.game_data["main_data"]["current_region_id"]
 
 	# create overworld locations
 	var overworld_data = root.game_data["overworld_data"]
-	for location_id in root.game_data["overworld_data"]:
+	
+	print(root.game_data["overworld_data"].keys())
+	
+	for location_id in root.game_data["region_data"][current_region_id]["region_location_ids"]:
 		var current_overworld_data = root.game_data["overworld_data"][location_id]
 		var pos = current_overworld_data["location_coords"]
 		var overworld_location = self.overworld_location_asset.instance()

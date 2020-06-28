@@ -5,6 +5,7 @@
 	"gold": 500,
 	"bonus_xp": 200,
 	"current_event_id": "Event-AlzanForest",
+	"current_region_id": "Region-Berg",
 	"current_location_id": "Location-AlzanForest",
 	"party_unit_ids": ["Unit-Player-Carl", "Unit-Player-Jake", "Unit-Player-Caravan-1"],
 	"player_items": 
